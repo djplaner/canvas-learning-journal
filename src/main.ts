@@ -9,42 +9,76 @@ import { createApp } from 'vue';
 import './style.css';
 import App from './App.vue';
 
+// Should only be called if on the
+// - users page <hostname>://courses/<id>/users 
+// - groups page <hostname>://courses/<id>/groups
 
-if (isUsersPage() || isGroupPage()) {
-  //const groupTabs = document.querySelector('div#tab-0');
-  const groupTabs = document.querySelector('div#group_categories_tabs');
-  console.log("grouptabs")
-  console.log(groupTabs);
-  if (groupTabs) {
-    //const listItems = groupTabs.querySelector('a#addUsers');
-    //const listItems = groupTabs.querySelector('ul.collectionViewItems');
-    const listItems = groupTabs.querySelector('div.pull-right');
-    console.log("List items")
-    console.log(listItems);
-    if (listItems) {
-      const app = createApp(App).mount(
-        (() => {
-          const app = document.createElement('div');
-          // add the style "display:inline" to div
-          app.style.display = 'inline';
-          listItems.prepend(app);
-          // listItems.after(app);
-          //listItems.appendChild(app);
-          return app;
-        })(),
-      );
+const peoplePage = isPeople() 
+const groupSetPage = isGroupSet()
+
+if ( !peoplePage && !groupSetPage ) {
+  console.log("Not on a users or groups page");
+  throw new Error("Not on a users or groups page");
+}
+
+// Wait for the 
+const observer = new MutationObserver((mutations, obs) => {
+  console.log("starting")
+  console.log(mutations)
+  const activeTab = document.querySelector('li.ui-state-active');
+  if (activeTab) {
+    // get aria-controls attribute of active tab
+    const ariaControls = activeTab.getAttribute('aria-controls');
+    console.log(`ariaControls ${ariaControls}`);
+    // get the div#<ariaControls> element
+    const tabContent = document.querySelector(`div#${ariaControls}`);
+    if (tabContent) {
+      console.log("Tab content is there")
+      insertLearningJournalApp(tabContent);
     }
   }
+});
+observer.observe(document, { childList: true, subtree: true });
+
+
+  /**
+   * @todo: Finalise where the global "Learning Journal" app gets placed. 
+   * Requirements
+   * - Same place all the time 
+   * - Fits with the Canvas UI
+   * Options 
+   * - before div#group_categories_tabs
+   *   Good for sample place, not so great for Canvas UI as it's outside the tab
+   *   Could assuage this with naming, but...
+   * - First element of the div.ui-tabs-<id> that matches the aria-controls property of the active tab
+   */
+
+  //groupCategoriesTabs();
+
+
+function insertLearningJournalApp(tabContent: Element) {
+  observer.disconnect();
+  if (tabContent) {
+    const app = createApp(App).mount(
+      (() => {
+        const app = document.createElement('div');
+        app.style.display = 'inline';
+        tabContent.prepend(app);
+        return app;
+      })(),
+    );
+  }
+  //  }
 }
 
 /**
- * @function: isUsersPage
+ * @function: isPeople
  * @description: returns true iff the current page is a Canvas course's users page
  *    <hostname>/courses/<id>/users
  * @returns boolean
  */
 
-function isUsersPage(): boolean {
+function isPeople(): boolean {
   const documentUrl = new URL(document.URL);
   const regex = /https:\/\/.*\/courses\/.*\/users$/;
 
@@ -52,31 +86,14 @@ function isUsersPage(): boolean {
 }
 
 /**
- * @function: isGroupPage
+ * @function: isGroupSet
  * @description: returns true iff the current page is a Canvas course's groups page
  * @returns boolean
  */
 
-function isGroupPage(): boolean {
+function isGroupSet(): boolean {
   const documentUrl = new URL(document.URL);
-  const regex = /https:\/\/.*\/courses\/.*\/groups$/;
+  const regex = /https:\/\/.*\/courses\/.*\/groups.*$/;
 
   return (document.URL.match(regex) !== null);
-}
-
-/**
- * @function: isGroupSetActive
- * @description: returns true iff a groupset tab on the groups page is currently active
- * Tabs are stored in div#group_categories_tabs > ul.collectionViewItems > li.ui-state-active
- * @returns: boolean
- */
-
-function isGroupSetActive(): boolean {
-  const groupSetTab = document.querySelector(
-    'div#group_categories_tabs > ul.collectionViewItems > li.ui-state-active');
-  console.log(groupSetTab)
-  // get the content of groupSetTab
-  const groupSetTabContent = groupSetTab?.textContent;
-  console.log(groupSetTabContent);
-  return groupSetTabContent !== 'Everyone';
 }

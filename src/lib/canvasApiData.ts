@@ -73,147 +73,157 @@ query MyQuery {
   }`
 
 
-let instance : any;
+let instance: any;
 
 class canvasApiData {
     public id: number;  // Canvas course id
-    public name: string ; // Canvas course name
+    public name: string; // Canvas course name
     public groupSets: Object[]; //
+    public courseObject: any = -1;// The course object from the Canvas API
 
-    private hostName: string = ''; // The hostname of the Canvas instance
-    public courseObject: any = -1 ;// The course object from the Canvas API
+    public hostName: string = ''; // The hostname of the Canvas instance
+    public updated: number = 0;
 
 
-/**
- * @constructor
- * @description Create a new CanvasCourse object, optional courseId
- */
-constructor() {
+    /**
+     * @constructor
+     * @description Create a new CanvasCourse object, optional courseId
+     */
+    constructor() {
 
-    if (instance) {
-        throw new Error("canvasApiData: Cannot create a new instance of a singleton");
-    }
-    this.hostName = ''
-    this.id = -1
-    this.name = ''
-    this.groupSets = []
-
-    instance = this;
-}
-
-/**
- * @function parseCurrentURL 
- * @description Get the course ID and hostname from the current URL.
- * @returns {object} An object containing the course ID and hostname.
- */
-parseCurrentURL() {
-    const documentUrl = new URL(document.URL);
-    this.hostName = documentUrl.origin;
-
-    const courseIdRegex = /\/courses\/(\d+)\//;
-    const courseIdMatch = documentUrl.pathname.match(courseIdRegex);
-    if (courseIdMatch) {
-        this.id = parseInt(courseIdMatch[1], 10);
-    }
-}
-
-/**
- * @function retrieveCourseObject
- * @description Get the course object from the Canvas API and update the object attributes
- */
-retrieveCourseObject() {
-    if (this.id === -1) {
-        throw new Error("CanvasCourse::retrieveCourseObject: Course ID not set");
-    }
-
-    let callUrl = `${this.hostName}/api/v1/courses/${this.id}`;
-
-    console.log("Starting requestCourseObject")
-
-    fetch(callUrl, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-        },
-    }).then(response => {
-        if (!response.ok) {
-            throw new Error(
-                `cc_Controller: requestCourseObject: error ${response.status}`
-            );
+        if (instance) {
+            throw new Error("canvasApiData: Cannot create a new instance of a singleton");
         }
-        response.json().then(data => {
-            this.courseObject = data;
+        this.hostName = ''
+        this.id = -1
+        this.name = ''
+        this.groupSets = []
+        this.updated = 0
 
-            this.name = data.name;
-
-            console.log(`got some data - requestCourseObject`)
-            console.log(data)
-            console.log(`name is ${data.name}`)
-        })
-    })
-}
-
-
-/**
- * @function retrieveCourseObject
- * @description Get the course object from the Canvas API and update the object attributes
- */
-retrieveGraphQLObject() {
-    if (this.id === -1) {
-        throw new Error("CanvasCourse::retrieveCourseObject: Course ID not set");
+        instance = this
     }
 
-    let callUrl = `${this.hostName}/api/graphql`;
+    /**
+     * @function parseCurrentURL 
+     * @description Get the course ID and hostname from the current URL.
+     * @returns {object} An object containing the course ID and hostname.
+     */
+    parseCurrentURL() {
+        const documentUrl = new URL(document.URL);
+        this.hostName = documentUrl.origin;
 
-    console.log("Starting requestCourseObject")
-
-    let query = GRAPHQL_QUERY.replace("$courseId", this.id.toString());
-
-    const body: string = JSON.stringify({
-        query: query
-    })
-
-    console.log(body)
-
-
-    fetch(callUrl, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            'X-CSRF-Token': CSRFtoken()
-        },
-        body: body,
-    }).then(response => {
-        if (!response.ok) {
-            throw new Error(
-                `cc_Controller: requestCourseObject: error ${response.status}`
-            );
+        const courseIdRegex = /\/courses\/(\d+)\//;
+        const courseIdMatch = documentUrl.pathname.match(courseIdRegex);
+        if (courseIdMatch) {
+            this.id = parseInt(courseIdMatch[1], 10);
         }
-        response.json().then(data => {
-            this.courseObject = data.data.course;
+    }
 
-            this.name = this.courseObject.name;
+    /**
+     * @function retrieveCourseObject
+     * @description Get the course object from the Canvas API and update the object attributes
+     */
+    retrieveCourseObject() {
+        if (this.id === -1) {
+            throw new Error("CanvasCourse::retrieveCourseObject: Course ID not set");
+        }
 
-            console.log(`got some data - requestGraphQLObject`)
-            console.log(this.courseObject)
-            //               console.log(`name is ${data.name}`)
+        let callUrl = `${this.hostName}/api/v1/courses/${this.id}`;
+
+        console.log("Starting requestCourseObject")
+
+        fetch(callUrl, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error(
+                    `cc_Controller: requestCourseObject: error ${response.status}`
+                );
+            }
+            response.json().then(data => {
+                this.courseObject = data
+
+                this.name = data.name
+                this.updated += 1
+
+                console.log(`got some data - requestCourseObject`)
+                console.log(data)
+                console.log(`name is ${data.name}`)
+            })
         })
-    })
-}
+    }
+
+
+    /**
+     * @function retrieveCourseObject
+     * @description Get the course object from the Canvas API and update the object attributes
+     */
+    retrieveGraphQLObject() {
+        console.log(" -----  CanvasApiData::retrieveGraphQLObject")
+        if (this.id === -1) {
+            throw new Error("CanvasCourse::retrieveCourseObject: Course ID not set");
+        }
+
+        let callUrl = `${this.hostName}/api/graphql`;
+
+        console.log("Starting requestCourseObject")
+
+        let query = GRAPHQL_QUERY.replace("$courseId", this.id.toString());
+
+        const body: string = JSON.stringify({
+            query: query
+        })
+
+        fetch(callUrl, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                'X-CSRF-Token': CSRFtoken()
+            },
+            body: body,
+        }).then(response => {
+            console.log("  canvasApiData:retrieveGraphQLObject: got response")
+            console.log(response)
+            if (!response.ok) {
+                throw new Error(
+                    `cc_Controller: requestCourseObject: error ${response.status}`
+                );
+            }
+            response.json().then(data => {
+                console.log("    canvasApiData:retrieveGraphQLObject: got data")
+                this.courseObject = data.data.course;
+
+                this.name = this.courseObject.name;
+                this.updated += 1;
+
+                console.log(this.courseObject)
+            })
+        })
+    }
 
 }
 
-//let canvasData: canvasApiData = reactive(new canvasApiData());
+let canvasData: canvasApiData = reactive(new canvasApiData());
 
 export default function getCanvasCourse(): any {
-/*    if (canvasData.id === -1) {
+    console.log("canvasApiData:1 getCanvasCourse called")
+    if (canvasData.id === -1) {
+        console.log("canvasApiData:2 calling parseCurrentURL (we don't have data")
         canvasData.parseCurrentURL();
+        console.log("canvasApiData:3 calling retrieveGraphQLObject (we don't have data)")
         canvasData.retrieveGraphQLObject();
+        console.log("canvasApiData:4 called retrieveGraphQLObject (we don't have data)")
+        console.log("show course object")
+        console.log(canvasData.courseObject)
     }
-    return canvasData; */
-    return {};
+    console.log("canvasApiData:5 getCanvasCourse returning")
+    return canvasData;
+    //return {};
 }
