@@ -10,8 +10,16 @@
  * - just some help, but how
  */
 
- import { createApp } from 'vue';
- import { computed, watch } from 'vue';
+import { createApp } from 'vue';
+import { computed, watch } from 'vue';
+
+// props 
+// - groupSetId: Number
+//   Canvas id for the group set on which the app has been added
+
+const props = defineProps({
+  groupSetId: Number
+})
 
 //import CanvasCourse from './components/CanvasCourse.vue';
 
@@ -21,7 +29,7 @@ import getCanvasCourse from './lib/canvasApiData';
 
 
 console.log("1. just about to call getCanvasCourse")
-const canvasData = { updated: 0} //getCanvasCourse();
+const canvasData = { updated: 0 } //getCanvasCourse();
 console.log("2. just called getCanvasCourse")
 console.log(canvasData)
 
@@ -29,7 +37,7 @@ console.log(canvasData)
 /**
  * @description: Watch for the canvasData object to be updated, once it is add a CanvasLearningJournal component to the group set tab for each group set
  */
-watch( 
+watch(
   () => canvasData.updated,
   (updated) => {
     console.log(`canvasData.updated: ${updated}`)
@@ -41,7 +49,7 @@ function addCanvasLearningJournalComponents() {
   console.log("3. addCanvasLearningJournalComponents")
   const groupSetTabs = document.querySelectorAll('.group-set-tab')
   console.log(groupSetTabs)
-  groupSetTabs.forEach( (groupSetTab) => {
+  groupSetTabs.forEach((groupSetTab) => {
     console.log(groupSetTab)
     const learningJournalButton = document.createElement('button')
     learningJournalButton.id = 'learning-journal-status'
@@ -57,5 +65,4 @@ function addCanvasLearningJournalComponents() {
   <button id="learning-journal-status">Learning Journals</button>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -1,9 +1,13 @@
 /**
  * @file: src/main.ts
  * @description: Main entry point for canvas learning journal. 
- * 1. Checks to see currently looking at the Canvas course's groups page
- * 2. Adds the root component as an invisible div to the body depending
- *    on whether a group set tab is active
+ * Mount the app on either the people or group set URLs for a Canvas course.
+ * Place the app before the div#group_categories_tabs
+ * The app will use the URL to determine what information to display
+ * - users page <hostname>://courses/<id>/users
+ *   Some basic info about how to use the learning journal app
+ * - group set page <hostname>://courses/<id>/groups#tab-<groupSetId>
+ *   Info depending on the group set configuration
  */
 import { createApp } from 'vue';
 import './style.css';
@@ -13,53 +17,69 @@ import App from './App.vue';
 // - users page <hostname>://courses/<id>/users 
 // - groups page <hostname>://courses/<id>/groups
 
-const peoplePage = isPeople() 
+const peoplePage = isPeople()
 const groupSetPage = isGroupSet()
 
-if ( !peoplePage && !groupSetPage ) {
+if (!peoplePage && !groupSetPage) {
   console.log("Not on a users or groups page");
   throw new Error("Not on a users or groups page");
 }
 
-// Wait for the 
 const observer = new MutationObserver((mutations, obs) => {
-  console.log("starting")
-  console.log(mutations)
-  const activeTab = document.querySelector('li.ui-state-active');
-  if (activeTab) {
-    // get aria-controls attribute of active tab
-    const ariaControls = activeTab.getAttribute('aria-controls');
-    console.log(`ariaControls ${ariaControls}`);
-    // get the div#<ariaControls> element
-    const tabContent = document.querySelector(`div#${ariaControls}`);
-    if (tabContent) {
-      console.log("Tab content is there")
-      insertLearningJournalApp(tabContent);
-    }
+  const groupCategoriesTab = document.querySelector('div#group_categories_tabs');
+  if (groupCategoriesTab) {
+      insertLearningJournalApp(groupCategoriesTab);
   }
 });
 observer.observe(document, { childList: true, subtree: true });
 
 
-  /**
-   * @todo: Finalise where the global "Learning Journal" app gets placed. 
-   * Requirements
-   * - Same place all the time 
-   * - Fits with the Canvas UI
-   * Options 
-   * - before div#group_categories_tabs
-   *   Good for sample place, not so great for Canvas UI as it's outside the tab
-   *   Could assuage this with naming, but...
-   * - First element of the div.ui-tabs-<id> that matches the aria-controls property of the active tab
-   */
+/**
+ * @todo: Finalise where the global "Learning Journal" app gets placed. 
+ * Requirements
+ * - Same place all the time 
+ * - Fits with the Canvas UI
+ * Options 
+ * - before div#group_categories_tabs
+ *   Good for sample place, not so great for Canvas UI as it's outside the tab
+ *   Could assuage this with naming, but...
+ * - First element of the div.ui-tabs-<id> that matches the aria-controls property of the active tab
+ */
 
-  //groupCategoriesTabs();
+//groupCategoriesTabs();
 
 
-function insertLearningJournalApp(tabContent: Element) {
+function insertLearningJournalApp(groupCategoriesTab: Element) {
   observer.disconnect();
-  if (tabContent) {
-    const app = createApp(App).mount(
+  const app = createApp(App).mount(
+    (() => {
+      const app = document.createElement('div');
+      app.style.display = 'inline';
+      groupCategoriesTab.before(app);
+      return app;
+    })(),
+  );
+
+/*  if (tabContent) {
+    // define the props, iff groupset add group set id
+    let props = {}
+    if (groupSetPage) {
+      // get the parent div's id
+      const divId = tabContent.id;
+      console.log(`parentDivId ${divId}`)
+      if (divId) {
+        const groupSetIdString = divId.split('-').pop();
+        console.log(`groupSetIdString ${groupSetIdString}`)
+        if (groupSetIdString !== "") {
+          const groupSetId = parseInt(groupSetIdString);
+          console.log(`groupSetId ${groupSetId}`)
+          props = { groupSetId };
+        }
+      }
+    }
+    console.log(`props ${props}`)
+    console.log(props)
+    const app = createApp(App, props).mount(
       (() => {
         const app = document.createElement('div');
         app.style.display = 'inline';
@@ -68,7 +88,8 @@ function insertLearningJournalApp(tabContent: Element) {
       })(),
     );
   }
-  //  }
+  //  } 
+  */
 }
 
 /**
