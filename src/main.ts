@@ -9,9 +9,17 @@
  * - group set page <hostname>://courses/<id>/groups#tab-<groupSetId>
  *   Info depending on the group set configuration
  */
-import { createApp } from 'vue';
-import './style.css';
-import App from './App.vue';
+import { createApp } from 'vue'
+import App from './App.vue'
+import './style.css'
+
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import { aliases, mdi } from 'vuetify/iconsets/mdi'
+import "@fortawesome/fontawesome-free/css/all.css";
+
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
 
 // Should only be called if on the
 // - users page <hostname>://courses/<id>/users 
@@ -51,45 +59,33 @@ observer.observe(document, { childList: true, subtree: true });
 
 function insertLearningJournalApp(groupCategoriesTab: Element) {
   observer.disconnect();
-  const app = createApp(App).mount(
-    (() => {
-      const app = document.createElement('div');
-      app.style.display = 'inline';
-      groupCategoriesTab.before(app);
-      return app;
-    })(),
-  );
+  const app = createApp(App)
+  
+  const vuetify = createVuetify({
+    theme: { 
+      defaultTheme: 'light'
+    },
+    icons: {
+      defaultSet: "mdi",
+      aliases,
+      sets: {
+        mdi,
+      },
+    },
+    components,
+    directives,
+  });
 
-/*  if (tabContent) {
-    // define the props, iff groupset add group set id
-    let props = {}
-    if (groupSetPage) {
-      // get the parent div's id
-      const divId = tabContent.id;
-      console.log(`parentDivId ${divId}`)
-      if (divId) {
-        const groupSetIdString = divId.split('-').pop();
-        console.log(`groupSetIdString ${groupSetIdString}`)
-        if (groupSetIdString !== "") {
-          const groupSetId = parseInt(groupSetIdString);
-          console.log(`groupSetId ${groupSetId}`)
-          props = { groupSetId };
-        }
-      }
-    }
-    console.log(`props ${props}`)
-    console.log(props)
-    const app = createApp(App, props).mount(
-      (() => {
-        const app = document.createElement('div');
-        app.style.display = 'inline';
-        tabContent.prepend(app);
-        return app;
-      })(),
-    );
-  }
-  //  } 
-  */
+  app.use(vuetify);
+
+  app.mount(
+    (() => {
+      const appElem = document.createElement('div');
+      appElem.style.display = 'inline';
+      groupCategoriesTab.before(appElem);
+      return appElem;
+    })(),
+  )
 }
 
 /**

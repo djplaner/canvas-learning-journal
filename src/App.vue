@@ -62,7 +62,67 @@ function addCanvasLearningJournalComponents() {
 
 
 <template>
-  <button id="learning-journal-status">Learning Journals</button>
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
+
+  <div class="learning-journal-status">
+    <p>
+        <v-icon icon="mdi-menu-down"></v-icon> - oneX <br />
+        <i class="mdi-menu-down mdi v-icon v-icon--size-default" aria-hidden="true"></i> - with v-icon and v-icon--size-default<br />
+        <i class="mdi-menu-down mdi v-icon" aria-hidden="true"></i> - with v-icon<br />
+        <i class="mdi-menu-down mdi" aria-hidden="true"></i> - no v-icon<br />
+    </p>
+  <v-expansion-panels>
+    <v-expansion-panel>
+      <v-expansion-panel-title expand-icon="mdi-menu-down">
+        <v-icon icon="mdi-menu-down"></v-icon>
+        <i class="mdi-menu-down mdi v-theme--dark" aria-hidden="true"></i>
+        About&nbsp;<em>Canvas Learning Journal</em> 
+      </v-expansion-panel-title>
+      <v-expansion-panel-text>
+        <p>ipsum lorem</p>
+      </v-expansion-panel-text>
+    </v-expansion-panel>
+  </v-expansion-panels>
+</div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.learning-journal-status {
+  /*margin-top: 1rem;*/
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.v-expansion-panel-title, .fred {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+/*.v-icon {
+    --v-icon-size-multiplier: 1;
+    align-items: center;
+    display: inline-flex;
+    font-feature-settings: "liga";
+    height: 1em;
+    justify-content: center;
+    letter-spacing: normal;
+    line-height: 1;
+    position: relative;
+    text-indent: 0;
+    text-align: center;
+    user-select: none;
+    vertical-align: middle;
+    width: 1em;
+    min-width: 1em;
+}
+
+.v-icon--size-default {
+    font-size: calc(var(--v-icon-size-multiplier) * 1.5em);
+}*/
+</style>
