@@ -10,8 +10,11 @@
  * - just some help, but how
  */
 
-import { createApp } from 'vue';
+import { createApp, reactive } from 'vue';
 import { computed, watch } from 'vue';
+
+//import { matLineQuestionCircle } from 'quasar-extras-svg-icons/material-line-icons'
+import { fuiQuestionCircle48Filled } from 'quasar-extras-svg-icons/fluentui-system-icons'
 
 // props 
 // - groupSetId: Number
@@ -62,41 +65,36 @@ function addCanvasLearningJournalComponents() {
 
 
 <template>
-  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
-
   <div class="learning-journal-status">
-    <p>
-        <v-icon icon="mdi-menu-down"></v-icon> - oneX <br />
-        <i class="mdi-menu-down mdi v-icon v-icon--size-default" aria-hidden="true"></i> - with v-icon and v-icon--size-default<br />
-        <i class="mdi-menu-down mdi v-icon" aria-hidden="true"></i> - with v-icon<br />
-        <i class="mdi-menu-down mdi" aria-hidden="true"></i> - no v-icon<br />
-    </p>
-  <v-expansion-panels>
-    <v-expansion-panel>
-      <v-expansion-panel-title expand-icon="mdi-menu-down">
-        <v-icon icon="mdi-menu-down"></v-icon>
-        <i class="mdi-menu-down mdi v-theme--dark" aria-hidden="true"></i>
-        About&nbsp;<em>Canvas Learning Journal</em> 
-      </v-expansion-panel-title>
-      <v-expansion-panel-text>
-        <p>ipsum lorem</p>
-      </v-expansion-panel-text>
-    </v-expansion-panel>
-  </v-expansion-panels>
-</div>
+    <a href="https://google.com/">
+      <q-icon :name="fuiQuestionCircle48Filled" color="primary" size="1.5em">
+        <q-tooltip anchor="bottom left" self="top middle" class="bg-grey-4 text-black text-body2" max-width="20rem">
+          <p>Help to create and orchestrate individual student learning journals using a groupset, individual student
+            groups, and graded discussions.</p>
+          <p>For more, click the question mark.</p>
+        </q-tooltip>
+      </q-icon>
+    </a>
+    Canvas Learning Journal
+  </div>
 </template>
 
 <style scoped>
 .learning-journal-status {
   /*margin-top: 1rem;*/
   margin-bottom: 1rem;
-  padding: 1rem;
+  padding: 0.5rem;
   background-color: #f0f0f0;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: fit-content;
+  /* align to the right */
+  margin-left: auto;
+  text-align: right;
 }
 
-.v-expansion-panel-title, .fred {
+.v-expansion-panel-title,
+.fred {
   font-size: 1rem;
   font-weight: bold;
   color: #333;

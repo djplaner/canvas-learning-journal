@@ -1,11 +1,17 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import { quasar, transformAssetUrls } from '@quasar/vite-plugin';
 import monkey, { cdn } from 'vite-plugin-monkey';
 
-// https://vitejs.dev/config/
+
 export default defineConfig({
   plugins: [
-    vue(),
+    vue({
+      template: { transformAssetUrls },
+    }),
+    quasar({
+      sassVariables: 'src/quasar-variables.sass',
+    }),
     monkey({
       entry: 'src/main.ts',
       userscript: {

@@ -10,16 +10,15 @@
  *   Info depending on the group set configuration
  */
 import { createApp } from 'vue'
+import { Quasar } from 'quasar'
+
+import '@quasar/extras/material-icons/material-icons.css'
+//import 'quasar/dist/quasar.css'
+import 'quasar/src/css/index.sass' // as recommended
+
+
 import App from './App.vue'
 import './style.css'
-
-import 'vuetify/styles'
-import { createVuetify } from 'vuetify'
-import { aliases, mdi } from 'vuetify/iconsets/mdi'
-import "@fortawesome/fontawesome-free/css/all.css";
-
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
 
 // Should only be called if on the
 // - users page <hostname>://courses/<id>/users 
@@ -36,7 +35,7 @@ if (!peoplePage && !groupSetPage) {
 const observer = new MutationObserver((mutations, obs) => {
   const groupCategoriesTab = document.querySelector('div#group_categories_tabs');
   if (groupCategoriesTab) {
-      insertLearningJournalApp(groupCategoriesTab);
+    insertLearningJournalApp(groupCategoriesTab);
   }
 });
 observer.observe(document, { childList: true, subtree: true });
@@ -60,23 +59,8 @@ observer.observe(document, { childList: true, subtree: true });
 function insertLearningJournalApp(groupCategoriesTab: Element) {
   observer.disconnect();
   const app = createApp(App)
-  
-  const vuetify = createVuetify({
-    theme: { 
-      defaultTheme: 'light'
-    },
-    icons: {
-      defaultSet: "mdi",
-      aliases,
-      sets: {
-        mdi,
-      },
-    },
-    components,
-    directives,
-  });
 
-  app.use(vuetify);
+  app.use(Quasar, { })
 
   app.mount(
     (() => {

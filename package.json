@@ -11,6 +11,7 @@
   "dependencies": {
     "@quasar/extras": "^1.16.9",
     "quasar": "^2.15.1",
+    "quasar-extras-svg-icons": "^1.36.0",
     "vue": "^3.4.14",
     "vuetify": "^3.4.0-beta.1"
   },
