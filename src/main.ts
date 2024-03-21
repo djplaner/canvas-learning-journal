@@ -13,7 +13,6 @@ import { createApp } from 'vue'
 import { Quasar } from 'quasar'
 
 import '@quasar/extras/material-icons/material-icons.css'
-//import 'quasar/dist/quasar.css'
 import 'quasar/src/css/index.sass' // as recommended
 
 
@@ -24,13 +23,18 @@ import './style.css'
 // - users page <hostname>://courses/<id>/users 
 // - groups page <hostname>://courses/<id>/groups
 
-const peoplePage = isPeople()
-const groupSetPage = isGroupSet()
+const documentUrl = new URL(document.URL);
+const peoplePage = isPeople(documentUrl)
+const groupSetPage = isGroupSet(documentUrl)
 
 if (!peoplePage && !groupSetPage) {
   console.log("Not on a users or groups page");
   throw new Error("Not on a users or groups page");
 }
+
+const groupSetId = groupSetPage ? Number(documentUrl.hash.split('-')[1]) : null;
+
+console.log(`peoplePage: ${peoplePage}, groupSetPage: ${groupSetPage}, groupSetId: ${groupSetId}`)
 
 const observer = new MutationObserver((mutations, obs) => {
   const groupCategoriesTab = document.querySelector('div#group_categories_tabs');
@@ -58,9 +62,21 @@ observer.observe(document, { childList: true, subtree: true });
 
 function insertLearningJournalApp(groupCategoriesTab: Element) {
   observer.disconnect();
-  const app = createApp(App)
+  const app = createApp(App, { groupSetId: groupSetId } )
+  //const app = createApp(App  )
+  //const app = createApp(App, { }  )
 
-  app.use(Quasar, { })
+  const quasarConfig = {
+    config: { },
+    framework: {
+      iconSet: 'material-icons',
+    },
+    extras: [ 
+      'material-icons',
+    ],
+  }
+
+  app.use(Quasar, quasarConfig )
 
   app.mount(
     (() => {
@@ -79,8 +95,7 @@ function insertLearningJournalApp(groupCategoriesTab: Element) {
  * @returns boolean
  */
 
-function isPeople(): boolean {
-  const documentUrl = new URL(document.URL);
+function isPeople(documentUrl: URL): boolean {
   const regex = /https:\/\/.*\/courses\/.*\/users$/;
 
   return (document.URL.match(regex) !== null);
@@ -92,8 +107,7 @@ function isPeople(): boolean {
  * @returns boolean
  */
 
-function isGroupSet(): boolean {
-  const documentUrl = new URL(document.URL);
+function isGroupSet(documentUrl: URL): boolean {
   const regex = /https:\/\/.*\/courses\/.*\/groups.*$/;
 
   return (document.URL.match(regex) !== null);

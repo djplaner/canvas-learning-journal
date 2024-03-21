@@ -79,3 +79,17 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
+.learning-journal-status {
+  /*margin-top: 1rem;*/
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: fit-content; 
+  /* align to the right */
+/*  margin-left: auto;
+  text-align: right; */
+}

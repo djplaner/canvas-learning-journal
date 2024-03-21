@@ -18,10 +18,14 @@
  * @description Define a Javascript class for retrieving information from the Canvas API about a course and providing a reactive global singleton for use by multiple components
  */
 
-import { reactive } from "vue";
+import { reactive } from "vue"
+
+const DEBUG: boolean = false
 
 const CSRFtoken = function () {
-    return decodeURIComponent((document.cookie.match('(^|;) *_csrf_token=([^;]*)') || '')[2])
+    return decodeURIComponent(
+        (document.cookie.match('(^|;) *_csrf_token=([^;]*)') || '')[2]
+    )
 }
 
 const TEST_QUERY: string = `
@@ -130,7 +134,9 @@ class canvasApiData {
 
         let callUrl = `${this.hostName}/api/v1/courses/${this.id}`;
 
-        console.log("Starting requestCourseObject")
+        if (DEBUG) {
+            console.log("Starting requestCourseObject")
+        }
 
         fetch(callUrl, {
             method: "GET",
@@ -151,9 +157,11 @@ class canvasApiData {
                 this.name = data.name
                 this.updated += 1
 
-                console.log(`got some data - requestCourseObject`)
-                console.log(data)
-                console.log(`name is ${data.name}`)
+                if (DEBUG) {
+                    console.log(`got some data - requestCourseObject`)
+                    console.log(data)
+                    console.log(`name is ${data.name}`)
+                }
             })
         })
     }
@@ -164,14 +172,18 @@ class canvasApiData {
      * @description Get the course object from the Canvas API and update the object attributes
      */
     retrieveGraphQLObject() {
-        console.log(" -----  CanvasApiData::retrieveGraphQLObject")
+        if (DEBUG) {
+            console.log(" -----  CanvasApiData::retrieveGraphQLObject")
+        }
         if (this.id === -1) {
             throw new Error("CanvasCourse::retrieveCourseObject: Course ID not set");
         }
 
         let callUrl = `${this.hostName}/api/graphql`;
 
-        console.log("Starting requestCourseObject")
+        if (DEBUG) {
+            console.log("Starting requestCourseObject")
+        }
 
         let query = GRAPHQL_QUERY.replace("$courseId", this.id.toString());
 
@@ -189,21 +201,27 @@ class canvasApiData {
             },
             body: body,
         }).then(response => {
-            console.log("  canvasApiData:retrieveGraphQLObject: got response")
-            console.log(response)
+            if (DEBUG) {
+                console.log("  canvasApiData:retrieveGraphQLObject: got response")
+                console.log(response)
+            }
             if (!response.ok) {
                 throw new Error(
                     `cc_Controller: requestCourseObject: error ${response.status}`
                 );
             }
             response.json().then(data => {
-                console.log("    canvasApiData:retrieveGraphQLObject: got data")
+                if (DEBUG) {
+                    console.log("    canvasApiData:retrieveGraphQLObject: got data")
+                }
                 this.courseObject = data.data.course;
 
                 this.name = this.courseObject.name;
                 this.updated += 1;
 
-                console.log(this.courseObject)
+                if (DEBUG) {
+                    console.log(this.courseObject)
+                }
             })
         })
     }
@@ -213,17 +231,28 @@ class canvasApiData {
 let canvasData: canvasApiData = reactive(new canvasApiData());
 
 export default function getCanvasCourse(): any {
-    console.log("canvasApiData:1 getCanvasCourse called")
-    if (canvasData.id === -1) {
-        console.log("canvasApiData:2 calling parseCurrentURL (we don't have data")
-        canvasData.parseCurrentURL();
-        console.log("canvasApiData:3 calling retrieveGraphQLObject (we don't have data)")
-        canvasData.retrieveGraphQLObject();
-        console.log("canvasApiData:4 called retrieveGraphQLObject (we don't have data)")
-        console.log("show course object")
-        console.log(canvasData.courseObject)
+    if (DEBUG) {
+        console.log("canvasApiData:1 getCanvasCourse called")
     }
-    console.log("canvasApiData:5 getCanvasCourse returning")
+    if (canvasData.id === -1) {
+        if (DEBUG) {
+            console.log("canvasApiData:2 calling parseCurrentURL (we don't have data")
+        }
+        canvasData.parseCurrentURL();
+        if (DEBUG) {
+            console.log("canvasApiData:3 calling retrieveGraphQLObject (we don't have data)")
+        }
+        canvasData.retrieveGraphQLObject();
+        if (DEBUG) {
+            console.log("canvasApiData:4 called retrieveGraphQLObject (we don't have data)")
+            console.log("show course object")
+            console.log(canvasData.courseObject)
+        }
+    }
+
+    if (DEBUG) {
+        console.log("canvasApiData:5 getCanvasCourse returning")
+    }
     return canvasData;
     //return {};
 }
