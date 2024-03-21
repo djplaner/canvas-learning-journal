@@ -16,7 +16,6 @@
 //import { reactive } from 'vue';
 import { watch } from 'vue';
 
-
 // CLJ imports
 
 import cljEveryone from './components/cljEveryone.vue'
@@ -67,7 +66,7 @@ watch(
 
 <template>
   <cljEveryone v-if="peoplePage" />
-  <cljGroupSet v-else :groupSetId="props.groupSetId"/>
+  <cljGroupSet v-else :groupSetId="props.groupSetId"/> 
 </template>
 
 <style scoped>

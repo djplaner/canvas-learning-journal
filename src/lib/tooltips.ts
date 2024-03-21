@@ -32,6 +32,14 @@ export const TOOLTIPS = {
         for_more: {
             content: `Determine if and how this group set can be used to provide private student learning journals. Click for more.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        configuration: {
+            content: `Design if/how this groupset will work as a learning journal.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        orchestration: {
+            content: `Understanding student contributions to their learning journals and take appropriate action.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
         }
     }
 }

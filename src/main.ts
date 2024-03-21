@@ -10,10 +10,26 @@
  *   Info depending on the group set configuration
  */
 import { createApp } from 'vue'
-import { Quasar } from 'quasar'
+//import { Quasar } from 'quasar'
 
-import '@quasar/extras/material-icons/material-icons.css'
-import 'quasar/src/css/index.sass' // as recommended
+//import '@quasar/extras/material-icons/material-icons.css'
+//import 'quasar/src/css/index.sass' // as recommended
+
+import "@shoelace-style/shoelace/dist/themes/light.css"
+
+import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js'
+//setBasePath('@shoelace-style/shoelace/dist')
+setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/')
+
+//setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/')
+//import 'https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/components/details/details.js';
+//import '@shoelace-style/shoelace/dist/components/details/details.js';
+//import 'https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/components/icons/icons.js';
+//import '@shoelace-style/shoelace/dist/components/icon/icon.js';
+
+//import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js'
+//setBasePath('@shoelace-style/shoelace/dist')
+//setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/')
 
 
 import App from './App.vue'
@@ -66,7 +82,7 @@ function insertLearningJournalApp(groupCategoriesTab: Element) {
   //const app = createApp(App  )
   //const app = createApp(App, { }  )
 
-  const quasarConfig = {
+/*  const quasarConfig = {
     config: { },
     framework: {
       iconSet: 'material-icons',
@@ -76,7 +92,7 @@ function insertLearningJournalApp(groupCategoriesTab: Element) {
     ],
   }
 
-  app.use(Quasar, quasarConfig )
+  app.use(Quasar, quasarConfig ) */
 
   app.mount(
     (() => {

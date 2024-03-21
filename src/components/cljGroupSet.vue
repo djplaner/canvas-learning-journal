@@ -34,11 +34,12 @@
  * - provide access to the clj functionality
  */
 
-
-// Import SVG icons
-import { fuiQuestionCircle48Filled } from 'quasar-extras-svg-icons/fluentui-system-icons'
+import { ref } from 'vue'
 
 import { TOOLTIPS } from '../lib/tooltips'
+
+import cljConfiguration from './cljConfiguration.vue'
+import cljOrchestration from './cljOrchestration.vue'
 
 const DEBUG = true
 
@@ -51,38 +52,91 @@ const props = defineProps({
     groupSetId: Number
 })
 
+if (DEBUG) {
+    console.log(`cljGroupSet.vue: groupSetId: ${props.groupSetId}`)
+}
 
-console.log(`cljGroupSet.vue: groupSetId: ${props.groupSetId}`)
+const configOpen = ref(false)
+
+/**
+ * @function toggleConfig
+ * @description Event handler for config switch. Show/hide the configuration panel
+ * for the current group set/learning journal
+ * -
+ * @param {} event 
+ */
+
+function toggleConfig() {
+    configOpen.value = !configOpen.value
+    if (DEBUG) {
+        console.log(`cljGroupSet.vue: toggleConfig: configOpen: ${configOpen.value}`)
+    }
+
+    const configSwitch = document.getElementById('clj-gs-config-switch')
+    console.log(`cljGroupSet.vue: toggleConfig: configSwitch: ${configSwitch}`)
+
+    if (configOpen.value) {
+        document.getElementById('clj-gs-detail').style.display = 'block'
+        if (configSwitch) {
+            configSwitch.classList.remove('icon-mini-arrow-end')
+            configSwitch.classList.add('icon-mini-arrow-down')
+        }
+    } else {
+        document.getElementById('clj-gs-detail').style.display = 'none'
+        if (configSwitch) {
+            configSwitch.classList.remove('icon-mini-arrow-down')
+            configSwitch.classList.add('icon-mini-arrow-end')
+        }
+    }
+}
 
 </script>
+
 <template>
-    <div class="learning-journal-status">
-        <q-icon name="thumbs_up" />
-        <q-expansion-item>
-            <template v-slot:header>
-                <q-item-section>
-                    Canvas (groupset {{ props.groupSetId }}) Learning Journal
-                    <a target="_blank" :href="`${TOOLTIPS.group_set_learning_journal.for_more.url}`">
-                        <q-icon :name="fuiQuestionCircle48Filled" color="primary" size="1.5em">
-                            <q-tooltip anchor="bottom start" self="top left" class="bg-grey-4 text-black text-body2"
-                                max-width="20rem">
-                                {{ TOOLTIPS.group_set_learning_journal.for_more.content }}
-                            </q-tooltip>
-                        </q-icon>
-                    </a>
-                </q-item-section>
-            </template>
-            <q-card>
-                <q-card-section>
-                    Adipisicing officia aliquip cupidatat veniam in reprehenderit commodo elit eiusmod sint eu. Deserunt eu ad commodo sunt aliqua cupidatat Lorem. Excepteur sunt aliquip nulla consectetur magna ipsum eu elit.
-                </q-card-section>
-                <q-card-section>
-                    Consequat pariatur incididunt magna exercitation. Deserunt sit cupidatat elit amet exercitation exercitation laborum sunt in non officia anim. Eu dolore est occaecat ut amet consequat id eiusmod consectetur consequat.
-                </q-card-section>
-                <q-card-section>
-                    Adipisicing sint ad irure excepteur aute labore. Ad minim voluptate deserunt laborum commodo est elit id. Lorem do ex aliquip do.
-                </q-card-section>
-            </q-card>
-        </q-expansion-item>
+    <div class="clj-status" id="clj-gs-button">
+        <i @click="toggleConfig" id="clj-gs-config-switch" class="icon-Solid icon-mini-arrow-end"></i>
+        Canvas (groupset {{ props.groupSetId }}) Learning Journal
+        <a target="_blank" :href="TOOLTIPS.group_set_learning_journal.for_more.url">
+            <sl-tooltip>
+                <div slot="content">
+                    {{ TOOLTIPS.group_set_learning_journal.for_more.content }}
+                </div>
+                <i class="icon-Solid icon-question"></i>
+            </sl-tooltip>
+        </a>
+    </div>
+    <!--<div class="learning-journal-detail" style="display:none">-->
+    <div class="clj-detail" id="clj-gs-detail" style="display:none">
+        <sl-tab-group>
+            <sl-tab slot="nav" panel="clj-configuration">
+                Configuration
+                <a target="_blank" :href="TOOLTIPS.group_set_learning_journal.configuration.url">
+                    <sl-tooltip hoist>
+                        <div slot="content">
+                            {{ TOOLTIPS.group_set_learning_journal.configuration.content }}
+                        </div>
+                        &nbsp;<i class="icon-solid icon-question"></i>
+                    </sl-tooltip>
+                </a>
+            </sl-tab>
+            <sl-tab slot="nav" panel="clj-orchestration">
+                Orchestration
+                <a target="_blank" :href="TOOLTIPS.group_set_learning_journal.orchestration.url">
+                    <sl-tooltip placement="right-start" hoist>
+                        <div slot="content">
+                            {{ TOOLTIPS.group_set_learning_journal.orchestration.content }}
+                        </div>
+                        &nbsp;<i class="icon-solid icon-question"></i>
+                    </sl-tooltip>
+                </a>
+            </sl-tab>
+
+            <sl-tab-panel name="clj-configuration">
+                <cljConfiguration :groupSetId="props.groupSetId" />
+            </sl-tab-panel>
+            <sl-tab-panel name="clj-orchestration">
+                <cljOrchestration :groupSetId="props.groupSetId" />
+            </sl-tab-panel>
+        </sl-tab-group>
     </div>
 </template>

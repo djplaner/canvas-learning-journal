@@ -28,10 +28,18 @@
  **/
 
 
-// Import SVG icons
-import { fuiQuestionCircle48Filled } from 'quasar-extras-svg-icons/fluentui-system-icons'
 
 import { TOOLTIPS } from '../lib/tooltips'
+
+//import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js'
+//setBasePath('/node_modules/@shoelace-style/shoelace/dist')
+//setBasePath('../node_modules/@shoelace-style/shoelace/dist/')
+//setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/')
+
+
+//import 'https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/components/tooltip/tooltip.js';
+//import 'https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/components/icon/icon.js';
+
 
 const DEBUG = true
 
@@ -45,14 +53,15 @@ if (DEBUG) {
 
 </script>
 <template>
-  <div class="learning-journal-status">
+  <div class="clj-status" id="clj-eo-button">
     Canvas Learning Journal
     <a target="_blank" :href="`${TOOLTIPS.users_learning_journal.for_more.url}`">
-      <q-icon :name="fuiQuestionCircle48Filled" color="primary" size="1.5em">
-        <q-tooltip anchor="bottom start" self="top left" class="bg-grey-4 text-black text-body2" max-width="20rem">
+      <sl-tooltip>
+        <div slot="content">
           {{ TOOLTIPS.users_learning_journal.for_more.content }}
-        </q-tooltip>
-      </q-icon>
+        </div>
+        <i class="icon-Solid icon-question"></i> 
+      </sl-tooltip>
     </a>
   </div>
 </template>
