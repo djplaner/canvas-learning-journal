@@ -17,29 +17,44 @@
 
 <script setup>
 /**
- * @file: cljOrchestration.vue
- * @description: Show configuration options/detail for a specific group set
+ * @file: cljStatusGroupSet.vue
+ * @description: Show status for the current group set
  * @todo: 
  * - everything
  */
 
-import { TOOLTIPS } from '../lib/tooltips'
+ import { TOOLTIPS, GLOBAL_DEBUG } from '../../../lib/tooltips'
 
 const DEBUG = true
-const FILE_NAME = "cljOrchestration"
+const FILE_NAME = "cljStatusGroupSet"
+
+if (DEBUG && GLOBAL_DEBUG ) {
+    console.log(`${FILE_NAME} TOOLTIPS:`)
+    console.log(TOOLTIPS)
+}
 
 const props = defineProps({
     groupSetId: Number
 })
 
-if (DEBUG) {
+if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME} groupSetId: ${props.groupSetId}`)
 }
+
+
 </script>
 
 <template>
-    <div class="clj-orchestration">
-        <h3>Orchestration</h3>
+    <div class="clj-status-group-set">
+        <h3>Group Set Status</h3>
     </div>
 </template>
 
+<style scoped>
+.clj-status-group-set {
+    background-color: #f0f0f0;
+    padding: 1em;
+    margin: 1em;
+    border-radius: 1em;
+}
+</style>

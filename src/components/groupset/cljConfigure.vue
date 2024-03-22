@@ -17,18 +17,22 @@
 
 <script setup>
 /**
- * @file: cljConfiguration.vue
- * @description: Show configuration options/detail for a specific group set
+ * @file: cljConfigure.vue
+ * @description: Show configure options/detail for a specific group set
  * @todo: 
  * - everything
  */
 
-import { TOOLTIPS } from '../lib/tooltips'
+import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
 
-const DEBUG = true
-const FILE_NAME = "cljConfiguration"
+import cljStatusGroupSet from './configure/cljStatusGroupSet.vue'
+import cljStatusStudentGroups from './configure/cljStatusStudentGroups.vue'
+import cljStatusDiscussions from './configure/cljStatusDiscussions.vue'
 
-if (DEBUG) {
+const DEBUG = false
+const FILE_NAME = "cljConfigure"
+
+if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME} TOOLTIPS:`)
     console.log(TOOLTIPS)
 }
@@ -37,14 +41,18 @@ const props = defineProps({
     groupSetId: Number
 })
 
-if (DEBUG) {
+if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME} groupSetId: ${props.groupSetId}`)
 }
 </script>
 
 <template>
-    <div class="clj-configuration">
-        <h3>Configuration</h3>
+    <div class="clj-configure">
+        <h3>configure</h3>
+
+        <cljStatusGroupSet :groupSetId="props.groupSetId" />
+        <cljStatusStudentGroups :groupSetId="props.groupSetId" />
+        <cljStatusDiscussions :groupSetId="props.groupSetId" />
     </div>
 </template>
 

@@ -36,15 +36,15 @@
 
 import { ref } from 'vue'
 
-import { TOOLTIPS } from '../lib/tooltips'
+import { TOOLTIPS, GLOBAL_DEBUG } from '../lib/tooltips'
 
-import cljConfiguration from './cljConfiguration.vue'
-import cljOrchestration from './cljOrchestration.vue'
+import cljConfigure from './groupset/cljConfigure.vue'
+import cljOrchestrate from './groupset/cljOrchestrate.vue'
 
-const DEBUG = true
+const DEBUG = false
 
-if (DEBUG) {
-    console.log(`cljEveryone.vue: TOOLTIPS:`)
+if (DEBUG && GLOBAL_DEBUG) {
+    console.log(`cljGroupSet.vue: TOOLTIPS:`)
     console.log(TOOLTIPS)
 }
 
@@ -52,7 +52,7 @@ const props = defineProps({
     groupSetId: Number
 })
 
-if (DEBUG) {
+if (DEBUG && GLOBAL_DEBUG) {
     console.log(`cljGroupSet.vue: groupSetId: ${props.groupSetId}`)
 }
 
@@ -60,7 +60,7 @@ const configOpen = ref(false)
 
 /**
  * @function toggleConfig
- * @description Event handler for config switch. Show/hide the configuration panel
+ * @description Event handler for config switch. Show/hide the configure panel
  * for the current group set/learning journal
  * -
  * @param {} event 
@@ -108,34 +108,34 @@ function toggleConfig() {
     <!--<div class="learning-journal-detail" style="display:none">-->
     <div class="clj-detail" id="clj-gs-detail" style="display:none">
         <sl-tab-group>
-            <sl-tab slot="nav" panel="clj-configuration">
-                Configuration
-                <a target="_blank" :href="TOOLTIPS.group_set_learning_journal.configuration.url">
+            <sl-tab slot="nav" panel="clj-configure">
+                Configure
+                <a target="_blank" :href="TOOLTIPS.group_set_learning_journal.configure.url">
                     <sl-tooltip hoist>
                         <div slot="content">
-                            {{ TOOLTIPS.group_set_learning_journal.configuration.content }}
+                            {{ TOOLTIPS.group_set_learning_journal.configure.content }}
                         </div>
                         &nbsp;<i class="icon-solid icon-question"></i>
                     </sl-tooltip>
                 </a>
             </sl-tab>
-            <sl-tab slot="nav" panel="clj-orchestration">
-                Orchestration
-                <a target="_blank" :href="TOOLTIPS.group_set_learning_journal.orchestration.url">
+            <sl-tab slot="nav" panel="clj-orchestrate">
+                Orchestrate
+                <a target="_blank" :href="TOOLTIPS.group_set_learning_journal.orchestrate.url">
                     <sl-tooltip placement="right-start" hoist>
                         <div slot="content">
-                            {{ TOOLTIPS.group_set_learning_journal.orchestration.content }}
+                            {{ TOOLTIPS.group_set_learning_journal.orchestrate.content }}
                         </div>
                         &nbsp;<i class="icon-solid icon-question"></i>
                     </sl-tooltip>
                 </a>
             </sl-tab>
 
-            <sl-tab-panel name="clj-configuration">
-                <cljConfiguration :groupSetId="props.groupSetId" />
+            <sl-tab-panel name="clj-configure">
+                <cljConfigure :groupSetId="props.groupSetId" />
             </sl-tab-panel>
-            <sl-tab-panel name="clj-orchestration">
-                <cljOrchestration :groupSetId="props.groupSetId" />
+            <sl-tab-panel name="clj-orchestrate">
+                <cljOrchestrate :groupSetId="props.groupSetId" />
             </sl-tab-panel>
         </sl-tab-group>
     </div>

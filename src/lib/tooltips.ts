@@ -19,6 +19,9 @@
  * and their embedded links to the CLJ documentation site.
  */
 
+export const GLOBAL_DEBUG = true;
+
+// define the TOOLTIPS object containing all internal tooltips and documentation links
 export const TOOLTIPS = {
     // Root component on the Users (everyone) page
     users_learning_journal: {
@@ -33,11 +36,11 @@ export const TOOLTIPS = {
             content: `Determine if and how this group set can be used to provide private student learning journals. Click for more.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
-        configuration: {
+        configure: {
             content: `Design if/how this groupset will work as a learning journal.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
-        orchestration: {
+        orchestrate: {
             content: `Understanding student contributions to their learning journals and take appropriate action.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         }

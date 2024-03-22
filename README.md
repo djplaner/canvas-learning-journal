@@ -1,14 +1,14 @@
 ## Canvas Learning Journal
 
-Early stages of developing a tool to support the creation and support of private learning journals for students in the Canvas Learning Management System (LMS). A tool that integrates with the existing Canvas interface.
+Early stages of developing a tool weaves together standard Canvas functionality (individual groups and discussion forums) to help teaching staff create and orchestrate the use of private student learning journals.
 
-Journals are a useful learning activity that encourages students to create (semi-)regular written or multimedia contributions as part of a broader learning or creative activity. Common examples include reflective journals, learning logs, work placement journals, or creative journals. 
+Maintaining a learning journal has benefits for learning since it can improve how students engage with the process of learning. Common examples include reflective journals, learning logs, work placement journals, or creative journals. 
 
 The Canvas LMS does not provide a journal tool. 
 
 There are recommended work-arounds possible with existing Canvas tools as commonly recommended by the Canvas community. For example, [Johns Hopkins University](https://support.cldt.jhu.edu/hc/en-us/articles/6629957372045-Journal-Options-in-Canvas) describe the two common options: using Canvas Assignments; or, Group discussions.  
 
-Experience suggests that these work-arounds are not ideal. They are not designed for the purpose of a journal and can be cumbersome to use. Experience suggests (e.g. this shared within the Canvas community](https://community.canvaslms.com/t5/Idea-Conversations/Implementing-private-journals-into-Canvas/idi-p/444842)) that the group discussion approach has three major limitations, especially in large classes. The three limitations are:
+Experience suggests that these work-arounds are not ideal. They are not designed for the purpose of a journal and can be cumbersome to use. Experience suggests (e.g. [this shared within the Canvas community](https://community.canvaslms.com/t5/Idea-Conversations/Implementing-private-journals-into-Canvas/idi-p/444842)) that the group discussion approach has three major limitations, especially in large classes. The three limitations are:
 
 1. Creating and assigning student groups.
 

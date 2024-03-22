@@ -29,27 +29,16 @@
 
 
 
-import { TOOLTIPS } from '../lib/tooltips'
-
-//import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js'
-//setBasePath('/node_modules/@shoelace-style/shoelace/dist')
-//setBasePath('../node_modules/@shoelace-style/shoelace/dist/')
-//setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/')
-
-
-//import 'https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/components/tooltip/tooltip.js';
-//import 'https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/components/icon/icon.js';
-
+import { TOOLTIPS, GLOBAL_DEBUG } from '../lib/tooltips'
 
 const DEBUG = true
 
-if (DEBUG) {
+if (DEBUG && GLOBAL_DEBUG) {
   console.group(`cljEveryone.vue tooltips`)
   console.log(`cljEveryone.vue: TOOLTIPS:`)
   console.log(TOOLTIPS)
   console.groupEnd()
 }
-
 
 </script>
 <template>

@@ -16,12 +16,11 @@
 //import { reactive } from 'vue';
 import { watch } from 'vue';
 
-// CLJ imports
-
+import { GLOBAL_DEBUG } from './lib/tooltips';
 import cljEveryone from './components/cljEveryone.vue'
 import cljGroupSet from './components/cljGroupSet.vue'
 
-const DEBUG : boolean = true
+const DEBUG: boolean = false
 
 // props 
 // - groupSetId: Number
@@ -33,18 +32,19 @@ const props = defineProps({
 
 const peoplePage: boolean = props.groupSetId === null
 
-
-console.log(`App.vue: props.groupSetId: ${props.groupSetId}`)
-console.log(`App.vue: peoplePage: ${peoplePage}`)
+if (DEBUG && GLOBAL_DEBUG) {
+  console.log(`App.vue: props.groupSetId: ${props.groupSetId}`)
+  console.log(`App.vue: peoplePage: ${peoplePage}`)
+}
 
 import getCanvasCourse from './lib/canvasApiData'
 
-//const canvasCourse = getCanvasCourse()
-
-console.log("1. just about to call getCanvasCourse")
 const canvasData = getCanvasCourse();
-console.log("2. just called getCanvasCourse")
-console.log(canvasData)
+
+if (DEBUG && GLOBAL_DEBUG) {
+  console.log("2. just called getCanvasCourse")
+  console.log(canvasData)
+}
 
 
 /**
@@ -56,7 +56,9 @@ console.log(canvasData)
 watch(
   () => canvasData.updated,
   (updated) => {
-    console.log(`canvasData.updated: ${updated}`)
+    if (DEBUG && GLOBAL_DEBUG) {
+      console.log(`canvasData.updated: ${updated}`)
+    }
     //addCanvasLearningJournalComponents()
   }
 )
@@ -66,9 +68,7 @@ watch(
 
 <template>
   <cljEveryone v-if="peoplePage" />
-  <cljGroupSet v-else :groupSetId="props.groupSetId"/> 
+  <cljGroupSet v-else :groupSetId="props.groupSetId" />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

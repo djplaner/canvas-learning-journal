@@ -18,88 +18,63 @@ import { createApp } from 'vue'
 import "@shoelace-style/shoelace/dist/themes/light.css"
 
 import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js'
-//setBasePath('@shoelace-style/shoelace/dist')
 setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/')
-
-//setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/')
-//import 'https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/components/details/details.js';
-//import '@shoelace-style/shoelace/dist/components/details/details.js';
-//import 'https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/components/icons/icons.js';
-//import '@shoelace-style/shoelace/dist/components/icon/icon.js';
-
-//import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js'
-//setBasePath('@shoelace-style/shoelace/dist')
-//setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/')
-
 
 import App from './App.vue'
 import './style.css'
+
+import { GLOBAL_DEBUG } from './lib/tooltips'
+const DEBUG: boolean = false
 
 // Should only be called if on the
 // - users page <hostname>://courses/<id>/users 
 // - groups page <hostname>://courses/<id>/groups
 
-const documentUrl = new URL(document.URL);
+const documentUrl = new URL(document.URL)
 const peoplePage = isPeople(documentUrl)
 const groupSetPage = isGroupSet(documentUrl)
 
 if (!peoplePage && !groupSetPage) {
-  console.log("Not on a users or groups page");
-  throw new Error("Not on a users or groups page");
+  if (DEBUG && GLOBAL_DEBUG) {
+    console.log("Not on a users or groups page")
+  }
+  throw new Error("Not on a users or groups page")
 }
 
-const groupSetId = groupSetPage ? Number(documentUrl.hash.split('-')[1]) : null;
+const groupSetId = groupSetPage ? Number(documentUrl.hash.split('-')[1]) : null
 
-console.log(`peoplePage: ${peoplePage}, groupSetPage: ${groupSetPage}, groupSetId: ${groupSetId}`)
+if (DEBUG && GLOBAL_DEBUG) {
+  console.log(`peoplePage: ${peoplePage}, groupSetPage: ${groupSetPage}, groupSetId: ${groupSetId}`)
+}
 
 const observer = new MutationObserver((mutations, obs) => {
-  const groupCategoriesTab = document.querySelector('div#group_categories_tabs');
+  const groupCategoriesTab = document.querySelector('div#group_categories_tabs')
   if (groupCategoriesTab) {
-    insertLearningJournalApp(groupCategoriesTab);
+    insertLearningJournalApp(groupCategoriesTab)
   }
-});
-observer.observe(document, { childList: true, subtree: true });
+})
+observer.observe(document, { childList: true, subtree: true })
 
 
 /**
- * @todo: Finalise where the global "Learning Journal" app gets placed. 
- * Requirements
- * - Same place all the time 
- * - Fits with the Canvas UI
- * Options 
- * - before div#group_categories_tabs
- *   Good for sample place, not so great for Canvas UI as it's outside the tab
- *   Could assuage this with naming, but...
- * - First element of the div.ui-tabs-<id> that matches the aria-controls property of the active tab
+ * @function: insertLearningJournalApp
+ * @description: Insert the Learning Journal app into the DOM
+ * Currently being added at the top of the users and groupset pages
  */
 
-//groupCategoriesTabs();
-
-
 function insertLearningJournalApp(groupCategoriesTab: Element) {
-  observer.disconnect();
-  const app = createApp(App, { groupSetId: groupSetId } )
-  //const app = createApp(App  )
-  //const app = createApp(App, { }  )
 
-/*  const quasarConfig = {
-    config: { },
-    framework: {
-      iconSet: 'material-icons',
-    },
-    extras: [ 
-      'material-icons',
-    ],
-  }
+  // call off the mutation observer
+  observer.disconnect()
 
-  app.use(Quasar, quasarConfig ) */
+  const app = createApp(App, { groupSetId: groupSetId })
 
   app.mount(
     (() => {
-      const appElem = document.createElement('div');
-      appElem.style.display = 'inline';
-      groupCategoriesTab.before(appElem);
-      return appElem;
+      const appElem = document.createElement('div')
+      appElem.style.display = 'inline'
+      groupCategoriesTab.before(appElem)
+      return appElem
     })(),
   )
 }
@@ -112,9 +87,9 @@ function insertLearningJournalApp(groupCategoriesTab: Element) {
  */
 
 function isPeople(documentUrl: URL): boolean {
-  const regex = /https:\/\/.*\/courses\/.*\/users$/;
+  const regex = /https:\/\/.*\/courses\/.*\/users$/
 
-  return (document.URL.match(regex) !== null);
+  return (document.URL.match(regex) !== null)
 }
 
 /**
@@ -124,7 +99,7 @@ function isPeople(documentUrl: URL): boolean {
  */
 
 function isGroupSet(documentUrl: URL): boolean {
-  const regex = /https:\/\/.*\/courses\/.*\/groups.*$/;
+  const regex = /https:\/\/.*\/courses\/.*\/groups.*$/
 
-  return (document.URL.match(regex) !== null);
+  return (document.URL.match(regex) !== null)
 }

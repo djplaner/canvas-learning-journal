@@ -18,7 +18,9 @@
  * @description Encapsulate information about a Canvas course, including functions to update information via the Canvas API. 
  */
 
-import { ref } from "vue";
+import { GLOBAL_DEBUG } from "./tooltips";
+
+const DEBUG: boolean = true;
 
 /**
  * @function getCanvasInformation 
@@ -37,7 +39,9 @@ export function parseCurrentURL(): { courseId: number, hostName: string } {
         courseId = parseInt(courseIdMatch[1], 10);
     }
 
-    console.log(`CanvasCourXXXXse::parseCurrentURL: Hostname: ${hostName}; Course ID: ${courseId}`);
+    if (DEBUG && GLOBAL_DEBUG) {
+        console.log(`CanvasCourXXXXse::parseCurrentURL: Hostname: ${hostName}; Course ID: ${courseId}`);
+    }
 
     return { courseId, hostName };
 }
@@ -73,8 +77,10 @@ export async function getCourseObject(
         }
 
         const data: any = await response.json();
-        console.log(`got some data`)
-        console.log(data)
+        if (DEBUG && GLOBAL_DEBUG) {
+            console.log(`got some data`)
+            console.log(data)
+        }
 
         if (!data) {
             throw new Error(`canvasApi:getCourseObject: no data returned`);
@@ -110,38 +116,3 @@ function getCourseModules(hostName: string, courseId: number): Promise<any> {
         return response.json();
     });
 }
-
-/*export function getCourseName(courseId: number, name: ref<string>) {
-    const HOSTNAME = "https://canvas.instructure.com";
-    let callUrl = `${HOSTNAME}/api/v1/courses/${courseId}`;
-
-    console.log("Starting requestCourseName")
-
-    fetch(callUrl, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-        },
-    }).then(response => {
-        if (!response.ok) {
-            throw new Error(
-                `cc_Controller: requestCourseObject: error ${response.status}`
-            );
-        }
-        console.log("Got a response")
-        console.log(response)
-        response.json().then(data => {
-            console.log(`got some data - updateCourseName`)
-            console.log(data)
-            console.log(`name is ${data.name}`)
-            console.log("What is name")
-            console.log(name)
-            // if there's an attribute called name
-            //        console.log(`Course name is ${data.name}`);
-            name.value = data.name;
-        })
-    })
-
-} */
