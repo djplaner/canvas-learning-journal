@@ -20,7 +20,7 @@ import { GLOBAL_DEBUG } from './lib/tooltips';
 import cljEveryone from './components/cljEveryone.vue'
 import cljGroupSet from './components/cljGroupSet.vue'
 
-const DEBUG: boolean = false
+const DEBUG: boolean = true
 
 // props 
 // - groupSetId: Number
@@ -37,9 +37,9 @@ if (DEBUG && GLOBAL_DEBUG) {
   console.log(`App.vue: peoplePage: ${peoplePage}`)
 }
 
-import getCanvasCourse from './lib/canvasApiData'
+import getCanvasData from './lib/canvasApiData'
 
-const canvasData = getCanvasCourse();
+const canvasData = getCanvasData();
 
 if (DEBUG && GLOBAL_DEBUG) {
   console.log("2. just called getCanvasCourse")
@@ -58,6 +58,7 @@ watch(
   (updated) => {
     if (DEBUG && GLOBAL_DEBUG) {
       console.log(`canvasData.updated: ${updated}`)
+      console.log(canvasData)
     }
     //addCanvasLearningJournalComponents()
   }

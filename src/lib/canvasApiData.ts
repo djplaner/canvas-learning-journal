@@ -19,6 +19,7 @@
  */
 
 import { reactive } from "vue"
+import { GLOBAL_DEBUG } from "./tooltips"
 
 const DEBUG: boolean = false
 
@@ -28,28 +29,21 @@ const CSRFtoken = function () {
     )
 }
 
-const TEST_QUERY: string = `
-query MyQuery {
-    allCourses {
-      id
-    }
-  }`
-
 const GRAPHQL_QUERY: string = `
-query MyQuery {
+query cljBaseQuery {
     course(id: $courseId) {
       _id
       name
       courseCode
       createdAt
-      groupSetsConnection {
+      groupSets: groupSetsConnection {
         nodes {
           id
           _id
           name
           memberLimit
           selfSignup
-          groupsConnection {
+          groups: groupsConnection {
             nodes {
               _id
               name
@@ -57,7 +51,7 @@ query MyQuery {
               membersCount
               canMessage
               createdAt
-              membersConnection {
+              members: membersConnection {
                 nodes {
                   _id
                   createdAt
@@ -71,6 +65,44 @@ query MyQuery {
               }
             }
           }
+        }
+      }
+      assignments: assignmentsConnection {
+        nodes {
+          _id
+          assignmentGroup {
+            _id
+            name
+          }
+          assignmentGroupId
+          courseId
+          gradingType
+          htmlUrl
+          name
+          published
+          submissionTypes
+          discussion {
+            _id
+            contextName
+            title
+            message
+          }
+        }
+      }
+      students: usersConnection(filter: {enrollmentTypes: StudentEnrollment}) {
+        nodes {
+          _id
+          name
+          email
+          htmlUrl(courseId: "7446794")
+        }
+      }
+      teachers: usersConnection(filter: {enrollmentTypes: TeacherEnrollment}) {
+        nodes {
+          _id
+          name
+          email
+          htmlUrl(courseId: "7446794")
         }
       }
     }
@@ -124,59 +156,15 @@ class canvasApiData {
     }
 
     /**
-     * @function retrieveCourseObject
-     * @description Get the course object from the Canvas API and update the object attributes
-     */
-    retrieveCourseObject() {
-        if (this.id === -1) {
-            throw new Error("CanvasCourse::retrieveCourseObject: Course ID not set");
-        }
-
-        let callUrl = `${this.hostName}/api/v1/courses/${this.id}`;
-
-        if (DEBUG) {
-            console.log("Starting requestCourseObject")
-        }
-
-        fetch(callUrl, {
-            method: "GET",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-            },
-        }).then(response => {
-            if (!response.ok) {
-                throw new Error(
-                    `cc_Controller: requestCourseObject: error ${response.status}`
-                );
-            }
-            response.json().then(data => {
-                this.courseObject = data
-
-                this.name = data.name
-                this.updated += 1
-
-                if (DEBUG) {
-                    console.log(`got some data - requestCourseObject`)
-                    console.log(data)
-                    console.log(`name is ${data.name}`)
-                }
-            })
-        })
-    }
-
-
-    /**
-     * @function retrieveCourseObject
-     * @description Get the course object from the Canvas API and update the object attributes
+     * @function retrieveGraphQLObject
+     * @description Perform a GraphQL query on the Canvas API
      */
     retrieveGraphQLObject() {
         if (DEBUG) {
             console.log(" -----  CanvasApiData::retrieveGraphQLObject")
         }
         if (this.id === -1) {
-            throw new Error("CanvasCourse::retrieveCourseObject: Course ID not set");
+            throw new Error("canvasApiData::retrieveCourseObject: Course ID not set");
         }
 
         let callUrl = `${this.hostName}/api/graphql`;
@@ -207,11 +195,11 @@ class canvasApiData {
             }
             if (!response.ok) {
                 throw new Error(
-                    `cc_Controller: requestCourseObject: error ${response.status}`
+                    `canvasApiData: retrieveGraphQLObject: error ${response.status}`
                 );
             }
             response.json().then(data => {
-                if (DEBUG) {
+                if (DEBUG && GLOBAL_DEBUG) {
                     console.log("    canvasApiData:retrieveGraphQLObject: got data")
                 }
                 this.courseObject = data.data.course;
@@ -219,7 +207,7 @@ class canvasApiData {
                 this.name = this.courseObject.name;
                 this.updated += 1;
 
-                if (DEBUG) {
+                if (DEBUG && GLOBAL_DEBUG) {
                     console.log(this.courseObject)
                 }
             })
@@ -230,27 +218,27 @@ class canvasApiData {
 
 let canvasData: canvasApiData = reactive(new canvasApiData());
 
-export default function getCanvasCourse(): any {
-    if (DEBUG) {
+export default function getCanvasData(): any {
+    if (DEBUG && GLOBAL_DEBUG) {
         console.log("canvasApiData:1 getCanvasCourse called")
     }
     if (canvasData.id === -1) {
-        if (DEBUG) {
+        if (DEBUG && GLOBAL_DEBUG) {
             console.log("canvasApiData:2 calling parseCurrentURL (we don't have data")
         }
         canvasData.parseCurrentURL();
-        if (DEBUG) {
+        if (DEBUG && GLOBAL_DEBUG) {
             console.log("canvasApiData:3 calling retrieveGraphQLObject (we don't have data)")
         }
         canvasData.retrieveGraphQLObject();
-        if (DEBUG) {
+        if (DEBUG && GLOBAL_DEBUG) {
             console.log("canvasApiData:4 called retrieveGraphQLObject (we don't have data)")
             console.log("show course object")
             console.log(canvasData.courseObject)
         }
     }
 
-    if (DEBUG) {
+    if (DEBUG && GLOBAL_DEBUG) {
         console.log("canvasApiData:5 getCanvasCourse returning")
     }
     return canvasData;
