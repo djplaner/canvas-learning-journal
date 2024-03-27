@@ -40,6 +40,7 @@ import { TOOLTIPS, GLOBAL_DEBUG } from '../lib/tooltips'
 
 import cljConfigure from './groupset/cljConfigure.vue'
 import cljOrchestrate from './groupset/cljOrchestrate.vue'
+import { onMounted } from 'vue';
 
 const DEBUG = false
 
@@ -57,6 +58,11 @@ if (DEBUG && GLOBAL_DEBUG) {
 }
 
 const configOpen = ref(false)
+
+onMounted( () => {
+    configOpen.value=true
+    toggleConfig()
+})
 
 /**
  * @function toggleConfig
@@ -105,7 +111,6 @@ function toggleConfig() {
             </sl-tooltip>
         </a>
     </div>
-    <!--<div class="learning-journal-detail" style="display:none">-->
     <div class="clj-detail" id="clj-gs-detail" style="display:none">
         <sl-tab-group>
             <sl-tab slot="nav" panel="clj-configure">

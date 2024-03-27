@@ -28,8 +28,12 @@
  **/
 
 
+import { ref } from 'vue'
 
 import { TOOLTIPS, GLOBAL_DEBUG } from '../lib/tooltips'
+
+import cljGroupSets from './everyone/cljGroupSets.vue'
+import cljCreateLearningJournal from './everyone/cljCreateLearningJournal.vue'
 
 const DEBUG = true
 
@@ -40,17 +44,30 @@ if (DEBUG && GLOBAL_DEBUG) {
   console.groupEnd()
 }
 
+const configOpen = ref(false)
+
+
 </script>
 <template>
   <div class="clj-status" id="clj-eo-button">
+    <i v-if="configOpen" @click="configOpen = !configOpen" id="clj-gs-config-switch" class="icon-Solid icon-mini-arrow-down"></i>
+    <i v-else @click="configOpen = !configOpen" id="clj-gs-config-switch" class="icon-Solid icon-mini-arrow-end"></i>
     Canvas Learning Journal
-    <a target="_blank" :href="`${TOOLTIPS.users_learning_journal.for_more.url}`">
+    <a target="_blank" :href="`${TOOLTIPS.everyone_learning_journal.for_more.url}`">
       <sl-tooltip>
         <div slot="content">
-          {{ TOOLTIPS.users_learning_journal.for_more.content }}
+          {{ TOOLTIPS.everyone_learning_journal.for_more.content }}
         </div>
-        <i class="icon-Solid icon-question"></i> 
+        <i class="icon-Solid icon-question"></i>
       </sl-tooltip>
     </a>
+  </div>
+  <div v-if="configOpen" class="clj-detail" id="clj-gs-detail">
+    <cljGroupSets />
+    <cljCreateLearningJournal />
+  </div>
+  <div v-else class="clj-detail" id="clj-gs-detail" style="display:none">
+    <cljGroupSets />
+    <cljCreateLearningJournal />
   </div>
 </template>

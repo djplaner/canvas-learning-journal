@@ -24,7 +24,7 @@ export const GLOBAL_DEBUG = true;
 // define the TOOLTIPS object containing all internal tooltips and documentation links
 export const TOOLTIPS = {
     // Root component on the Users (everyone) page
-    users_learning_journal: {
+    everyone_learning_journal: {
         for_more:  {
             content: `Use Canvas groups as private student learning journals. Click for more.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"

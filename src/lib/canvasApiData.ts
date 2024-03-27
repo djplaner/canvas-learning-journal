@@ -22,11 +22,12 @@ import { reactive } from "vue"
 import { GLOBAL_DEBUG } from "./tooltips"
 
 const DEBUG: boolean = false
+const FILE_NAME: string = "CanvasApiData.ts"
 
 const CSRFtoken = function () {
-    return decodeURIComponent(
-        (document.cookie.match('(^|;) *_csrf_token=([^;]*)') || '')[2]
-    )
+  return decodeURIComponent(
+    (document.cookie.match('(^|;) *_csrf_token=([^;]*)') || '')[2]
+  )
 }
 
 const GRAPHQL_QUERY: string = `
@@ -36,14 +37,14 @@ query cljBaseQuery {
       name
       courseCode
       createdAt
-      groupSets: groupSetsConnection {
+      groupSetsConnection {
         nodes {
           id
           _id
           name
           memberLimit
           selfSignup
-          groups: groupsConnection {
+          groupsConnection {
             nodes {
               _id
               name
@@ -51,7 +52,7 @@ query cljBaseQuery {
               membersCount
               canMessage
               createdAt
-              members: membersConnection {
+              membersConnection {
                 nodes {
                   _id
                   createdAt
@@ -94,7 +95,7 @@ query cljBaseQuery {
           _id
           name
           email
-          htmlUrl(courseId: "7446794")
+          htmlUrl(courseId: $courseId)
         }
       }
       teachers: usersConnection(filter: {enrollmentTypes: TeacherEnrollment}) {
@@ -102,7 +103,7 @@ query cljBaseQuery {
           _id
           name
           email
-          htmlUrl(courseId: "7446794")
+          htmlUrl(courseId: $courseId)
         }
       }
     }
@@ -112,135 +113,217 @@ query cljBaseQuery {
 let instance: any;
 
 class canvasApiData {
-    public id: number;  // Canvas course id
-    public name: string; // Canvas course name
-    public groupSets: Object[]; //
-    public courseObject: any = -1;// The course object from the Canvas API
+  public id: number;  // Canvas course id
+  public name: string; // Canvas course name
+  public hostName: string = ''; // The hostname of the Canvas instance
+  public updated: number = 0;
 
-    public hostName: string = ''; // The hostname of the Canvas instance
-    public updated: number = 0;
+  public courseCode: string = ''; // The course code
+  public createdAt: string = ''; // The creation date of the course
+  public groupSets: Object[] = []; // array of group sets in the course
+  public groupSetsById: any = {}; // object of group sets by id
 
+  public students: Object[] = []; // array of students in the course
+  public teachers: Object[] = []; // array of teachers in the course
+  public studentsById: any = {}; // object of students by id
+  public teachersById: any = {}; // object of teachers by id
 
-    /**
-     * @constructor
-     * @description Create a new CanvasCourse object, optional courseId
-     */
-    constructor() {
+  /**
+   * @constructor
+   * @description Create a new CanvasCourse object, optional courseId
+   */
+  constructor() {
 
-        if (instance) {
-            throw new Error("canvasApiData: Cannot create a new instance of a singleton");
-        }
-        this.hostName = ''
-        this.id = -1
-        this.name = ''
-        this.groupSets = []
-        this.updated = 0
+    if (instance) {
+      throw new Error("canvasApiData: Cannot create a new instance of a singleton");
+    }
+    this.hostName = ''
+    this.id = -1
+    this.name = ''
+    this.groupSets = []
+    this.updated = 0
 
-        instance = this
+    instance = this
+  }
+
+  /**
+   * @function parseCurrentURL 
+   * @description Get the course ID and hostname from the current URL.
+   * @returns {object} An object containing the course ID and hostname.
+   */
+  parseCurrentURL() {
+    const documentUrl = new URL(document.URL);
+    this.hostName = documentUrl.origin;
+
+    const courseIdRegex = /\/courses\/(\d+)\//;
+    const courseIdMatch = documentUrl.pathname.match(courseIdRegex);
+    if (courseIdMatch) {
+      this.id = parseInt(courseIdMatch[1], 10);
+    }
+  }
+
+  /**
+   * @function retrieveGraphQLObject
+   * @description Perform a GraphQL query on the Canvas API
+   */
+  retrieveGraphQLObject() {
+    if (DEBUG) {
+      console.log(FILE_NAME + " -----  CanvasApiData::retrieveGraphQLObject")
+    }
+    const idString = this.id.toString()
+
+    if (this.id === -1) {
+      throw new Error("canvasApiData::retrieveCourseObject: Course ID not set");
     }
 
-    /**
-     * @function parseCurrentURL 
-     * @description Get the course ID and hostname from the current URL.
-     * @returns {object} An object containing the course ID and hostname.
-     */
-    parseCurrentURL() {
-        const documentUrl = new URL(document.URL);
-        this.hostName = documentUrl.origin;
+    let callUrl = `${this.hostName}/api/graphql`;
 
-        const courseIdRegex = /\/courses\/(\d+)\//;
-        const courseIdMatch = documentUrl.pathname.match(courseIdRegex);
-        if (courseIdMatch) {
-            this.id = parseInt(courseIdMatch[1], 10);
-        }
+    if (DEBUG) {
+      console.log(`${FILE_NAME} Starting requestCourseObject for course ${this.id} as string ${idString}`)
     }
 
-    /**
-     * @function retrieveGraphQLObject
-     * @description Perform a GraphQL query on the Canvas API
-     */
-    retrieveGraphQLObject() {
-        if (DEBUG) {
-            console.log(" -----  CanvasApiData::retrieveGraphQLObject")
+    let query = GRAPHQL_QUERY.replaceAll("$courseId", idString);
+
+    const body: string = JSON.stringify({
+      query: query
+    })
+
+    fetch(callUrl, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        'X-CSRF-Token': CSRFtoken()
+      },
+      body: body,
+    }).then(response => {
+      if (DEBUG) {
+        console.log(FILE_NAME + "  :retrieveGraphQLObject: got response")
+        console.log(response)
+      }
+      if (!response.ok) {
+        throw new Error(
+          `canvasApiData: retrieveGraphQLObject: error ${response.status}`
+        );
+      }
+      response.json().then(data => {
+        // check for the presence of an errors property for the GraphQL response
+        if (data.errors) {
+          throw new Error(
+            `canvasApiData: retrieveGraphQLObject: error ${data.errors[0].message}`
+          );
         }
-        if (this.id === -1) {
-            throw new Error("canvasApiData::retrieveCourseObject: Course ID not set");
+        if (DEBUG && GLOBAL_DEBUG) {
+          console.log(FILE_NAME + "    :retrieveGraphQLObject: got data")
         }
+        this.transformGraphQLResponse(data.data.course);
 
-        let callUrl = `${this.hostName}/api/graphql`;
+        this.updated += 1;
 
-        if (DEBUG) {
-            console.log("Starting requestCourseObject")
+        if (DEBUG && GLOBAL_DEBUG) {
+          console.log(this)
         }
+      })
+    })
+  }
 
-        let query = GRAPHQL_QUERY.replace("$courseId", this.id.toString());
+  /**
+   * @method transformGraphQLResponse
+   * @param response JSON GraphQL response
+   * @description Transform the GraphQL response into a more useful JS course object values
+   * - name, courseCode, createdAt are "copied"
+   * - response.groupSetsConnection.nodes is 
+   *    - "copied" to this.groupSets[] 
+   *      - groupsConnections.node member for each group set is "copied" 
+   *        to this.groupSets[].groups[]
+   *    - also a new property this.groupSetsById is created
+   */
 
-        const body: string = JSON.stringify({
-            query: query
-        })
+  transformGraphQLResponse(response: any) {
 
-        fetch(callUrl, {
-            method: "POST",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-                'X-CSRF-Token': CSRFtoken()
-            },
-            body: body,
-        }).then(response => {
-            if (DEBUG) {
-                console.log("  canvasApiData:retrieveGraphQLObject: got response")
-                console.log(response)
-            }
-            if (!response.ok) {
-                throw new Error(
-                    `canvasApiData: retrieveGraphQLObject: error ${response.status}`
-                );
-            }
-            response.json().then(data => {
-                if (DEBUG && GLOBAL_DEBUG) {
-                    console.log("    canvasApiData:retrieveGraphQLObject: got data")
-                }
-                this.courseObject = data.data.course;
+    // straight copy for some fields
+    this.name = response.name
+    this.courseCode = response.courseCode
+    this.createdAt = response.createdAt
+    this.groupSets = response.groupSetsConnection.nodes
 
-                this.name = this.courseObject.name;
-                this.updated += 1;
+    this.transformStudentsTeachers(response)
 
-                if (DEBUG && GLOBAL_DEBUG) {
-                    console.log(this.courseObject)
-                }
-            })
-        })
+    // copy and update the groupSets object
+    this.groupSetsById = {}
+    for (const groupSet of this.groupSets) {
+      // copy the group set to the groupSetsById object
+      this.groupSetsById[groupSet._id] = groupSet
+      // copy groupSet.groupsConnection.nodes to groupSet.groups
+      groupSet.groups = groupSet.groupsConnection.nodes
+      groupSet.numGroups = groupSet.groups.length
+      if (groupSet.memberLimit === null) {
+        groupSet.memberLimit = "n/a"
+      }
+      let studentMemberIds = {}
+      for (const group of groupSet.groups) {
+        // copy group.membersConnection.nodes to group.members
+        group.members = group.membersConnection.nodes
+        // track student members
+        for (const member of group.members) {
+          if (this.studentsById.hasOwnProperty(member.user._id)) {
+            studentMemberIds[member._id] = true
+          }
+        }
+      }
+      groupSet.numMembers = Object.keys(studentMemberIds).length
     }
 
+  }
+
+  /**
+   * @method transformStudentsTeachers
+   * @param response 
+   * @description Set up object properties from the list of students and teachers
+   * - arrays (students and teachers) from the GraphQL connection nodes
+   * - objects (studentsById and teachersById) from the arrays (students and teachers)
+   */
+  transformStudentsTeachers(response: any) {
+
+    this.students = response.students.nodes
+    this.teachers = response.teachers.nodes
+
+    this.studentsById = {}
+    for (const student of this.students) {
+      this.studentsById[student._id] = student
+    }
+    this.teachersById = {}
+    for (const teacher of this.teachers) {
+      this.teachersById[teacher._id] = teacher
+    }
+  }
 }
 
 let canvasData: canvasApiData = reactive(new canvasApiData());
 
 export default function getCanvasData(): any {
+  if (DEBUG && GLOBAL_DEBUG) {
+    console.log(FILE_NAME + " :1 getCanvasCourse called")
+  }
+  if (canvasData.id === -1) {
     if (DEBUG && GLOBAL_DEBUG) {
-        console.log("canvasApiData:1 getCanvasCourse called")
+      console.log("canvasApiData:2 calling parseCurrentURL (we don't have data")
     }
-    if (canvasData.id === -1) {
-        if (DEBUG && GLOBAL_DEBUG) {
-            console.log("canvasApiData:2 calling parseCurrentURL (we don't have data")
-        }
-        canvasData.parseCurrentURL();
-        if (DEBUG && GLOBAL_DEBUG) {
-            console.log("canvasApiData:3 calling retrieveGraphQLObject (we don't have data)")
-        }
-        canvasData.retrieveGraphQLObject();
-        if (DEBUG && GLOBAL_DEBUG) {
-            console.log("canvasApiData:4 called retrieveGraphQLObject (we don't have data)")
-            console.log("show course object")
-            console.log(canvasData.courseObject)
-        }
+    canvasData.parseCurrentURL();
+    if (DEBUG && GLOBAL_DEBUG) {
+      console.log("canvasApiData:3 calling retrieveGraphQLObject (we don't have data)")
     }
+    canvasData.retrieveGraphQLObject();
+    if (DEBUG && GLOBAL_DEBUG) {
+      console.log("canvasApiData:4 called retrieveGraphQLObject (we don't have data)")
+      console.log(canvasData)
+    }
+  }
 
-    if (DEBUG && GLOBAL_DEBUG) {
-        console.log("canvasApiData:5 getCanvasCourse returning")
-    }
-    return canvasData;
-    //return {};
+  if (DEBUG && GLOBAL_DEBUG) {
+    console.log("canvasApiData:5 getCanvasCourse returning")
+  }
+  return canvasData;
+  //return {};
 }
