@@ -39,6 +39,44 @@ if (DEBUG && GLOBAL_DEBUG) {
     <div class="clj-configure">
         <h3>Create Learning Journal</h3>
     </div>
+
+    <div class="clj-create-form">
+    <sl-input class="clj-label-on-left" label="Name" help-text="What will the new learning journal group set be called?"></sl-input>
+    <sl-button class="clj-button" disabled>Create</sl-button>
+    </div>
 </template>
 
 
+<style scoped>
+.clj-button {
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+}
+.clj-create-form {
+    display: flex;
+}
+.clj-label-on-left {
+    --label-width: 3.75rem;
+    --gap-width: 1rem;
+}
+
+.clj-label-on-left {
+    margin-top: 1rem;
+    width: 50%;
+  }
+
+  .clj-label-on-left::part(form-control) {
+    display: grid;
+    grid: auto / var(--label-width) 1fr;
+    gap: var(--sl-spacing-3x-small) var(--gap-width);
+    align-items: center;
+  }
+
+  .clj-label-on-left::part(form-control-label) {
+    text-align: right;
+  }
+
+  .clj-label-on-left::part(form-control-help-text) {
+    grid-column-start: 2;
+  }
+</style>
