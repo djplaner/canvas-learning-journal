@@ -32,6 +32,8 @@
 import { ref, watch } from 'vue'
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
 
+import cljStatusLearningJournal from './cljStatusLearningJournal.vue'
+
 import getCanvasData from '../../lib/canvasApiData'
 
 const DEBUG = false
@@ -123,8 +125,8 @@ console.log(canvasData)
                             <td class="clj-center">{{ group.memberLimit }}</td>
                             <td class="clj-center">{{ group.numPrompts }}</td>
                             <td class="clj-center">{{ group.numGroups }}</td>
-                            <td class="clj-center">{{ numStudents - group.numMembers }} </td>
-                            <td class="clj-center">{{ group.learning_journal_status }}</td>
+                            <td class="clj-center">{{ numStudents - group.numStudentsMembersOfGroups }} </td>
+                            <td class="clj-center"> <cljStatusLearningJournal :groupSetId="group._id" /></td>
                         </tr>
                     </tbody>
                 </table>

@@ -109,6 +109,33 @@ query cljBaseQuery {
 
 let instance: any;
 
+export class learningJournalStatus {
+  public privateJournal: boolean = false; // all groups have one student member and self-signup is disabled
+  public completedConfig: boolean = false; // groupsCreated && promptsCreated ?? required
+  public promptsCreated: boolean = false; // there are prompts (discussion topics)
+  public groupsCreated: boolean = false; // there are groups
+  public selfSignUp: boolean = false; // self-signup is enabled
+  public studentsWithoutGroup: boolean = false; // there are students without a group
+
+  /**
+   * @constructor
+   * @param groupSet object from canvasApiData.groupSets
+   * @description Set the public properties of the learningJournalStatus object based
+   * on the group set information
+   */
+  constructor(groupSet:any) {
+    console.log("------------------ learningJournalStatus constructor")
+    console.log(groupSet)
+
+    this.groupsCreated = groupSet.numGroups > 0
+    this.promptsCreated = groupSet.numPrompts > 0
+    this.completedConfig = this.groupsCreated && this.promptsCreated
+    this.selfSignUp = groupSet.selfSignup === "enabled"
+    this.studentsWithoutGroup = groupSet.numStudentsMembersOfGroups < groupSet.numStudents
+    this.privateJournal = groupSet.numNonPrivateGroups === 0
+  }
+}
+
 class canvasApiData {
   public id: number;  // Canvas course id
   public name: string; // Canvas course name
@@ -125,6 +152,7 @@ class canvasApiData {
   public studentsById: any = {}; // object of students by id
   public teachersById: any = {}; // object of teachers by id
   public discussionTopics: any = {}
+  public learningJournalStatus: learningJournalStatus = new learningJournalStatus({})
 
   /**
    * @constructor
@@ -265,17 +293,23 @@ class canvasApiData {
         groupSet.selfSignup = "X";
       }
       let studentMemberIds = {}
+      groupSet.numNonPrivateGroups = 0
       for (const group of groupSet.groups) {
         // copy group.membersConnection.nodes to group.members
         group.members = group.membersConnection.nodes
         // track student members
+        let numStudentMembers = 0
         for (const member of group.members) {
           if (this.studentsById.hasOwnProperty(member.user._id)) {
             studentMemberIds[member._id] = true
+            numStudentMembers += 1
           }
         }
+        if (numStudentMembers > 1) {
+          groupSet.numNonPrivateGroups += 1
+        }
       }
-      groupSet.numMembers = Object.keys(studentMemberIds).length
+      groupSet.numStudentsMembersOfGroups = Object.keys(studentMemberIds).length
     }
 
   }
@@ -333,6 +367,7 @@ class canvasApiData {
         }
         response.json().then(data => {
           this.transformDiscussionTopics(data);
+
           this.updated += 1
         })
       })
@@ -345,6 +380,7 @@ class canvasApiData {
      * - save the response into this.discussionTopics
      * - for any discussion topic that has a group_category_id, add the discussion topic object to
      *   an array discussionTopics within the matching group set
+     * - also create a learningJournalStatus object for each group set
      */
 
     transformDiscussionTopics(topics: any) {
@@ -362,14 +398,16 @@ class canvasApiData {
           }
         }
       }
-      // for each groupSet, set the numPrompts property to the number of discussion topics
-      // in the discussionTopics array
+      // update each groupSet
+      // - set numPrompts
+      // - add a learningJournalStatus object
       for (const groupSet of this.groupSets) {
         if (groupSet.discussionTopics) {
           groupSet.numPrompts = groupSet.discussionTopics.length
         } else {
           groupSet.numPrompts = 0
         }
+        groupSet.status = new learningJournalStatus(groupSet)
       } 
     }
 

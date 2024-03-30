@@ -25,13 +25,14 @@ export const GLOBAL_DEBUG = true;
 export const TOOLTIPS = {
     cljEveryone: {
         for_more:  {
+            // what is the purpose of the 'everyone' version: overview and create
             content: `Use Canvas groups as private student learning journals. Click for more.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         }
     },
-    // Root component on the group set page
     cljGroupSet: {
         for_more: {
+            // the 'group_set' component allows configure and orchestration of a possible learning journal
             content: `Determine if and how this group set can be used to provide private student learning journals. Click for more.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
