@@ -53,10 +53,10 @@ const configOpen = ref(false)
     <i v-if="configOpen" @click="configOpen = !configOpen" id="clj-gs-config-switch" class="icon-Solid icon-mini-arrow-down"></i>
     <i v-else @click="configOpen = !configOpen" id="clj-gs-config-switch" class="icon-Solid icon-mini-arrow-end"></i>
     Canvas Learning Journal
-    <a target="_blank" :href="`${TOOLTIPS.everyone_learning_journal.for_more.url}`">
+    <a target="_blank" :href="`${TOOLTIPS.cljEveryone.for_more.url}`">
       <sl-tooltip>
         <div slot="content">
-          {{ TOOLTIPS.everyone_learning_journal.for_more.content }}
+          {{ TOOLTIPS.cljEveryone.for_more.content }}
         </div>
         <i class="icon-Solid icon-question"></i>
       </sl-tooltip>

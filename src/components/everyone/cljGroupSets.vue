@@ -21,7 +21,12 @@
  * @description: Show configure options/detail for a specific group set
  * - once canvasData has been updated, display info about all available group sets
  * @todo: 
- * - everything
+ * Data gathering
+ * - get discussion topic data, including all entries for the current group set
+ * Stats analysis
+ * - Analyse each groups contributions to identify
+ *      - groups with no student entries (ever and in last 7 days)
+ *      - groups with no teacher entries (ever and in last 7 days)
  */
 
 import { ref, watch } from 'vue'
@@ -77,6 +82,17 @@ console.log(canvasData)
 
 <template>
     <div class="clj-configure">
+        <h3>Current groupsets
+            <a target="_blank" :href="`${TOOLTIPS.cljGroupSets.current_group_sets.url}`">
+                <sl-tooltip>
+                    <div slot="content">
+                        {{ TOOLTIPS.cljGroupSets.current_group_sets.content }}
+                    </div>
+                    <i class="icon-Solid icon-question"></i>
+                </sl-tooltip>
+            </a>
+        </h3>
+
         <div class="clj-configure-loading" v-if="!canvasData.updated">
             Loading group set data...
         </div>
@@ -85,27 +101,29 @@ console.log(canvasData)
                 No group sets found
             </div>
             <div v-else>
-                <h3>Current groupsets</h3>
-                <table class="clj-current-groupsets">
+
+                <table class="clj-data-table">
                     <thead>
                         <th>Name</th>
-                        <th>Member limit</th>
                         <th>Self signup</th>
+                        <th>Member limit</th>
+                        <th># prompts</th>
                         <th># of groups</th>
-                        <th># members / # course students</th>
+                        <th># no group students</th>
                         <th>Learning Journal Status </th>
                     </thead>
                     <tbody>
                         <tr v-for="group in canvasData.groupSets" :key="group._id">
                             <td>
                                 <a :href="`${canvasData.hostName}/courses/${canvasData.id}/groups#tab-${group._id}`">
-                                {{ group.name }}
+                                    {{ group.name }}
                                 </a>
                             </td>
-                            <td class="clj-center">{{ group.memberLimit }}</td>
                             <td class="clj-center">{{ group.selfSignup }}</td>
+                            <td class="clj-center">{{ group.memberLimit }}</td>
+                            <td class="clj-center">{{ group.numPrompts }}</td>
                             <td class="clj-center">{{ group.numGroups }}</td>
-                            <td class="clj-center">{{ group.numMembers }} / {{  numStudents }} </td>
+                            <td class="clj-center">{{ numStudents - group.numMembers }} </td>
                             <td class="clj-center">{{ group.learning_journal_status }}</td>
                         </tr>
                     </tbody>
@@ -120,40 +138,5 @@ console.log(canvasData)
 .clj-configure {
     margin: 1em;
     padding: 1em;
-}
-
-table.clj-current-groupsets {
-    width: 100%;
-}
-
-.clj-configure-groupsets thead {
-    background-color: #cccccc;
-}
-
-.clj-current-groupsets th {
-    text-align: left;
-    border-bottom: solid 2px #d8d8d8;
-    margin: 1em;
-    padding: 0.5em;
-    font-size: smaller;
-}
-
-.clj-current-groupsets td {
-    font-size: smaller;
-    padding: 0.5em;
-}
-
-.clj-configure-groupsets tbody tr {
-    &:nth-child(odd) {
-        background-color: #f8f8f8;
-    }
-
-    &:hover {
-        background-color: #f0f0f0;
-    }
-}
-
-td.clj-center {
-    text-align: center;
 }
 </style>

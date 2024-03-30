@@ -58,9 +58,6 @@ query cljBaseQuery {
                   createdAt
                   user {
                     _id
-                    name
-                    email
-                    avatarUrl
                   }
                 }
               }
@@ -127,6 +124,7 @@ class canvasApiData {
   public teachers: Object[] = []; // array of teachers in the course
   public studentsById: any = {}; // object of students by id
   public teachersById: any = {}; // object of teachers by id
+  public discussionTopics: any = {}
 
   /**
    * @constructor
@@ -218,8 +216,9 @@ class canvasApiData {
           console.log(FILE_NAME + "    :retrieveGraphQLObject: got data")
         }
         this.transformGraphQLResponse(data.data.course);
+        this.retrieveDiscussionTopics(idString);
 
-        this.updated += 1;
+        //this.updated += 1;
 
         if (DEBUG && GLOBAL_DEBUG) {
           console.log(this)
@@ -227,6 +226,7 @@ class canvasApiData {
       })
     })
   }
+
 
   /**
    * @method transformGraphQLResponse
@@ -260,6 +260,9 @@ class canvasApiData {
       groupSet.numGroups = groupSet.groups.length
       if (groupSet.memberLimit === null) {
         groupSet.memberLimit = "n/a"
+      }
+      if (groupSet.selfSignup === "disabled") {
+        groupSet.selfSignup = "X";
       }
       let studentMemberIds = {}
       for (const group of groupSet.groups) {
@@ -298,6 +301,78 @@ class canvasApiData {
       this.teachersById[teacher._id] = teacher
     }
   }
+
+    /**
+   * @function retrieveDiscussionTopics
+   * @param courseId - string version of Canvas course id
+   * @description Retrieve the discussion topics for the course via Canvas REST API
+   * and then call the transformDiscussionTopics method to process the response and update
+   * the course object.
+   * 
+   * NOTE: Canvas GraphQL API does not appear to support discussion topics, hence REST.
+   * This method called after the GraphQL query to get the course object.
+   */
+
+    retrieveDiscussionTopics(courseId: string) {
+      
+      const callUrl = `${this.hostName}/api/v1/courses/${courseId}/discussion_topics`;
+  
+      fetch(callUrl, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          'X-CSRF-Token': CSRFtoken()
+        },
+      }).then(response => {
+        if (!response.ok) {
+          throw new Error(
+            `canvasApiData: retrieveDiscussionTopics: error ${response.status}`
+          )
+        }
+        response.json().then(data => {
+          this.transformDiscussionTopics(data);
+          this.updated += 1
+        })
+      })
+    }
+
+    /**
+     * @function transformDiscussionTopics
+     * @param topics JSON response from Canvas REST api
+     * @description Transform the response into a more useful JS object
+     * - save the response into this.discussionTopics
+     * - for any discussion topic that has a group_category_id, add the discussion topic object to
+     *   an array discussionTopics within the matching group set
+     */
+
+    transformDiscussionTopics(topics: any) {
+      this.discussionTopics = topics
+
+      // add any group discussions to the relevant group set
+      for (const topic of this.discussionTopics) {
+        if (topic.group_category_id) {
+          let groupSet = this.groupSetsById[topic.group_category_id]
+          if (groupSet) {
+            if (!groupSet.discussionTopics) {
+              groupSet.discussionTopics = []
+            }
+            groupSet.discussionTopics.push(topic)
+          }
+        }
+      }
+      // for each groupSet, set the numPrompts property to the number of discussion topics
+      // in the discussionTopics array
+      for (const groupSet of this.groupSets) {
+        if (groupSet.discussionTopics) {
+          groupSet.numPrompts = groupSet.discussionTopics.length
+        } else {
+          groupSet.numPrompts = 0
+        }
+      } 
+    }
+
 }
 
 let canvasData: canvasApiData = reactive(new canvasApiData());

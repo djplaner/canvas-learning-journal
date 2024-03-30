@@ -42,10 +42,11 @@ import cljConfigure from './groupset/cljConfigure.vue'
 import cljOrchestrate from './groupset/cljOrchestrate.vue'
 import { onMounted } from 'vue';
 
-const DEBUG = false
+const DEBUG = true
+const FILE_NAME = "cljGroupSet"
 
 if (DEBUG && GLOBAL_DEBUG) {
-    console.log(`cljGroupSet.vue: TOOLTIPS:`)
+    console.log(`${FILE_NAME}: TOOLTIPS:`)
     console.log(TOOLTIPS)
 }
 
@@ -54,13 +55,13 @@ const props = defineProps({
 })
 
 if (DEBUG && GLOBAL_DEBUG) {
-    console.log(`cljGroupSet.vue: groupSetId: ${props.groupSetId}`)
+    console.log(`${FILE_NAME}: groupSetId: ${props.groupSetId}`)
 }
 
 const configOpen = ref(false)
 
-onMounted( () => {
-    configOpen.value=true
+onMounted(() => {
+    configOpen.value = true
     toggleConfig()
 })
 
@@ -74,12 +75,21 @@ onMounted( () => {
 
 function toggleConfig() {
     configOpen.value = !configOpen.value
-    if (DEBUG) {
-        console.log(`cljGroupSet.vue: toggleConfig: configOpen: ${configOpen.value}`)
+    if (DEBUG && GLOBAL_DEBUG) {
+        console.log(`${FILE_NAME}: toggleConfig: configOpen: ${configOpen.value}`)
     }
 
     const configSwitch = document.getElementById('clj-gs-config-switch')
-    console.log(`cljGroupSet.vue: toggleConfig: configSwitch: ${configSwitch}`)
+    const configDetail = document.getElementById('clj-gs-detail')
+
+
+    if (DEBUG && GLOBAL_DEBUG) {
+        console.log(`${FILE_NAME}: toggleConfig: configSwitch: ${configSwitch} configDetail: ${configDetail}`)
+    }
+
+    if (!(configSwitch && configDetail)) {
+        return
+    }
 
     if (configOpen.value) {
         document.getElementById('clj-gs-detail').style.display = 'block'
@@ -102,10 +112,10 @@ function toggleConfig() {
     <div class="clj-status" id="clj-gs-button">
         <i @click="toggleConfig" id="clj-gs-config-switch" class="icon-Solid icon-mini-arrow-end"></i>
         Canvas (groupset {{ props.groupSetId }}) Learning Journal
-        <a target="_blank" :href="TOOLTIPS.group_set_learning_journal.for_more.url">
+        <a target="_blank" :href="TOOLTIPS.cljGroupSet.for_more.url">
             <sl-tooltip>
                 <div slot="content">
-                    {{ TOOLTIPS.group_set_learning_journal.for_more.content }}
+                    {{ TOOLTIPS.cljGroupSet.for_more.content }}
                 </div>
                 <i class="icon-Solid icon-question"></i>
             </sl-tooltip>
@@ -115,23 +125,23 @@ function toggleConfig() {
         <sl-tab-group>
             <sl-tab slot="nav" panel="clj-configure">
                 Configure
-                <a target="_blank" :href="TOOLTIPS.group_set_learning_journal.configure.url">
+                <a target="_blank" :href="TOOLTIPS.cljGroupSet.configure.url">
                     <sl-tooltip hoist>
                         <div slot="content">
-                            {{ TOOLTIPS.group_set_learning_journal.configure.content }}
+                            {{ TOOLTIPS.cljGroupSet.configure.content }}
                         </div>
-                        &nbsp;<i class="icon-solid icon-question"></i>
+                        &nbsp;<i class="icon-Solid icon-question"></i>
                     </sl-tooltip>
                 </a>
             </sl-tab>
             <sl-tab slot="nav" panel="clj-orchestrate">
                 Orchestrate
-                <a target="_blank" :href="TOOLTIPS.group_set_learning_journal.orchestrate.url">
+                <a target="_blank" :href="TOOLTIPS.cljGroupSet.orchestrate.url">
                     <sl-tooltip placement="right-start" hoist>
                         <div slot="content">
-                            {{ TOOLTIPS.group_set_learning_journal.orchestrate.content }}
+                            {{ TOOLTIPS.cljGroupSet.orchestrate.content }}
                         </div>
-                        &nbsp;<i class="icon-solid icon-question"></i>
+                        &nbsp;<i class="icon-Solid icon-question"></i>
                     </sl-tooltip>
                 </a>
             </sl-tab>

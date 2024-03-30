@@ -47,6 +47,22 @@ if (DEBUG && GLOBAL_DEBUG) {
 <template>
     <div class="clj-status-student-groups">
         <h3>Student groups Status</h3>
+
+        <table class="clj-data-table">
+        <thead>
+            <tr>
+            <th colspan="2"># groups without student entries</th>
+            <th colspan="2"># groups without teacher entries</th>
+            </tr>
+            <tr>
+                <th> &lt;7 days </th>
+                <th> ever </th>
+                <th> &lt;7 days </th>
+                <th> ever </th>
+            </tr>
+        </thead>
+    </table>
+
     </div>
 </template>
 

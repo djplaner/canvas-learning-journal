@@ -48,8 +48,6 @@ if (DEBUG && GLOBAL_DEBUG) {
 
 <template>
     <div class="clj-configure">
-        <h3>configure</h3>
-
         <cljStatusGroupSet :groupSetId="props.groupSetId" />
         <cljStatusStudentGroups :groupSetId="props.groupSetId" />
         <cljStatusDiscussions :groupSetId="props.groupSetId" />

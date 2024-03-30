@@ -106,3 +106,55 @@ button:focus-visible {
   margin-top: -0.8rem;
   margin-bottom: 1rem;
 }
+
+table.clj-data-table {
+  width: 100%;
+}
+
+.clj-data-table thead {
+  background-color: #cccccc;
+}
+
+.clj-data-table th {
+  text-align: left;
+  border-bottom: solid 2px #d8d8d8;
+  margin: 1em;
+  padding: 0.5em;
+  font-size: smaller;
+}
+
+.clj-data-table td {
+  font-size: smaller;
+  padding: 0.5em;
+}
+
+.clj-data-table tbody tr {
+  &:nth-child(odd) {
+      background-color: #f8f8f8;
+  }
+
+  &:hover {
+      background-color: #f0f0f0;
+  }
+}
+
+td.clj-center {
+  text-align: center;
+}
+
+.clj-two-column-grid { 
+  display: block;
+}
+
+.clj-two-column-grid > * {
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .clj-two-column-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+

@@ -20,7 +20,19 @@
  * @file: cljCreateLearningJournal.vue
  * @description: Display form for and handle creation of a new learning journal groupset.
  * @todo: 
- * - everything
+ * Form entry
+ * - disable the create button until something typed in the input
+ * - on create, check that the name doesn't match any existing group set
+ * - add some contextual help
+ * Group category creation 
+ * - add a div below the form to show progress creating the group set
+ * - modify the div to show progress
+ *          1. Requesting group set creation
+ *          2. Group set created || Error creating group set
+ *               ?? question about whether this should refresh the page to see the new
+ *                  tab
+ *  ?? question about whether this should refresh the page to see the new
+ *                  tab. That would also reload the courseData from Canvas?
  */
 
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
