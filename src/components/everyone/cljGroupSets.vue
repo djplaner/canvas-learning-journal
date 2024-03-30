@@ -36,7 +36,7 @@ import cljStatusLearningJournal from './cljStatusLearningJournal.vue'
 
 import getCanvasData from '../../lib/canvasApiData'
 
-const DEBUG = false
+const DEBUG = true
 const FILE_NAME = "cljGroupSets"
 
 if (DEBUG && GLOBAL_DEBUG) {
@@ -70,14 +70,21 @@ watch(
 function updateDisplay() {
     if (DEBUG && GLOBAL_DEBUG) {
         console.log(`${FILE_NAME} updateDisplay`)
+        console.log(canvasData)
+        console.debug()
     }
     if (canvasData.updated) {
         numGroupSets.value = canvasData.groupSets.length
         numStudents.value = canvasData.students.length
     }
 }
-console.log("cljGroupSets.vue: canvasData")
-console.log(canvasData)
+
+if (DEBUG && GLOBAL_DEBUG) {
+    console.log("cljGroupSets.vue: numGroupSets")
+    console.log(numGroupSets.value)
+    console.log("cljGroupSets.vue: numStudents")
+    console.log(numStudents.value)
+}
 
 
 </script>
@@ -126,7 +133,10 @@ console.log(canvasData)
                             <td class="clj-center">{{ group.numPrompts }}</td>
                             <td class="clj-center">{{ group.numGroups }}</td>
                             <td class="clj-center">{{ numStudents - group.numStudentsMembersOfGroups }} </td>
-                            <td class="clj-center"> <cljStatusLearningJournal :groupSetId="group._id" /></td>
+                            <td class="clj-center"> 
+                                {{ group._id }}
+                                <!-- <cljStatusLearningJournal :groupSetId="group._id" /> -->
+                            </td>
                         </tr>
                     </tbody>
                 </table>

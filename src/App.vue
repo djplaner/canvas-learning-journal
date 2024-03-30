@@ -13,23 +13,25 @@
  * @prop: groupSetId: Number - Canvas id for current group set (if on group set page)
  */
 
-//import { reactive } from 'vue';
-import { watch } from 'vue';
+import { watch, defineProps, onMounted } from 'vue';
 
-import { GLOBAL_DEBUG } from './lib/tooltips';
 import cljEveryone from './components/cljEveryone.vue'
 import cljGroupSet from './components/cljGroupSet.vue'
+import getCanvasData from './lib/canvasApiData'
+import { GLOBAL_DEBUG } from './lib/tooltips';
 
 const DEBUG: boolean = true
+const FILE_NAME : string = "App"
 
 // props 
 // - groupSetId: Number
 //   Canvas id for the group set on which the app has been added
 
-const props = defineProps({
-  groupSetId: Number
+let props = defineProps({
+  groupSetId: Number 
 })
 
+//const peoplePage: boolean = ( props!==null ) && props.hasOwnProperty("groupSetId")
 const peoplePage: boolean = props.groupSetId === null
 
 if (DEBUG && GLOBAL_DEBUG) {
@@ -37,7 +39,9 @@ if (DEBUG && GLOBAL_DEBUG) {
   console.log(`App.vue: peoplePage: ${peoplePage}`)
 }
 
-import getCanvasData from './lib/canvasApiData'
+onMounted( () => {
+  console.log(`${FILE_NAME} - onMounted`)
+})
 
 const canvasData = getCanvasData();
 
