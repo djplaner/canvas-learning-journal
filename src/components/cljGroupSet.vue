@@ -50,108 +50,145 @@ if (DEBUG && GLOBAL_DEBUG) {
     console.log(TOOLTIPS)
 }
 
-const props = defineProps({
+/*const props = defineProps({
     groupSetId: Number
-})
+})*/
+
+let activeGroup = getActiveGroupSet()
+
+if (activeGroup===null) {
+    console.error(`${FILE_NAME}: activeGroup is null couldn't determine groupSetId`)
+    throw new Error(`${FILE_NAME}: activeGroup is null couldn't determine groupSetId`)
+}
+
+const groupSetId = ref(activeGroup)
+addEventHandlers()
+
 
 if (DEBUG && GLOBAL_DEBUG) {
-    console.log(`${FILE_NAME}: groupSetId: ${props.groupSetId}`)
+    console.log(`${FILE_NAME}: groupSetId: ${groupSetId}`)
 }
 
-const configOpen = ref(false)
+// check the document.URL if it includes #open
 
-onMounted(() => {
-    configOpen.value = true
-    toggleConfig()
-})
+const urlParams = new URLSearchParams(window.location.search)
+const open = urlParams.get('open')
+
+const configOpen = ref(open !== null)
+
+if (DEBUG && GLOBAL_DEBUG) {
+    console.log(`${FILE_NAME}: open: ${open} configOpen: ${configOpen.value}`)
+}
 
 /**
- * @function toggleConfig
- * @description Event handler for config switch. Show/hide the configure panel
- * for the current group set/learning journal
- * -
- * @param {} event 
+ * @function addEventHandlers
+ * @description: a.group-category-tab-link used to change the group set add
+ * an event handler to each of the a.group-category-tab-link elements
  */
 
-function toggleConfig() {
-    configOpen.value = !configOpen.value
+ function addEventHandlers() {
+    const groupCategoryTabs = document.querySelectorAll('a.group-category-tab-link')
     if (DEBUG && GLOBAL_DEBUG) {
-        console.log(`${FILE_NAME}: toggleConfig: configOpen: ${configOpen.value}`)
+        console.log(`${FILE_NAME}: groupCategoryTabs: ${groupCategoryTabs}`)
     }
+    groupCategoryTabs.forEach((tab) => {
+        tab.addEventListener('click', (event) => {
+            // get the href for event.target
+            const href = event.target.getAttribute('href')
+            // href == #tab-<number>, extract the number
+            const number = href.split('-')[1]
+            console.log(`${FILE_NAME}: number groupSetId: ${number}`)
+            groupSetId.value = number
+            console.log(`${FILE_NAME}: groupSetId: ${groupSetId.value}`)
 
-    const configSwitch = document.getElementById('clj-gs-config-switch')
-    const configDetail = document.getElementById('clj-gs-detail')
+        })
+    })
+ }
+// groupSetId will be set by determining the aria-control attribute of the
+// div#group_categories_tabs > ul.collectionViewItems > li with the class ui-tabs-active
 
-
-    if (DEBUG && GLOBAL_DEBUG) {
-        console.log(`${FILE_NAME}: toggleConfig: configSwitch: ${configSwitch} configDetail: ${configDetail}`)
-    }
-
-    if (!(configSwitch && configDetail)) {
-        return
-    }
-
-    if (configOpen.value) {
-        document.getElementById('clj-gs-detail').style.display = 'block'
-        if (configSwitch) {
-            configSwitch.classList.remove('icon-mini-arrow-end')
-            configSwitch.classList.add('icon-mini-arrow-down')
+function getActiveGroupSet() {
+    const activeGroupSet = document.querySelector('div#group_categories_tabs > ul.collectionViewItems > li.ui-tabs-active')
+    if ( DEBUG && GLOBAL_DEBUG) {
+            console.log(`${FILE_NAME}: activeGroupSet: ${activeGroupSet}`)
         }
-    } else {
-        document.getElementById('clj-gs-detail').style.display = 'none'
-        if (configSwitch) {
-            configSwitch.classList.remove('icon-mini-arrow-down')
-            configSwitch.classList.add('icon-mini-arrow-end')
-        }
+
+    if (activeGroupSet) {
+        const value = activeGroupSet.getAttribute('aria-controls')
+        console.log(`${FILE_NAME}: activeGroupSet aria-controls: ${value}`)
+        // extract the number from value where value == tab-<number>
+        const number = value.split('-')[1]
+        console.log(`${FILE_NAME}: activeGroupSet number: ${number}`)
+        return number
     }
+    // default to current group set
+    console.error(`${FILE_NAME}: getActiveGroupSet - activeGroupSet is null`)
+    throw new Error(`${FILE_NAME}: getActiveGroupSet - activeGroupSet is null`)
 }
+
 
 </script>
 
 <template>
-    <div class="clj-status" id="clj-gs-button">
-        <i @click="toggleConfig" id="clj-gs-config-switch" class="icon-Solid icon-mini-arrow-end"></i>
-        Canvas (groupset {{ props.groupSetId }}) Learning Journal
-        <a target="_blank" :href="TOOLTIPS.cljGroupSet.for_more.url">
-            <sl-tooltip>
-                <div slot="content">
-                    {{ TOOLTIPS.cljGroupSet.for_more.content }}
-                </div>
-                <i class="icon-Solid icon-question"></i>
-            </sl-tooltip>
-        </a>
+    <div v-if="!configOpen">
+        <div class="clj-status" id="clj-gs-button">
+            <i @click="configOpen=!configOpen" id="clj-gs-config-switch" class="icon-Solid icon-mini-arrow-end"></i>
+            Canvas (groupset {{ groupSetId }}) Learning Journal
+            <a target="_blank" :href="TOOLTIPS.cljGroupSet.for_more.url">
+                <sl-tooltip>
+                    <div slot="content">
+                        {{ TOOLTIPS.cljGroupSet.for_more.content }}
+                    </div>
+                    <i class="icon-Solid icon-question"></i>
+                </sl-tooltip>
+            </a>
+        </div>
     </div>
-    <div class="clj-detail" id="clj-gs-detail" style="display:none">
-        <sl-tab-group>
-            <sl-tab slot="nav" panel="clj-configure">
-                Configure
-                <a target="_blank" :href="TOOLTIPS.cljGroupSet.configure.url">
-                    <sl-tooltip hoist>
-                        <div slot="content">
-                            {{ TOOLTIPS.cljGroupSet.configure.content }}
-                        </div>
-                        &nbsp;<i class="icon-Solid icon-question"></i>
-                    </sl-tooltip>
-                </a>
-            </sl-tab>
-            <sl-tab slot="nav" panel="clj-orchestrate">
-                Orchestrate
-                <a target="_blank" :href="TOOLTIPS.cljGroupSet.orchestrate.url">
-                    <sl-tooltip placement="right-start" hoist>
-                        <div slot="content">
-                            {{ TOOLTIPS.cljGroupSet.orchestrate.content }}
-                        </div>
-                        &nbsp;<i class="icon-Solid icon-question"></i>
-                    </sl-tooltip>
-                </a>
-            </sl-tab>
+    <div v-else>
+        <div class="clj-status" id="clj-gs-button">
+            <i @click="configOpen=!configOpen" id="clj-gs-config-switch" class="icon-Solid icon-mini-arrow-end"></i>
+            Canvas (groupset {{ groupSetId }})Learning Journal
+            <a target="_blank" :href="TOOLTIPS.cljGroupSet.for_more.url">
+                <sl-tooltip>
+                    <div slot="content">
+                        {{ TOOLTIPS.cljGroupSet.for_more.content }}
+                    </div>
+                    <i class="icon-Solid icon-question"></i>
+                </sl-tooltip>
+            </a>
+        </div>
+        <div class="clj-detail" id="clj-gs-detail">
+            <sl-tab-group>
+                <sl-tab slot="nav" panel="clj-configure">
+                    Configure
+                    <a target="_blank" :href="TOOLTIPS.cljGroupSet.configure.url">
+                        <sl-tooltip hoist>
+                            <div slot="content">
+                                {{ TOOLTIPS.cljGroupSet.configure.content }}
+                            </div>
+                            &nbsp;<i class="icon-Solid icon-question"></i>
+                        </sl-tooltip>
+                    </a>
+                </sl-tab>
+                <sl-tab slot="nav" panel="clj-orchestrate">
+                    Orchestrate
+                    <a target="_blank" :href="TOOLTIPS.cljGroupSet.orchestrate.url">
+                        <sl-tooltip placement="right-start" hoist>
+                            <div slot="content">
+                                {{ TOOLTIPS.cljGroupSet.orchestrate.content }}
+                            </div>
+                            &nbsp;<i class="icon-Solid icon-question"></i>
+                        </sl-tooltip>
+                    </a>
+                </sl-tab>
 
-            <sl-tab-panel name="clj-configure">
-                <cljConfigure :groupSetId="props.groupSetId" />
-            </sl-tab-panel>
-            <sl-tab-panel name="clj-orchestrate">
-                <cljOrchestrate :groupSetId="props.groupSetId" />
-            </sl-tab-panel>
-        </sl-tab-group>
+                <sl-tab-panel name="clj-configure">
+                    <cljConfigure :groupSetId="groupSetId" />
+                </sl-tab-panel>
+                <sl-tab-panel name="clj-orchestrate">
+                    <cljOrchestrate :groupSetId="groupSetId" />
+                </sl-tab-panel>
+            </sl-tab-group>
+        </div>
     </div>
 </template>

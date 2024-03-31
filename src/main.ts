@@ -24,7 +24,7 @@ import App from './App.vue'
 import './style.css'
 
 import { GLOBAL_DEBUG } from './lib/tooltips'
-const DEBUG: boolean = true
+const DEBUG: boolean = false
 
 console.log("XXXXXXXXXXXXXXXXXXXXXXXXXX")
 // Should only be called if on the

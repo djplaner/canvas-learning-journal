@@ -35,7 +35,7 @@ import { TOOLTIPS, GLOBAL_DEBUG } from '../lib/tooltips'
 import cljGroupSets from './everyone/cljGroupSets.vue'
 import cljCreateLearningJournal from './everyone/cljCreateLearningJournal.vue'
 
-const DEBUG = true
+const DEBUG = false
 
 if (DEBUG && GLOBAL_DEBUG) {
   console.group(`cljEveryone.vue tooltips`)

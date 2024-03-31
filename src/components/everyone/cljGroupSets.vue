@@ -109,23 +109,26 @@ if (DEBUG && GLOBAL_DEBUG) {
 
                 <table class="clj-data-table">
                     <thead>
-                        <th>Name
-                            <a target="_blank" :href="`${TOOLTIPS.cljGroupSets.name.url}`">
+                        <th>
+                            Name
+                            <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljGroupSets.name.url}`">
                                 <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.name.content}`">
                                     <i class="icon-Solid icon-question clj-small-tooltip"></i>
                                 </sl-tooltip>
                             </a>
                         </th>
-                        <th>Self signup
-                            <a target="_blank" :href="`${TOOLTIPS.cljGroupSets.selfSignup.url}`">
+                        <th>
+                            Self signup
+                            <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljGroupSets.selfSignup.url}`">
                                 <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.selfSignup.content}`">
                                     <i class="icon-Solid icon-question clj-small-tooltip"></i>
                                 </sl-tooltip>
                             </a>
 
                         </th>
-                        <th>Member limit
-                            <a target="_blank" :href="`${TOOLTIPS.cljGroupSets.memberLimit.url}`">
+                        <th>
+                            Member limit
+                            <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljGroupSets.memberLimit.url}`">
                                 <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.memberLimit.content}`">
                                     <i class="icon-Solid icon-question clj-small-tooltip"></i>
                                 </sl-tooltip>
@@ -133,7 +136,7 @@ if (DEBUG && GLOBAL_DEBUG) {
 
                         </th>
                         <th># prompts
-                            <a target="_blank" :href="`${TOOLTIPS.cljGroupSets.numPrompts.url}`">
+                            <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljGroupSets.numPrompts.url}`">
                                 <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.numPrompts.content}`">
                                     <i class="icon-Solid icon-question clj-small-tooltip"></i>
                                 </sl-tooltip>
@@ -141,7 +144,7 @@ if (DEBUG && GLOBAL_DEBUG) {
 
                         </th>
                         <th># of groups
-                            <a target="_blank" :href="`${TOOLTIPS.cljGroupSets.numGroups.url}`">
+                            <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljGroupSets.numGroups.url}`">
                                 <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.numGroups.content}`">
                                     <i class="icon-Solid icon-question clj-small-tooltip"></i>
                                 </sl-tooltip>
@@ -168,7 +171,7 @@ if (DEBUG && GLOBAL_DEBUG) {
                     <tbody>
                         <tr v-for="group in canvasData.groupSets" :key="group._id">
                             <td>
-                                <a :href="`${canvasData.hostName}/courses/${canvasData.id}/groups#tab-${group._id}`">
+                                <a :href="`${canvasData.hostName}/courses/${canvasData.id}/groups?open=1#tab-${group._id}`">
                                     {{ group.name }}
                                 </a>
                             </td>
@@ -190,7 +193,4 @@ if (DEBUG && GLOBAL_DEBUG) {
 
 
 <style scoped>
-.clj-small-tooltip {
-    font-size: 0.5rem;
-}
 </style>

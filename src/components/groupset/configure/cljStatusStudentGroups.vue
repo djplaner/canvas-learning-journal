@@ -25,7 +25,7 @@
 
  import { TOOLTIPS, GLOBAL_DEBUG } from '../../../lib/tooltips'
 
-const DEBUG = true
+const DEBUG = false
 const FILE_NAME = "cljStatusStudentGroups"
 
 if (DEBUG && GLOBAL_DEBUG ) {

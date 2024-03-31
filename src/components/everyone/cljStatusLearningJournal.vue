@@ -43,7 +43,7 @@ import { learningJournalStatus } from '../../lib/canvasApiData'
 
 import getCanvasData from '../../lib/canvasApiData'
 
-const DEBUG = true
+const DEBUG = false
 const FILE_NAME = "cljStatusLearningJournal"
 
 const canvasData = getCanvasData()
@@ -71,6 +71,17 @@ showStuff()
 watch(
     () => canvasData.updated,
     (updated) => {
+        showStuff()
+    }
+)
+
+// watch for changes on props.groupSetId
+watch(
+    () => props.groupSetId,
+    (gsId) => {
+        if (DEBUG && GLOBAL_DEBUG) {
+            console.log(`${FILE_NAME} changes to groupSetId: ${gsId} and props.groupSetId: ${props.groupSetId}`)
+        }
         showStuff()
     }
 )

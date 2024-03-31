@@ -23,13 +23,14 @@
  * - everything
  */
 
+import { ref, watch } from 'vue'
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
 
 import cljStatusGroupSet from './configure/cljStatusGroupSet.vue'
 import cljStatusStudentGroups from './configure/cljStatusStudentGroups.vue'
 import cljStatusDiscussions from './configure/cljStatusDiscussions.vue'
 
-const DEBUG = false
+const DEBUG = true
 const FILE_NAME = "cljConfigure"
 
 if (DEBUG && GLOBAL_DEBUG) {
@@ -44,6 +45,7 @@ const props = defineProps({
 if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME} groupSetId: ${props.groupSetId}`)
 }
+
 </script>
 
 <template>
@@ -54,4 +56,9 @@ if (DEBUG && GLOBAL_DEBUG) {
     </div>
 </template>
 
-
+<style scoped>
+.clj-configure {
+    margin-left: 1rem;
+    margin-top: 0rem;
+}
+</style>

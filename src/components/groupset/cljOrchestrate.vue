@@ -28,7 +28,7 @@ import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
 import cljStatusLearningJournal from './status/cljStatusLearningJournal.vue'
 import cljStatusPrompts from './status/cljStatusPrompts.vue'
 
-const DEBUG = true
+const DEBUG = false
 const FILE_NAME = "cljOrchestrate"
 
 const props = defineProps({
@@ -42,10 +42,13 @@ if (DEBUG && GLOBAL_DEBUG) {
 
 <template>
     <div class="clj-orchestrate">
-        <h3>Orchestrate</h3>
-
         <cljStatusLearningJournal :groupSetId="groupSetId" />
         <cljStatusPrompts :groupSetId="groupSetId" />
     </div>
 </template>
 
+<style scoped>
+.clj-orchestrate {
+    margin-left: 1rem;
+}
+</style>

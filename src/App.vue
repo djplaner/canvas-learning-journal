@@ -29,7 +29,7 @@ import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path';
 setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.0/cdn/');
 
 
-const DEBUG: boolean = true
+const DEBUG: boolean = false
 const FILE_NAME: string = "App"
 
 // props 
@@ -81,7 +81,7 @@ watch(
   </div>
   <div class="clj-root" v-else>
     <cljEveryone v-if="peoplePage" />
-    <cljGroupSet v-else :groupSetId="props.groupSetId" />
+    <cljGroupSet v-else />
   </div>
 </template>
 

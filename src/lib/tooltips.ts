@@ -32,7 +32,7 @@ export const TOOLTIPS = {
     cljEveryone: {
         for_more:  {
             // what is the purpose of the 'everyone' version: overview and create
-            content: `Use Canvas groups as private student learning journals. Click for more.`,
+            content: `Use Canvas groups as (private) student learning journals. Click for more.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         }
     },
@@ -113,5 +113,15 @@ export const TOOLTIPS = {
             content: `Create a new group set to use for private student learning journals.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
+    },
+    cljStatusGroupSet: {
+        titleGroupSetStatus : {
+            content: `Status (Canvas configuration) of this group set.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        titleLearningJournalStatus: {
+            content: `Status of this group set as a learning journal.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        }
     }
 }
