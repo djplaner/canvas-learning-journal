@@ -123,16 +123,21 @@ export class learningJournalStatus {
    * @description Set the public properties of the learningJournalStatus object based
    * on the group set information
    */
-  constructor(groupSet:any) {
+  constructor(groupSet: any) {
     console.log("------------------ learningJournalStatus constructor")
     console.log(groupSet)
 
-    this.groupsCreated = groupSet.numGroups > 0
-    this.promptsCreated = groupSet.numPrompts > 0
-    this.completedConfig = this.groupsCreated && this.promptsCreated
-    this.selfSignUp = groupSet.selfSignup === "enabled"
-    this.studentsWithoutGroup = groupSet.numStudentsMembersOfGroups < groupSet.numStudents
-    this.privateJournal = groupSet.numNonPrivateGroups === 0
+    if (groupSet.hasOwnProperty("numGroups")) {
+
+      this.groupsCreated = groupSet.numGroups > 0
+      this.promptsCreated = groupSet.numPrompts > 0
+      this.completedConfig = this.groupsCreated && this.promptsCreated
+      this.selfSignUp = groupSet.selfSignup === "enabled"
+      this.studentsWithoutGroup = groupSet.numStudentsMembersOfGroups < groupSet.numStudents
+      this.privateJournal = ( groupSet.numNonPrivateGroups === 0 ) && this.completedConfig
+      // @todo multistudent groups
+      this.multiStudentGroups = groupSet.numNonPrivateGroups > 0 || this.selfSignUp
+    }
   }
 }
 
@@ -310,6 +315,7 @@ class canvasApiData {
         }
       }
       groupSet.numStudentsMembersOfGroups = Object.keys(studentMemberIds).length
+      groupSet.numStudents = this.students.length
     }
 
   }
@@ -336,80 +342,80 @@ class canvasApiData {
     }
   }
 
-    /**
-   * @function retrieveDiscussionTopics
-   * @param courseId - string version of Canvas course id
-   * @description Retrieve the discussion topics for the course via Canvas REST API
-   * and then call the transformDiscussionTopics method to process the response and update
-   * the course object.
-   * 
-   * NOTE: Canvas GraphQL API does not appear to support discussion topics, hence REST.
-   * This method called after the GraphQL query to get the course object.
+  /**
+ * @function retrieveDiscussionTopics
+ * @param courseId - string version of Canvas course id
+ * @description Retrieve the discussion topics for the course via Canvas REST API
+ * and then call the transformDiscussionTopics method to process the response and update
+ * the course object.
+ * 
+ * NOTE: Canvas GraphQL API does not appear to support discussion topics, hence REST.
+ * This method called after the GraphQL query to get the course object.
+ */
+
+  retrieveDiscussionTopics(courseId: string) {
+
+    const callUrl = `${this.hostName}/api/v1/courses/${courseId}/discussion_topics`;
+
+    fetch(callUrl, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        'X-CSRF-Token': CSRFtoken()
+      },
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error(
+          `canvasApiData: retrieveDiscussionTopics: error ${response.status}`
+        )
+      }
+      response.json().then(data => {
+        this.transformDiscussionTopics(data);
+
+        this.updated += 1
+      })
+    })
+  }
+
+  /**
+   * @function transformDiscussionTopics
+   * @param topics JSON response from Canvas REST api
+   * @description Transform the response into a more useful JS object
+   * - save the response into this.discussionTopics
+   * - for any discussion topic that has a group_category_id, add the discussion topic object to
+   *   an array discussionTopics within the matching group set
+   * - also create a learningJournalStatus object for each group set
    */
 
-    retrieveDiscussionTopics(courseId: string) {
-      
-      const callUrl = `${this.hostName}/api/v1/courses/${courseId}/discussion_topics`;
-  
-      fetch(callUrl, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          'X-CSRF-Token': CSRFtoken()
-        },
-      }).then(response => {
-        if (!response.ok) {
-          throw new Error(
-            `canvasApiData: retrieveDiscussionTopics: error ${response.status}`
-          )
-        }
-        response.json().then(data => {
-          this.transformDiscussionTopics(data);
+  transformDiscussionTopics(topics: any) {
+    this.discussionTopics = topics
 
-          this.updated += 1
-        })
-      })
-    }
-
-    /**
-     * @function transformDiscussionTopics
-     * @param topics JSON response from Canvas REST api
-     * @description Transform the response into a more useful JS object
-     * - save the response into this.discussionTopics
-     * - for any discussion topic that has a group_category_id, add the discussion topic object to
-     *   an array discussionTopics within the matching group set
-     * - also create a learningJournalStatus object for each group set
-     */
-
-    transformDiscussionTopics(topics: any) {
-      this.discussionTopics = topics
-
-      // add any group discussions to the relevant group set
-      for (const topic of this.discussionTopics) {
-        if (topic.group_category_id) {
-          let groupSet = this.groupSetsById[topic.group_category_id]
-          if (groupSet) {
-            if (!groupSet.discussionTopics) {
-              groupSet.discussionTopics = []
-            }
-            groupSet.discussionTopics.push(topic)
+    // add any group discussions to the relevant group set
+    for (const topic of this.discussionTopics) {
+      if (topic.group_category_id) {
+        let groupSet = this.groupSetsById[topic.group_category_id]
+        if (groupSet) {
+          if (!groupSet.discussionTopics) {
+            groupSet.discussionTopics = []
           }
+          groupSet.discussionTopics.push(topic)
         }
       }
-      // update each groupSet
-      // - set numPrompts
-      // - add a learningJournalStatus object
-      for (const groupSet of this.groupSets) {
-        if (groupSet.discussionTopics) {
-          groupSet.numPrompts = groupSet.discussionTopics.length
-        } else {
-          groupSet.numPrompts = 0
-        }
-        groupSet.status = new learningJournalStatus(groupSet)
-      } 
     }
+    // update each groupSet
+    // - set numPrompts
+    // - add a learningJournalStatus object
+    for (const groupSet of this.groupSets) {
+      if (groupSet.discussionTopics) {
+        groupSet.numPrompts = groupSet.discussionTopics.length
+      } else {
+        groupSet.numPrompts = 0
+      }
+      groupSet.learningJournalStatus = new learningJournalStatus(groupSet)
+    }
+  }
 
 }
 

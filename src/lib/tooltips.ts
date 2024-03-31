@@ -52,9 +52,65 @@ export const TOOLTIPS = {
         }
     },
     cljGroupSets: {
-        current_group_sets: {
+        currentGroupSets: {
             // URL should provide more detail on the columns in the table
             content: `Summary of course's existing group sets.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        name: {
+            content: `Name of the existing group set.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        selfSignup: {
+            content: "Whether students can self-signup to the group set.",
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        memberLimit: {
+            content: `If self signup is enabled, the number of students who can sign-up for a group.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        numPrompts: {
+            content: `Number of prompts (groupset discussion topics) created to guide student contributions.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        numGroups: {
+            content: `Number of groups that exist already in the group set.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        numNoGroupStudents: {
+            content: `Number of students enrolled in the course who are not members of a group.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        status: {
+            content: `Summary of the status of the group set's configuration, including if it's a learning journal.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+    },
+    cljStatusLearningJournal: {
+        privateLearningJournal: {
+            content: `Groupset with single student groups and prompts.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        }, 
+        noPrompts: {
+            content: `No prompts (groupset discussion topics) created to guide student contributions.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        noGroups: {
+            content: `No groups have been created for this groupset.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        studentsWithoutGroup: {
+            content: `Some enrolled students are not members of a groups (they do not have a learning journal).`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        multiStudentGroups: {
+            content: `Some of the groups have (or could have in the future) more than one student.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+    },
+    cljCreateLearningJournal: {
+        title: {
+            content: `Create a new group set to use for private student learning journals.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
     }

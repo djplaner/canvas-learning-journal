@@ -91,10 +91,10 @@ if (DEBUG && GLOBAL_DEBUG) {
 <template>
     <div class="clj-configure">
         <h3>Current groupsets
-            <a target="_blank" :href="`${TOOLTIPS.cljGroupSets.current_group_sets.url}`">
+            <a target="_blank" :href="`${TOOLTIPS.cljGroupSets.currentGroupSets.url}`">
                 <sl-tooltip>
                     <div slot="content">
-                        {{ TOOLTIPS.cljGroupSets.current_group_sets.content }}
+                        {{ TOOLTIPS.cljGroupSets.currentGroupSets.content }}
                     </div>
                     <i class="icon-Solid icon-question"></i>
                 </sl-tooltip>
@@ -109,13 +109,61 @@ if (DEBUG && GLOBAL_DEBUG) {
 
                 <table class="clj-data-table">
                     <thead>
-                        <th>Name</th>
-                        <th>Self signup</th>
-                        <th>Member limit</th>
-                        <th># prompts</th>
-                        <th># of groups</th>
-                        <th># no group students</th>
-                        <th>Learning Journal Status </th>
+                        <th>Name
+                            <a target="_blank" :href="`${TOOLTIPS.cljGroupSets.name.url}`">
+                                <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.name.content}`">
+                                    <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                                </sl-tooltip>
+                            </a>
+                        </th>
+                        <th>Self signup
+                            <a target="_blank" :href="`${TOOLTIPS.cljGroupSets.selfSignup.url}`">
+                                <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.selfSignup.content}`">
+                                    <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                                </sl-tooltip>
+                            </a>
+
+                        </th>
+                        <th>Member limit
+                            <a target="_blank" :href="`${TOOLTIPS.cljGroupSets.memberLimit.url}`">
+                                <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.memberLimit.content}`">
+                                    <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                                </sl-tooltip>
+                            </a>
+
+                        </th>
+                        <th># prompts
+                            <a target="_blank" :href="`${TOOLTIPS.cljGroupSets.numPrompts.url}`">
+                                <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.numPrompts.content}`">
+                                    <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                                </sl-tooltip>
+                            </a>
+
+                        </th>
+                        <th># of groups
+                            <a target="_blank" :href="`${TOOLTIPS.cljGroupSets.numGroups.url}`">
+                                <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.numGroups.content}`">
+                                    <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                                </sl-tooltip>
+                            </a>
+
+                        </th>
+                        <th># no group students
+                            <a target="_blank" :href="`${TOOLTIPS.cljGroupSets.numNoGroupStudents.url}`">
+                                <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.numNoGroupStudents.content}`">
+                                    <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                                </sl-tooltip>
+                            </a>
+
+                        </th>
+                        <th>Learning Journal Status
+                            <a target="_blank" :href="`${TOOLTIPS.cljGroupSets.status.url}`">
+                                <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.status.content}`">
+                                    <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                                </sl-tooltip>
+                            </a>
+
+                        </th>
                     </thead>
                     <tbody>
                         <tr v-for="group in canvasData.groupSets" :key="group._id">
@@ -129,9 +177,8 @@ if (DEBUG && GLOBAL_DEBUG) {
                             <td class="clj-center">{{ group.numPrompts }}</td>
                             <td class="clj-center">{{ group.numGroups }}</td>
                             <td class="clj-center">{{ numStudents - group.numStudentsMembersOfGroups }} </td>
-                            <td class="clj-center"> 
-                                {{ group._id }}
-                                <cljStatusLearningJournal :groupSetId="group._id" /> 
+                            <td>
+                                <cljStatusLearningJournal :groupSetId="group._id" />
                             </td>
                         </tr>
                     </tbody>
@@ -143,8 +190,7 @@ if (DEBUG && GLOBAL_DEBUG) {
 
 
 <style scoped>
-.clj-configure {
-    margin: 1em;
-    padding: 1em;
+.clj-small-tooltip {
+    font-size: 0.5rem;
 }
 </style>

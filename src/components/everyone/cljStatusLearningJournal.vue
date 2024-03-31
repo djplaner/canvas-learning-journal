@@ -35,7 +35,7 @@
  *                  tab. That would also reload the courseData from Canvas?
  */
 
-import { defineProps, watch } from 'vue'
+import { defineProps, watch, ref } from 'vue'
 
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
 
@@ -56,11 +56,17 @@ const props = defineProps({
 if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME}: groupSetId ${props.groupSetId} status:`)
 
-    console.log( canvasData.groupSetsById[props.groupSetId])
+    console.log(canvasData.groupSetsById[props.groupSetId])
 }
 
+const privateLJ = ref(false)
+const studentsWithoutGroup = ref(false)
+const noPrompts = ref(false)
+const multiStudentGroups = ref(false)
+const noGroups = ref(false)
 
-/*showStuff()
+
+showStuff()
 
 watch(
     () => canvasData.updated,
@@ -69,23 +75,56 @@ watch(
     }
 )
 
+/**
+ * @function showStuff
+ * @description: update the variables necessary to show the status of the specified
+ * group set as a learning journal
+ * 
+ */
 function showStuff() {
+    const groupSet = canvasData.groupSetsById[props.groupSetId]
+    if (DEBUG && GLOBAL_DEBUG) {
+        console.log(`${FILE_NAME}: status: ${props.groupSetId}`)
+        console.log(groupSet.learningJournalStatus)
+    }
 
-if (DEBUG && GLOBAL_DEBUG) {
-    console.log(`${FILE_NAME}: status:`)
-    console.log( props.status)
+    privateLJ.value = groupSet.learningJournalStatus.privateJournal
+    studentsWithoutGroup.value = groupSet.learningJournalStatus.studentsWithoutGroup
+    noPrompts.value = !groupSet.learningJournalStatus.promptsCreated
+    multiStudentGroups.value = groupSet.learningJournalStatus.multiStudentGroups
+    noGroups.value = !groupSet.learningJournalStatus.groupsCreated
+
 }
-} */
 
 </script>
 
 <template>
-    <div class="clj-configure">
-      (learning journal status {{ groupSetId }})
-    </div>
+    <a :href="`${TOOLTIPS.cljStatusLearningJournal.privateLearningJournal.url}`">
+        <sl-tooltip :content="`${TOOLTIPS.cljStatusLearningJournal.privateLearningJournal.content}`">
+            <sl-badge v-if="privateLJ" variant="success">Private Learning Journal</sl-badge>
+        </sl-tooltip>
+    </a>
+    <a :href="`${TOOLTIPS.cljStatusLearningJournal.studentsWithoutGroup.url}`">
+        <sl-tooltip :content="`${TOOLTIPS.cljStatusLearningJournal.studentsWithoutGroup.content}`">
+            <sl-badge v-if="studentsWithoutGroup" variant="warning">Students without a group</sl-badge>
+        </sl-tooltip>
+    </a>
+    <a :href="`${TOOLTIPS.cljStatusLearningJournal.noPrompts.url}`">
+        <sl-tooltip :content="`${TOOLTIPS.cljStatusLearningJournal.noPrompts.content}`">
+            <sl-badge variant="warning" v-if="noPrompts">No prompts</sl-badge>
+        </sl-tooltip>
+    </a>
+    <a :href="`${TOOLTIPS.cljStatusLearningJournal.multiStudentGroups.url}`">
+        <sl-tooltip :content="`${TOOLTIPS.cljStatusLearningJournal.multiStudentGroups.content}`">
+            <sl-badge variant="warning" v-if="multiStudentGroups">Multi-student groups</sl-badge>
+        </sl-tooltip>
+    </a>
+    <a :href="`${TOOLTIPS.cljStatusLearningJournal.noGroups.url}`">
+        <sl-tooltip :content="`${TOOLTIPS.cljStatusLearningJournal.noGroups.content}`">
+            <sl-badge variant="danger" v-if="noGroups">No groups</sl-badge>
+        </sl-tooltip>
+    </a>
 </template>
 
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -41,54 +41,63 @@ const DEBUG = false
 const FILE_NAME = "cljCreateLearningJournal"
 
 if (DEBUG && GLOBAL_DEBUG) {
-    console.log(`${FILE_NAME} TOOLTIPS:`)
-    console.log(TOOLTIPS)
+  console.log(`${FILE_NAME} TOOLTIPS:`)
+  console.log(TOOLTIPS)
 }
 
 </script>
 
 <template>
-    <div class="clj-configure">
-        <h3>Create Learning Journal</h3>
-    </div>
+  <div class="clj-configure">
+    <h3>Create Learning Journal
+      <a :href="`${TOOLTIPS.cljCreateLearningJournal.title.url}`" target="_blank">
+        <sl-tooltip :content="`${TOOLTIPS.cljCreateLearningJournal.title.content}`">
+          <i class="icon-Solid icon-question"></i>
+        </sl-tooltip>
+      </a>
+    </h3>
 
     <div class="clj-create-form">
-    <sl-input class="clj-label-on-left" label="Name" help-text="What will the new learning journal group set be called?"></sl-input>
-    <sl-button class="clj-button" disabled>Create</sl-button>
+      <sl-input class="clj-label-on-left" label="Name"
+        help-text="What will the new learning journal group set be called?"></sl-input>
+      <sl-button class="clj-button" disabled>Create</sl-button>
     </div>
+  </div>
 </template>
 
 
 <style scoped>
 .clj-button {
-    margin-top: 1rem;
-    margin-left: 0.5rem;
+  margin-top: 1rem;
+  margin-left: 0.5rem;
 }
+
 .clj-create-form {
-    display: flex;
-}
-.clj-label-on-left {
-    --label-width: 3.75rem;
-    --gap-width: 1rem;
+  display: flex;
 }
 
 .clj-label-on-left {
-    margin-top: 1rem;
-    width: 50%;
-  }
+  --label-width: 3.75rem;
+  --gap-width: 1rem;
+}
 
-  .clj-label-on-left::part(form-control) {
-    display: grid;
-    grid: auto / var(--label-width) 1fr;
-    gap: var(--sl-spacing-3x-small) var(--gap-width);
-    align-items: center;
-  }
+.clj-label-on-left {
+  margin-top: 1rem;
+  width: 50%;
+}
 
-  .clj-label-on-left::part(form-control-label) {
-    text-align: right;
-  }
+.clj-label-on-left::part(form-control) {
+  display: grid;
+  grid: auto / var(--label-width) 1fr;
+  gap: var(--sl-spacing-3x-small) var(--gap-width);
+  align-items: center;
+}
 
-  .clj-label-on-left::part(form-control-help-text) {
-    grid-column-start: 2;
-  }
+.clj-label-on-left::part(form-control-label) {
+  text-align: right;
+}
+
+.clj-label-on-left::part(form-control-help-text) {
+  grid-column-start: 2;
+}
 </style>
