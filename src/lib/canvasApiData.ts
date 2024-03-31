@@ -244,9 +244,9 @@ class canvasApiData {
           console.log(FILE_NAME + "    :retrieveGraphQLObject: got data")
         }
         this.transformGraphQLResponse(data.data.course);
-        //this.retrieveDiscussionTopics(idString);
+        this.retrieveDiscussionTopics(idString);
 
-        this.updated += 1;
+        //this.updated += 1;
 
         if (DEBUG && GLOBAL_DEBUG) {
           console.log(this)
@@ -368,7 +368,7 @@ class canvasApiData {
         response.json().then(data => {
           this.transformDiscussionTopics(data);
 
-          //this.updated += 1
+          this.updated += 1
         })
       })
     }

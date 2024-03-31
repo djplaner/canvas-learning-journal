@@ -23,6 +23,12 @@ export const GLOBAL_DEBUG = true;
 
 // define the TOOLTIPS object containing all internal tooltips and documentation links
 export const TOOLTIPS = {
+    App: { 
+        loading: {
+            content: `Retrieving data from Canvas...`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+    },
     cljEveryone: {
         for_more:  {
             // what is the purpose of the 'everyone' version: overview and create

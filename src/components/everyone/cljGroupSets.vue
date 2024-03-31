@@ -71,7 +71,6 @@ function updateDisplay() {
     if (DEBUG && GLOBAL_DEBUG) {
         console.log(`${FILE_NAME} updateDisplay`)
         console.log(canvasData)
-        console.debug()
     }
     if (canvasData.updated) {
         numGroupSets.value = canvasData.groupSets.length
@@ -102,10 +101,7 @@ if (DEBUG && GLOBAL_DEBUG) {
             </a>
         </h3>
 
-        <div class="clj-configure-loading" v-if="!canvasData.updated">
-            Loading group set data...
-        </div>
-        <div class="clj-configure-groupsets" v-else>
+        <div class="clj-configure-groupsets">
             <div v-if="numGroupSets === 0">
                 No group sets found
             </div>
@@ -135,7 +131,7 @@ if (DEBUG && GLOBAL_DEBUG) {
                             <td class="clj-center">{{ numStudents - group.numStudentsMembersOfGroups }} </td>
                             <td class="clj-center"> 
                                 {{ group._id }}
-                                <!-- <cljStatusLearningJournal :groupSetId="group._id" /> -->
+                                <cljStatusLearningJournal :groupSetId="group._id" /> 
                             </td>
                         </tr>
                     </tbody>
