@@ -36,7 +36,7 @@ import cljStatusLearningJournal from './cljStatusLearningJournal.vue'
 
 import getCanvasData from '../../lib/canvasApiData'
 
-const DEBUG = true
+const DEBUG = false
 const FILE_NAME = "cljGroupSets"
 
 if (DEBUG && GLOBAL_DEBUG) {

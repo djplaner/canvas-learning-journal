@@ -20,11 +20,12 @@
 
 import { reactive } from "vue"
 import { GLOBAL_DEBUG } from "./tooltips"
+//import { groupPromptsResponses } from "./groupPromptsResponses"
 
-const DEBUG: boolean = false
+const DEBUG: boolean = true
 const FILE_NAME: string = "CanvasApiData.ts"
 
-const CSRFtoken = function () {
+export const CSRFtoken = function () {
   return decodeURIComponent(
     (document.cookie.match('(^|;) *_csrf_token=([^;]*)') || '')[2]
   )
@@ -124,8 +125,10 @@ export class learningJournalStatus {
    * on the group set information
    */
   constructor(groupSet: any) {
-    console.log("------------------ learningJournalStatus constructor")
-    console.log(groupSet)
+
+    if (DEBUG && GLOBAL_DEBUG) {
+      console.log("------------------ learningJournalStatus constructor")
+    }
 
     if (groupSet.hasOwnProperty("numGroups")) {
 
@@ -134,7 +137,7 @@ export class learningJournalStatus {
       this.completedConfig = this.groupsCreated && this.promptsCreated
       this.selfSignUp = groupSet.selfSignup === "enabled"
       this.studentsWithoutGroup = groupSet.numStudentsMembersOfGroups < groupSet.numStudents
-      this.privateJournal = ( groupSet.numNonPrivateGroups === 0 ) && this.completedConfig
+      this.privateJournal = (groupSet.numNonPrivateGroups === 0) && this.completedConfig
       // @todo multistudent groups
       this.multiStudentGroups = groupSet.numNonPrivateGroups > 0 || this.selfSignUp
     }
@@ -373,8 +376,14 @@ class canvasApiData {
       }
       response.json().then(data => {
         this.transformDiscussionTopics(data);
+        // temporary call here...@todo move it some where sle
+        this.getGroupsResponses();
 
         this.updated += 1
+        if (DEBUG && GLOBAL_DEBUG) {
+          console.log(`${FILE_NAME} :retrieveDiscussionTopics: got ALLLL data`)
+          console.log(this)
+        }
       })
     })
   }
@@ -407,6 +416,8 @@ class canvasApiData {
     // update each groupSet
     // - set numPrompts
     // - add a learningJournalStatus object
+    // - add a groupsById object based on groups property
+    // - add a discussionTopicsById object based on discussionTopics property
     for (const groupSet of this.groupSets) {
       if (groupSet.discussionTopics) {
         groupSet.numPrompts = groupSet.discussionTopics.length
@@ -414,7 +425,108 @@ class canvasApiData {
         groupSet.numPrompts = 0
       }
       groupSet.learningJournalStatus = new learningJournalStatus(groupSet)
+      // set up groupsById object
+      groupSet.groupsById = {}
+      for (const group of groupSet.groups) {
+        groupSet.groupsById[group._id] = group
+      }
+      // set up discussionTopicsById object (REST so id not _id)
+      groupSet.discussionTopicsById = {}
+      if (groupSet.discussionTopics) {
+        for (const topic of groupSet.discussionTopics) {
+          groupSet.discussionTopicsById[topic.id] = topic
+        }
+      }
     }
+  }
+
+  /**
+   * @method getGroupsResponses
+   * @description Retrieve all the responses for all the groups in all of the
+   * group sets 
+   * 
+   * - for each group set (this.groupSets array)
+   *    - for each group in the group set 
+   *       - get the group's prompt and responses 
+   *          Each prompt is a topic, so pass in the list of topic ids
+   *  
+   * @todo 
+   * - maybe add in assignments
+   *   
+   *   
+   */
+
+  async getGroupsResponses() {
+    for (const groupSet of this.groupSets) {
+      for (const group of groupSet.groups) {
+        // get discussion topic ids for the group from keys of discussionTopicsById 
+        const topicIds = Object.keys(groupSet.discussionTopicsById)
+        for (const topicId of topicIds) {
+          let data = await this.getResponses( topicId)
+          console.log(`groupGroupsResponses`)
+          console.log(data)
+          if (data) {
+            // @TODO where does htis get added
+            // add the responses to the group object
+          }
+        }
+      }
+    }
+    if (DEBUG && GLOBAL_DEBUG) {
+      console.log(`${FILE_NAME} getGroupsResponses: got all responses`)
+      console.log(this)
+    }
+  } 
+
+  /**
+   * @method getResponses
+   * @param topicId 
+   * @description  for the given topic get the full topic view from Canvas API
+   * GET /api/v1/courses/:course_id/discussion_topics/:topic_id/view 
+   */
+
+  async getResponses( topicId : string) : any {
+    const courseId = this.id.toString()
+    const callUrl = `${this.hostName}/api/v1/courses/${courseId}/discussion_topics/${topicId}/view`;
+
+    if (DEBUG && GLOBAL_DEBUG) {
+      console.log(`${FILE_NAME} getResponses: Hostname: ${this.hostName}; Course ID: ${courseId}; Topic ID: ${topicId}`);
+    }
+
+    try {
+        const response = await fetch(callUrl, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+        });
+        if (!response.ok) {
+            throw new Error(
+                `${FILE_NAME} getResponses: error ${response.status}`
+            );
+        }
+
+        const data: any = await response.json();
+        if (DEBUG && GLOBAL_DEBUG) {
+            console.log(`${FILE_NAME} got some data`)
+            console.log(data)
+        }
+        if (!data) {
+            throw new Error(`${FILE_NAME}:getCourseObject: no data returned`);
+            return {}
+        }
+
+//        if (includeModules) {
+ //           const modules = await getCourseModules(hostName, courseId);
+  //          data.modules = modules;
+   //     } 
+        return data;
+    } catch (error) {
+        console.error(`canvasApi:getCourseObject: error ${error}`);
+        throw error;
+    } 
   }
 
 }

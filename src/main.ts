@@ -26,7 +26,6 @@ import './style.css'
 import { GLOBAL_DEBUG } from './lib/tooltips'
 const DEBUG: boolean = false
 
-console.log("XXXXXXXXXXXXXXXXXXXXXXXXXX")
 // Should only be called if on the
 // - users page <hostname>://courses/<id>/users 
 // - groups page <hostname>://courses/<id>/groups
@@ -43,7 +42,6 @@ if (!peoplePage && !groupSetPage) {
 }
 
 const groupSetId = groupSetPage ? Number(documentUrl.hash.split('-')[1]) : null
-console.debug()
 
 if (DEBUG && GLOBAL_DEBUG) {
   console.log(`peoplePage: ${peoplePage}, groupSetPage: ${groupSetPage}, groupSetId: ${groupSetId}`)
@@ -70,9 +68,6 @@ function insertLearningJournalApp(groupCategoriesTab: Element) {
   observer.disconnect()
 
   const app = createApp(App, { groupSetId: groupSetId })
-
-  console.log( "appp")
-  console.log(app)
 
   app.mount(
     (() => {

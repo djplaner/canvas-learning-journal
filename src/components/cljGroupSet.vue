@@ -42,7 +42,7 @@ import cljConfigure from './groupset/cljConfigure.vue'
 import cljOrchestrate from './groupset/cljOrchestrate.vue'
 import { onMounted } from 'vue';
 
-const DEBUG = true
+const DEBUG = false
 const FILE_NAME = "cljGroupSet"
 
 if (DEBUG && GLOBAL_DEBUG) {

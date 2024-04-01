@@ -31,7 +31,7 @@ import cljStatusLearningJournal from '../../everyone/cljStatusLearningJournal.vu
 
 import getCanvasData from '../../../lib/canvasApiData';
 
-const DEBUG = true
+const DEBUG = false
 const FILE_NAME = "cljStatusGroupSet"
 
 const props = defineProps({
