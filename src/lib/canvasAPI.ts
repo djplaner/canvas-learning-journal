@@ -40,7 +40,7 @@ export function parseCurrentURL(): { courseId: number, hostName: string } {
     }
 
     if (DEBUG && GLOBAL_DEBUG) {
-        console.log(`CanvasCourXXXXse::parseCurrentURL: Hostname: ${hostName}; Course ID: ${courseId}`);
+        console.log(`CanvasCourse::parseCurrentURL: Hostname: ${hostName}; Course ID: ${courseId}`);
     }
 
     return { courseId, hostName };
