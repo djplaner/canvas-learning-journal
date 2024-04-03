@@ -157,6 +157,18 @@ function update() {
                         </tr>
                         <tr>
                             <th>
+                                # of prompts 
+                                <a class="clj-th-tooltip" target="_blank"
+                                    :href="`${TOOLTIPS.cljGroupSets.numPrompts.url}`">
+                                    <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.numPrompts.content}`">
+                                        <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                                    </sl-tooltip>
+                                </a>
+                            </th>
+                            <td class="clj-center">{{ groupSet.numPrompts }}</td>
+                        </tr>
+                        <tr>
+                            <th>
                                 # no group students
                                 <a class="clj-th-tooltip" target="_blank"
                                     :href="`${TOOLTIPS.cljGroupSets.numNoGroupStudents.url}`">

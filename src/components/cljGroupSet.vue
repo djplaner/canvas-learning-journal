@@ -19,14 +19,20 @@
 <script setup>
 /**
  * @file: cljEveryone.vue
- * @description: LJ component shown on a group set page
+ * @description: CLJ component shown on a group set page. A group set may or may not
+ * be considered a CLJ. 
+ * 
+ * If a CLJ 
+ * - start loading all the discussion topic data for the CLJ (if not already cached)
+ * - show both the configure and orchestrate tabs 
+ * - but hide some of the functionality depending on other status of the CLJ. 
+ *   Most of the other status is left to sub-components
+ * 
+ * If not a CLJ (just a normal group set) show the configure tab only
+ * 
  * - checks that the groupSetId prop 
  *      - is numeric 
  *      - matches an existing group set in Canvas data
- * - displays the status of the group set as a learning journal in the base component
- * - provides functionality to access the clj functionality
- *      - methods to set up the group set as a learning journal
- *      - reports on student contributions
  * @todo: 
  * - have a "waiting" display whilst the Canvas data is gotten
  * - groupSetId checks
@@ -40,7 +46,8 @@ import { TOOLTIPS, GLOBAL_DEBUG } from '../lib/tooltips'
 
 import cljConfigure from './groupset/cljConfigure.vue'
 import cljOrchestrate from './groupset/cljOrchestrate.vue'
-import { onMounted } from 'vue';
+
+import getCanvasData from '../lib/canvasApiData'
 
 const DEBUG = false
 const FILE_NAME = "cljGroupSet"
@@ -50,30 +57,36 @@ if (DEBUG && GLOBAL_DEBUG) {
     console.log(TOOLTIPS)
 }
 
-/*const props = defineProps({
-    groupSetId: Number
-})*/
-
+// which group set is being displayed is determined by the active tab in Canvas
 let activeGroup = getActiveGroupSet()
-
-if (activeGroup===null) {
+if (activeGroup === null) {
     console.error(`${FILE_NAME}: activeGroup is null couldn't determine groupSetId`)
     throw new Error(`${FILE_NAME}: activeGroup is null couldn't determine groupSetId`)
 }
 
+
 const groupSetId = ref(activeGroup)
+// Clicking on different group set tabs will change the groupSetId in Canvas, 
+// add an event handler so this component keeps up
 addEventHandlers()
+
+const canvasData = getCanvasData()
+
+// check to see if the current group set is a CLJ
+const isLearningJournal = ref(canvasData.mightBeLearningJournal(groupSetId.value))
+
+if (DEBUG && GLOBAL_DEBUG) {
+    console.log(`${FILE_NAME}: isLearningJournal: ${isLearningJournal.value}`)
+}
 
 
 if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME}: groupSetId: ${groupSetId}`)
 }
 
-// check the document.URL if it includes #open
-
+// if the URL has ?open=1 then display the CLJ component in the open state
 const urlParams = new URLSearchParams(window.location.search)
 const open = urlParams.get('open')
-
 const configOpen = ref(open !== null)
 
 if (DEBUG && GLOBAL_DEBUG) {
@@ -82,11 +95,13 @@ if (DEBUG && GLOBAL_DEBUG) {
 
 /**
  * @function addEventHandlers
- * @description: a.group-category-tab-link used to change the group set add
- * an event handler to each of the a.group-category-tab-link elements
+ * @description: Listen for clicks on all links 
+ *    a.group-category-tab-link 
+ * indicating the Canvas user is displaying a different groupSet 
+ * Change the groupSetId reactive variable to match the new group set
  */
 
- function addEventHandlers() {
+function addEventHandlers() {
     const groupCategoryTabs = document.querySelectorAll('a.group-category-tab-link')
     if (DEBUG && GLOBAL_DEBUG) {
         console.log(`${FILE_NAME}: groupCategoryTabs: ${groupCategoryTabs}`)
@@ -97,21 +112,26 @@ if (DEBUG && GLOBAL_DEBUG) {
             const href = event.target.getAttribute('href')
             // href == #tab-<number>, extract the number
             const number = href.split('-')[1]
-            console.log(`${FILE_NAME}: number groupSetId: ${number}`)
             groupSetId.value = number
-            console.log(`${FILE_NAME}: groupSetId: ${groupSetId.value}`)
-
+            isLearningJournal.value = canvasData.mightBeLearningJournal(number)
         })
     })
- }
-// groupSetId will be set by determining the aria-control attribute of the
-// div#group_categories_tabs > ul.collectionViewItems > li with the class ui-tabs-active
+}
+
+/**
+ * @function getActiveGroupSet
+ * @returns groupSetId
+ * @description: Determine the active group set by checking which of the 
+ * group set tabs in the Canvas interface are active
+ * groupSetId will be set by determining the aria-control attribute of the
+ * div#group_categories_tabs > ul.collectionViewItems > li with the class ui-tabs-active
+*/
 
 function getActiveGroupSet() {
     const activeGroupSet = document.querySelector('div#group_categories_tabs > ul.collectionViewItems > li.ui-tabs-active')
-    if ( DEBUG && GLOBAL_DEBUG) {
-            console.log(`${FILE_NAME}: activeGroupSet: ${activeGroupSet}`)
-        }
+    if (DEBUG && GLOBAL_DEBUG) {
+        console.log(`${FILE_NAME}: activeGroupSet: ${activeGroupSet}`)
+    }
 
     if (activeGroupSet) {
         const value = activeGroupSet.getAttribute('aria-controls')
@@ -132,7 +152,7 @@ function getActiveGroupSet() {
 <template>
     <div v-if="!configOpen">
         <div class="clj-status" id="clj-gs-button">
-            <i @click="configOpen=!configOpen" id="clj-gs-config-switch" class="icon-Solid icon-mini-arrow-end"></i>
+            <i @click="configOpen = !configOpen" id="clj-gs-config-switch" class="icon-Solid icon-mini-arrow-end"></i>
             Canvas (groupset {{ groupSetId }}) Learning Journal
             <a target="_blank" :href="TOOLTIPS.cljGroupSet.for_more.url">
                 <sl-tooltip>
@@ -146,7 +166,7 @@ function getActiveGroupSet() {
     </div>
     <div v-else>
         <div class="clj-status" id="clj-gs-button">
-            <i @click="configOpen=!configOpen" id="clj-gs-config-switch" class="icon-Solid icon-mini-arrow-end"></i>
+            <i @click="configOpen = !configOpen" id="clj-gs-config-switch" class="icon-Solid icon-mini-arrow-end"></i>
             Canvas (groupset {{ groupSetId }})Learning Journal
             <a target="_blank" :href="TOOLTIPS.cljGroupSet.for_more.url">
                 <sl-tooltip>
@@ -170,7 +190,7 @@ function getActiveGroupSet() {
                         </sl-tooltip>
                     </a>
                 </sl-tab>
-                <sl-tab slot="nav" panel="clj-orchestrate">
+                <sl-tab slot="nav" panel="clj-orchestrate" v-if="isLearningJournal">
                     Orchestrate
                     <a target="_blank" :href="TOOLTIPS.cljGroupSet.orchestrate.url">
                         <sl-tooltip placement="right-start" hoist>
@@ -185,7 +205,7 @@ function getActiveGroupSet() {
                 <sl-tab-panel name="clj-configure">
                     <cljConfigure :groupSetId="groupSetId" />
                 </sl-tab-panel>
-                <sl-tab-panel name="clj-orchestrate">
+                <sl-tab-panel name="clj-orchestrate" v-if="isLearningJournal">
                     <cljOrchestrate :groupSetId="groupSetId" />
                 </sl-tab-panel>
             </sl-tab-group>

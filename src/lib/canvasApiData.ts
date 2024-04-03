@@ -22,7 +22,7 @@ import { reactive } from "vue"
 import { GLOBAL_DEBUG } from "./tooltips"
 //import { groupPromptsResponses } from "./groupPromptsResponses"
 
-const DEBUG: boolean = true
+const DEBUG: boolean = false
 const FILE_NAME: string = "CanvasApiData.ts"
 
 export const CSRFtoken = function () {
@@ -360,6 +360,27 @@ class canvasApiData {
   }
 
   /**
+   * @method mightBeLearningJournal
+   * @param gsId : string
+   * @returns boolean
+   * @description identifies if a group set might be a learning journal
+   * i.e. if it has both groups and prompts created
+   */
+
+  mightBeLearningJournal(gsId: string): boolean {
+    // convert gsId to a number
+    const gsIdNumber = parseInt(gsId)
+    const groupSet = this.groupSetsById[gsIdNumber]
+    if (groupSet) {
+      // if there is a group set, then return true if
+      return groupSet.learningJournalStatus.promptsCreated &&
+        groupSet.learningJournalStatus.groupsCreated
+    }
+    return false
+  }
+
+
+  /**
    * @function retrieveGraphQLObject
    * @description Perform a GraphQL query on the Canvas API
    */
@@ -463,7 +484,7 @@ class canvasApiData {
       if (groupSet.selfSignup === "disabled") {
         groupSet.selfSignup = "X";
       }
-      let studentMemberIds : { [key: string]: boolean } = {}
+      let studentMemberIds: { [key: string]: boolean } = {}
       groupSet.numNonPrivateGroups = 0
       for (const group of groupSet.groups) {
         // copy group.membersConnection.nodes to group.members
@@ -543,7 +564,7 @@ class canvasApiData {
         this.getGroupsResponses();
 
         // set this now and the root component will start working
-        //this.updated += 1
+        this.updated += 1
         if (DEBUG && GLOBAL_DEBUG) {
           console.log(`${FILE_NAME} :retrieveDiscussionTopics: got ALLLL data`)
           console.log(this)
@@ -684,7 +705,7 @@ class canvasApiData {
       console.log(`${FILE_NAME} getGroupsResponses: got all responses`)
       console.log(this)
     }
-    this.updated +=1
+    //this.updated +=1
   }
 
   /**

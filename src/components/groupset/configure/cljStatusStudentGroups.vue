@@ -23,9 +23,11 @@
  * - everything
  */
 
+ import { ref, watch } from 'vue'
  import { TOOLTIPS, GLOBAL_DEBUG } from '../../../lib/tooltips'
+ import getCanvasData from '../../../lib/canvasApiData';
 
-const DEBUG = false
+const DEBUG = true;
 const FILE_NAME = "cljStatusStudentGroups"
 
 if (DEBUG && GLOBAL_DEBUG ) {
@@ -41,11 +43,25 @@ if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME} groupSetId: ${props.groupSetId}`)
 }
 
+const canvasData = getCanvasData();
+
+const isLearningJournal = ref(canvasData.mightBeLearningJournal(props.groupSetId))
+
+// watch for changes in props.groupSetId 
+watch(
+    () => props.groupSetId,
+    (groupSetId) => {
+        if (DEBUG && GLOBAL_DEBUG) {
+            console.log(`${FILE_NAME} groupSetId: ${groupSetId}`)
+        }
+        isLearningJournal.value = canvasData.mightBeLearningJournal(groupSetId)
+    }
+)
 
 </script>
 
 <template>
-    <div class="clj-status-student-groups">
+    <div class="clj-status-student-groups" v-if="isLearningJournal">
         <h3>Student groups Status</h3>
 
         <table class="clj-data-table">
