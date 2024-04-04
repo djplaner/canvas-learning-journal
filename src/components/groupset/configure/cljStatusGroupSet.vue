@@ -97,7 +97,7 @@ function update() {
         <div class="clj-two-column-grid">
             <div class="clj-group-set-info">
                 <h3>
-                    Group Set Status
+                    Group set overview
                     <a target="_blank" :href="`${TOOLTIPS.cljStatusGroupSet.titleLearningJournalStatus.url}`">
                         <sl-tooltip :content="`${TOOLTIPS.cljStatusGroupSet.titleLearningJournalStatus.content}`">
                             <i class="icon-Solid icon-question clj-small-tooltip"></i>

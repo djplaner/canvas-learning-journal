@@ -33,7 +33,7 @@ import { ref, watch } from 'vue'
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../../lib/tooltips'
 import getCanvasData from '../../../lib/canvasApiData';
 
-const DEBUG = true
+const DEBUG = false
 const FILE_NAME = "cljStatusDiscussions"
 
 if (DEBUG && GLOBAL_DEBUG) {
@@ -54,7 +54,6 @@ const promptDataLoaded = ref(false)
 const canvasData = getCanvasData();
 const groupSet = ref(canvasData.groupSetsById[props.groupSetId])
 const isLearningJournal = ref(canvasData.mightBeLearningJournal(props.groupSetId))
-const updateProgress = ref(canvasData.groupSetsById[props.groupSetId].updateProgress)
 
 // watch for changes in props.groupSetId 
 watch(
@@ -65,17 +64,6 @@ watch(
         }
         isLearningJournal.value = canvasData.mightBeLearningJournal(groupSetId)
         groupSet.value = canvasData.groupSetsById[groupSetId]
-    }
-)
-
-// watch groupSet updateProgress 
-watch(
-    () => canvasData.groupSetsById[props.groupSetId].updateProgress,
-    (progress) => {
-        if (DEBUG && GLOBAL_DEBUG) {
-            console.log(`groupset updateProgress ${progress}`)
-        }
-        updateProgress.value = progress
     }
 )
 
@@ -96,7 +84,7 @@ watch(
 
 <template>
     <div class="clj-status-discussions" v-if="isLearningJournal">
-        <h3>Discussions Statistics
+        <h3>Discussion topic overview
             <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljStatusDiscussions.title.url}`">
                 <sl-tooltip :content="`${TOOLTIPS.cljStatusDiscussions.title.content}`">
                     <i class="icon-Solid icon-question clj-small-tooltip"></i>
@@ -104,74 +92,81 @@ watch(
             </a>
         </h3>
 
-        <div v-if="promptDataLoaded">
-            <table class="clj-data-table">
-                <thead>
-                    <tr>
-                        <th>
-                            Topic Title
-                            <a class="clj-th-help" target="_blank"
-                                :href="`${TOOLTIPS.cljStatusDiscussions.topicTitle.url}`">
-                                <sl-tooltip :content="`${TOOLTIPS.cljStatusDiscussions.topicTitle.content}`">
-                                    <i class="icon-Solid icon-question clj-small-tooltip"></i>
-                                </sl-tooltip>
-                            </a>
-                        </th>
-                        <th>
-                            Num prompts
-                            <a class="clj-th-help" target="_blank"
-                                :href="`${TOOLTIPS.cljStatusDiscussions.numPrompts.url}`">
-                                <sl-tooltip :content="`${TOOLTIPS.cljStatusDiscussions.numPrompts.content}`">
-                                    <i class="icon-Solid icon-question clj-small-tooltip"></i>
-                                </sl-tooltip>
-                            </a>
-                        </th>
-                        <th>
-                            # without student entries
-                            <a class="clj-th-help" target="_blank"
-                                :href="`${TOOLTIPS.cljStatusDiscussions.numNoStudentEntries.url}`">
-                                <sl-tooltip :content="`${TOOLTIPS.cljStatusDiscussions.numNoStudentEntries.content}`">
-                                    <i class="icon-Solid icon-question clj-small-tooltip"></i>
-                                </sl-tooltip>
-                            </a>
-                        </th>
-                        <th>
-                            # without staff entries
-                            <a class="clj-th-help" target="_blank"
-                                :href="`${TOOLTIPS.cljStatusDiscussions.numNoStaffEntries.url}`">
-                                <sl-tooltip :content="`${TOOLTIPS.cljStatusDiscussions.numNoStaffEntries.content}`">
-                                    <i class="icon-Solid icon-question clj-small-tooltip"></i>
-                                </sl-tooltip>
-                            </a>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="topic in groupSet.discussionTopics" :key="topic.id">
-                        <td>
-                            <a target="_blank"
-                                :href="`${canvasData.hostName}/courses/${canvasData.id}/discussion_topics/${topic.id}`">
-                                {{ topic.title }}
-                            </a>
-                        </td>
-                        <td>
-                            {{ topic.topic_children.length }}
-                        </td>
-                        <td>
-                            {{ topic.stats.numNoStudentEntries }}
-                        </td>
-                        <td>
-                            {{ topic.stats.numNoStaffEntries }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div v-else>
-            <sl-progress-ring :value="`${updateProgress}`" class="progress-ring-values"
-                style="--track-width: 0.5rem; --indicator-width: 1rem; margin-bottom: .5rem;">..loading...</sl-progress-ring>
-
-        </div>
+        <table class="clj-data-table">
+            <thead>
+                <tr>
+                    <th>
+                        Topic Title
+                        <a class="clj-th-help" target="_blank"
+                            :href="`${TOOLTIPS.cljStatusDiscussions.topicTitle.url}`">
+                            <sl-tooltip :content="`${TOOLTIPS.cljStatusDiscussions.topicTitle.content}`">
+                                <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                            </sl-tooltip>
+                        </a>
+                    </th>
+                    <th>
+                        Num prompts
+                        <a class="clj-th-help" target="_blank"
+                            :href="`${TOOLTIPS.cljStatusDiscussions.numPrompts.url}`">
+                            <sl-tooltip :content="`${TOOLTIPS.cljStatusDiscussions.numPrompts.content}`">
+                                <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                            </sl-tooltip>
+                        </a>
+                    </th>
+                    <th colspan="2" class="clj-center">
+                        # without student entries
+                        <a class="clj-th-help" target="_blank"
+                            :href="`${TOOLTIPS.cljStatusDiscussions.numNoStudentEntries.url}`">
+                            <sl-tooltip :content="`${TOOLTIPS.cljStatusDiscussions.numNoStudentEntries.content}`">
+                                <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                            </sl-tooltip>
+                        </a>
+                    </th>
+                    <th colspan="2" class="clj-center">
+                        # without staff entries
+                        <a class="clj-th-help" target="_blank"
+                            :href="`${TOOLTIPS.cljStatusDiscussions.numNoStaffEntries.url}`">
+                            <sl-tooltip :content="`${TOOLTIPS.cljStatusDiscussions.numNoStaffEntries.content}`">
+                                <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                            </sl-tooltip>
+                        </a>
+                    </th>
+                </tr>
+                <tr>
+                    <th> </th>
+                    <th> </th>
+                    <th class="clj-center"> &lt;7 days </th>
+                    <th class="clj-center"> ever </th>
+                    <th class="clj-center"> &lt;7 days </th>
+                    <th class="clj-center"> ever </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="topic in groupSet.discussionTopics" :key="topic.id">
+                    <td>
+                        <a target="_blank"
+                            :href="`${canvasData.hostName}/courses/${canvasData.id}/discussion_topics/${topic.id}`">
+                            {{ topic.title }}
+                        </a>
+                    </td>
+                    <td class="clj-center">
+                        {{ topic.topic_children.length }}
+                    </td>
+                    <td class="clj-center">
+                        {{ topic.stats.numNoStudentEntriesLast7 }}
+                    </td>
+                    <td class="clj-center">
+                        {{ topic.stats.numNoStudentEntries }}
+                    </td>
+                    <td class="clj-center">
+                        {{ topic.stats.numNoStaffEntriesLast7 }}
+                    </td>
+                    <td class="clj-center">
+                        {{ topic.stats.numNoStaffEntries }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </template>
 
@@ -179,7 +174,6 @@ watch(
 .clj-status-discussions {
     background-color: #f0f0f0;
     padding: 1em;
-    margin: 1em;
     border-radius: 1em;
 }
 </style>

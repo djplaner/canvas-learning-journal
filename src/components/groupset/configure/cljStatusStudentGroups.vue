@@ -26,9 +26,9 @@
 
 import { ref, watch } from 'vue'
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../../lib/tooltips'
-import getCanvasData from '../../../lib/canvasApiData';
+import getCanvasData from '../../../lib/canvasApiData'
 
-const DEBUG = true;
+const DEBUG = false
 const FILE_NAME = "cljStatusStudentGroups"
 
 if (DEBUG && GLOBAL_DEBUG) {
@@ -49,7 +49,6 @@ const canvasData = getCanvasData();
 const promptDataLoaded = ref(false)
 const groupSet = ref(canvasData.groupSetsById[props.groupSetId])
 const isLearningJournal = ref(canvasData.mightBeLearningJournal(props.groupSetId))
-const updateProgress = ref(canvasData.groupSetsById[props.groupSetId].updateProgress)
 
 // watch for changes in props.groupSetId 
 watch(
@@ -62,17 +61,6 @@ watch(
     }
 )
 
-
-// watch groupSet updateProgress 
-watch(
-    () => canvasData.groupSetsById[props.groupSetId].updateProgress,
-    (progress) => {
-        if (DEBUG && GLOBAL_DEBUG) {
-            console.log(`groupset updateProgress ${progress}`)
-        }
-        updateProgress.value = progress
-    }
-)
 
 // Watch for the groupSet prompts data to be loaded 
 
@@ -92,7 +80,7 @@ watch(
 
 <template>
     <div class="clj-status-student-groups" v-if="isLearningJournal">
-        <h3>Student groups Status
+        <h3>Group overview
             <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljStatusStudentGroups.title.url}`">
                 <sl-tooltip :content="`${TOOLTIPS.cljStatusStudentGroups.title.content}`">
                     <i class="icon-Solid icon-question clj-small-tooltip"></i>
@@ -100,13 +88,26 @@ watch(
             </a>
         </h3>
 
-        <div v-if="promptDataLoaded">
             <table class="clj-data-table">
                 <thead>
                     <tr>
                         <th> </th>
-                        <th colspan="2" class="clj-center"># prompts without student entries</th>
-                        <th colspan="2" class="clj-center"># prompts without teacher entries</th>
+                        <th colspan="2" class="clj-center"># prompts without student entries
+            <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljStatusStudentGroups.noStudentEntries.url}`">
+                <sl-tooltip :content="`${TOOLTIPS.cljStatusStudentGroups.noStudentEntries.content}`">
+                    <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                </sl-tooltip>
+            </a>
+
+                        </th>
+                        <th colspan="2" class="clj-center"># prompts without teacher entries
+            <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljStatusStudentGroups.noStaffEntries.url}`">
+                <sl-tooltip :content="`${TOOLTIPS.cljStatusStudentGroups.noStaffEntries.content}`">
+                    <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                </sl-tooltip>
+            </a>
+
+                        </th>
                     </tr>
                     <tr>
                         <th> Group name </th>
@@ -119,7 +120,9 @@ watch(
                 <tbody>
                     <tr v-for="group in groupSet.groups" :key="group._id">
                         <td style="width:10rem">
+                            <a :href="`${canvasData.hostName}/groups/${group._id}`" target="_blank">
                             {{ group.name }}
+                            </a>
                         </td>
                         <td class="clj-center">
                             {{ group.stats.numNoStudentEntriesLast7 }}
@@ -136,12 +139,6 @@ watch(
                     </tr>
                 </tbody>
             </table>
-        </div>
-<!---->        <div v-else>
-            <p>Loading...</p>
-            <sl-progress-ring :value="`${updateProgress}`" class="progress-ring-values"
-                style="--track-width: 0.5rem; --indicator-width: 1rem; margin-bottom: .5rem;">..loading...</sl-progress-ring>
-        </div>
 
     </div>
 </template>
@@ -150,11 +147,7 @@ watch(
 .clj-status-student-groups {
     background-color: #f0f0f0;
     padding: 1em;
-    margin: 1em;
     border-radius: 1em;
 }
 
-.clj-center {
-  text-align: center;
-}
 </style>

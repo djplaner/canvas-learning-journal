@@ -789,11 +789,13 @@ class canvasApiData {
         numStaffEntries += prompt.stats.numStaffEntries
         if (prompt.stats.numStudentEntries === 0) {
           numNoStudentEntries += 1
+          numNoStudentEntriesLast7 += 1
         } else if (!this.last7Days(prompt.stats.lastStudentEntry)) {
           numNoStudentEntriesLast7 += 1
         }
         if (prompt.stats.numStaffEntries === 0) {
           numNoStaffEntries += 1
+          numNoStaffEntriesLast7 += 1
         } else if (!this.last7Days(prompt.stats.lastStaffEntry)) {
           numNoStaffEntriesLast7 += 1
         }
@@ -855,8 +857,8 @@ class canvasApiData {
       let numNoStaffEntries = 0
       let lastStaffEntry = null
       let lastStudentEntry = null
-      let numStudentEntriesLast7 = 0
-      let numStaffEntriesLast7 = 0
+      let numNoStudentEntriesLast7 = 0
+      let numNoStaffEntriesLast7 = 0
 
       for (const promptId in topic.promptsById) {
         const prompt = topic.promptsById[promptId]
@@ -864,9 +866,15 @@ class canvasApiData {
         numStudentEntries += prompt.stats.numStudentEntries
         if (prompt.stats.numStudentEntries === 0) {
           numNoStudentEntries += 1
+          numNoStudentEntriesLast7 += 1
+        } else if (!this.last7Days(prompt.stats.lastStaffEntry)) {
+          numNoStudentEntriesLast7 += 1
         }
         if (prompt.stats.numStaffEntries === 0) {
           numNoStaffEntries += 1
+          numNoStaffEntriesLast7 += 1
+        } else if (!this.last7Days(prompt.stats.lastStaffEntry)) {
+          numNoStaffEntriesLast7 += 1
         }
         if (lastStaffEntry === null || prompt.stats.lastStaffEntry > lastStaffEntry) {
           lastStaffEntry = prompt.stats.lastStaffEntry
@@ -882,8 +890,8 @@ class canvasApiData {
         numNoStaffEntries: numNoStaffEntries,
         lastStaffEntry: lastStaffEntry,
         lastStudentEntry: lastStudentEntry,
-        numStudentEntriesLast7: numStudentEntriesLast7,
-        numStaffEntriesLast7: numStaffEntriesLast7
+        numNoStudentEntriesLast7: numNoStudentEntriesLast7,
+        numNoStaffEntriesLast7: numNoStaffEntriesLast7
       }
     }
   }

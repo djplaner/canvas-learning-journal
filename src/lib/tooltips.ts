@@ -122,7 +122,7 @@ export const TOOLTIPS = {
         titleLearningJournalStatus: {
             content: `Status of this group set as a learning journal.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
-        }
+        },
     },
     cljStatusDiscussions: {
         title: {
@@ -148,7 +148,15 @@ export const TOOLTIPS = {
     },
     cljStatusStudentGroups: {
         title: {
-            content: `Participation statistics for each group in the group set.`,
+            content: `Overview of student and teacher contributions (entries) to each group's prompts (discussion topics).`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        noStudentEntries: {
+            content: `Number of prompts for each group that are missing entries from students. Both in the last 7 days and ever.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        noStaffEntries: {
+            content: `Number of prompts for each group that are missing entries from staff. Both in the last 7 days and ever.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
     }
