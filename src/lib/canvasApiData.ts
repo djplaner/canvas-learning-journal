@@ -22,7 +22,7 @@ import { reactive } from "vue"
 import { GLOBAL_DEBUG } from "./tooltips"
 //import { groupPromptsResponses } from "./groupPromptsResponses"
 
-const DEBUG: boolean = false
+const DEBUG: boolean = true
 const FILE_NAME: string = "CanvasApiData.ts"
 
 export const CSRFtoken = function () {
@@ -116,6 +116,17 @@ interface memberNode {
   }
 }
 
+interface promptStats {
+  // num of entries
+  numStaffEntries: number
+  numStudentEntries: number
+  numUnansweredStudentEntries: number
+  // when last entries from staff and students
+  lastStaffEntry: string
+  lastStudentEntry: string
+}
+
+
 interface prompt {
   // currently Canvas API REST response for view all topic
   // @todo 
@@ -127,6 +138,9 @@ interface prompt {
   participants: []
   view: []
   new_entries: []
+
+  // CLJ specific
+  stats: promptStats
 }
 
 interface group {
@@ -169,7 +183,21 @@ interface group_topic_children {
   group_id: number
 }
 
-interface discussionTopics {
+
+// used at both groupset and group level
+
+interface discussionTopicStats {
+  // num of entries
+  numStaffEntries: number
+  numStudentEntries: number
+  numUnansweredStudentEntries: number
+  // when last entries from staff and students
+  lastStaffEntry: string
+  lastStudentEntry: string
+}
+
+interface discussionTopic {
+  // Canvas API
   id: number
   title: string
   last_reply_at: string
@@ -219,6 +247,10 @@ interface discussionTopics {
   subscription_hold: string
   todo_date: string
   is_announcement: boolean
+
+  // CLJ specific
+  stats: discussionTopicStats
+  promptsById: { [key: number]: prompt }
 }
 
 /*interface learningJournalStatus {
@@ -244,11 +276,15 @@ interface groupSet {
   numNonPrivateGroups: number
   numStudentsMembersOfGroups: number
   numStudents: number
-  discussionTopics: discussionTopics[]
+  discussionTopics: discussionTopic[]
   numPrompts: number
   learningJournalStatus: learningJournalStatus
   groupsById: { [key: string]: group }
-  discussionTopicsById: { [key: string]: discussionTopics }
+  discussionTopicsById: { [key: string]: discussionTopic }
+
+  // Local customisation
+  updated: number // all group set discussion forum data updated
+  updateProgress: number // % ccompletion of loading progress for discussion forum data
 }
 
 interface user {
@@ -316,7 +352,7 @@ class canvasApiData {
   public teachers: user[] = []
   public studentsById: { [key: string]: user } = {}
   public teachersById: { [key: string]: user } = {}
-  public discussionTopics: discussionTopics[] = []
+  public discussionTopics: discussionTopic[] = []
   //public learningJournalStatus: learningJournalStatus
   public learningJournalStatus: learningJournalStatus = new learningJournalStatus({})
   /*public studentsById: any = {}; // object of students by id
@@ -474,6 +510,7 @@ class canvasApiData {
     this.groupSetsById = {}
     for (const groupSet of this.groupSets) {
       // copy the group set to the groupSetsById object
+      groupSet.updated = 0
       this.groupSetsById[groupSet._id] = groupSet
       // copy groupSet.groupsConnection.nodes to groupSet.groups
       groupSet.groups = groupSet.groupsConnection.nodes
@@ -660,6 +697,8 @@ class canvasApiData {
     }
 
     for (const groupSet of this.groupSets) {
+      groupSet.updateProgress = 0
+      const progressIncrement = 100 / (groupSet.numGroups * groupSet.numPrompts)
       if (!groupSet.discussionTopics) {
         // TODO why does this happen??
         continue
@@ -690,23 +729,163 @@ class canvasApiData {
         for (const groupTopic of groupTopics) {
           // data is the full topic view for one groups prompt
           let data = await this.getResponses(group._id, groupTopic.groupTopicId)
-          console.log(`groupGroupsResponses`)
-          console.log(data)
-          group.prompts[groupTopic.topicId] = data
-          //group.prompts.push(data)
-          if (data) {
-            // @TODO where does this get added
-            // add the responses to the group object
+          if (data.view.length > 0) {
+            console.log(`groupGroupsResponses`)
+            console.log(data)
           }
+          if (data) {
+            // calaculate statistics at the level of the prompt
+            data = this.analyseGroupPrompt(data)
+          }
+          groupSet.updateProgress += progressIncrement
+          // add data into the groupSet.group it belongs
+          group.prompts[groupTopic.topicId] = data
+          // add a copy of data into the groupset.discussion topic it belongs
+          //
+          if (!groupSet.discussionTopicsById[groupTopic.topicId].hasOwnProperty("promptsById")) {
+            groupSet.discussionTopicsById[groupTopic.topicId].promptsById = {}
+          }
+          groupSet.discussionTopicsById[groupTopic.topicId].promptsById[groupTopic.groupTopicId] = data
         }
       }
+      // All the prompts data has been gotten, able to analyse stats at the groupSet level
+      this.analyseGroupSetTopics(groupSet._id)
+      //this.analyseGroupSetGroups(groupSet._id) // TODO 
+      groupSet.updated += 1
     }
+
     if (DEBUG && GLOBAL_DEBUG) {
       console.log(`${FILE_NAME} getGroupsResponses: got all responses`)
       console.log(this)
     }
     //this.updated +=1
   }
+
+  /**
+   * @method analyseGroupSetTopics
+   * @param groupSetId string id of the string we're w2orking on
+   * @description Called once all the prompts for a groupset gathered. Analyse contributions
+   * to generate stats on when and how many entries have been contributed by students and staff.
+   * 
+   * Each of the groupSets discussionTopic entries should have a promptsById object which
+   * contains a stats object for each group prompt
+   * 
+   * - use num[Staff|Student]Entries to calculate numbers of entries
+   * - use last[Staff|Student]Entry to calculate the number of prompts that have staff/student
+   *   entries ever or in the last 7 days
+   */
+
+  analyseGroupSetTopics(groupSetId: string) {
+    const groupSet = this.groupSetsById[groupSetId]
+
+    // check each of the discussionTopics
+    for (const topic of groupSet.discussionTopics) {
+      if (!topic.hasOwnProperty("promptsById")) {
+        continue
+      }
+      let numStaffEntries = 0
+      let numStudentEntries = 0
+      let numNoStudentEntries = 0
+      let numNoStaffEntries = 0
+      let lastStaffEntry = null
+      let lastStudentEntry = null
+      let numStudentEntriesLast7 = 0
+      let numStaffEntriesLast7 = 0
+
+      for (const promptId in topic.promptsById) {
+        const prompt = topic.promptsById[promptId]
+        numStaffEntries += prompt.stats.numStaffEntries
+        numStudentEntries += prompt.stats.numStudentEntries
+        if (prompt.stats.numStudentEntries === 0) {
+          numNoStudentEntries += 1
+        }
+        if (prompt.stats.numStaffEntries === 0 ) {
+          numNoStaffEntries += 1
+        }
+        if (lastStaffEntry === null || prompt.stats.lastStaffEntry > lastStaffEntry) {
+          lastStaffEntry = prompt.stats.lastStaffEntry
+        }
+        if (lastStudentEntry === null || prompt.stats.lastStudentEntry > lastStudentEntry) {
+          lastStudentEntry = prompt.stats.lastStudentEntry
+        }
+      }
+      topic.stats = {
+        numStaffEntries: numStaffEntries,
+        numStudentEntries: numStudentEntries,
+        numNoStudentEntries: numNoStudentEntries,
+        numNoStaffEntries: numNoStaffEntries,
+        lastStaffEntry: lastStaffEntry,
+        lastStudentEntry: lastStudentEntry,
+        numStudentEntriesLast7: numStudentEntriesLast7,
+        numStaffEntriesLast7: numStaffEntriesLast7
+      }
+    }
+  }
+
+  /**
+   * @method analyseGroupPrompt( data )
+   * @param data Canvas API full topic view object 
+   * @returns data modified with discussionTopicStats object
+   * @description Examines each of the entries in a topic to determine when and how many
+   * entries have been contributed by students and staff
+   * 
+   * - Examine the discussionTopic.participants array to categorise participants as 
+   *   staff or students
+   *    Done by extracting user_id from the participant arrays and checking existence
+   *    in this.teachersById.keys and this.studentsById.keys 
+   * - Looping through each entries in discussionTopics.view
+   *    - counting num student/staff entries
+   *    - tracking when the most recent student/staff entry was made
+   * 
+   *    
+   */
+
+  analyseGroupPrompt(data: prompt): prompt {
+    data.stats = {
+      numStaffEntries: 0,
+      numStudentEntries: 0,
+      numUnansweredStudentEntries: 0,
+      lastStaffEntry: null,
+      lastStudentEntry: null
+    }
+
+    // identify the user type for each participant in the prompt
+    let participantType: { [key: number]: string } = {}
+    for (const participant of data.participants) {
+      let type = "unknown"
+      // participant.id is a number and Canvas user id
+      const staffIds = Object.keys(this.teachersById)
+      const studentIds = Object.keys(this.studentsById)
+      // if participant.id in staffIds array set type to staff
+      if (staffIds && staffIds.includes(`${participant.id}`)) {
+        type = "staff"
+      } else if (studentIds && studentIds.includes(participant.id)) {
+        type = "student"
+      }
+      participantType[participant.id] = type
+    }
+
+    // loop through each prompts.view entry
+    for (const entry of data.view) {
+      // entry.user_id is the Canvas user id
+      const type = participantType[entry.user_id]
+      if (type === "staff") {
+        data.stats.numStaffEntries += 1
+        if (data.stats.lastStaffEntry === null || entry.created_at > data.stats.lastStaffEntry) {
+          data.stats.lastStaffEntry = entry.created_at
+        }
+      } else if (type === "student") {
+        data.stats.numStudentEntries += 1
+        if (data.stats.lastStudentEntry === null || entry.created_at > data.stats.lastStudentEntry) {
+          data.stats.lastStudentEntry = entry.created_at
+        }
+      }
+      // @TODO need to identify any student entries that don't have answers
+    }
+
+    return data
+  }
+
 
   /**
    * @method calculateGroupsResponseCalls
@@ -757,8 +936,10 @@ class canvasApiData {
 
       const data: any = await response.json();
       if (DEBUG && GLOBAL_DEBUG) {
-        console.log(`${FILE_NAME} got some data`)
-        console.log(data)
+        if (data.view.length > 0) {
+          console.log(`${FILE_NAME} got some data`)
+          console.log(data)
+        }
       }
       if (!data) {
         throw new Error(`${FILE_NAME}:getCourseObject: no data returned`);
