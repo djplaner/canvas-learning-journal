@@ -750,7 +750,7 @@ class canvasApiData {
       }
       // All the prompts data has been gotten, able to analyse stats at the groupSet level
       this.analyseGroupSetTopics(groupSet._id)
-      //this.analyseGroupSetGroups(groupSet._id) // TODO 
+      this.analyseGroupSetGroups(groupSet._id) // TODO 
       groupSet.updated += 1
     }
 
@@ -759,6 +759,72 @@ class canvasApiData {
       console.log(this)
     }
     //this.updated +=1
+  }
+
+  /**
+   * @method analyseGroupSetGroups
+   * @param groupSetId string id of the group set we're working on
+   * @description Called once all the prompts for a groupset gathered. Analyse contributions
+   * to prompts to be organised by groups
+   * i.e. for a group, how many prompts don't have contributions etc
+   * 
+   * Loop through the groupset's groups and generate a stats object for each group
+   */
+
+  analyseGroupSetGroups(groupSetId: string) {
+    const groupSet = this.groupSetsById[groupSetId]
+
+    for (const group of groupSet.groups) {
+      // calculate stats about each prompt
+      let numNoStudentEntries = 0  // num prompts with no entries
+      let numNoStaffEntries = 0
+      let numNoStaffEntriesLast7 = 0
+      let numNoStudentEntriesLast7 = 0
+      let numStudentEntries = 0
+      let numStaffEntries = 0
+
+      for (const topicId in group.prompts) {
+        const prompt = group.prompts[topicId]
+        numStudentEntries += prompt.stats.numStudentEntries
+        numStaffEntries += prompt.stats.numStaffEntries
+        if (prompt.stats.numStudentEntries === 0) {
+          numNoStudentEntries += 1
+        } else if (!this.last7Days(prompt.stats.lastStudentEntry)) {
+          numNoStudentEntriesLast7 += 1
+        }
+        if (prompt.stats.numStaffEntries === 0) {
+          numNoStaffEntries += 1
+        } else if (!this.last7Days(prompt.stats.lastStaffEntry)) {
+          numNoStaffEntriesLast7 += 1
+        }
+      }
+      group.stats = {
+        numNoStudentEntries: numNoStudentEntries,
+        numNoStaffEntries: numNoStaffEntries,
+        numStudentEntries: numStudentEntries,
+        numStaffEntries: numStaffEntries,
+        numNoStudentEntriesLast7: numNoStudentEntriesLast7,
+        numNoStaffEntriesLast7: numNoStaffEntriesLast7
+      }
+
+    }
+
+  }
+
+  /**
+   * @method last7Days
+   * @param dateString 
+   * @returns true if the date string was within the last 7 days
+   */
+
+  last7Days(dateString: string): boolean {
+    if (dateString === null) {
+      return false
+    }
+    const sevenDaysAgo = new Date()
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
+    const lastEntryDate = new Date(dateString)
+    return lastEntryDate > sevenDaysAgo
   }
 
   /**
@@ -799,7 +865,7 @@ class canvasApiData {
         if (prompt.stats.numStudentEntries === 0) {
           numNoStudentEntries += 1
         }
-        if (prompt.stats.numStaffEntries === 0 ) {
+        if (prompt.stats.numStaffEntries === 0) {
           numNoStaffEntries += 1
         }
         if (lastStaffEntry === null || prompt.stats.lastStaffEntry > lastStaffEntry) {

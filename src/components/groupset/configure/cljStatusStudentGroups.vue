@@ -105,34 +105,39 @@ watch(
                 <thead>
                     <tr>
                         <th> </th>
-                        <th colspan="2"># groups without student entries</th>
-                        <th colspan="2"># groups without teacher entries</th>
+                        <th colspan="2" class="clj-center"># prompts without student entries</th>
+                        <th colspan="2" class="clj-center"># prompts without teacher entries</th>
                     </tr>
                     <tr>
                         <th> Group name </th>
-                        <th> &lt;7 days </th>
-                        <th> ever </th>
-                        <th> &lt;7 days </th>
-                        <th> ever </th>
+                        <th class="clj-center"> &lt;7 days </th>
+                        <th class="clj-center"> ever </th>
+                        <th class="clj-center"> &lt;7 days </th>
+                        <th class="clj-center"> ever </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="group in groupSet.groups" :key="group._id">
-                        <td>
+                        <td style="width:10rem">
                             {{ group.name }}
                         </td>
-                        <td>
-                            &nbsp;
+                        <td class="clj-center">
+                            {{ group.stats.numNoStudentEntriesLast7 }}
                         </td>
-                        <td>
+                        <td class="clj-center">
+                            {{ group.stats.numNoStudentEntries }}
                         </td>
-                        <td>
+                        <td class="clj-center">
+                            {{ group.stats.numNoStaffEntriesLast7 }}
+                        </td>
+                        <td class="clj-center">
+                            {{ group.stats.numNoStaffEntries }}
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div v-else>
+<!---->        <div v-else>
             <p>Loading...</p>
             <sl-progress-ring :value="`${updateProgress}`" class="progress-ring-values"
                 style="--track-width: 0.5rem; --indicator-width: 1rem; margin-bottom: .5rem;">..loading...</sl-progress-ring>
@@ -147,5 +152,9 @@ watch(
     padding: 1em;
     margin: 1em;
     border-radius: 1em;
+}
+
+.clj-center {
+  text-align: center;
 }
 </style>

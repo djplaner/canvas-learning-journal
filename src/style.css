@@ -137,7 +137,7 @@ table.clj-data-table {
   }
 }
 
-td.clj-center {
+.clj-center {
   text-align: center;
 }
 
