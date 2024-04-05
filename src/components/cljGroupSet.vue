@@ -44,8 +44,8 @@ import { ref } from 'vue'
 
 import { TOOLTIPS, GLOBAL_DEBUG } from '../lib/tooltips'
 
-import cljConfigure from './groupset/cljConfigure.vue'
-import cljOrchestrate from './groupset/cljOrchestrate.vue'
+import cljOverview from './groupset/cljOverview.vue'
+import cljParticipation from './groupset/cljParticipation.vue'
 
 import getCanvasData from '../lib/canvasApiData'
 
@@ -190,7 +190,7 @@ function getActiveGroupSet() {
         <div class="clj-detail" id="clj-gs-detail">
             <sl-tab-group>
                 <sl-tab slot="nav" panel="clj-configure">
-                    Configure
+                    Overview
                     <a target="_blank" :href="TOOLTIPS.cljGroupSet.configure.url">
                         <sl-tooltip hoist>
                             <div slot="content">
@@ -201,7 +201,7 @@ function getActiveGroupSet() {
                     </a>
                 </sl-tab>
                 <sl-tab slot="nav" panel="clj-orchestrate" v-if="isLearningJournal">
-                    Orchestrate
+                    Participation
                     <a target="_blank" :href="TOOLTIPS.cljGroupSet.orchestrate.url">
                         <sl-tooltip placement="right-start" hoist>
                             <div slot="content">
@@ -213,10 +213,10 @@ function getActiveGroupSet() {
                 </sl-tab>
 
                 <sl-tab-panel name="clj-configure">
-                    <cljConfigure :groupSetId="groupSetId" />
+                    <cljOverview :groupSetId="groupSetId" />
                 </sl-tab-panel>
                 <sl-tab-panel name="clj-orchestrate" v-if="isLearningJournal">
-                    <cljOrchestrate :groupSetId="groupSetId" />
+                    <cljParticipation :groupSetId="groupSetId" />
                 </sl-tab-panel>
             </sl-tab-group>
         </div>

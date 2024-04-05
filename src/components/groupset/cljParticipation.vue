@@ -17,7 +17,7 @@
 
 <script setup>
 /**
- * @file: cljOrchestrate.vue
+ * @file: cljParticipation.vue
  * @description: Show configuration options/detail for a specific group set
  * @todo: 
  * - everything
@@ -29,7 +29,7 @@ import cljStatusLearningJournal from './status/cljStatusLearningJournal.vue'
 import cljStatusPrompts from './status/cljStatusPrompts.vue'
 
 const DEBUG = false
-const FILE_NAME = "cljOrchestrate"
+const FILE_NAME = "cljParticipation"
 
 const props = defineProps({
     groupSetId: Number

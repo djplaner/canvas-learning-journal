@@ -17,7 +17,7 @@
 
 <script setup>
 /**
- * @file: cljConfigure.vue
+ * @file: cljOverview.vue
  * @description: Show configure options/detail for a specific group set
  * @todo: 
  * - everything
@@ -33,7 +33,7 @@ import cljStatusStudentGroups from './configure/cljStatusStudentGroups.vue'
 import cljStatusDiscussions from './configure/cljStatusDiscussions.vue'
 
 const DEBUG = true
-const FILE_NAME = "cljConfigure"
+const FILE_NAME = "cljOverview"
 
 if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME} TOOLTIPS:`)
