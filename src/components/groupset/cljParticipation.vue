@@ -25,8 +25,8 @@
 
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
 
-import cljStatusLearningJournal from './status/cljStatusLearningJournal.vue'
-import cljStatusPrompts from './status/cljStatusPrompts.vue'
+import cljOverviewParticipation from './participation/cljOverviewParticipation.vue'
+import cljPromptsParticipation from './participation/cljPromptsParticipation.vue'
 
 const DEBUG = false
 const FILE_NAME = "cljParticipation"
@@ -42,8 +42,8 @@ if (DEBUG && GLOBAL_DEBUG) {
 
 <template>
     <div class="clj-orchestrate">
-        <cljStatusLearningJournal :groupSetId="groupSetId" />
-        <cljStatusPrompts :groupSetId="groupSetId" />
+        <cljOverviewParticipation :groupSetId="groupSetId" />
+        <cljPromptsParticipation :groupSetId="groupSetId" />
     </div>
 </template>
 

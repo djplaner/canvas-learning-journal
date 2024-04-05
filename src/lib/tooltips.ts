@@ -159,5 +159,11 @@ export const TOOLTIPS = {
             content: `Number of prompts for each group that are missing entries from staff. Both in the last 7 days and ever.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
+    },
+    cljOverviewParticipation: {
+        title: {
+            content: `Information about participation at the group set level.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
     }
 }

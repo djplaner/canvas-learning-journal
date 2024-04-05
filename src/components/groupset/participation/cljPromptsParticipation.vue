@@ -16,26 +16,16 @@
 -->
 
 <script setup>
-/**
- * @file: cljOverview.vue
- * @description: Show configure options/detail for a specific group set
- * @todo: 
- * - everything
- */
 
 import { ref, watch } from 'vue'
-import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
+import { TOOLTIPS, GLOBAL_DEBUG } from '../../../lib/tooltips'
+import getCanvasData from '../../../lib/canvasApiData';
 
-import getCanvasData from '../../lib/canvasApiData'
 
-import cljStatusGroupSet from './overview/cljStatusGroupSet.vue'
-import cljStatusStudentGroups from './overview/cljStatusStudentGroups.vue'
-import cljStatusDiscussions from './overview/cljStatusDiscussions.vue'
+const DEBUG = false
+const FILE_NAME = "cljPromptsParticipation"
 
-const DEBUG = true
-const FILE_NAME = "cljOverview"
-
-if (DEBUG && GLOBAL_DEBUG) {
+if (DEBUG && GLOBAL_DEBUG ) {
     console.log(`${FILE_NAME} TOOLTIPS:`)
     console.log(TOOLTIPS)
 }
@@ -48,12 +38,11 @@ if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME} groupSetId: ${props.groupSetId}`)
 }
 
-const canvasData = getCanvasData();
-
 const promptDataLoaded = ref(false)
+
+const canvasData = getCanvasData();
 const groupSet = ref(canvasData.groupSetsById[props.groupSetId])
-const isLearningJournal = ref(canvasData.mightBeLearningJournal(props.groupSetId))
-const updateProgress = ref(canvasData.groupSetsById[props.groupSetId].updateProgress)
+
 
 // watch for changes in props.groupSetId 
 watch(
@@ -63,18 +52,7 @@ watch(
             console.log(`${FILE_NAME} groupSetId: ${groupSetId}`)
         }
         isLearningJournal.value = canvasData.mightBeLearningJournal(groupSetId)
-    }
-)
-
-
-// watch groupSet updateProgress 
-watch(
-    () => canvasData.groupSetsById[props.groupSetId].updateProgress,
-    (progress) => {
-        if (DEBUG && GLOBAL_DEBUG) {
-            console.log(`groupset updateProgress ${progress}`)
-        }
-        updateProgress.value = progress
+        groupSet.value = canvasData.groupSetsById[groupSetId]
     }
 )
 
@@ -95,24 +73,30 @@ watch(
 </script>
 
 <template>
-    <div class="clj-configure">
-        <cljStatusGroupSet :groupSetId="props.groupSetId" />
-        <div v-if="isLearningJournal">
-            <div v-if="promptDataLoaded">
-                <cljStatusStudentGroups :groupSetId="props.groupSetId" />
-                <cljStatusDiscussions :groupSetId="props.groupSetId" />
-            </div>
-            <div v-else>
-                <sl-progress-ring :value="`${updateProgress}`" class="progress-ring-values"
-                    style="--track-width: 0.5rem; --indicator-width: 1rem; margin-bottom: .5rem;">..loading...</sl-progress-ring>
-            </div>
-        </div>
+    <div class="clj-status-prompts">
+        <h3>Prompts participation - {{ groupSet.name }}</h3>
+
+        <p><em>1 tab per prompt</em> - <em>each tab as per file</em></p>
+
+        <sl-tab-group>
+                <sl-tab v-for="prompt in groupSet.discussionTopics" key="prompt.id" slot="nav" :panel="`${prompt.title}`"> 
+                    {{ prompt.title }}
+                </sl-tab>
+
+                <sl-tab-panel v-for="prompt in groupSet.discussionTopics" key="prompt.id" :name="`${prompt.title}`">
+                    <h3>{{ prompt.title }}</h3>
+                </sl-tab-panel>
+            </sl-tab-group>
+
+
     </div>
 </template>
 
 <style scoped>
-.clj-configure {
-    margin-left: 1rem;
-    margin-top: 0rem;
+.clj-status-prompts {
+    background-color: #f0f0f0;
+    padding: 1em;
+    margin: 1em;
+    border-radius: 1em;
 }
 </style>
