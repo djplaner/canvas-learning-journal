@@ -51,7 +51,7 @@ if (DEBUG && GLOBAL_DEBUG) {
 }
 
 // initiate the canvas API data call
-const canvasData = getCanvasData();
+const canvasData = getCanvasData(!peoplePage);
 const dataLoaded = ref(false)
 
 // Watch for the canvasData object to be updated (successful retrieved) 

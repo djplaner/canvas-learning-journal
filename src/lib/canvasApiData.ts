@@ -420,7 +420,7 @@ class canvasApiData {
    * @function retrieveGraphQLObject
    * @description Perform a GraphQL query on the Canvas API
    */
-  retrieveGraphQLObject() {
+  retrieveGraphQLObject(getPromptData: boolean) {
     if (DEBUG) {
       console.log(FILE_NAME + " -----  CanvasApiData::retrieveGraphQLObject")
     }
@@ -472,9 +472,12 @@ class canvasApiData {
           console.log(FILE_NAME + "    :retrieveGraphQLObject: got data")
         }
         this.transformGraphQLResponse(data.data.course);
-        this.retrieveDiscussionTopics(idString);
-
-        //this.updated += 1;
+        this.retrieveDiscussionTopics(idString, getPromptData);
+        if (!getPromptData) {
+          // get the discussion topics for the course
+          //canvasData.retrieveDiscussionTopics();
+          this.updated += 1;
+        }
 
         if (DEBUG && GLOBAL_DEBUG) {
           console.log(this)
@@ -577,7 +580,7 @@ class canvasApiData {
  * This method called after the GraphQL query to get the course object.
  */
 
-  retrieveDiscussionTopics(courseId: string) {
+  retrieveDiscussionTopics(courseId: string, getPromptData: boolean) {
 
     const callUrl = `${this.hostName}/api/v1/courses/${courseId}/discussion_topics`;
 
@@ -598,7 +601,9 @@ class canvasApiData {
       response.json().then(data => {
         this.transformDiscussionTopics(data);
         // temporary call here...@todo move it some where sle
-        this.getGroupsResponses();
+        if (getPromptData) {
+          this.getGroupsResponses();
+        }
 
         // set this now and the root component will start working
         this.updated += 1
@@ -1035,27 +1040,36 @@ class canvasApiData {
 
 let canvasData: canvasApiData = reactive(new canvasApiData());
 
-export default function getCanvasData(): any {
+/**
+ * @function getCanvasData
+ * @param getPromptData : boolean Whether to get prompt data
+ * @returns singleton object with all data retrieved from Canvas API
+ * @description Create a Vue "store". A singleton that manages the retrieval and
+ * manipulation of data from the Canvas API
+ */
+
+export default function getCanvasData( getPromptData: boolean = true): any {
   if (DEBUG && GLOBAL_DEBUG) {
-    console.log(FILE_NAME + " :1 getCanvasCourse called")
+    console.log(`${FILE_NAME}:getCanvasData getPromptData - ${getPromptData}`)
+    console.log(canvasData)
+    console.log("----")
   }
+  // check if any data has been retrieved at all
   if (canvasData.id === -1) {
-    if (DEBUG && GLOBAL_DEBUG) {
-      console.log("canvasApiData:2 calling parseCurrentURL (we don't have data")
-    }
-    canvasData.parseCurrentURL();
-    if (DEBUG && GLOBAL_DEBUG) {
-      console.log("canvasApiData:3 calling retrieveGraphQLObject (we don't have data)")
-    }
-    canvasData.retrieveGraphQLObject();
+    // no data retrieved, get basic info from the url
+    canvasData.parseCurrentURL()
+    // get the initial course object from the Canvas API
+    canvasData.retrieveGraphQLObject(getPromptData)
     if (DEBUG && GLOBAL_DEBUG) {
       console.log("canvasApiData:4 called retrieveGraphQLObject (we don't have data)")
       console.log(canvasData)
     }
-  }
+  } 
 
   if (DEBUG && GLOBAL_DEBUG) {
     console.log("canvasApiData:5 getCanvasCourse returning")
+    console.log(canvasData)
+    console.log("_________")
   }
   return canvasData;
   //return {};

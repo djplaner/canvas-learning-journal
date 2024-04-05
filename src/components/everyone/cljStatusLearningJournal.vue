@@ -99,11 +99,13 @@ function showStuff() {
         console.log(groupSet.learningJournalStatus)
     }
 
-    privateLJ.value = groupSet.learningJournalStatus.privateJournal
-    studentsWithoutGroup.value = groupSet.learningJournalStatus.studentsWithoutGroup
-    noPrompts.value = !groupSet.learningJournalStatus.promptsCreated
-    multiStudentGroups.value = groupSet.learningJournalStatus.multiStudentGroups
-    noGroups.value = !groupSet.learningJournalStatus.groupsCreated
+    if (groupSet.hasOwnProperty('learningJournalStatus') && groupSet.learningJournalStatus.hasOwnProperty('privateJournal')) {
+        privateLJ.value = groupSet.learningJournalStatus.privateJournal
+        studentsWithoutGroup.value = groupSet.learningJournalStatus.studentsWithoutGroup
+        noPrompts.value = !groupSet.learningJournalStatus.promptsCreated
+        multiStudentGroups.value = groupSet.learningJournalStatus.multiStudentGroups
+        noGroups.value = !groupSet.learningJournalStatus.groupsCreated
+    }
 
 }
 
