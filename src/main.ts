@@ -2,7 +2,12 @@
  * @file: src/main.ts
  * @description: Main entry point for canvas learning journal. 
  * Mount the app on either the people or group set URLs for a Canvas course.
- * Place the app before the div#group_categories_tabs
+ * Place the app 
+ *     (deprecatedbefore the div#group_categories_tabs
+ *    under the active tabs first thing
+ *  
+ *       div#group_categories_tabs > div.ui-tabs-panel with aria-expanded=true
+ * 
  * The app will use the URL to determine what information to display
  * - users page <hostname>://courses/<id>/users
  *   Some basic info about how to use the learning journal app
@@ -25,6 +30,7 @@ import './style.css'
 
 import { GLOBAL_DEBUG } from './lib/tooltips'
 const DEBUG: boolean = false
+const FILE_NAME: string = "CLJ main.ts"
 
 // Should only be called if on the
 // - users page <hostname>://courses/<id>/users 
@@ -64,6 +70,14 @@ observer.observe(document, { childList: true, subtree: true })
 
 function insertLearningJournalApp(groupCategoriesTab: Element) {
 
+  // find the div.ui-tabs-panel with aria-expanded=true within groupCategoriesTab
+  const activeTab = groupCategoriesTab.querySelector('div.ui-tabs-panel[aria-expanded=true]')
+
+  if (!activeTab) {
+    console.error(`${FILE_NAME} - unable to find active tab`)
+    throw new Error("Unable to find active tab")
+  }
+
   // call off the mutation observer
   observer.disconnect()
 
@@ -72,8 +86,10 @@ function insertLearningJournalApp(groupCategoriesTab: Element) {
   app.mount(
     (() => {
       const appElem = document.createElement('div')
+      appElem.id = 'clj'
       appElem.style.display = 'inline'
-      groupCategoriesTab.before(appElem)
+      //groupCategoriesTab.before(appElem)
+      activeTab.prepend(appElem)
       return appElem
     })(),
   )

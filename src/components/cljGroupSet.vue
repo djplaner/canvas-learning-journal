@@ -98,7 +98,8 @@ if (DEBUG && GLOBAL_DEBUG) {
  * @description: Listen for clicks on all links 
  *    a.group-category-tab-link 
  * indicating the Canvas user is displaying a different groupSet 
- * Change the groupSetId reactive variable to match the new group set
+ * - Change the groupSetId reactive variable to match the new group set
+ * - move the div#clj to the new active tab
  */
 
 function addEventHandlers() {
@@ -114,6 +115,15 @@ function addEventHandlers() {
             const number = href.split('-')[1]
             groupSetId.value = number
             isLearningJournal.value = canvasData.mightBeLearningJournal(number)
+            const groupCatTab = document.querySelector('div#group_categories_tabs')
+            const clj = document.querySelector('div#clj')
+            if (groupCatTab && clj) {
+                // 
+                let activeTab = groupCatTab.querySelector('div.ui-tabs-panel[aria-expanded=true]')
+                console.log("--------------------")
+                console.log(activeTab)
+                activeTab.prepend(clj)
+            }
         })
     })
 }
