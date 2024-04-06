@@ -355,6 +355,7 @@ interface groupSet {
   // Local customisation
   updated: number // all group set discussion forum data updated
   updateProgress: number // % ccompletion of loading progress for discussion forum data
+  stats: discussionTopicStats // sum up the discussion stats for all discussion topics
 }
 
 interface user {
@@ -849,6 +850,15 @@ class canvasApiData {
   analyseGroupSetGroups(groupSetId: string) {
     const groupSet = this.groupSetsById[groupSetId]
 
+    groupSet.stats = {
+      numNoStudentEntries: 0,
+      numNoStaffEntries: 0,
+      numStudentEntries: 0,
+      numStaffEntries: 0,
+      numNoStudentEntriesLast7: 0,
+      numNoStaffEntriesLast7: 0
+    }
+
     for (const group of groupSet.groups) {
       // calculate stats about each prompt
       let numNoStudentEntries = 0  // num prompts with no entries
@@ -884,8 +894,12 @@ class canvasApiData {
         numNoStaffEntriesLast7: numNoStaffEntriesLast7
       }
 
+      // add the group stats to the groupSet stats
+      for (const key in group.stats) {
+        console.log(`${FILE_NAME} key ${key}`)
+        groupSet.stats[key] += group.stats[key]
+      }
     }
-
   }
 
   /**

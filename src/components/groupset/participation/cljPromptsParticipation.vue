@@ -67,7 +67,7 @@ watch(
     <div class="clj-status-prompts">
         <h3>Prompts participation - {{ groupSet.name }}</h3>
 
-        <p><em>1 tab per prompt</em> - <em>each tab as per file</em></p>
+        <p>Each of the tabs below provides a summary of student and staff participation in each of the {{ groupSet.numPrompts }} prompts for this learning journal.</p>
 
         <sl-tab-group>
                 <sl-tab v-for="topic in groupSet.discussionTopics" key="topic.id" slot="nav" :panel="`${topic.title}`"> 

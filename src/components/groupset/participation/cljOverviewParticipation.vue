@@ -18,7 +18,8 @@
 <script setup>
 /**
  * @file: cljOverviewParticipation.vue
- * @description: Show status for the current group set
+ * @description: Given a groupSetId display some basic overview of how students
+ * are participating in the topics/prompts for this group set.
  * @todo: 
  * - everything
  */
@@ -89,38 +90,21 @@ watch(
 
         </h3>
 
-        <p><em>need some sort of stats property at the level of groupSet</em></p>
-        <ul>
-            <li> # of groups {{ groupSet.numGroups }} </li>
-            <li> # of prompts for the groupset {{ groupSet.numPrompts }} </li>
-            <li> # of groups with 0 student entries </li>
-            <li> # of groups with 0 staff entries </li>
-            <li> # of student entries </li>
-        </ul>
-
         <table class="clj-data-table">
             <thead>
                 <tr>
-                    <th>
-                        Topic Title
+                    <th> </th>
+                    <th colspan="2" class="clj-center">
+                        # groups without student entries
                         <a class="clj-th-help" target="_blank"
-                            :href="`${TOOLTIPS.cljStatusDiscussions.topicTitle.url}`">
-                            <sl-tooltip :content="`${TOOLTIPS.cljStatusDiscussions.topicTitle.content}`">
-                                <i class="icon-Solid icon-question clj-small-tooltip"></i>
-                            </sl-tooltip>
-                        </a>
-                    </th>
-                    <th>
-                        Num prompts
-                        <a class="clj-th-help" target="_blank"
-                            :href="`${TOOLTIPS.cljStatusDiscussions.numPrompts.url}`">
-                            <sl-tooltip :content="`${TOOLTIPS.cljStatusDiscussions.numPrompts.content}`">
+                            :href="`${TOOLTIPS.cljStatusDiscussions.numNoStudentEntries.url}`">
+                            <sl-tooltip :content="`${TOOLTIPS.cljStatusDiscussions.numNoStudentEntries.content}`">
                                 <i class="icon-Solid icon-question clj-small-tooltip"></i>
                             </sl-tooltip>
                         </a>
                     </th>
                     <th colspan="2" class="clj-center">
-                        # without student entries
+                        # groups without staff entries
                         <a class="clj-th-help" target="_blank"
                             :href="`${TOOLTIPS.cljStatusDiscussions.numNoStudentEntries.url}`">
                             <sl-tooltip :content="`${TOOLTIPS.cljStatusDiscussions.numNoStudentEntries.content}`">
@@ -129,7 +113,41 @@ watch(
                         </a>
                     </th>
                 </tr>
+                <tr>
+                    <th class="clj-center">
+                        Num prompts
+                        <a class="clj-th-help" target="_blank"
+                            :href="`${TOOLTIPS.cljStatusDiscussions.numPrompts.url}`">
+                            <sl-tooltip :content="`${TOOLTIPS.cljStatusDiscussions.numPrompts.content}`">
+                                <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                            </sl-tooltip>
+                        </a>
+                    </th>
+                    <th class="clj-center"> < 7 days </th>
+                    <th class="clj-center"> ever </th>
+                    <th class="clj-center"> < 7 days </th>
+                    <th class="clj-center"> ever </th>
+                </tr>
             </thead>
+            <tbody>
+                <tr>
+                    <td class="clj-center">
+                        {{ groupSet.numPrompts }}
+                    </td>
+                    <td class="clj-center">
+                        {{ groupSet.stats.numNoStudentEntriesLast7 }}
+                    </td>
+                    <td class="clj-center">
+                        {{ groupSet.stats.numNoStudentEntries }}
+                    </td>
+                    <td class="clj-center">
+                        {{ groupSet.stats.numNoStaffEntriesLast7 }}
+                    </td>
+                    <td class="clj-center">
+                        {{ groupSet.stats.numNoStaffEntries }}
+                    </td>
+                </tr>
+            </tbody>
         </table>
 
     </div>
