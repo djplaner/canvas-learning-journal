@@ -99,7 +99,7 @@ watch(
 <template>
     <div class="clj-participation-summary">
 
-        <h4>Prompt: {{ topic.title }}</h4>
+        <h4>Topic: <a :href="`${topic.html_url}`" target="_blank">{{ topic.title }}</a></h4>
 
         <div class="clj-row">
             <div class="clj-col">
@@ -123,8 +123,8 @@ watch(
                             <th>
                                 # 0 student entries
                                 <a class="clj-th-tooltip" target="_blank"
-                                    :href="`${TOOLTIPS.cljPromptParticipationSummary.title.url}`">
-                                    <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationSummary.title.content}`">
+                                    :href="`${TOOLTIPS.cljPromptParticipationSummary.num0StudentEntries.url}`">
+                                    <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationSummary.num0StudentEntries.content}`">
                                         <i class="icon-Solid icon-question clj-small-tooltip"></i>
                                     </sl-tooltip>
                                 </a>
@@ -132,36 +132,57 @@ watch(
                                 < 7 days<br />
                                 ever
                             </th>
-                            <td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                # 0 staff entries
-                                <a class="clj-th-tooltip" target="_blank"
-                                    :href="`${TOOLTIPS.cljPromptParticipationSummary.title.url}`">
-                                    <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationSummary.title.content}`">
-                                        <i class="icon-Solid icon-question clj-small-tooltip"></i>
-                                    </sl-tooltip>
-                                </a>
-                                <br />
-                                < 7 days<br />
-                                ever
-                            </th>
-                            <td>
+                            <td class="clj-right">
+                                &nbsp;<br />
+                                {{ topic.stats.numNoStudentEntriesLast7 }}<br />
+                                {{ topic.stats.numNoStudentEntries }}
                             </td>
                         </tr>
                         <tr>
                             <th>
                                 Total # student entries
                                 <a class="clj-th-tooltip" target="_blank"
-                                    :href="`${TOOLTIPS.cljPromptParticipationSummary.title.url}`">
-                                    <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationSummary.title.content}`">
+                                    :href="`${TOOLTIPS.cljPromptParticipationSummary.totalStudentEntries.url}`">
+                                    <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationSummary.totalStudentEntries.content}`">
                                         <i class="icon-Solid icon-question clj-small-tooltip"></i>
                                     </sl-tooltip>
                                 </a>
                             </th>
-                            <td>
+                            <td class="clj-right">
+                                {{ topic.stats.numStudentEntries }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                # 0 staff entries
+                                <a class="clj-th-tooltip" target="_blank"
+                                    :href="`${TOOLTIPS.cljPromptParticipationSummary.num0StaffEntries.url}`">
+                                    <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationSummary.num0StaffEntries.content}`">
+                                        <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                                    </sl-tooltip>
+                                </a>
+                                <br />
+                                < 7 days<br />
+                                ever
+                            </th>
+                            <td class="clj-right">
+                                &nbsp;<br />
+                                {{ topic.stats.numNoStaffEntriesLast7 }}<br />
+                                {{ topic.stats.numNoStaffEntries }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Total # staff entries
+                                <a class="clj-th-tooltip" target="_blank"
+                                    :href="`${TOOLTIPS.cljPromptParticipationSummary.totalStaffEntries.url}`">
+                                    <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationSummary.totalStaffEntries.content}`">
+                                        <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                                    </sl-tooltip>
+                                </a>
+                            </th>
+                            <td class="clj-right">
+                                {{ topic.stats.numStaffEntries }}
                             </td>
                         </tr>
 
@@ -170,28 +191,34 @@ watch(
 
             </div>
             <div class="clj-col">
-                <table class="clj-data-table">
+                <table class="clj-data-table clj-fixed">
                     <tbody>
                         <tr>
-                            <th>
+                            <th class="clj-half">
                                 Assessable?
                                 <a class="clj-th-tooltip" target="_blank"
-                                    :href="`${TOOLTIPS.cljPromptParticipationSummary.title.url}`">
-                                    <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationSummary.title.content}`">
+                                    :href="`${TOOLTIPS.cljPromptParticipationSummary.assessable.url}`">
+                                    <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationSummary.assessable.content}`">
                                         <i class="icon-Solid icon-question clj-small-tooltip"></i>
                                     </sl-tooltip>
                                 </a>
                             </th>
-                            <td class="clj-center">
-                                <div v-if="assignmentExists">Y
-                                    (<a :href="`${topic.assignment.html_url}`" target="_blank">link</a>)
+                            <td class="clj-center clj-half">
+                                <div v-if="assignmentExists">Yes
                                 </div>
-                                <div v-else>N</div>
+                                <div v-else>No</div>
                             </td>
                         </tr>
                         <tr v-if="assignmentExists">
                             <th>
                                 Points possible
+                                <a class="clj-th-tooltip" target="_blank"
+                                    :href="`${TOOLTIPS.cljPromptParticipationSummary.pointsPossible.url}`">
+                                    <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationSummary.pointsPossible.content}`">
+                                        <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                                    </sl-tooltip>
+                                </a>
+
                             </th>
                             <td class="clj-center">
                                 {{ topic.assignment.points_possible }}
@@ -200,9 +227,29 @@ watch(
                         <tr v-if="assignmentExists">
                             <th>
                                 Due date
+                                <a class="clj-th-tooltip" target="_blank"
+                                    :href="`${TOOLTIPS.cljPromptParticipationSummary.dueDate.url}`">
+                                    <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationSummary.dueDate.content}`">
+                                        <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                                    </sl-tooltip>
+                                </a>
                             </th>
                             <td class="clj-center">
-                                {{ formatDate(topic.assignment.due_at) }}
+                                {{ formatDate(topic.assignment.due_at, "n/a") }}
+                            </td>
+                        </tr>
+                        <tr v-if="assignmentExists">
+                            <th>
+                                Needs grading
+                                <a class="clj-th-tooltip" target="_blank"
+                                    :href="`${TOOLTIPS.cljPromptParticipationSummary.needsGrading.url}`">
+                                    <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationSummary.needsGrading.content}`">
+                                        <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                                    </sl-tooltip>
+                                </a>
+                            </th>
+                            <td class="clj-center">
+                                {{ topic.assignment.needs_grading_count }}
                             </td>
                         </tr>
                     </tbody>
@@ -211,10 +258,6 @@ watch(
 
             </div>
         </div>
-
-        <p>summary table for this particular prompt</p>
-
-
     </div>
 </template>
 

@@ -26,12 +26,16 @@ export const GLOBAL_DEBUG = true;
 /**
  * @function formatDate
  * @param dateString 
+ * @param invalidMessage : string message to be returned if date is invalid
  * @description Simple date format inspired by
  *   https://jerickson.net/how-to-format-dates-in-vue-3/
  * @returns 
  */
-export function formatDate( dateString : string) : string {
+export function formatDate( dateString : string, invalidMessage: string = "Invalid date") : string {
     const date = dayjs(dateString)
+    if (!date.isValid()) {
+        return invalidMessage
+    }
     return date.format("DD/MM/YYYY h:mm:ss a")
 }
 
@@ -183,6 +187,38 @@ export const TOOLTIPS = {
     cljPromptParticipationSummary: {
         title: {
             content: `Title of parent discussion topic for all groups.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        assessable: {
+            content: `Whether the discussion topic is assessable.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        pointsPossible: {
+            content: `Max points possible for the assignment.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        dueDate: {
+            content: `Time/date when the assignment is due.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        needsGrading: { 
+            content: `Number of submissions requiring grading.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        num0StudentEntries: {
+            content: `Number of groups with no student entries for this topic.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        num0StaffEntries: {
+            content: `Number of groups with no staff entries for this topic.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        totalStudentEntries: {
+            content: `Count of all student entries from all groups.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        totalStaffEntries: {
+            content: `Count of all staff entries from all groups.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
     },

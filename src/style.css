@@ -141,6 +141,19 @@ th.clj-center, td.clj-center {
   text-align: center;
 }
 
+th.clj-right, td.clj-right {
+  text-align: right;
+  padding-right: 1rem; 
+}
+
+th.clj-half, td.clj-half {
+  width: 50%;
+}
+
+table.clj-fixed {
+  table-layout: fixed;
+}
+
 .clj-two-column-grid { 
   display: block;
 }
