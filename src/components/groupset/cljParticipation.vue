@@ -23,12 +23,16 @@
  * - everything
  */
 
+import { ref, watch } from 'vue'
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
+
+import getCanvasData from '../../lib/canvasApiData'
+
 
 import cljOverviewParticipation from './participation/cljOverviewParticipation.vue'
 import cljPromptsParticipation from './participation/cljPromptsParticipation.vue'
 
-const DEBUG = false
+const DEBUG = true
 const FILE_NAME = "cljParticipation"
 
 const props = defineProps({
@@ -38,12 +42,64 @@ const props = defineProps({
 if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME} groupSetId: ${props.groupSetId}`)
 }
+
+const canvasData = getCanvasData();
+
+const groupSet = ref(canvasData.groupSetsById[props.groupSetId])
+const promptDataLoaded = ref(groupSet.value.updated>0)
+const isLearningJournal = ref(canvasData.mightBeLearningJournal(props.groupSetId))
+const updateProgress = ref(canvasData.groupSetsById[props.groupSetId].updateProgress)
+
+// watch for changes in props.groupSetId 
+watch(
+    () => props.groupSetId,
+    (groupSetId) => {
+        isLearningJournal.value = canvasData.mightBeLearningJournal(groupSetId)
+        groupSet.value = canvasData.groupSetsById[groupSetId]
+        promptDataLoaded.value = groupSet.value.updated>0
+        if (DEBUG && GLOBAL_DEBUG) {
+            console.log(`${FILE_NAME} groupSetId: ${groupSetId} promptDataLoaded: ${promptDataLoaded.value}`)
+        }
+    }
+)
+
+
+// watch groupSet updateProgress 
+watch(
+    () => canvasData.groupSetsById[props.groupSetId].updateProgress,
+    (progress) => {
+        if (DEBUG && GLOBAL_DEBUG) {
+            console.log(`groupset updateProgress ${progress}`)
+        }
+        updateProgress.value = progress
+    }
+)
+
+// Watch for the groupSet prompts data to be loaded 
+
+watch(
+    () => canvasData.groupSetsById[props.groupSetId].updated,
+    (updated) => {
+        if (DEBUG && GLOBAL_DEBUG) {
+            console.log(`groupset updated ${updated}`)
+            console.log(canvasData)
+        }
+        promptDataLoaded.value = true
+    }
+)
+
 </script>
 
 <template>
     <div class="clj-orchestrate">
-        <cljOverviewParticipation :groupSetId="groupSetId" />
-        <cljPromptsParticipation :groupSetId="groupSetId" />
+        <div v-if="promptDataLoaded">
+            <cljOverviewParticipation :groupSetId="groupSet._id" />
+            <cljPromptsParticipation :groupSetId="groupSet._id" />
+        </div>
+        <div v-else>
+            <sl-progress-ring :value="`${updateProgress}`" class="progress-ring-values"
+                    style="--track-width: 0.5rem; --indicator-width: 1rem; margin-bottom: .5rem;">..loading...</sl-progress-ring>
+        </div>
     </div>
 </template>
 

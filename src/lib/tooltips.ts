@@ -19,7 +19,21 @@
  * and their embedded links to the CLJ documentation site.
  */
 
+import dayjs from 'dayjs'
+
 export const GLOBAL_DEBUG = true;
+
+/**
+ * @function formatDate
+ * @param dateString 
+ * @description Simple date format inspired by
+ *   https://jerickson.net/how-to-format-dates-in-vue-3/
+ * @returns 
+ */
+export function formatDate( dateString : string) : string {
+    const date = dayjs(dateString)
+    return date.format("DD/MM/YYYY h:mm:ss a")
+}
 
 // define the TOOLTIPS object containing all internal tooltips and documentation links
 export const TOOLTIPS = {
@@ -163,6 +177,18 @@ export const TOOLTIPS = {
     cljOverviewParticipation: {
         title: {
             content: `Information about participation at the group set level.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+    },
+    cljPromptParticipationSummary: {
+        title: {
+            content: `Title of parent discussion topic for all groups.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+    },
+    cljPromptParticipationDetails: {
+        title: {
+            content: `Title of the group specific discussion topic.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
     }

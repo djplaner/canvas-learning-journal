@@ -22,6 +22,9 @@ import { TOOLTIPS, GLOBAL_DEBUG } from '../../../lib/tooltips'
 import getCanvasData from '../../../lib/canvasApiData';
 
 
+import cljPromptParticipationDetails from './cljPromptParticipationDetails.vue'
+import cljPromptParticipationSummary from './cljPromptParticipationSummary.vue'
+
 const DEBUG = false
 const FILE_NAME = "cljPromptsParticipation"
 
@@ -34,14 +37,15 @@ const props = defineProps({
     groupSetId: Number
 })
 
-if (DEBUG && GLOBAL_DEBUG) {
-    console.log(`${FILE_NAME} groupSetId: ${props.groupSetId}`)
-}
-
-const promptDataLoaded = ref(false)
-
 const canvasData = getCanvasData();
 const groupSet = ref(canvasData.groupSetsById[props.groupSetId])
+
+if (DEBUG && GLOBAL_DEBUG) {
+    console.log(`${FILE_NAME} groupSetId: ${props.groupSetId}`)
+    console.log(`${FILE_NAME} groupSet.updated: ${groupSet.value.updated}`)
+}
+
+
 
 
 // watch for changes in props.groupSetId 
@@ -49,26 +53,13 @@ watch(
     () => props.groupSetId,
     (groupSetId) => {
         if (DEBUG && GLOBAL_DEBUG) {
-            console.log(`${FILE_NAME} groupSetId: ${groupSetId}`)
+            console.log(`${FILE_NAME} update from watch groupSetId: ${groupSetId}`)
         }
         isLearningJournal.value = canvasData.mightBeLearningJournal(groupSetId)
         groupSet.value = canvasData.groupSetsById[groupSetId]
+        promptDataLoaded.value = groupSet.value.updated>0
     }
 )
-
-// Watch for the groupSet prompts data to be loaded 
-
-watch(
-    () => canvasData.groupSetsById[props.groupSetId].updated,
-    (updated) => {
-        if (DEBUG && GLOBAL_DEBUG) {
-            console.log(`groupset updated ${updated}`)
-            console.log(canvasData)
-        }
-        promptDataLoaded.value = true
-    }
-)
-
 
 </script>
 
@@ -79,12 +70,13 @@ watch(
         <p><em>1 tab per prompt</em> - <em>each tab as per file</em></p>
 
         <sl-tab-group>
-                <sl-tab v-for="prompt in groupSet.discussionTopics" key="prompt.id" slot="nav" :panel="`${prompt.title}`"> 
-                    {{ prompt.title }}
+                <sl-tab v-for="topic in groupSet.discussionTopics" key="topic.id" slot="nav" :panel="`${topic.title}`"> 
+                    {{ topic.title }}
                 </sl-tab>
 
-                <sl-tab-panel v-for="prompt in groupSet.discussionTopics" key="prompt.id" :name="`${prompt.title}`">
-                    <h3>{{ prompt.title }}</h3>
+                <sl-tab-panel v-for="topic in groupSet.discussionTopics" key="topic.id" :name="`${topic.title}`">
+                    <cljPromptParticipationSummary :groupSetId="groupSet._id" :topicId="topic.id" />
+                    <cljPromptParticipationDetails :groupSetId="groupSet._id" :topicId="topic.id" />
                 </sl-tab-panel>
             </sl-tab-group>
 
@@ -98,5 +90,11 @@ watch(
     padding: 1em;
     margin: 1em;
     border-radius: 1em;
+}
+
+sl-tab::part(base) {
+    font-size: 0.8rem;
+    padding: 0.8rem;
+    background: #f0f0f0;
 }
 </style>

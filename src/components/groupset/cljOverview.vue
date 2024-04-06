@@ -72,7 +72,7 @@ watch(
     () => canvasData.groupSetsById[props.groupSetId].updateProgress,
     (progress) => {
         if (DEBUG && GLOBAL_DEBUG) {
-            console.log(`groupset updateProgress ${progress}`)
+            console.log(`${FILE_NAME} updateProgress ${progress}`)
         }
         updateProgress.value = progress
     }
@@ -84,7 +84,7 @@ watch(
     () => canvasData.groupSetsById[props.groupSetId].updated,
     (updated) => {
         if (DEBUG && GLOBAL_DEBUG) {
-            console.log(`groupset updated ${updated}`)
+            console.log(`${FILE_NAME} updated ${updated}`)
             console.log(canvasData)
         }
         promptDataLoaded.value = true
