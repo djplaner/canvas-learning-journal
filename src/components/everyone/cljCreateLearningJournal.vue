@@ -35,7 +35,13 @@
  *                  tab. That would also reload the courseData from Canvas?
  */
 
+ import '@shoelace-style/shoelace/dist/components/tooltip/tooltip.js';
+ import '@shoelace-style/shoelace/dist/components/button/button.js';
+ import '@shoelace-style/shoelace/dist/components/input/input.js';
+
+
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
+
 
 const DEBUG = false
 const FILE_NAME = "cljCreateLearningJournal"

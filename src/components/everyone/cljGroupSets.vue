@@ -29,10 +29,13 @@
  *      - groups with no teacher entries (ever and in last 7 days)
  */
 
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
+import '@shoelace-style/shoelace/dist/components/tooltip/tooltip.js';
+
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
 
 import cljStatusLearningJournal from './cljStatusLearningJournal.vue'
+import cljCreateGroups from '../create/cljCreateGroups.vue'
 
 import getCanvasData from '../../lib/canvasApiData'
 
@@ -85,6 +88,22 @@ if (DEBUG && GLOBAL_DEBUG) {
     console.log(numStudents.value)
 }
 
+/*function studentsWithoutGroups(numStudents,numStudentsInGroups,returnBoolean=false)  {
+    if (returnBoolean) {
+        return numStudents - numStudentsInGroups > 0
+    }
+    return numStudents - numStudentsInGroups
+}*/
+
+const studentsWithoutGroups = computed(() => {
+    return (numStudents,numStudentsInGroups,returnBoolean=false) => {
+        if (returnBoolean) {
+            return numStudents - numStudentsInGroups > 0
+        }
+        return numStudents - numStudentsInGroups
+    }
+})
+
 
 </script>
 
@@ -106,7 +125,6 @@ if (DEBUG && GLOBAL_DEBUG) {
                 No group sets found
             </div>
             <div v-else>
-
                 <table class="clj-data-table">
                     <thead>
                         <th>
@@ -179,7 +197,13 @@ if (DEBUG && GLOBAL_DEBUG) {
                             <td class="clj-center">{{ group.memberLimit }}</td>
                             <td class="clj-center">{{ group.numPrompts }}</td>
                             <td class="clj-center">{{ group.numGroups }}</td>
-                            <td class="clj-center">{{ numStudents - group.numStudentsMembersOfGroups }} </td>
+                            <td class="clj-center">
+                                {{ studentsWithoutGroups(numStudents,group.numStudentsMembersOfGroups) }}
+                                <div v-if="studentsWithoutGroups(numStudents,group.numStudentsMembersOfGroups,true)"> 
+                                    <cljCreateGroups :groupSetId="group._id" :numGroups="5" /> 
+                                   <!-- studentsWithoutGroups(numStudents,group.numStudentsMemberOfGroups) --> 
+                                </div> 
+                            </td>
                             <td>
                                 <cljStatusLearningJournal :groupSetId="group._id" />
                             </td>

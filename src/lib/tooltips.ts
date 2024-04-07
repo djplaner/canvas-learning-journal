@@ -180,7 +180,7 @@ export const TOOLTIPS = {
     },
     cljOverviewParticipation: {
         title: {
-            content: `Information about participation at the group set level.`,
+            content: `Gain an overview of group participation with prompts for the whole groupset.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
     },
@@ -225,6 +225,34 @@ export const TOOLTIPS = {
     cljPromptParticipationDetails: {
         title: {
             content: `Title of the group specific discussion topic.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        group: {
+            content: `Name and members of each group, with member specific links.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        numStudents: {
+            content: `Number of students in the group.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        daysSinceLastEntry: {
+            content: `Number of days since the last student entry.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        daysUnanswered: {
+            content: `Number of days since the last staff entry.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        numStudentEntries: {
+            content: `Number of student entries in the prompt for this group.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        numStaffEntries: {
+            content: `Number of staff entries in the prompt for this group.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        entries: {
+            content: `Threaded display of all entries this group.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
     }

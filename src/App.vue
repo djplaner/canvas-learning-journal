@@ -23,10 +23,7 @@ import cljGroupSet from './components/cljGroupSet.vue'
 import getCanvasData from './lib/canvasApiData'
 import { GLOBAL_DEBUG, TOOLTIPS } from './lib/tooltips';
 
-import '@shoelace-style/shoelace/dist/themes/light.css';
-import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path';
-
-setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.0/cdn/');
+import '@shoelace-style/shoelace/dist/components/tooltip/tooltip.js';
 
 
 const DEBUG: boolean = false

@@ -32,7 +32,7 @@ import cljStatusGroupSet from './overview/cljStatusGroupSet.vue'
 import cljStatusStudentGroups from './overview/cljStatusStudentGroups.vue'
 import cljStatusDiscussions from './overview/cljStatusDiscussions.vue'
 
-const DEBUG = true
+const DEBUG = false
 const FILE_NAME = "cljOverview"
 
 if (DEBUG && GLOBAL_DEBUG) {

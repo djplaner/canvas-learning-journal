@@ -41,6 +41,14 @@
  */
 
 import { ref } from 'vue'
+import '@shoelace-style/shoelace/dist/components/tooltip/tooltip.js';
+import '@shoelace-style/shoelace/dist/components/tab/tab.js';
+import '@shoelace-style/shoelace/dist/components/tab-panel/tab-panel.js';
+import '@shoelace-style/shoelace/dist/components/tab-group/tab-group.js';
+
+
+
+
 
 import { TOOLTIPS, GLOBAL_DEBUG } from '../lib/tooltips'
 

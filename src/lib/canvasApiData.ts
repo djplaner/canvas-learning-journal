@@ -59,6 +59,14 @@ query cljBaseQuery {
                   createdAt
                   user {
                     _id
+                    avatarUrl
+                    email
+                    htmlUrl(courseId: "$courseId")
+                    name
+                    pronouns
+                    shortName
+                    sortableName
+                    courseRoles(courseId: "$courseId")
                   }
                 }
               }
@@ -113,6 +121,14 @@ interface memberNode {
   createdAt: string
   user: {
     "_id": string
+    avatarUrl: string
+    email: string
+    htmlUrl: string
+    name: string
+    pronouns: string
+    shortName: string
+    sortableName: string
+    courseRoles: string[]
   }
 }
 
@@ -311,7 +327,7 @@ interface discussionTopic {
   group_category_id: number
   can_group: boolean
   topic_children: number[]
-  group_topic_children: group_topic_children[]
+
   locked_for_user: boolean
   message: string
   subscription_hold: string
@@ -320,7 +336,9 @@ interface discussionTopic {
 
   // CLJ specific
   stats: discussionTopicStats
-  promptsById: { [key: number]: prompt }
+  promptsByTopicId: { [key: number]: prompt }
+  promptsByGroupId: { [key: number]: prompt }
+  group_topic_children: group_topic_children[]
 }
 
 /*interface learningJournalStatus {
@@ -817,11 +835,15 @@ class canvasApiData {
           // add data into the groupSet.group it belongs
           group.prompts[groupTopic.topicId] = data
           // add a copy of data into the groupset.discussion topic it belongs
-          //
-          if (!groupSet.discussionTopicsById[groupTopic.topicId].hasOwnProperty("promptsById")) {
-            groupSet.discussionTopicsById[groupTopic.topicId].promptsById = {}
+          if (!groupSet.discussionTopicsById[groupTopic.topicId].hasOwnProperty("promptsByTopicId")) {
+            groupSet.discussionTopicsById[groupTopic.topicId].promptsByTopicId = {}
           }
-          groupSet.discussionTopicsById[groupTopic.topicId].promptsById[groupTopic.groupTopicId] = data
+          groupSet.discussionTopicsById[groupTopic.topicId].promptsByTopicId[groupTopic.groupTopicId] = data
+          // add groupSet.promptsByGroupId
+          if (!groupSet.discussionTopicsById[groupTopic.topicId].hasOwnProperty("promptsByGroupId")) {
+            groupSet.discussionTopicsById[groupTopic.topicId].promptsByGroupId = {}
+          }
+          groupSet.discussionTopicsById[groupTopic.topicId].promptsByGroupId[groupTopic.groupId] = data
         }
       }
       // All the prompts data has been gotten, able to analyse stats at the groupSet level
@@ -896,7 +918,6 @@ class canvasApiData {
 
       // add the group stats to the groupSet stats
       for (const key in group.stats) {
-        console.log(`${FILE_NAME} key ${key}`)
         groupSet.stats[key] += group.stats[key]
       }
     }
@@ -924,7 +945,7 @@ class canvasApiData {
    * @description Called once all the prompts for a groupset gathered. Analyse contributions
    * to generate stats on when and how many entries have been contributed by students and staff.
    * 
-   * Each of the groupSets discussionTopic entries should have a promptsById object which
+   * Each of the groupSets discussionTopic entries should have a promptsByTopicId object which
    * contains a stats object for each group prompt
    * 
    * - use num[Staff|Student]Entries to calculate numbers of entries
@@ -937,7 +958,7 @@ class canvasApiData {
 
     // check each of the discussionTopics
     for (const topic of groupSet.discussionTopics) {
-      if (!topic.hasOwnProperty("promptsById")) {
+      if (!topic.hasOwnProperty("promptsByTopicId")) {
         continue
       }
       let numStaffEntries = 0
@@ -949,8 +970,8 @@ class canvasApiData {
       let numNoStudentEntriesLast7 = 0
       let numNoStaffEntriesLast7 = 0
 
-      for (const promptId in topic.promptsById) {
-        const prompt = topic.promptsById[promptId]
+      for (const promptId in topic.promptsByTopicId) {
+        const prompt = topic.promptsByTopicId[promptId]
         numStaffEntries += prompt.stats.numStaffEntries
         numStudentEntries += prompt.stats.numStudentEntries
         if (prompt.stats.numStudentEntries === 0) {

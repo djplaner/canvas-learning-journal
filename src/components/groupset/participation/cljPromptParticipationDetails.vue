@@ -22,18 +22,20 @@
  * @description: Given ids for a groupset and one of the related discussion topics
  * show a table. Rows showing summary data of each group's participation with their
  * specific prompt related to the discussion topic.
+ * 
  */
 
+ import dayjs from 'dayjs'
 
 import { ref, watch } from 'vue'
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../../lib/tooltips'
 import getCanvasData from '../../../lib/canvasApiData';
 
 
-const DEBUG = false
+const DEBUG = true
 const FILE_NAME = "cljPromptParticipationDetails"
 
-if (DEBUG && GLOBAL_DEBUG ) {
+if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME} TOOLTIPS:`)
     console.log(TOOLTIPS)
 }
@@ -51,18 +53,90 @@ const promptDataLoaded = ref(false)
 
 const canvasData = getCanvasData();
 const groupSet = ref(canvasData.groupSetsById[props.groupSetId])
-const prompt = ref(canvasData.groupSetsById[props.groupSetId].discussionTopicsById[props.topicId])
+const topic = ref(canvasData.groupSetsById[props.groupSetId].discussionTopicsById[props.topicId])
 
+/**
+ * @function getPromptStat
+ * @param {Object} groupSet full group set object for groupSetId
+ * @param {Number} topicId id of the pro
+ * @description given a Group set and a promptId
+                        Need to know which prompt to get for the group
+                        - for each group, need to get the prompt that matches the topic 
+                           and the current group Id 
+                        - groupSet whole object
+                        - topicId is groupSet.discussionTopicsByTopicId
+                          - need to add discussionTopic.topicByGroupId[ ] to get the id of the specific prompt
+                        - groupsById[group._id].prompts[promptId]
+ */
+
+function getPromptStat(groupId) {
+    /**
+     * topic is an entry in discussionTopicById
+     */
+    if (topic.value.hasOwnProperty('promptsByGroupId')) {
+        return topic.value.promptsByGroupId[groupId]
+    } 
+    return {}
+}
+
+function hasAvatarUrl(user) {
+    return user.hasOwnProperty('avatarUrl') && user.avatarUrl !== null
+}
+
+/**
+ * @function daysSinceLastStudentEntry
+ * @param {Number|String} groupId 
+ * @description return the number of days since last student id for a specific group for the given topic
+ * 
+ * the lastStudentEntry property will be a date string or null
+ * Null - return n/a - no student entries
+ * date string - return number of days since
+ */
+function daysSinceLastStudentEntry(groupId) {
+
+    let lastStudentEntry = getPromptStat(groupId).stats.lastStudentEntry
+    if (lastStudentEntry === null) {
+        return "n/a"
+    }
+    let lastDate = dayjs(lastStudentEntry)
+    if (lastDate.isValid()) {
+        let now = dayjs()
+        return now.diff(lastDate, 'day')
+    }
+    return "n/a"
+}
+
+/**
+ * @function: isUnansweredStudentEntry
+ * @param {Number|String} groupId
+ * @description: return "Y" if the last student entry is older than the last StaffEntry
+ */
+
+ function isUnansweredStudentEntry(groupId) {
+    let lastStudentEntry = getPromptStat(groupId).stats.lastStudentEntry
+    let lastStaffEntry = getPromptStat(groupId).stats.lastStaffEntry
+
+    if (lastStudentEntry !== null && lastStaffEntry !== null) {
+        let studentDate = dayjs(lastStudentEntry)
+        let staffDate = dayjs(lastStaffEntry)
+        if (studentDate.isValid() && staffDate.isValid()) {
+            if ( staffDate.isBefore(studentDate)) {
+                return "Y"
+            }
+        }
+    }
+    return "N"
+ }
 
 // watch for changes in props.groupSetId 
 watch(
-    () => [props.groupSetId, props.topicId ],
-    (groupSetId,topicId) => {
+    () => [props.groupSetId, props.topicId],
+    (groupSetId, topicId) => {
         if (DEBUG && GLOBAL_DEBUG) {
             console.log(`${FILE_NAME} groupSetId: ${groupSetId}`)
         }
         groupSet.value = canvasData.groupSetsById[groupSetId]
-        prompt.value = groupSet.value.discussionTopicsById[topicId]
+        topic.value = groupSet.value.discussionTopicsById[topicId]
     }
 )
 
@@ -88,7 +162,119 @@ watch(
     <div class="clj-prompt-participation-details">
         <h4>Participation by group</h4>
 
-            <p>Table where rows are details for each group</p>
+        <p>Table where rows are details for each group</p>
+
+        <table class="clj-data-table clj-fixed">
+            <thead>
+                <tr>
+                    <th class="clj-center" style="width:30%">
+                        Group
+                        <a class="clj-th-help" target="_blank"
+                            :href="`${TOOLTIPS.cljPromptParticipationDetails.group.url}`">
+                            <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationDetails.group.content}`">
+                                <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                            </sl-tooltip>
+                        </a>
+                    </th>
+                    <th class="clj-center">
+                        # students
+                        <a class="clj-th-help" target="_blank"
+                            :href="`${TOOLTIPS.cljPromptParticipationDetails.numStudents.url}`">
+                            <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationDetails.numStudents.content}`">
+                                <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                            </sl-tooltip>
+                        </a>
+                    </th>
+                    <th class="clj-center">
+                        # student entries
+                        <a class="clj-th-help" target="_blank"
+                            :href="`${TOOLTIPS.cljPromptParticipationDetails.numStudentEntries.url}`">
+                            <sl-tooltip
+                                :content="`${TOOLTIPS.cljPromptParticipationDetails.numStudentEntries.content}`">
+                                <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                            </sl-tooltip>
+                        </a>
+                    </th>
+                    <th class="clj-center">
+                        # staff entries
+                        <a class="clj-th-help" target="_blank"
+                            :href="`${TOOLTIPS.cljPromptParticipationDetails.numStaffEntries.url}`">
+                            <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationDetails.numStaffEntries.content}`">
+                                <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                            </sl-tooltip>
+                        </a>
+                    </th>
+                    <th class="clj-center">
+                        days since last student entry
+                        <a class="clj-th-help" target="_blank"
+                            :href="`${TOOLTIPS.cljPromptParticipationDetails.daysSinceLastEntry.url}`">
+                            <sl-tooltip
+                                :content="`${TOOLTIPS.cljPromptParticipationDetails.daysSinceLastEntry.content}`">
+                                <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                            </sl-tooltip>
+                        </a>
+                    </th>
+                    <th class="clj-center">
+                        Unanswered student entry?
+                        <a class="clj-th-help" target="_blank"
+                            :href="`${TOOLTIPS.cljPromptParticipationDetails.daysUnanswered.url}`">
+                            <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationDetails.daysUnanswered.content}`">
+                                <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                            </sl-tooltip>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="group in groupSet.groups" :key="group._id">
+                    <!--
+                        at this stage group is one of the groups objects for the groupSet
+                        
+                        - How to loop through each of the members and get all user information
+                            - group.members contains an array of memberNode
+                              Only contains userId, not any specific detail
+                    -->
+                    <td class="clj-left">
+                        <div class="clj-group-name">Group: {{ group.name }}</div>
+                        <div class="clj-student" v-for="member in group.members" :key="member.user._id">
+                            <div class="clj-student-forum">
+                                <a :href="`${member.user.htmlUrl}`">
+                                    {{ member.user.shortName }}
+                                </a><br />
+                                <div class="clj-speedgrader">
+                                    <a :href="`TODO`" target="_blank">
+                                        SpeedGrader
+                                    </a> |
+                                    <a :href="`TODO`" target="_blank">
+                                        Forum
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="clj-student-avatar">
+                                <img :src="`${member.user.avatarUrl}`" alt="Avatar for ${member.user.shortName}"
+                                    style="width:64px;height:64px;" v-if="hasAvatarUrl(member.user)" />
+                            </div>
+                        </div>
+                    </td>
+                    <td class="clj-center">
+                        {{ group.membersCount }}
+                    </td>
+                    <td class="clj-center">
+                        {{ getPromptStat(group._id).stats.numStudentEntries }}
+                    </td>
+                    <td class="clj-center">
+                        {{ getPromptStat(group._id).stats.numStaffEntries }}
+                    </td>
+                    <td class="clj-center">
+                        {{  daysSinceLastStudentEntry(group._id) }}
+                    </td>
+                    <td class="clj-center">
+                        {{ isUnansweredStudentEntry(group._id) }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
 
     </div>
 </template>
@@ -104,5 +290,26 @@ sl-tab::part(base) {
     font-size: 0.8rem;
     padding: 0.8rem;
     background: #f0f0f0;
+}
+
+.clj-student {
+    display: block;
+    padding: 0.5rem;
+    width: 20rem;
+}
+
+.clj-student-forum {
+    width: 75%;
+    float: left;
+}
+
+.clj-speedgrader {
+    clear: both;
+    font-size: x-small
+}
+
+.clj-student-avatar {
+    width: 25%;
+    float: left;
 }
 </style>

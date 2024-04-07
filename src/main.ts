@@ -21,9 +21,8 @@ import { createApp } from 'vue'
 //import 'quasar/src/css/index.sass' // as recommended
 
 import "@shoelace-style/shoelace/dist/themes/light.css"
-
 import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js'
-setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/')
+setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.0/cdn/')
 
 import App from './App.vue'
 import './style.css'

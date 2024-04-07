@@ -24,6 +24,8 @@
  */
 
 import { ref, watch } from 'vue'
+import '@shoelace-style/shoelace/dist/components/progress-ring/progress-ring.js';
+
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
 
 import getCanvasData from '../../lib/canvasApiData'
@@ -32,7 +34,7 @@ import getCanvasData from '../../lib/canvasApiData'
 import cljOverviewParticipation from './participation/cljOverviewParticipation.vue'
 import cljPromptsParticipation from './participation/cljPromptsParticipation.vue'
 
-const DEBUG = true
+const DEBUG = false
 const FILE_NAME = "cljParticipation"
 
 const props = defineProps({
