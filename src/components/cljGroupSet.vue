@@ -128,8 +128,6 @@ function addEventHandlers() {
             if (groupCatTab && clj) {
                 // 
                 let activeTab = groupCatTab.querySelector('div.ui-tabs-panel[aria-expanded=true]')
-                console.log("--------------------")
-                console.log(activeTab)
                 activeTab.prepend(clj)
             }
         })

@@ -30,7 +30,6 @@
  */
 
 import { ref, watch, defineProps } from 'vue'
-import '@shoelace-style/shoelace/dist/components/button/button.js';
 
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
 
@@ -45,6 +44,7 @@ const props = defineProps({
 })
 
 const numGroups = ref(props.numGroups)
+const groupSetId = ref(props.groupSetId)
 
 if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME} groupSetId: ${props.groupSetId} numGroups: ${numGroups}`)
@@ -63,10 +63,23 @@ function createGroups() {
     console.log("createGroups")
 }
 
+// watch for changes on props.groupSetId 
+watch(
+    () => [ props.groupSetId, props.numGroups ],
+    (gsId) => {
+        if (DEBUG && GLOBAL_DEBUG) {
+            console.log(`${FILE_NAME} changes to groupSetId: ${gsId} and props.groupSetId: ${props.groupSetId}`)
+        }
+        numGroups.value = props.numGroups
+        groupSetId.value = props.groupSetId
+    }
+)
+
+
 </script>
 
 <template>
-    <div class="clj-configure">
+    <div class="clj-create-group">
         <sl-button size="small" type="primary" @click="createGroups">Create {{ numGroups }} groups</sl-button>
     </div>
 </template>

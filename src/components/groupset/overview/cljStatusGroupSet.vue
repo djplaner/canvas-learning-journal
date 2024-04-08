@@ -28,6 +28,7 @@ import { ref, watch } from 'vue'
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../../lib/tooltips'
 
 import cljStatusLearningJournal from '../../everyone/cljStatusLearningJournal.vue'
+import cljCreateGroups from '../../create/cljCreateGroups.vue';
 
 import getCanvasData from '../../../lib/canvasApiData';
 
@@ -178,7 +179,10 @@ function update() {
                                 </a>
                             </th>
                             <td class="clj-center">
-                                {{ groupSet.numStudents - groupSet.numStudentsMembersOfGroups }}
+                                <div v-if="groupSet.numStudentsWithoutGroup > 0">
+                                    <cljCreateGroups :groupSetId="props.groupSetId" :numGroups="groupSet.numStudentsWithoutGroup"/>
+                                </div>
+                                <div v-else>0</div>
                             </td>
                         </tr>
                     </tbody>

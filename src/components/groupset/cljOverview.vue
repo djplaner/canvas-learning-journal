@@ -32,7 +32,7 @@ import cljStatusGroupSet from './overview/cljStatusGroupSet.vue'
 import cljStatusStudentGroups from './overview/cljStatusStudentGroups.vue'
 import cljStatusDiscussions from './overview/cljStatusDiscussions.vue'
 
-const DEBUG = false
+const DEBUG = true
 const FILE_NAME = "cljOverview"
 
 if (DEBUG && GLOBAL_DEBUG) {
@@ -44,32 +44,36 @@ const props = defineProps({
     groupSetId: Number
 })
 
+
+const canvasData = getCanvasData();
+
+const groupSetId = ref(props.groupSetId)
+const groupSet = ref(canvasData.groupSetsById[groupSetId.value])
+const isLearningJournal = ref(canvasData.mightBeLearningJournal(groupSetId.value))
+const updateProgress = ref(canvasData.groupSetsById[groupSetId.value].updateProgress)
+const promptDataLoaded = ref(groupSet.value.updated>0)
+
 if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME} groupSetId: ${props.groupSetId}`)
 }
 
-const canvasData = getCanvasData();
-
-const promptDataLoaded = ref(false)
-const groupSet = ref(canvasData.groupSetsById[props.groupSetId])
-const isLearningJournal = ref(canvasData.mightBeLearningJournal(props.groupSetId))
-const updateProgress = ref(canvasData.groupSetsById[props.groupSetId].updateProgress)
-
 // watch for changes in props.groupSetId 
 watch(
     () => props.groupSetId,
-    (groupSetId) => {
+    (gsId) => {
         if (DEBUG && GLOBAL_DEBUG) {
-            console.log(`${FILE_NAME} groupSetId: ${groupSetId}`)
+            console.log(`${FILE_NAME} groupSetId: ${gsId}`)
         }
-        isLearningJournal.value = canvasData.mightBeLearningJournal(groupSetId)
+        groupSetId.value = gsId
+        isLearningJournal.value = canvasData.mightBeLearningJournal(groupSetId.value)
+        promptDataLoaded.value = canvasData.groupSetById[groupSetId.value].update
     }
 )
 
 
 // watch groupSet updateProgress 
 watch(
-    () => canvasData.groupSetsById[props.groupSetId].updateProgress,
+    () => canvasData.groupSetsById[groupSetId.value].updateProgress,
     (progress) => {
         if (DEBUG && GLOBAL_DEBUG) {
             console.log(`${FILE_NAME} updateProgress ${progress}`)
@@ -81,10 +85,10 @@ watch(
 // Watch for the groupSet prompts data to be loaded 
 
 watch(
-    () => canvasData.groupSetsById[props.groupSetId].updated,
+    () => canvasData.groupSetsById[groupSetId.value].updated,
     (updated) => {
         if (DEBUG && GLOBAL_DEBUG) {
-            console.log(`${FILE_NAME} updated ${updated}`)
+            console.log(`${FILE_NAME} updated ${updated} groupSetId ${groupSetId.value}`)
             console.log(canvasData)
         }
         promptDataLoaded.value = true
@@ -96,11 +100,11 @@ watch(
 
 <template>
     <div class="clj-configure">
-        <cljStatusGroupSet :groupSetId="props.groupSetId" />
+        <cljStatusGroupSet :groupSetId="groupSetId" />
         <div v-if="isLearningJournal">
             <div v-if="promptDataLoaded">
-                <cljStatusStudentGroups :groupSetId="props.groupSetId" />
-                <cljStatusDiscussions :groupSetId="props.groupSetId" />
+                <cljStatusStudentGroups :groupSetId="groupSetId" />
+                <cljStatusDiscussions :groupSetId="groupSetId" />
             </div>
             <div v-else>
                 <sl-progress-ring :value="`${updateProgress}`" class="progress-ring-values"

@@ -363,6 +363,7 @@ interface groupSet {
   numGroups: number
   numNonPrivateGroups: number
   numStudentsMembersOfGroups: number
+  numStudentsWithoutGroup: number
   numStudents: number
   discussionTopics: discussionTopic[]
   numPrompts: number
@@ -632,6 +633,7 @@ class canvasApiData {
       }
       groupSet.numStudentsMembersOfGroups = Object.keys(studentMemberIds).length
       groupSet.numStudents = this.students.length
+      groupSet.numStudentsWithoutGroup = groupSet.numStudents - groupSet.numStudentsMembersOfGroups
     }
 
   }
@@ -830,6 +832,8 @@ class canvasApiData {
           if (data) {
             // calaculate statistics at the level of the prompt
             data = this.analyseGroupPrompt(data)
+            // add the id for the group's topic
+            data["id"] = groupTopic.groupTopicId
           }
           groupSet.updateProgress += progressIncrement
           // add data into the groupSet.group it belongs
@@ -849,6 +853,7 @@ class canvasApiData {
       // All the prompts data has been gotten, able to analyse stats at the groupSet level
       this.analyseGroupSetTopics(groupSet._id)
       this.analyseGroupSetGroups(groupSet._id) // TODO 
+      console.log(`${FILE_NAME}: groupSet ${groupSet._id} updated`)
       groupSet.updated += 1
     }
 

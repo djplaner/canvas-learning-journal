@@ -25,9 +25,9 @@
  * 
  */
 
- import dayjs from 'dayjs'
+import dayjs from 'dayjs'
 
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../../lib/tooltips'
 import getCanvasData from '../../../lib/canvasApiData';
 
@@ -55,6 +55,15 @@ const canvasData = getCanvasData();
 const groupSet = ref(canvasData.groupSetsById[props.groupSetId])
 const topic = ref(canvasData.groupSetsById[props.groupSetId].discussionTopicsById[props.topicId])
 
+console.log("-----------")
+console.log("canvasData")
+console.log(canvasData)
+console.log("groupSet")
+console.log(groupSet)
+console.log("topic")
+console.log(topic)
+console.log("-----------")
+
 /**
  * @function getPromptStat
  * @param {Object} groupSet full group set object for groupSetId
@@ -75,7 +84,7 @@ function getPromptStat(groupId) {
      */
     if (topic.value.hasOwnProperty('promptsByGroupId')) {
         return topic.value.promptsByGroupId[groupId]
-    } 
+    }
     return {}
 }
 
@@ -112,7 +121,7 @@ function daysSinceLastStudentEntry(groupId) {
  * @description: return "Y" if the last student entry is older than the last StaffEntry
  */
 
- function isUnansweredStudentEntry(groupId) {
+function isUnansweredStudentEntry(groupId) {
     let lastStudentEntry = getPromptStat(groupId).stats.lastStudentEntry
     let lastStaffEntry = getPromptStat(groupId).stats.lastStaffEntry
 
@@ -120,13 +129,13 @@ function daysSinceLastStudentEntry(groupId) {
         let studentDate = dayjs(lastStudentEntry)
         let staffDate = dayjs(lastStaffEntry)
         if (studentDate.isValid() && staffDate.isValid()) {
-            if ( staffDate.isBefore(studentDate)) {
+            if (staffDate.isBefore(studentDate)) {
                 return "Y"
             }
         }
     }
     return "N"
- }
+}
 
 // watch for changes in props.groupSetId 
 watch(
@@ -238,21 +247,28 @@ watch(
                         <div class="clj-group-name">Group: {{ group.name }}</div>
                         <div class="clj-student" v-for="member in group.members" :key="member.user._id">
                             <div class="clj-student-forum">
-                                <a :href="`${member.user.htmlUrl}`">
+                                <a :href="`${member.user.htmlUrl}`" target="_blank">
                                     {{ member.user.shortName }}
                                 </a><br />
                                 <div class="clj-speedgrader">
-                                    <a :href="`TODO`" target="_blank">
-                                        SpeedGrader
-                                    </a> |
-                                    <a :href="`TODO`" target="_blank">
+                                    <span v-if="topic.assignment_id!==null">
+                                        <a :href="`${canvasData.hostName}/courses/${canvasData.id}/gradebook/speed_grader?assignment_id=${topic.assignment.id}&student_id=${member.user._id}`"
+                                            target="_blank">
+                                            SpeedGrader
+                                        </a> 
+                                    </span>
+                                    <span v-else>No assignment</span> |
+                                    <a :href="`${canvasData.hostName}/groups/${group._id}/discussion_topics/${topic.promptsByGroupId[group._id].id}`"
+                                        target="_blank">
                                         Forum
                                     </a>
                                 </div>
                             </div>
                             <div class="clj-student-avatar">
-                                <img :src="`${member.user.avatarUrl}`" alt="Avatar for ${member.user.shortName}"
-                                    style="width:64px;height:64px;" v-if="hasAvatarUrl(member.user)" />
+                                <a :href="`${member.user.htmlUrl}`" target="_blank">
+                                    <img :src="`${member.user.avatarUrl}`" alt="Avatar for ${member.user.shortName}"
+                                        style="width:64px;height:64px;" v-if="hasAvatarUrl(member.user)" />
+                                </a>
                             </div>
                         </div>
                     </td>
@@ -266,7 +282,7 @@ watch(
                         {{ getPromptStat(group._id).stats.numStaffEntries }}
                     </td>
                     <td class="clj-center">
-                        {{  daysSinceLastStudentEntry(group._id) }}
+                        {{ daysSinceLastStudentEntry(group._id) }}
                     </td>
                     <td class="clj-center">
                         {{ isUnansweredStudentEntry(group._id) }}

@@ -30,7 +30,6 @@
  */
 
 import { ref, watch, computed } from 'vue'
-import '@shoelace-style/shoelace/dist/components/tooltip/tooltip.js';
 
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
 
@@ -187,25 +186,25 @@ const studentsWithoutGroups = computed(() => {
                         </th>
                     </thead>
                     <tbody>
-                        <tr v-for="group in canvasData.groupSets" :key="group._id">
+                        <tr v-for="groupSet in canvasData.groupSets" :key="groupSet._id">
                             <td>
-                                <a :href="`${canvasData.hostName}/courses/${canvasData.id}/groups?open=1#tab-${group._id}`">
-                                    {{ group.name }}
+                                <a :href="`${canvasData.hostName}/courses/${canvasData.id}/groups?open=1#tab-${groupSet._id}`">
+                                    {{ groupSet.name }}
                                 </a>
                             </td>
-                            <td class="clj-center">{{ group.selfSignup }}</td>
-                            <td class="clj-center">{{ group.memberLimit }}</td>
-                            <td class="clj-center">{{ group.numPrompts }}</td>
-                            <td class="clj-center">{{ group.numGroups }}</td>
+                            <td class="clj-center">{{ groupSet.selfSignup }}</td>
+                            <td class="clj-center">{{ groupSet.memberLimit }}</td>
+                            <td class="clj-center">{{ groupSet.numPrompts }}</td>
+                            <td class="clj-center">{{ groupSet.numGroups }}</td>
                             <td class="clj-center">
-                                {{ studentsWithoutGroups(numStudents,group.numStudentsMembersOfGroups) }}
-                                <div v-if="studentsWithoutGroups(numStudents,group.numStudentsMembersOfGroups,true)"> 
-                                    <cljCreateGroups :groupSetId="group._id" :numGroups="5" /> 
-                                   <!-- studentsWithoutGroups(numStudents,group.numStudentsMemberOfGroups) --> 
+                                <div v-if="groupSet.numStudentsWithoutGroup > 0"> 
+                                    <cljCreateGroups :groupSetId="groupSet._id" :numGroups="groupSet.numStudentsWithoutGroup" /> 
                                 </div> 
+                                <div v-else> 0 </div>
+
                             </td>
                             <td>
-                                <cljStatusLearningJournal :groupSetId="group._id" />
+                                <cljStatusLearningJournal :groupSetId="groupSet._id" />
                             </td>
                         </tr>
                     </tbody>
