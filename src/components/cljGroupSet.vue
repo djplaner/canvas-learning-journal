@@ -151,14 +151,11 @@ function getActiveGroupSet() {
 
     if (activeGroupSet) {
         const value = activeGroupSet.getAttribute('aria-controls')
-        console.log(`${FILE_NAME}: activeGroupSet aria-controls: ${value}`)
         // extract the number from value where value == tab-<number>
         const number = value.split('-')[1]
-        console.log(`${FILE_NAME}: activeGroupSet number: ${number}`)
         return number
     }
     // default to current group set
-    console.error(`${FILE_NAME}: getActiveGroupSet - activeGroupSet is null`)
     throw new Error(`${FILE_NAME}: getActiveGroupSet - activeGroupSet is null`)
 }
 

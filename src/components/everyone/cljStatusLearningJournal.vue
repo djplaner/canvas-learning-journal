@@ -15,7 +15,7 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
-<script setup>
+<script setup lang="ts">
 /**
  * @file: cljStatusLearningJournal.vue
  * @description: Display form for and handle creation of a new learning journal groupset.
@@ -35,13 +35,33 @@
  *                  tab. That would also reload the courseData from Canvas?
  */
 
-import { defineProps, watch, ref } from 'vue'
+import { watch, ref } from 'vue'
 
-import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
+import { TOOLTIPS, GLOBAL_DEBUG  } from '../../lib/tooltips'
 
-import { learningJournalStatus } from '../../lib/canvasApiData'
+import type { learningJournalStatus } from '../../lib/canvasApiData'
 
 import getCanvasData from '../../lib/canvasApiData'
+
+import { Header, Item } from "vue3-easy-data-table";
+
+const headers: Header[] = [
+  { text: "PLAYER", value: "player", sortable: true },
+  { text: "TEAM", value: "team"},
+  { text: "NUMBER", value: "number"},
+  { text: "POSITION", value: "position"},
+  { text: "HEIGHT", value: "indicator.height"},
+  { text: "WEIGHT (lbs)", value: "indicator.weight", sortable: true},
+  { text: "LAST ATTENDED", value: "lastAttended", width: 200},
+  { text: "COUNTRY", value: "country"},
+];
+
+const items: Item[] = [
+  { player: "Stephen Curry", team: "GSW", number: 30, position: 'G', indicator: {"height": '6-2', "weight": 185}, lastAttended: "Davidson", country: "USA"},
+  { player: "Lebron James", team: "LAL", number: 6, position: 'F', indicator: {"height": '6-9', "weight": 250}, lastAttended: "St. Vincent-St. Mary HS (OH)", country: "USA"},
+  { player: "Kevin Durant", team: "BKN", number: 7, position: 'F', indicator: {"height": '6-10', "weight": 240}, lastAttended: "Texas-Austin", country: "USA"},
+  { player: "Giannis Antetokounmpo", team: "MIL", number: 34, position: 'F', indicator: {"height": '6-11', "weight": 242}, lastAttended: "Filathlitikos", country: "Greece"},
+];
 
 const DEBUG = false
 const FILE_NAME = "cljStatusLearningJournal"
@@ -108,9 +128,13 @@ function showStuff() {
 
 }
 
+
 </script>
 
 <template>
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
+
+    <div class="clj-learning-journal-status">
     <a :href="`${TOOLTIPS.cljStatusLearningJournal.privateLearningJournal.url}`">
         <sl-tooltip :content="`${TOOLTIPS.cljStatusLearningJournal.privateLearningJournal.content}`">
             <sl-badge v-if="privateLJ" variant="success">Private Learning Journal</sl-badge>
@@ -136,6 +160,11 @@ function showStuff() {
             <sl-badge variant="danger" v-if="noGroups">No groups</sl-badge>
         </sl-tooltip>
     </a>
+    </div>
+    <EasyDataTable
+    :headers="headers"
+    :items="items"
+  />
 </template>
 
 

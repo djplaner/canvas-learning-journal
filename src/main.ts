@@ -15,10 +15,10 @@
  *   Info depending on the group set configuration
  */
 import { createApp } from 'vue'
-//import { Quasar } from 'quasar'
 
-//import '@quasar/extras/material-icons/material-icons.css'
-//import 'quasar/src/css/index.sass' // as recommended
+
+import Vue3EasyDataTable from 'vue3-easy-data-table'
+import 'vue3-easy-data-table/dist/style.css'
 
 import "@shoelace-style/shoelace/dist/themes/light.css"
 import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js'
@@ -81,6 +81,8 @@ function insertLearningJournalApp(groupCategoriesTab: Element) {
   observer.disconnect()
 
   const app = createApp(App, { groupSetId: groupSetId })
+
+  app.component('EasyDataTable', Vue3EasyDataTable)
 
   app.mount(
     (() => {

@@ -827,10 +827,10 @@ class canvasApiData {
         for (const groupTopic of groupTopics) {
           // data is the full topic view for one groups prompt
           let data = await this.getResponses(group._id, groupTopic.groupTopicId)
-          if (data.view.length > 0) {
+          /*if (data.view.length > 0) {
             console.log(`groupGroupsResponses`)
             console.log(data)
-          }
+          }*/
           if (data) {
             // calaculate statistics at the level of the prompt
             data = this.analyseGroupPrompt(data)
@@ -857,7 +857,6 @@ class canvasApiData {
       // All the prompts data has been gotten, able to analyse stats at the groupSet level
       this.analyseGroupSetTopics(groupSet._id)
       this.analyseGroupSetGroups(groupSet._id) // TODO 
-      console.log(`${FILE_NAME}: groupSet ${groupSet._id} updated`)
       groupSet.updated += 1
     }
 
@@ -942,7 +941,6 @@ class canvasApiData {
     if (dateString === null) {
       return false
     }
-    console.log("XXXXyYY")
     const sevenDaysAgo = new Date()
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
     const lastEntryDate = new Date(dateString)

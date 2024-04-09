@@ -21,7 +21,7 @@
 
 import dayjs from 'dayjs'
 
-export const GLOBAL_DEBUG = true;
+export const GLOBAL_DEBUG = false;
 
 /**
  * @function formatDate

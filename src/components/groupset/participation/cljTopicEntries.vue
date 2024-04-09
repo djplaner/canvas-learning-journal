@@ -44,9 +44,6 @@ const gId = ref(props.groupId)
 const canvasData = getCanvasData()
 const entries = ref(canvasData.promptsByTopicId[tId.value].view)
 
-console.log(`${FILE_NAME} topicId: ${tId.value}`)
-console.log(canvasData)
-
 /**
  * @function: generateReplies
  * @param: {Array} entries

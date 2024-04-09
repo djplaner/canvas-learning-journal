@@ -62,10 +62,6 @@ const groupSet = ref(canvasData.groupSetsById[props.groupSetId])
 const topic = ref(canvasData.groupSetsById[props.groupSetId].discussionTopicsById[props.topicId])
 const assignmentExists = ref(topic.value.assignment !== undefined)
 
-console.log(`topicId: ${props.topicId}`)
-console.log(groupSet.value)
-
-
 // watch for changes in props.groupSetId 
 watch(
     () => [props.groupSetId, props.topicId],

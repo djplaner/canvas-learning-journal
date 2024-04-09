@@ -56,15 +56,6 @@ const canvasData = getCanvasData();
 const groupSet = ref(canvasData.groupSetsById[props.groupSetId])
 const topic = ref(canvasData.groupSetsById[props.groupSetId].discussionTopicsById[props.topicId])
 
-console.log("-----------")
-console.log("canvasData")
-console.log(canvasData)
-console.log("groupSet")
-console.log(groupSet)
-console.log("topic")
-console.log(topic)
-console.log("-----------")
-
 /**
  * @function getPromptStat
  * @param {Object} groupSet full group set object for groupSetId
