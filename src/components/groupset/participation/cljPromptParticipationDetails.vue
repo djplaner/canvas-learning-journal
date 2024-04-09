@@ -198,48 +198,10 @@ watch(
                         </a>
                     </th>
                     <th class="clj-center">
-                        # students
+                        Statistics
                         <a class="clj-th-help" target="_blank"
-                            :href="`${TOOLTIPS.cljPromptParticipationDetails.numStudents.url}`">
-                            <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationDetails.numStudents.content}`">
-                                <i class="icon-Solid icon-question clj-small-tooltip"></i>
-                            </sl-tooltip>
-                        </a>
-                    </th>
-                    <th class="clj-center">
-                        # student entries
-                        <a class="clj-th-help" target="_blank"
-                            :href="`${TOOLTIPS.cljPromptParticipationDetails.numStudentEntries.url}`">
-                            <sl-tooltip
-                                :content="`${TOOLTIPS.cljPromptParticipationDetails.numStudentEntries.content}`">
-                                <i class="icon-Solid icon-question clj-small-tooltip"></i>
-                            </sl-tooltip>
-                        </a>
-                    </th>
-                    <th class="clj-center">
-                        # staff entries
-                        <a class="clj-th-help" target="_blank"
-                            :href="`${TOOLTIPS.cljPromptParticipationDetails.numStaffEntries.url}`">
-                            <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationDetails.numStaffEntries.content}`">
-                                <i class="icon-Solid icon-question clj-small-tooltip"></i>
-                            </sl-tooltip>
-                        </a>
-                    </th>
-                    <th class="clj-center">
-                        days since last student entry
-                        <a class="clj-th-help" target="_blank"
-                            :href="`${TOOLTIPS.cljPromptParticipationDetails.daysSinceLastEntry.url}`">
-                            <sl-tooltip
-                                :content="`${TOOLTIPS.cljPromptParticipationDetails.daysSinceLastEntry.content}`">
-                                <i class="icon-Solid icon-question clj-small-tooltip"></i>
-                            </sl-tooltip>
-                        </a>
-                    </th>
-                    <th class="clj-center">
-                        Unanswered student entry?
-                        <a class="clj-th-help" target="_blank"
-                            :href="`${TOOLTIPS.cljPromptParticipationDetails.daysUnanswered.url}`">
-                            <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationDetails.daysUnanswered.content}`">
+                            :href="`${TOOLTIPS.cljPromptParticipationDetails.statistics.url}`">
+                            <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationDetails.statistics.content}`">
                                 <i class="icon-Solid icon-question clj-small-tooltip"></i>
                             </sl-tooltip>
                         </a>
@@ -267,6 +229,13 @@ watch(
                     <td class="clj-left">
                         <div class="clj-group-name">Group: {{ group.name }}</div>
                         <div class="clj-student" v-for="member in group.members" :key="member.user._id">
+
+                                <div class="clj-student-avatar">
+                                    <a :href="`${member.user.htmlUrl}`" target="_blank">
+                                        <img :src="`${member.user.avatarUrl}`" alt="Avatar for ${member.user.shortName}"
+                                            style="width:64px;height:64px;" v-if="hasAvatarUrl(member.user)" />
+                                    </a>
+                                </div>
                             <div class="clj-student-forum">
                                 <a :href="`${member.user.htmlUrl}`" target="_blank">
                                     {{ member.user.shortName }}
@@ -285,31 +254,59 @@ watch(
                                     </a>
                                 </div>
                             </div>
-                            <div class="clj-student-avatar">
-                                <a :href="`${member.user.htmlUrl}`" target="_blank">
-                                    <img :src="`${member.user.avatarUrl}`" alt="Avatar for ${member.user.shortName}"
-                                        style="width:64px;height:64px;" v-if="hasAvatarUrl(member.user)" />
-                                </a>
-                            </div>
                         </div>
                     </td>
-                    <td class="clj-center">
-                        {{ group.membersCount }}
-                    </td>
-                    <td class="clj-center">
-                        {{ getPromptStat(group._id).stats.numStudentEntries }}
-                    </td>
-                    <td class="clj-center">
-                        {{ getPromptStat(group._id).stats.numStaffEntries }}
-                    </td>
-                    <td class="clj-center">
-                        {{ daysSinceLastStudentEntry(group._id) }}
-                    </td>
-                    <td class="clj-center">
-                        {{ isUnansweredStudentEntry(group._id) }}
-                    </td>
                     <td>
-                        <cljTopicEntries :topicId="topic.promptsByGroupId[group._id].id" :groupId="group._id"/>
+                        <table class="clj-fixed">
+                            <tbody>
+                                <tr>
+                                    <th class="clj-center clj-three-quarters">
+                                        # students
+                                    </th>
+                                    <td class="clj-center clj-one-quarter">
+                                        {{ group.membersCount }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="clj-center">
+                                        # student entries
+                                    </th>
+                                    <td class="clj-center">
+                                        {{ getPromptStat(group._id).stats.numStudentEntries }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="clj-center">
+                                        # staff entries
+                                    </th>
+                                    <td class="clj-center">
+                                        {{ getPromptStat(group._id).stats.numStaffEntries }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="clj-center">
+                                        days since last student entry
+                                    </th>
+                                    <td class="clj-center">
+                                        {{ daysSinceLastStudentEntry(group._id) }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="clj-center">
+                                        Unanswered student entry?
+                                    </th>
+                                    <td class="clj-center">
+                                        {{ isUnansweredStudentEntry(group._id) }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+
+                    <td class="clj-cell-top">
+                        <cljTopicEntries :topicId="topic.promptsByGroupId[group._id].id" :groupId="group._id" />
                     </td>
                 </tr>
             </tbody>
@@ -349,7 +346,8 @@ sl-tab::part(base) {
 }
 
 .clj-student-avatar {
-    width: 25%;
-    float: left;
+/*    width: 25%; */
+    float: right;  
+    clear: both;
 }
 </style>

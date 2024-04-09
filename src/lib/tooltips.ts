@@ -239,6 +239,10 @@ export const TOOLTIPS = {
             content: `Summary of each group's participation in the discussion topic.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
+        statistics: {
+            content: `Misc. stats about entries for this topic for this group`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
         group: {
             content: `Name and members of each group, with member specific links.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"

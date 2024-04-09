@@ -150,8 +150,22 @@ th.clj-half, td.clj-half {
   width: 50%;
 }
 
+th.clj-three-quarters, td.clj-three-quarters {
+  width: 75%;
+}
+
+th.clj-one-quarter, td.clj-one-quarter {
+  width: 25%;
+}
+
 table.clj-fixed {
   table-layout: fixed;
+  width: 100%;
+}
+
+th.clj-cell-top, td.clj-cell-top {
+  vertical-align: top;
+  padding: 0.5rem;
 }
 
 .clj-two-column-grid { 

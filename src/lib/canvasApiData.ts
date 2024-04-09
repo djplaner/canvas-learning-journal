@@ -1151,6 +1151,20 @@ class canvasApiData {
     }
   }
 
+  /**
+   * @method getUserDetails
+   * @param {Number} userId
+   * @description Given a user id search sthe studentsById and teachersById for the
+   * user's details
+   */
+  getUserDetails( userId: number ): user {
+    let user: user = this.studentsById[userId]
+    if (!user) {
+      user = this.teachersById[userId]
+    }
+    return user
+  }
+
 }
 
 let canvasData: canvasApiData = reactive(new canvasApiData());
