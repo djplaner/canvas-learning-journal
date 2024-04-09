@@ -30,7 +30,7 @@ import dayjs from 'dayjs'
 import { ref, watch, computed } from 'vue'
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../../lib/tooltips'
 import getCanvasData from '../../../lib/canvasApiData'
-import cljTopicEntries from '../../cljTopicEntries'
+import cljTopicEntries from './cljTopicEntries.vue'
 
 
 const DEBUG = true
@@ -309,7 +309,7 @@ watch(
                         {{ isUnansweredStudentEntry(group._id) }}
                     </td>
                     <td>
-                        <cljTopicEntries :topicId="topic.promptsByGroupId[group._id].id" />
+                        <cljTopicEntries :topicId="topic.promptsByGroupId[group._id].id" :groupId="group._id"/>
                     </td>
                 </tr>
             </tbody>

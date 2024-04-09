@@ -445,6 +445,7 @@ class canvasApiData {
   public discussionTopics: discussionTopic[] = []
   //public learningJournalStatus: learningJournalStatus
   public learningJournalStatus: learningJournalStatus = new learningJournalStatus({})
+  public promptsByTopicId: { [key: number]: prompt }
   /*public studentsById: any = {}; // object of students by id
   public teachersById: any = {}; // object of teachers by id
   public discussionTopics: any = {} */
@@ -465,6 +466,7 @@ class canvasApiData {
     this.name = ''
     this.groupSets = []
     this.updated = 0
+    this.promptsByTopicId = {}
 
     instance = this
   }
@@ -843,6 +845,8 @@ class canvasApiData {
             groupSet.discussionTopicsById[groupTopic.topicId].promptsByTopicId = {}
           }
           groupSet.discussionTopicsById[groupTopic.topicId].promptsByTopicId[groupTopic.groupTopicId] = data
+          // add this.promptsTopicsById
+          this.promptsByTopicId[groupTopic.groupTopicId] = data
           // add groupSet.promptsByGroupId
           if (!groupSet.discussionTopicsById[groupTopic.topicId].hasOwnProperty("promptsByGroupId")) {
             groupSet.discussionTopicsById[groupTopic.topicId].promptsByGroupId = {}
