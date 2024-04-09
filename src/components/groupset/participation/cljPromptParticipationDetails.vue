@@ -226,33 +226,31 @@ watch(
                             - group.members contains an array of memberNode
                               Only contains userId, not any specific detail
                     -->
-                    <td class="clj-left">
+                    <td class="clj-left clj-cell-top">
                         <div class="clj-group-name">Group: {{ group.name }}</div>
                         <div class="clj-student" v-for="member in group.members" :key="member.user._id">
 
+                            <div class="clj-student-forum">
                                 <div class="clj-student-avatar">
                                     <a :href="`${member.user.htmlUrl}`" target="_blank">
                                         <img :src="`${member.user.avatarUrl}`" alt="Avatar for ${member.user.shortName}"
                                             style="width:64px;height:64px;" v-if="hasAvatarUrl(member.user)" />
                                     </a>
                                 </div>
-                            <div class="clj-student-forum">
                                 <a :href="`${member.user.htmlUrl}`" target="_blank">
                                     {{ member.user.shortName }}
                                 </a><br />
-                                <div class="clj-speedgrader">
-                                    <span v-if="topic.assignment_id !== null">
-                                        <a :href="`${canvasData.hostName}/courses/${canvasData.id}/gradebook/speed_grader?assignment_id=${topic.assignment.id}&student_id=${member.user._id}`"
-                                            target="_blank">
-                                            SpeedGrader
-                                        </a>
-                                    </span>
-                                    <span v-else>No assignment</span> |
-                                    <a :href="`${canvasData.hostName}/groups/${group._id}/discussion_topics/${topic.promptsByGroupId[group._id].id}`"
+                                <span v-if="topic.assignment_id !== null">
+                                    <a :href="`${canvasData.hostName}/courses/${canvasData.id}/gradebook/speed_grader?assignment_id=${topic.assignment.id}&student_id=${member.user._id}`"
                                         target="_blank">
-                                        Forum
+                                        SpeedGrader
                                     </a>
-                                </div>
+                                </span>
+                                <span v-else>No assignment</span> |
+                                <a :href="`${canvasData.hostName}/groups/${group._id}/discussion_topics/${topic.promptsByGroupId[group._id].id}`"
+                                    target="_blank">
+                                    Forum
+                                </a>
                             </div>
                         </div>
                     </td>
@@ -346,8 +344,8 @@ sl-tab::part(base) {
 }
 
 .clj-student-avatar {
-/*    width: 25%; */
-    float: right;  
+    /*    width: 25%; */
+    float: right;
     clear: both;
 }
 </style>
