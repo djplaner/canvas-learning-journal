@@ -938,6 +938,7 @@ class canvasApiData {
     if (dateString === null) {
       return false
     }
+    console.log("XXXXyYY")
     const sevenDaysAgo = new Date()
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
     const lastEntryDate = new Date(dateString)
@@ -946,7 +947,7 @@ class canvasApiData {
 
   /**
    * @method analyseGroupSetTopics
-   * @param groupSetId string id of the string we're w2orking on
+   * @param groupSetId string id of the string we're working on
    * @description Called once all the prompts for a groupset gathered. Analyse contributions
    * to generate stats on when and how many entries have been contributed by students and staff.
    * 
@@ -982,7 +983,7 @@ class canvasApiData {
         if (prompt.stats.numStudentEntries === 0) {
           numNoStudentEntries += 1
           numNoStudentEntriesLast7 += 1
-        } else if (!this.last7Days(prompt.stats.lastStaffEntry)) {
+        } else if (!this.last7Days(prompt.stats.lastStudentEntry)) {
           numNoStudentEntriesLast7 += 1
         }
         if (prompt.stats.numStaffEntries === 0) {
@@ -1048,7 +1049,7 @@ class canvasApiData {
       // if participant.id in staffIds array set type to staff
       if (staffIds && staffIds.includes(`${participant.id}`)) {
         type = "staff"
-      } else if (studentIds && studentIds.includes(participant.id)) {
+      } else if (studentIds && studentIds.includes(`${participant.id}`)) {
         type = "student"
       }
       participantType[participant.id] = type

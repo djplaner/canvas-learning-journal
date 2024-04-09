@@ -52,7 +52,6 @@ const props = defineProps({
     groupSetId: String
 })
 
-//const groupSet = canvasData.groupSetById[props.groupSetId]
 if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME}: groupSetId ${props.groupSetId} status:`)
 

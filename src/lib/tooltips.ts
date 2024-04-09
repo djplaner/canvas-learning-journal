@@ -189,6 +189,14 @@ export const TOOLTIPS = {
             content: `Title of parent discussion topic for all groups.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
+        topicOverview: {
+            content: `Number of groups with the different type of responses (entries) to this discussion topic`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        assignmentOverview: {
+            content: `If topic is a graded topic (set as an assignment) summary of relevant assignment details.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
         assessable: {
             content: `Whether the discussion topic is assessable.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
@@ -227,6 +235,10 @@ export const TOOLTIPS = {
             content: `Title of the group specific discussion topic.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
+        participationByGroup: {
+            content: `Summary of each group's participation in the discussion topic.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
         group: {
             content: `Name and members of each group, with member specific links.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
@@ -244,11 +256,11 @@ export const TOOLTIPS = {
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
         numStudentEntries: {
-            content: `Number of student entries in the prompt for this group.`,
+            content: `Number of responses (entries) from students in this group.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
         numStaffEntries: {
-            content: `Number of staff entries in the prompt for this group.`,
+            content: `Number of staff entries in this group's prompt.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
         entries: {

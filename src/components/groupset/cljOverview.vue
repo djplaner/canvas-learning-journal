@@ -66,7 +66,7 @@ watch(
         }
         groupSetId.value = gsId
         isLearningJournal.value = canvasData.mightBeLearningJournal(groupSetId.value)
-        promptDataLoaded.value = canvasData.groupSetById[groupSetId.value].update
+        promptDataLoaded.value = canvasData.groupSetsById[groupSetId.value].update
     }
 )
 

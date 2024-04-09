@@ -29,7 +29,8 @@ import dayjs from 'dayjs'
 
 import { ref, watch, computed } from 'vue'
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../../lib/tooltips'
-import getCanvasData from '../../../lib/canvasApiData';
+import getCanvasData from '../../../lib/canvasApiData'
+import cljTopicEntries from '../../cljTopicEntries'
 
 
 const DEBUG = true
@@ -134,6 +135,9 @@ function isUnansweredStudentEntry(groupId) {
             }
         }
     }
+    if (lastStudentEntry !== null && lastStaffEntry === null) {
+        return "Y"
+    }
     return "N"
 }
 
@@ -169,7 +173,15 @@ watch(
 
 <template>
     <div class="clj-prompt-participation-details">
-        <h4>Participation by group</h4>
+        <h5>Participation by group
+            <a class="clj-th-help" target="_blank"
+                :href="`${TOOLTIPS.cljPromptParticipationDetails.participationByGroup.url}`">
+                <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationDetails.participationByGroup.content}`">
+                    <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                </sl-tooltip>
+            </a>
+
+        </h5>
 
         <p>Table where rows are details for each group</p>
 
@@ -232,6 +244,15 @@ watch(
                             </sl-tooltip>
                         </a>
                     </th>
+                    <th class="clj-center">
+                        Entries
+                        <a class="clj-th-help" target="_blank"
+                            :href="`${TOOLTIPS.cljPromptParticipationDetails.entries.url}`">
+                            <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationDetails.entries.content}`">
+                                <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                            </sl-tooltip>
+                        </a>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -251,11 +272,11 @@ watch(
                                     {{ member.user.shortName }}
                                 </a><br />
                                 <div class="clj-speedgrader">
-                                    <span v-if="topic.assignment_id!==null">
+                                    <span v-if="topic.assignment_id !== null">
                                         <a :href="`${canvasData.hostName}/courses/${canvasData.id}/gradebook/speed_grader?assignment_id=${topic.assignment.id}&student_id=${member.user._id}`"
                                             target="_blank">
                                             SpeedGrader
-                                        </a> 
+                                        </a>
                                     </span>
                                     <span v-else>No assignment</span> |
                                     <a :href="`${canvasData.hostName}/groups/${group._id}/discussion_topics/${topic.promptsByGroupId[group._id].id}`"
@@ -286,6 +307,9 @@ watch(
                     </td>
                     <td class="clj-center">
                         {{ isUnansweredStudentEntry(group._id) }}
+                    </td>
+                    <td>
+                        <cljTopicEntries :topicId="topic.promptsByGroupId[group._id].id" />
                     </td>
                 </tr>
             </tbody>
