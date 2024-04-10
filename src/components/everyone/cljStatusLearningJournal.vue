@@ -161,10 +161,6 @@ function showStuff() {
         </sl-tooltip>
     </a>
     </div>
-    <EasyDataTable
-    :headers="headers"
-    :items="items"
-  />
 </template>
 
 

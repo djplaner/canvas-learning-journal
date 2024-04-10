@@ -15,7 +15,7 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
-<script setup>
+<script setup lang="ts">
 
 /**
  * @file: cljPromptParticipationSummary.vue
@@ -26,6 +26,7 @@
  */
 
 import dayjs from 'dayjs'
+import type { Header, Item } from "vue3-easy-data-table";
 
 import { ref, watch, computed } from 'vue'
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../../lib/tooltips'
@@ -50,11 +51,23 @@ if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME} groupSetId: ${props.groupSetId} topicId: ${props.topicId}`)
 }
 
-const promptDataLoaded = ref(false)
+let headers: Header[]
+let items: Item[]
+
+
 
 const canvasData = getCanvasData();
 const groupSet = ref(canvasData.groupSetsById[props.groupSetId])
-const topic = ref(canvasData.groupSetsById[props.groupSetId].discussionTopicsById[props.topicId])
+const topicObject = ref(groupSet.value.discussionTopicsById[props.topicId])
+const promptDataLoaded = ref(canvasData.groupSetsById[props.groupSetId].updated)
+
+
+console.log('--- direct')
+console.log(groupSet.value.discussionTopicsById[props.topicId])
+console.log('--- variable')
+console.log(topicObject.value)
+
+updateParticipationTable()
 
 /**
  * @function getPromptStat
@@ -74,8 +87,8 @@ function getPromptStat(groupId) {
     /**
      * topic is an entry in discussionTopicById
      */
-    if (topic.value.hasOwnProperty('promptsByGroupId')) {
-        return topic.value.promptsByGroupId[groupId]
+    if (topicObject.value.hasOwnProperty('promptsByGroupId')) {
+        return topicObject.value.promptsByGroupId[groupId]
     }
     return {}
 }
@@ -97,14 +110,14 @@ function daysSinceLastStudentEntry(groupId) {
 
     let lastStudentEntry = getPromptStat(groupId).stats.lastStudentEntry
     if (lastStudentEntry === null) {
-        return "n/a"
+        return ""
     }
     let lastDate = dayjs(lastStudentEntry)
     if (lastDate.isValid()) {
         let now = dayjs()
         return now.diff(lastDate, 'day')
     }
-    return "n/a"
+    return ""
 }
 
 /**
@@ -140,7 +153,8 @@ watch(
             console.log(`${FILE_NAME} groupSetId: ${groupSetId}`)
         }
         groupSet.value = canvasData.groupSetsById[groupSetId]
-        topic.value = groupSet.value.discussionTopicsById[topicId]
+        topicObject.value = groupSet.value.discussionTopicsById[topicId]
+        updateParticipationTable()
     }
 )
 
@@ -156,9 +170,41 @@ watch(
             console.log(canvasData)
         }
         promptDataLoaded.value = true
+        updateParticipationTable()
     }
 )
 
+function updateParticipationTable(): [Header[], Item[]] {
+    headers = [
+        { text: "Group", value: "groupName" },
+        { text: "# students", value: "numStudents", sortable: true },
+        { text: "# student entries", value: "numStudentEntries", sortable: true },
+        { text: "# staff entries", value: "numStaffEntries", sortable: true },
+        { text: "days since last student entry", value: "daysSinceLastStudentEntry", sortable: true },
+        { text: "Unanswered student entry", value: "unansweredStudenEntry", sortable: true },
+    ]
+
+    items = []
+
+    if (promptDataLoaded.value) {
+        for (const group of groupSet.value.groups) {
+
+            const groupName = `${group.name} <p>some <strong>random</strong> html</p>`
+            const groupItem = {
+                //groupName: groupName,
+                group: groupSet.value.groupsById[group._id],
+                groupId: group._id,
+                numStudents: group.membersCount,
+                numStudentEntries: getPromptStat(group._id).stats.numStudentEntries,
+                numStaffEntries: getPromptStat(group._id).stats.numStaffEntries,
+                daysSinceLastStudentEntry: daysSinceLastStudentEntry(group._id),
+                unansweredStudenEntry: isUnansweredStudentEntry(group._id)
+            }
+            groupItem.noEntries = (groupItem.numStudentEntries + groupItem.numStaffEntries)===0
+            items.push(groupItem)
+        }
+    }
+}
 
 </script>
 
@@ -174,133 +220,48 @@ watch(
 
         </h5>
 
-        <p>Table where rows are details for each group</p>
+        <EasyDataTable :headers="headers" :items="items" alternating border-cell>
+            <template #item-groupName="item">
+                <div class="clj-group-name">Group: {{ item.group.name }}</div>
+                <div class="clj-student" v-for="member in item.group.members" :key="member.user._id">
 
-        <table class="clj-data-table clj-fixed">
-            <thead>
-                <tr>
-                    <th class="clj-center" style="width:30%">
-                        Group
-                        <a class="clj-th-help" target="_blank"
-                            :href="`${TOOLTIPS.cljPromptParticipationDetails.group.url}`">
-                            <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationDetails.group.content}`">
-                                <i class="icon-Solid icon-question clj-small-tooltip"></i>
-                            </sl-tooltip>
-                        </a>
-                    </th>
-                    <th class="clj-center">
-                        Statistics
-                        <a class="clj-th-help" target="_blank"
-                            :href="`${TOOLTIPS.cljPromptParticipationDetails.statistics.url}`">
-                            <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationDetails.statistics.content}`">
-                                <i class="icon-Solid icon-question clj-small-tooltip"></i>
-                            </sl-tooltip>
-                        </a>
-                    </th>
-                    <th class="clj-center">
-                        Entries
-                        <a class="clj-th-help" target="_blank"
-                            :href="`${TOOLTIPS.cljPromptParticipationDetails.entries.url}`">
-                            <sl-tooltip :content="`${TOOLTIPS.cljPromptParticipationDetails.entries.content}`">
-                                <i class="icon-Solid icon-question clj-small-tooltip"></i>
-                            </sl-tooltip>
-                        </a>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="group in groupSet.groups" :key="group._id">
-                    <!--
-                        at this stage group is one of the groups objects for the groupSet
-                        
-                        - How to loop through each of the members and get all user information
-                            - group.members contains an array of memberNode
-                              Only contains userId, not any specific detail
-                    -->
-                    <td class="clj-left clj-cell-top">
-                        <div class="clj-group-name">Group: {{ group.name }}</div>
-                        <div class="clj-student" v-for="member in group.members" :key="member.user._id">
-
-                            <div class="clj-student-forum">
-                                <div class="clj-student-avatar">
-                                    <a :href="`${member.user.htmlUrl}`" target="_blank">
-                                        <img :src="`${member.user.avatarUrl}`" alt="Avatar for ${member.user.shortName}"
-                                            style="width:64px;height:64px;" v-if="hasAvatarUrl(member.user)" />
-                                    </a>
-                                </div>
-                                <a :href="`${member.user.htmlUrl}`" target="_blank">
-                                    {{ member.user.shortName }}
-                                </a><br />
-                                <span v-if="topic.assignment_id !== null">
-                                    <a :href="`${canvasData.hostName}/courses/${canvasData.id}/gradebook/speed_grader?assignment_id=${topic.assignment.id}&student_id=${member.user._id}`"
-                                        target="_blank">
-                                        SpeedGrader
-                                    </a>
-                                </span>
-                                <span v-else>No assignment</span> |
-                                <a :href="`${canvasData.hostName}/groups/${group._id}/discussion_topics/${topic.promptsByGroupId[group._id].id}`"
-                                    target="_blank">
-                                    Forum
-                                </a>
-                            </div>
+                    <div class="clj-student-forum">
+                        <div class="clj-student-avatar">
+                            <a :href="`${member.user.htmlUrl}`" target="_blank">
+                                <img :src="`${member.user.avatarUrl}`" alt="Avatar for ${member.user.shortName}"
+                                    style="width:64px;height:64px;" v-if="hasAvatarUrl(member.user)" />
+                            </a>
                         </div>
-                    </td>
-                    <td>
-                        <table class="clj-fixed">
-                            <tbody>
-                                <tr>
-                                    <th class="clj-center clj-three-quarters">
-                                        # students
-                                    </th>
-                                    <td class="clj-center clj-one-quarter">
-                                        {{ group.membersCount }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="clj-center">
-                                        # student entries
-                                    </th>
-                                    <td class="clj-center">
-                                        {{ getPromptStat(group._id).stats.numStudentEntries }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="clj-center">
-                                        # staff entries
-                                    </th>
-                                    <td class="clj-center">
-                                        {{ getPromptStat(group._id).stats.numStaffEntries }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="clj-center">
-                                        days since last student entry
-                                    </th>
-                                    <td class="clj-center">
-                                        {{ daysSinceLastStudentEntry(group._id) }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="clj-center">
-                                        Unanswered student entry?
-                                    </th>
-                                    <td class="clj-center">
-                                        {{ isUnansweredStudentEntry(group._id) }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-
-                    <td class="clj-cell-top">
-                        <cljTopicEntries :topicId="topic.promptsByGroupId[group._id].id" :groupId="group._id" />
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
+                        <a :href="`${member.user.htmlUrl}`" target="_blank">
+                            {{ member.user.shortName }}
+                        </a><br />
+                        <span v-if="topicObject.assignment_id !== null">
+                            <a :href="`${canvasData.hostName}/courses/${canvasData.id}/gradebook/speed_grader?assignment_id=${topicObject.assignment.id}&student_id=${member.user._id}`"
+                                target="_blank">
+                                SpeedGrader
+                            </a>
+                        </span>
+                        <span v-else>No assignment</span> |
+                        <a :href="`${canvasData.hostName}/groups/${item.groupId}/discussion_topics/${topicObject.promptsByGroupId[item.groupId].id}`"
+                            target="_blank">
+                            Forum
+                        </a>
+                    </div>
+                </div>
+            </template>
+            <template #expand="item">
+                <div class="clj-entries">
+                    <div v-if="item.noEntries">
+                        <p>No entries yet</p>
+                    </div>
+                    <div v-else>
+                        <p><strong>Topic entries</strong></p>
+                        <cljTopicEntries :topicId="topicObject.promptsByGroupId[item.groupId].id"
+                            :groupId="item.groupId" />
+                    </div>
+                </div>
+            </template>
+        </EasyDataTable>
 
     </div>
 </template>
@@ -338,5 +299,9 @@ sl-tab::part(base) {
     /*    width: 25%; */
     float: right;
     clear: both;
+}
+
+.clj-entries {
+    padding: 1rem;
 }
 </style>
