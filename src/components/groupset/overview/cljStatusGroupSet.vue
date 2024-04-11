@@ -29,6 +29,7 @@ import { TOOLTIPS, GLOBAL_DEBUG } from '../../../lib/tooltips'
 
 import cljStatusLearningJournal from '../../everyone/cljStatusLearningJournal.vue'
 import cljCreateGroups from '../../create/cljCreateGroups.vue';
+import cljCreatePrompt from '../../create/cljCreatePrompt.vue';
 
 import getCanvasData from '../../../lib/canvasApiData';
 
@@ -157,7 +158,7 @@ function update() {
                             <td class="clj-center">{{ groupSet.numGroups }}</td>
                         </tr>
                         <tr>
-                            <th>
+                            <th class="clj-cell-top">
                                 # of prompts 
                                 <a class="clj-th-tooltip" target="_blank"
                                     :href="`${TOOLTIPS.cljGroupSets.numPrompts.url}`">
@@ -166,7 +167,10 @@ function update() {
                                     </sl-tooltip>
                                 </a>
                             </th>
-                            <td class="clj-center">{{ groupSet.numPrompts }}</td>
+                            <td class="clj-center">
+                                {{ groupSet.numPrompts }}<br />
+                                <cljCreatePrompt :groupSetId="props.groupSetId"/>
+                            </td>
                         </tr>
                         <tr>
                             <th>

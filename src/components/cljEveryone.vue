@@ -36,7 +36,7 @@ import '@shoelace-style/shoelace/dist/components/tooltip/tooltip.js';
 import { TOOLTIPS, GLOBAL_DEBUG } from '../lib/tooltips'
 
 import cljGroupSets from './everyone/cljGroupSets.vue'
-import cljCreateLearningJournal from './everyone/cljCreateLearningJournal.vue'
+import cljCreateLearningJournal from './create/cljCreateLearningJournal.vue'
 
 const DEBUG = false
 
@@ -66,11 +66,11 @@ const configOpen = ref(false)
     </a>
   </div>
   <div v-if="configOpen" class="clj-detail" id="clj-gs-detail">
-    <cljGroupSets />
     <cljCreateLearningJournal />
+    <cljGroupSets />
   </div>
   <div v-else class="clj-detail" id="clj-gs-detail" style="display:none">
-    <cljGroupSets />
     <cljCreateLearningJournal />
-  </div>
+    <cljGroupSets />
+  </div> 
 </template>

@@ -50,7 +50,7 @@ export const TOOLTIPS = {
     cljEveryone: {
         for_more:  {
             // what is the purpose of the 'everyone' version: overview and create
-            content: `Use Canvas groups as (private) student learning journals. Click for more.`,
+            content: `Create a new learning journal task (a specifically configured group set) and an overview of the course's current group sets.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         }
     },
@@ -72,7 +72,7 @@ export const TOOLTIPS = {
     cljGroupSets: {
         currentGroupSets: {
             // URL should provide more detail on the columns in the table
-            content: `Summary of course's existing group sets.`,
+            content: `Overview of the course's existing group sets, some of which may be usable as learning journals. (i.e. groups and group discussion topics have been created)`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
         name: {
@@ -80,15 +80,15 @@ export const TOOLTIPS = {
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
         selfSignup: {
-            content: "Whether students can self-signup to the group set.",
+            content: "Whether students can join any group they wish in a group set. Typically not used for a learning journal, especially private learning journals.",
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
         memberLimit: {
-            content: `If self signup is enabled, the number of students who can sign-up for a group.`,
+            content: `If self signup is enabled, the maximum number of students who can sign-up for a group.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
         numPrompts: {
-            content: `Number of prompts (groupset discussion topics) created to guide student contributions.`,
+            content: `Number of prompts (discussion topics) created for this group set. Prompts are an expected feature of a learning journal to "prompt" student contributions.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
         numGroups: {
@@ -100,7 +100,7 @@ export const TOOLTIPS = {
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
         status: {
-            content: `Summary of the status of the group set's configuration, including if it's a learning journal.`,
+            content: `How does the configuration of the group set impact its suitability as a learning journal task.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
     },
@@ -277,5 +277,12 @@ export const TOOLTIPS = {
             content: `View students without groups and select those to create groups for.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
-    }
+    },
+    cljCreatePrompt: {
+        title: {
+            content: `Create a new discussion topic (prompt) for the group set.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+    },
+
 }

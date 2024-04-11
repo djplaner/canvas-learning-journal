@@ -35,6 +35,7 @@ import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
 
 import cljStatusLearningJournal from './cljStatusLearningJournal.vue'
 import cljCreateGroups from '../create/cljCreateGroups.vue'
+import cljCreatePrompt from '../create/cljCreatePrompt.vue'
 
 import getCanvasData from '../../lib/canvasApiData'
 
@@ -194,7 +195,14 @@ const studentsWithoutGroups = computed(() => {
                             </td>
                             <td class="clj-center">{{ groupSet.selfSignup }}</td>
                             <td class="clj-center">{{ groupSet.memberLimit }}</td>
-                            <td class="clj-center">{{ groupSet.numPrompts }}</td>
+                            <td class="clj-center">
+                                <div v-if="groupSet.numPrompts > 0"> 
+                                    {{ groupSet.numPrompts }}
+                                </div>
+                                <div v-else> 
+                                    <cljCreatePrompt :groupSetId="groupSet._id" />
+                                </div>
+                            </td>
                             <td class="clj-center">{{ groupSet.numGroups }}</td>
                             <td class="clj-center">
                                 <div v-if="groupSet.numStudentsWithoutGroup > 0"> 

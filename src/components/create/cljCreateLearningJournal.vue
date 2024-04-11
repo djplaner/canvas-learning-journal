@@ -47,34 +47,67 @@ if (DEBUG && GLOBAL_DEBUG) {
   console.log(TOOLTIPS)
 }
 
+/**
+ * @function toggleForm() 
+ * @description Show/hide the #clj-missing-groups dialog
+ */
+ function toggleForm() {
+    const dialog = document.getElementById('clj-create-learning-journal')
+    // if dialog is open, close it
+    if (dialog.open) {
+        dialog.open = false
+    } else {
+        dialog.open = true
+    }
+
+}
+
 </script>
 
 <template>
-  <div class="clj-configure">
-    <h3>Create Learning Journal
-      <a :href="`${TOOLTIPS.cljCreateLearningJournal.title.url}`" target="_blank">
-        <sl-tooltip :content="`${TOOLTIPS.cljCreateLearningJournal.title.content}`">
-          <i class="icon-Solid icon-question"></i>
-        </sl-tooltip>
-      </a>
-    </h3>
+  <div class="clj-create-form">
+    <sl-button size="small" type="primary" @click="toggleForm()">
+      Create a Learning Journal task
+    </sl-button>
 
-    <div class="clj-create-form">
-      <sl-input class="clj-label-on-left" label="Name"
-        help-text="What will the new learning journal group set be called?"></sl-input>
-      <sl-button class="clj-button" disabled>Create</sl-button>
-    </div>
+    <sl-dialog class="dialog-overview" id="clj-create-learning-journal">
+      <div slot="label">
+        Create a learning journal task
+        <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljCreateLearningJournal.title.url}`">
+          <sl-tooltip :content="`${TOOLTIPS.cljCreateLearningJournal.title.content}`">
+            <i class="icon-Solid icon-question clj-small-tooltip"></i>
+          </sl-tooltip>
+        </a>
+      </div>
+      <div class="clj-create-learning-journal-form">
+        <sl-input class="clj-label-on-left" label="Name"
+          help-text="What will the new learning journal group set be called?"></sl-input>
+        <sl-button class="clj-button" disabled>Create</sl-button>
+      </div>
+
+      <sl-button slot="footer" variant="primary" @click="toggleForm()">Close</sl-button>
+    </sl-dialog>
+
   </div>
 </template>
 
 
 <style scoped>
+.clj-create-form {
+  margin-top: 1rem;
+  margin-left: 1rem;
+  padding-top: 1rem;
+  padding-left: 1rem;
+}
+#clj-create-learning-journal {
+  --width: 50vw;
+}
 .clj-button {
   margin-top: 1rem;
   margin-left: 0.5rem;
 }
 
-.clj-create-form {
+.clj-create-learning-journal-form {
   display: flex;
 }
 
@@ -85,7 +118,7 @@ if (DEBUG && GLOBAL_DEBUG) {
 
 .clj-label-on-left {
   margin-top: 1rem;
-  width: 50%;
+  width: 75%;
 }
 
 .clj-label-on-left::part(form-control) {
