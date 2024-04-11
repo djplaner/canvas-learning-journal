@@ -54,18 +54,10 @@ if (DEBUG && GLOBAL_DEBUG) {
 let headers: Header[]
 let items: Item[]
 
-
-
 const canvasData = getCanvasData();
 const groupSet = ref(canvasData.groupSetsById[props.groupSetId])
 const topicObject = ref(groupSet.value.discussionTopicsById[props.topicId])
 const promptDataLoaded = ref(canvasData.groupSetsById[props.groupSetId].updated)
-
-
-console.log('--- direct')
-console.log(groupSet.value.discussionTopicsById[props.topicId])
-console.log('--- variable')
-console.log(topicObject.value)
 
 updateParticipationTable()
 

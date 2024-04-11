@@ -102,6 +102,14 @@ query cljBaseQuery {
           name
           email
           htmlUrl(courseId: $courseId)
+          enrollments(courseId: "$courseId") {
+            _id
+            section {
+              _id
+              id
+              name
+            }
+          }
         }
       }
       teachers: usersConnection(filter: {enrollmentTypes: TeacherEnrollment}) {
@@ -200,73 +208,73 @@ interface group_topic_children {
 }
 
 interface assignment {
-    id: number
-    description: string 
-    due_at: string
-    unlock_at: string
-    lock_at: string
-    points_possible: number
-    grading_type: string
-    assignment_group_id: number
-    grading_standard_id: number
-    created_at: string
-    updated_at: string
-    peer_reviews: boolean
-    automatic_peer_reviews: boolean
-    position: number
-    grade_group_students_individually: boolean
-    anonymous_peer_reviews: boolean
-    group_category_id: number
-    post_to_sis: boolean
-    moderated_grading: boolean
-    omit_from_final_grade: boolean
-    intra_group_peer_reviews: boolean
-    anonymous_instructor_annotations: boolean
-    anonymous_grading: boolean
-    graders_anonymous_to_graders: boolean
-    grader_count: number
-    grader_comments_visible_to_graders: boolean
-    final_grader_id: number
-    grader_names_visible_to_final_grader: boolean
-    allowed_attempts: number
-    annotatable_attachment_id: number
-    hide_in_gradebook: boolean
-    secure_params: string
-    lti_context_id: string
-    course_id: number
-    name: string
-    submission_types: string[]
-    has_submitted_submissions: boolean
-    due_date_required: boolean
-    max_name_length: number
-    in_closed_grading_period: boolean
-    graded_submissions_exist: boolean
-    is_quiz_assignment: boolean
-    can_duplicate: boolean
-    original_course_id: number
-    original_assignment_id: number
-    original_lti_resource_link_id: string
-    original_assignment_name: string
-    original_quiz_id: number
-    workflow_state: string
-    important_dates: boolean
-    muted: boolean
-    html_url: string
-    has_overrides: boolean
-    needs_grading_count: number
-    sis_assignment_id: string
-    integration_id: string
-    integration_data: {}
-    published: boolean
-    unpublishable: boolean
-    only_visible_to_overrides: boolean
-    visible_to_everyone: boolean
-    locked_for_user: boolean
-    submissions_download_url: string
-    post_manually: boolean
-    anonymize_students: boolean
-    require_lockdown_browser: boolean
-    restrict_quantitative_data: boolean
+  id: number
+  description: string
+  due_at: string
+  unlock_at: string
+  lock_at: string
+  points_possible: number
+  grading_type: string
+  assignment_group_id: number
+  grading_standard_id: number
+  created_at: string
+  updated_at: string
+  peer_reviews: boolean
+  automatic_peer_reviews: boolean
+  position: number
+  grade_group_students_individually: boolean
+  anonymous_peer_reviews: boolean
+  group_category_id: number
+  post_to_sis: boolean
+  moderated_grading: boolean
+  omit_from_final_grade: boolean
+  intra_group_peer_reviews: boolean
+  anonymous_instructor_annotations: boolean
+  anonymous_grading: boolean
+  graders_anonymous_to_graders: boolean
+  grader_count: number
+  grader_comments_visible_to_graders: boolean
+  final_grader_id: number
+  grader_names_visible_to_final_grader: boolean
+  allowed_attempts: number
+  annotatable_attachment_id: number
+  hide_in_gradebook: boolean
+  secure_params: string
+  lti_context_id: string
+  course_id: number
+  name: string
+  submission_types: string[]
+  has_submitted_submissions: boolean
+  due_date_required: boolean
+  max_name_length: number
+  in_closed_grading_period: boolean
+  graded_submissions_exist: boolean
+  is_quiz_assignment: boolean
+  can_duplicate: boolean
+  original_course_id: number
+  original_assignment_id: number
+  original_lti_resource_link_id: string
+  original_assignment_name: string
+  original_quiz_id: number
+  workflow_state: string
+  important_dates: boolean
+  muted: boolean
+  html_url: string
+  has_overrides: boolean
+  needs_grading_count: number
+  sis_assignment_id: string
+  integration_id: string
+  integration_data: {}
+  published: boolean
+  unpublishable: boolean
+  only_visible_to_overrides: boolean
+  visible_to_everyone: boolean
+  locked_for_user: boolean
+  submissions_download_url: string
+  post_manually: boolean
+  anonymize_students: boolean
+  require_lockdown_browser: boolean
+  restrict_quantitative_data: boolean
 }
 
 // used at both groupset and group level
@@ -364,6 +372,7 @@ interface groupSet {
   numNonPrivateGroups: number
   numStudentsMembersOfGroups: number
   numStudentsWithoutGroup: number
+  studentsWithoutGroup: { [key: string]: user}
   numStudents: number
   discussionTopics: discussionTopic[]
   numPrompts: number
@@ -382,6 +391,12 @@ interface user {
   name: string
   email: string
   avatarUrl: string
+}
+
+interface section {
+  _id: string
+  id: string
+  name: string
 }
 
 
@@ -439,6 +454,7 @@ class canvasApiData {
   //public students: Object[] = []; // array of students in the course
   //public teachers: Object[] = []; // array of teachers in the course
   public students: user[] = []
+  public sections: { [key: string]: section} = {}
   public teachers: user[] = []
   public studentsById: { [key: string]: user } = {}
   public teachersById: { [key: string]: user } = {}
@@ -616,24 +632,39 @@ class canvasApiData {
       if (groupSet.selfSignup === "disabled") {
         groupSet.selfSignup = "X";
       }
+      // loop through each group in the groupset and generate various stats
+      // - list of ids of students who are in groups
       let studentMemberIds: { [key: string]: boolean } = {}
       groupSet.numNonPrivateGroups = 0
+      console.log(`groupSet ${groupSet.name} checking members of groups`)
       for (const group of groupSet.groups) {
         // copy group.membersConnection.nodes to group.members
         group.members = group.membersConnection.nodes
         // track student members
         let numStudentMembers = 0
         for (const member of group.members) {
+          // is the current member of this group a student?
           if (this.studentsById.hasOwnProperty(member.user._id)) {
-            studentMemberIds[member._id] = true
+            studentMemberIds[member.user._id] = true
             numStudentMembers += 1
+            console.log(` --- student member ${member.user.name} id ${member.user._id}`)
           }
         }
         if (numStudentMembers > 1) {
           groupSet.numNonPrivateGroups += 1
         }
       }
+      console.log("student members include")
+      console.log(studentMemberIds)
       groupSet.numStudentsMembersOfGroups = Object.keys(studentMemberIds).length
+      groupSet.studentsWithoutGroup = {}
+      for (const student of this.students) {
+        if (!studentMemberIds.hasOwnProperty(student._id)) {
+          groupSet.studentsWithoutGroup[student._id] = student
+        }
+      }
+      console.log("Students without groups")
+      console.log(groupSet.studentsWithoutGroup)
       groupSet.numStudents = this.students.length
       groupSet.numStudentsWithoutGroup = groupSet.numStudents - groupSet.numStudentsMembersOfGroups
     }
@@ -653,7 +684,13 @@ class canvasApiData {
     this.teachers = response.teachers.nodes
 
     this.studentsById = {}
+    // gather the sections
     for (const student of this.students) {
+      // loop thru each student's enrollments and add the section to the section object
+      for (const enrollment of student.enrollments) {
+        this.sections[enrollment.section._id] = enrollment.section
+      }
+      // add them to ById hash
       this.studentsById[student._id] = student
     }
     this.teachersById = {}
@@ -1155,7 +1192,7 @@ class canvasApiData {
    * @description Given a user id search sthe studentsById and teachersById for the
    * user's details
    */
-  getUserDetails( userId: number ): user {
+  getUserDetails(userId: number): user {
     let user: user = this.studentsById[userId]
     if (!user) {
       user = this.teachersById[userId]
@@ -1175,7 +1212,7 @@ let canvasData: canvasApiData = reactive(new canvasApiData());
  * manipulation of data from the Canvas API
  */
 
-export default function getCanvasData( getPromptData: boolean = true): any {
+export default function getCanvasData(getPromptData: boolean = true): any {
   if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME}:getCanvasData getPromptData - ${getPromptData}`)
     console.log(canvasData)
@@ -1191,7 +1228,7 @@ export default function getCanvasData( getPromptData: boolean = true): any {
       console.log("canvasApiData:4 called retrieveGraphQLObject (we don't have data)")
       console.log(canvasData)
     }
-  } 
+  }
 
   if (DEBUG && GLOBAL_DEBUG) {
     console.log("canvasApiData:5 getCanvasCourse returning")

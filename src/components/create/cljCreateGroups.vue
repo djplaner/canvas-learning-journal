@@ -15,7 +15,7 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
-<script setup>
+<script lang="ts" setup>
 /**
  * @file: cljCreateGroups.vue
  * @description: Show configure options/detail for a specific group set
@@ -34,6 +34,7 @@ import { ref, watch, defineProps } from 'vue'
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
 
 import getCanvasData from '../../lib/canvasApiData'
+import cljMissingGroups from './cljMissingGroups.vue'
 
 const DEBUG = true
 const FILE_NAME = "cljCreateGroups"
@@ -75,15 +76,51 @@ watch(
     }
 )
 
+/**
+ * @function toggleGroups() 
+ * @description Show/hide the #clj-missing-groups dialog
+ */
+function toggleGroups() {
+    const dialog = document.getElementById('clj-missing-groups')
+    // if dialog is open, close it
+    if (dialog.open) {
+        dialog.open = false
+    } else {
+        dialog.open = true
+    }
+
+}
+
 
 </script>
 
 <template>
     <div class="clj-create-group">
-        <sl-button size="small" type="primary" @click="createGroups">Create {{ numGroups }} groups</sl-button>
+        <sl-button size="small" type="primary" @click="toggleGroups()">
+            View {{ numGroups }} students missing a group
+        </sl-button>
+
+        <sl-dialog class="dialog-overview" id="clj-missing-groups"
+           style="--width: 75vw">
+           <div slot="label">
+            Students without groups
+            <a class="clj-th-help" target="_blank"
+                :href="`${TOOLTIPS.cljCreateGroups.studentsWithoutGroups.url}`">
+                <sl-tooltip :content="`${TOOLTIPS.cljCreateGroups.studentsWithoutGroups.content}`">
+                    <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                </sl-tooltip>
+            </a>
+           </div>
+            <cljMissingGroups :groupSetId="groupSetId" :numGroups="numGroups" />
+
+            <sl-button slot="footer" variant="primary" @click="toggleGroups()">Close</sl-button>
+        </sl-dialog>
     </div>
 </template>
 
 
 <style scoped>
+sl-dialog::part(title) {
+    text-align:left;
+}
 </style>

@@ -21,7 +21,7 @@
 
 import dayjs from 'dayjs'
 
-export const GLOBAL_DEBUG = false;
+export const GLOBAL_DEBUG = true;
 
 /**
  * @function formatDate
@@ -269,6 +269,12 @@ export const TOOLTIPS = {
         },
         entries: {
             content: `Threaded display of all entries this group.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+    },
+    cljCreateGroups: {
+        studentsWithoutGroups: {
+            content: `View students without groups and select those to create groups for.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
     }
