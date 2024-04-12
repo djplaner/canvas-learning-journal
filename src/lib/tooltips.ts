@@ -131,6 +131,18 @@ export const TOOLTIPS = {
             content: `Create a new group set to use for private student learning journals.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
+        name: {
+            content: `What will the new learning journal task (aka group set) be named?`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        createStudentGroups: { 
+            content: `Within the learning journal, should each student have their own private group created? You can always create and modify groups later using Canvas.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        courseOrSections: {
+            content: `Should groups be created for all students in the course, or just those belonging to the course sections which you select?`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
     },
     cljStatusGroupSet: {
         titleGroupSetStatus : {

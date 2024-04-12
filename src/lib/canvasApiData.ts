@@ -1200,6 +1200,19 @@ class canvasApiData {
     return user
   }
 
+  /**
+   * @method getGroupSetNames
+   * @returns {Array} An array of all the group set names in the course
+   */
+
+  getGroupSetNames(): string[] {
+    let groupSetNames: string[] = []
+    for (const groupSet of this.groupSets) {
+      groupSetNames.push(groupSet.name)
+    }
+    return groupSetNames
+  }
+
 }
 
 let canvasData: canvasApiData = reactive(new canvasApiData());
