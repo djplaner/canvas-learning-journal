@@ -6,9 +6,11 @@
 
 ## What?
 
-The _Canvas Learning Journal_ weaves together standard Canvas functionality (individual groups and discussion forums) to help teaching staff create and orchestrate the use of private student learning journals.
+The _Canvas Learning Journal_ helps teaching staff weave together standard Canvas functionality (groups and discussion topics) to design and orchestrate the use of private student learning journals.
 
-**examples**
+- [Getting started](getting-started/index.md)
+- [Demonstration](demonstration/index.md)
+- [Reference](reference/index.md)
 
 ## Why?
 

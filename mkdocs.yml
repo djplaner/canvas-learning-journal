@@ -1,15 +1,66 @@
 site_name: Canvas Learning Journal
+site_url: https://djplaner.github.io/canvas-learning-journal/
+repo_url: https://github.com/djplaner/canvas-learning-journal/
+edit_uri: edit/main/docs
+site_author: David Jones
+site_description: Design and management student learning journals using Canvas groups and discussion topics
 
 theme:
   name: material
   palette:
-    primary: green
-    accent: light green
+    scheme: default
   font:
     text: 'Roboto'
     code: 'Roboto Mono'
+  features: 
+    - navigation.tabs
+    - navigation.instant
+    - navigation.footer
+    #    - navigation.tracking
+    - navigation.tabs.sticky
+    - navigation.sections
+    - content.tabs.link
+    - header.autohide
+    - search.suggest
+
+plugins:
+  - search
+
 
 markdown_extensions:
   - admonition
+  - attr_list
   - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
   - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - def_list
+  - md_in_html
+  - tables
+  - pymdownx.tabbed:
+      alternate_style: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Requirements: getting-started/requirements.md
+    - Install: getting-started/install.md
+    - Use: getting-started/use.md
+  - Demonstration: 
+    - Overview: demonstration/index.md
+    - Learning design: demonstration/learning-design.md
+    - End result:
+      - Student view: demonstration/end-result/student-view.md
+      - Teacher view: demonstration/end-result/teacher-view.md
+    - Implementation: 
+      - Overview: demonstration/implementation/index.md
+      - Groupset: demonstration/implementation/groupset.md
+      - Discussion topics: demonstration/implementation/discussion-topics.md
+      - Learning environment: demonstration/implementation/learning-environment.md
+  - Reference: 
+    - Overview: reference/index.md
+  - Development:
+    - Overview: development/index.md

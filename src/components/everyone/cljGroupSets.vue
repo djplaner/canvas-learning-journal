@@ -129,60 +129,60 @@ const studentsWithoutGroups = computed(() => {
                     <thead>
                         <th>
                             Name
-                            <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljGroupSets.name.url}`">
+<!--                            <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljGroupSets.name.url}`">
                                 <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.name.content}`">
                                     <i class="icon-Solid icon-question clj-small-tooltip"></i>
                                 </sl-tooltip>
-                            </a>
+                            </a> -->
                         </th>
                         <th>
                             Self signup
-                            <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljGroupSets.selfSignup.url}`">
+    <!--                        <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljGroupSets.selfSignup.url}`">
                                 <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.selfSignup.content}`">
                                     <i class="icon-Solid icon-question clj-small-tooltip"></i>
                                 </sl-tooltip>
-                            </a>
+                            </a> -->
 
                         </th>
                         <th>
                             Member limit
-                            <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljGroupSets.memberLimit.url}`">
+<!--                            <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljGroupSets.memberLimit.url}`">
                                 <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.memberLimit.content}`">
                                     <i class="icon-Solid icon-question clj-small-tooltip"></i>
                                 </sl-tooltip>
-                            </a>
+                            </a> -->
 
                         </th>
                         <th># prompts
-                            <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljGroupSets.numPrompts.url}`">
+<!--                            <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljGroupSets.numPrompts.url}`">
                                 <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.numPrompts.content}`">
                                     <i class="icon-Solid icon-question clj-small-tooltip"></i>
                                 </sl-tooltip>
-                            </a>
+                            </a> -->
 
                         </th>
                         <th># of groups
-                            <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljGroupSets.numGroups.url}`">
+<!--                            <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljGroupSets.numGroups.url}`">
                                 <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.numGroups.content}`">
                                     <i class="icon-Solid icon-question clj-small-tooltip"></i>
                                 </sl-tooltip>
-                            </a>
+                            </a> -->
 
                         </th>
                         <th># no group students
-                            <a target="_blank" :href="`${TOOLTIPS.cljGroupSets.numNoGroupStudents.url}`">
+<!--                            <a target="_blank" :href="`${TOOLTIPS.cljGroupSets.numNoGroupStudents.url}`">
                                 <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.numNoGroupStudents.content}`">
                                     <i class="icon-Solid icon-question clj-small-tooltip"></i>
                                 </sl-tooltip>
-                            </a>
+                            </a> -->
 
                         </th>
                         <th>Learning Journal Status
-                            <a target="_blank" :href="`${TOOLTIPS.cljGroupSets.status.url}`">
+<!--                            <a target="_blank" :href="`${TOOLTIPS.cljGroupSets.status.url}`">
                                 <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.status.content}`">
                                     <i class="icon-Solid icon-question clj-small-tooltip"></i>
                                 </sl-tooltip>
-                            </a>
+                            </a> -->
 
                         </th>
                     </thead>
