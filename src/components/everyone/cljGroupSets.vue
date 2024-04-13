@@ -178,11 +178,11 @@ const studentsWithoutGroups = computed(() => {
 
                         </th>
                         <th>Learning Journal Status
-<!--                            <a target="_blank" :href="`${TOOLTIPS.cljGroupSets.status.url}`">
+                            <a target="_blank" :href="`${TOOLTIPS.cljGroupSets.status.url}`">
                                 <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.status.content}`">
                                     <i class="icon-Solid icon-question clj-small-tooltip"></i>
                                 </sl-tooltip>
-                            </a> -->
+                            </a> 
 
                         </th>
                     </thead>

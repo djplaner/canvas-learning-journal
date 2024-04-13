@@ -75,7 +75,7 @@ export const TOOLTIPS = {
             content: `Overview of the course's existing group sets, some of which may be usable as learning journals. (i.e. groups and group discussion topics have been created)`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
-        name: {
+        /*name: {
             content: `Name of the existing group set.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
@@ -98,9 +98,9 @@ export const TOOLTIPS = {
         numNoGroupStudents: {
             content: `Number of students enrolled in the course who are not members of a group.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
-        },
+        }, */
         status: {
-            content: `How does the configuration of the group set impact its suitability as a learning journal task.`,
+            content: `Summary of how well configuration of the group set matches the needs of a learning journal task.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
     },
@@ -127,6 +127,10 @@ export const TOOLTIPS = {
         },
     },
     cljCreateLearningJournal: {
+        page: {
+            content: `Create a new group set to use for private student learning journals.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
         title: {
             content: `Create a new group set to use for private student learning journals.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
@@ -285,12 +289,20 @@ export const TOOLTIPS = {
         },
     },
     cljCreateGroups: {
+        button: {
+            content: `View details of students without groups and perhaps create groups for them.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
         studentsWithoutGroups: {
             content: `View students without groups and select those to create groups for.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
     },
     cljCreatePrompt: {
+        button: {
+            content: `Create a new discussion topic (prompt) for the group set.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
         title: {
             content: `Create a new discussion topic (prompt) for the group set.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"

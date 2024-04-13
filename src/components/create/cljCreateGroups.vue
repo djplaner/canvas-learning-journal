@@ -41,7 +41,7 @@ const FILE_NAME = "cljCreateGroups"
 
 const props = defineProps({
     groupSetId: Number,
-    numGroups: Number 
+    numGroups: Number
 })
 
 const numGroups = ref(props.numGroups)
@@ -66,7 +66,7 @@ function createGroups() {
 
 // watch for changes on props.groupSetId 
 watch(
-    () => [ props.groupSetId, props.numGroups ],
+    () => [props.groupSetId, props.numGroups],
     (gsId) => {
         if (DEBUG && GLOBAL_DEBUG) {
             console.log(`${FILE_NAME} changes to groupSetId: ${gsId} and props.groupSetId: ${props.groupSetId}`)
@@ -96,21 +96,26 @@ function toggleGroups() {
 
 <template>
     <div class="clj-create-group">
-        <sl-button size="small" type="primary" @click="toggleGroups()">
-            View {{ numGroups }} students missing a group
-        </sl-button>
-
-        <sl-dialog class="dialog-overview" id="clj-missing-groups"
-           style="--width: 75vw">
-           <div slot="label">
-            Students without groups
-            <a class="clj-th-help" target="_blank"
-                :href="`${TOOLTIPS.cljCreateGroups.studentsWithoutGroups.url}`">
-                <sl-tooltip :content="`${TOOLTIPS.cljCreateGroups.studentsWithoutGroups.content}`">
+        <div class="clj-create-group-button">
+            <sl-button size="small" type="primary" @click="toggleGroups()">
+                View {{ numGroups }} students missing a group
+            </sl-button> &nbsp;
+            <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljCreateGroups.button.url}`">
+                <sl-tooltip :content="`${TOOLTIPS.cljCreateGroups.button.content}`">
                     <i class="icon-Solid icon-question clj-small-tooltip"></i>
                 </sl-tooltip>
             </a>
-           </div>
+        </div>
+
+        <sl-dialog class="dialog-overview" id="clj-missing-groups" style="--width: 75vw">
+            <div slot="label">
+                Students without groups
+                <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljCreateGroups.studentsWithoutGroups.url}`">
+                    <sl-tooltip :content="`${TOOLTIPS.cljCreateGroups.studentsWithoutGroups.content}`">
+                        <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                    </sl-tooltip>
+                </a>
+            </div>
             <cljMissingGroups :groupSetId="groupSetId" :numGroups="numGroups" />
 
             <sl-button slot="footer" variant="primary" @click="toggleGroups()">Close</sl-button>
@@ -121,6 +126,12 @@ function toggleGroups() {
 
 <style scoped>
 sl-dialog::part(title) {
-    text-align:left;
+    text-align: left;
+}
+.clj-create-group-button {
+    display: flex;
+    justify-content: space-between;
+    width: max-content;
+    align-items: center;
 }
 </style>

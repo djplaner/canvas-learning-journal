@@ -145,8 +145,6 @@ watch(
 
 <template>
     <div class="clj-missing-groups">
-        <h3>Here in missing groups</h3>
-
 <!--        <span>search field:</span>
   <select v-model="searchField">
     <option>player</option>

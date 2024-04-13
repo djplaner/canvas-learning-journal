@@ -63,9 +63,17 @@ function toggleForm() {
 </script>
 
 <template>
+  <div class="clj-create-prompt-button">
     <sl-button size="small" type="primary" @click="toggleForm()">
       Create a prompt
-    </sl-button>
+    </sl-button> &nbsp;
+    <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljCreatePrompt.button.url}`">
+      <sl-tooltip :content="`${TOOLTIPS.cljCreatePrompt.button.content}`">
+        <i class="icon-Solid icon-question clj-small-tooltip"></i>
+      </sl-tooltip>
+    </a>
+  </div>
+
   <div class="clj-create-form">
 
     <sl-dialog class="dialog-overview" id="clj-create-prompt">
@@ -91,7 +99,7 @@ function toggleForm() {
 
 <style scoped>
 .clj-create-form {
-/*  margin-top: 1rem;
+  /*  margin-top: 1rem;
   margin-left: 1rem;
   padding-top: 1rem;
   padding-left: 1rem; */
@@ -133,5 +141,13 @@ function toggleForm() {
 
 .clj-label-on-left::part(form-control-help-text) {
   grid-column-start: 2;
+}
+
+.clj-create-prompt-button {
+  display: flex;
+  justify-content: space-between;
+    width: max-content;
+    align-items: center;
+
 }
 </style>

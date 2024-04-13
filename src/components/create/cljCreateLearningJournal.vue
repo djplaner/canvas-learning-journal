@@ -146,6 +146,13 @@ const checkMenuSelect = (event) => {
     <sl-button size="small" type="primary" @click="toggleForm()">
       Create a Learning Journal task
     </sl-button>
+    <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljCreateLearningJournal.page.url}`">
+          <sl-tooltip :content="`${TOOLTIPS.cljCreateLearningJournal.page.content}`">
+            <i class="icon-Solid icon-question clj-small-tooltip"></i>
+          </sl-tooltip>
+        </a>
+
+
 
     <sl-dialog class="dialog-overview" id="clj-create-learning-journal">
       <div slot="label">
