@@ -50,21 +50,6 @@ Will have a combination of
 
 ### People 
 
-All help topics relevant to the CLJ as displayed on the People (everyone) tab.
-
-- People title
-
-    Page that gives a brief summary of the CLJ and points off to other parts of the site for more, including other parts of this page.
-
-- Create a learning journal task
-
-    Summary of the main functionality - creating a learning journal task. Explain how its just a group set configured a particular way. Though there are many different ways.
-
-- Current group sets
-
-    Table the gives overview of all the existing group sets
-
-    An explanation of each column in the table.
 
 ### Groupset
 

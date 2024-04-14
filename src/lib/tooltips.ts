@@ -21,7 +21,8 @@
 
 import dayjs from 'dayjs'
 
-export const GLOBAL_DEBUG = true;
+export const GLOBAL_DEBUG : boolean = true;
+export const BLUR : boolean = true;
 
 /**
  * @function formatDate
@@ -44,21 +45,21 @@ export const TOOLTIPS = {
     App: { 
         loading: {
             content: `Retrieving data from Canvas...`,
-            url: "https://djplaner.github.io/canvas-learning-journal/"
+            url: "https://djplaner.github.io/canvas-learning-journal/references/software/#loading"
         },
     },
     cljEveryone: {
         for_more:  {
             // what is the purpose of the 'everyone' version: overview and create
             content: `Create a new learning journal task (a specifically configured group set) and an overview of the course's current group sets.`,
-            url: "https://djplaner.github.io/canvas-learning-journal/"
+            url: "https://djplaner.github.io/canvas-learning-journal/reference/software/everyone/"
         }
     },
     cljGroupSet: {
         for_more: {
             // the 'group_set' component allows configure and orchestration of a possible learning journal
             content: `Determine if and how this group set can be used to provide private student learning journals. Click for more.`,
-            url: "https://djplaner.github.io/canvas-learning-journal/"
+            url: "https://djplaner.github.io/canvas-learning-journal/reference/software/groupset/"
         },
         configure: {
             content: `Design if/how this groupset will work as a learning journal.`,
@@ -74,11 +75,11 @@ export const TOOLTIPS = {
             // URL should provide more detail on the columns in the table
             content: `Overview of the course's existing group sets, some of which may be usable as learning journals. (i.e. groups and group discussion topics have been created)`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
-        },
-        /*name: {
+        }, /*
+        name: {
             content: `Name of the existing group set.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
-        },
+        }, 
         selfSignup: {
             content: "Whether students can join any group they wish in a group set. Typically not used for a learning journal, especially private learning journals.",
             url: "https://djplaner.github.io/canvas-learning-journal/"
@@ -102,7 +103,7 @@ export const TOOLTIPS = {
         status: {
             content: `Summary of how well configuration of the group set matches the needs of a learning journal task.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
-        },
+        }, 
     },
     cljStatusLearningJournal: {
         privateLearningJournal: {

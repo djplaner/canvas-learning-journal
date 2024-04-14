@@ -111,11 +111,11 @@ function update() {
                         <tr>
                             <th>
                                 Name
-                                <a class="clj-th-tooltip" target="_blank" :href="`${TOOLTIPS.cljGroupSets.name.url}`">
+                                <!--<a class="clj-th-tooltip" target="_blank" :href="`${TOOLTIPS.cljGroupSets.name.url}`">
                                     <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.name.content}`">
                                         <i class="icon-Solid icon-question clj-small-tooltip"></i>
                                     </sl-tooltip>
-                                </a>
+                                </a> -->
                             </th>
                             <td class="clj-center">
                                 {{ groupSet.name }}
@@ -124,48 +124,48 @@ function update() {
                         <tr>
                             <th>
                                 Self signup
-                                <a class="clj-th-tooltip" target="_blank"
+                                <!--<a class="clj-th-tooltip" target="_blank"
                                     :href="`${TOOLTIPS.cljGroupSets.selfSignup.url}`">
                                     <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.selfSignup.content}`">
                                         <i class="icon-Solid icon-question clj-small-tooltip"></i>
                                     </sl-tooltip>
-                                </a>
+                                </a>-->
                             </th>
                             <td class="clj-center">{{ groupSet.selfSignup }}</td>
                         </tr>
                         <tr>
                             <th>
                                 Member limit
-                                <a class="clj-th-tooltip" target="_blank"
+                                <!--<a class="clj-th-tooltip" target="_blank"
                                     :href="`${TOOLTIPS.cljGroupSets.memberLimit.url}`">
                                     <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.memberLimit.content}`">
                                         <i class="icon-Solid icon-question clj-small-tooltip"></i>
                                     </sl-tooltip>
-                                </a>
+                                </a> -->
                             </th>
                             <td class="clj-center">{{ groupSet.memberLimit }}</td>
                         </tr>
                         <tr>
                             <th>
                                 # of groups
-                                <a class="clj-th-tooltip" target="_blank"
+                                <!--<a class="clj-th-tooltip" target="_blank"
                                     :href="`${TOOLTIPS.cljGroupSets.numGroups.url}`">
                                     <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.numGroups.content}`">
                                         <i class="icon-Solid icon-question clj-small-tooltip"></i>
                                     </sl-tooltip>
-                                </a>
+                                </a>-->
                             </th>
                             <td class="clj-center">{{ groupSet.numGroups }}</td>
                         </tr>
                         <tr>
                             <th class="clj-cell-top">
                                 # of prompts 
-                                <a class="clj-th-tooltip" target="_blank"
+                                <!--<a class="clj-th-tooltip" target="_blank"
                                     :href="`${TOOLTIPS.cljGroupSets.numPrompts.url}`">
                                     <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.numPrompts.content}`">
                                         <i class="icon-Solid icon-question clj-small-tooltip"></i>
                                     </sl-tooltip>
-                                </a>
+                                </a>-->
                             </th>
                             <td class="clj-center">
                                 {{ groupSet.numPrompts }}<br />
@@ -175,12 +175,12 @@ function update() {
                         <tr>
                             <th>
                                 # no group students
-                                <a class="clj-th-tooltip" target="_blank"
+                                <!--<a class="clj-th-tooltip" target="_blank"
                                     :href="`${TOOLTIPS.cljGroupSets.numNoGroupStudents.url}`">
                                     <sl-tooltip :content="`${TOOLTIPS.cljGroupSets.numNoGroupStudents.content}`">
                                         <i class="icon-Solid icon-question clj-small-tooltip"></i>
                                     </sl-tooltip>
-                                </a>
+                                </a> -->
                             </th>
                             <td class="clj-center">
                                 <div v-if="groupSet.numStudentsWithoutGroup > 0">

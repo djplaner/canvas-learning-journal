@@ -8,7 +8,14 @@ site_description: Design and management student learning journals using Canvas g
 theme:
   name: material
   palette:
-    scheme: default
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        title: Switch to light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-4
+        title: Switch to dark mode
   font:
     text: 'Roboto'
     code: 'Roboto Mono'
@@ -26,6 +33,9 @@ theme:
 plugins:
   - search
 
+extra_css:
+  - stylesheets/extra.css
+
 
 markdown_extensions:
   - admonition
@@ -35,7 +45,7 @@ markdown_extensions:
       anchor_linenums: true
   - pymdownx.superfences
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
   - def_list
   - md_in_html
@@ -62,5 +72,13 @@ nav:
       - Learning environment: demonstration/implementation/learning-environment.md
   - Reference: 
     - Overview: reference/index.md
+    - Conceptual: 
+      - Overview: reference/conceptual/index.md
+      - Mapping to Canvas: reference/conceptual/mapping-to-canvas.md
+    - Software: 
+      - Overview: reference/software/index.md
+      - Everyone: reference/software/everyone/index.md
+      - Groupset: reference/software/groupset/index.md
+      - Shared: reference/software/shared.md
   - Development:
     - Overview: development/index.md

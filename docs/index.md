@@ -4,9 +4,7 @@
 
     This project is in the early stages of development. It is not yet ready for use.
 
-## What?
-
-The _Canvas Learning Journal_ helps teaching staff weave together standard Canvas functionality (groups and discussion topics) to design and orchestrate the use of private student learning journals.
+The _Canvas Learning Journal_ (_CLJ_) tool helps instructors design and manage private student learning journals using standard Canvas functionality.
 
 - [Getting started](getting-started/index.md)
 - [Demonstration](demonstration/index.md)

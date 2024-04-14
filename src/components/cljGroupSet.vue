@@ -46,10 +46,6 @@ import '@shoelace-style/shoelace/dist/components/tab/tab.js';
 import '@shoelace-style/shoelace/dist/components/tab-panel/tab-panel.js';
 import '@shoelace-style/shoelace/dist/components/tab-group/tab-group.js';
 
-
-
-
-
 import { TOOLTIPS, GLOBAL_DEBUG } from '../lib/tooltips'
 
 import cljOverview from './groupset/cljOverview.vue'
@@ -64,6 +60,7 @@ if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME}: TOOLTIPS:`)
     console.log(TOOLTIPS)
 }
+
 
 // which group set is being displayed is determined by the active tab in Canvas
 let activeGroup = getActiveGroupSet()

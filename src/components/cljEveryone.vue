@@ -33,7 +33,7 @@ import { ref } from 'vue'
 import '@shoelace-style/shoelace/dist/components/tooltip/tooltip.js';
 
 
-import { TOOLTIPS, GLOBAL_DEBUG } from '../lib/tooltips'
+import { TOOLTIPS, GLOBAL_DEBUG, BLUR } from '../lib/tooltips'
 
 import cljGroupSets from './everyone/cljGroupSets.vue'
 import cljCreateLearningJournal from './create/cljCreateLearningJournal.vue'
@@ -49,6 +49,10 @@ if (DEBUG && GLOBAL_DEBUG) {
 
 const configOpen = ref(false)
 
+// if BLUR add "filter: blur(0.5rem)" to table.roster
+if (BLUR) {
+  document.querySelector('table.roster').style.filter = 'blur(0.5rem)'
+}
 
 </script>
 <template>
