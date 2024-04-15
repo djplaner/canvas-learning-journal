@@ -1,7 +1,10 @@
 {
-  "name": "sample-userscript",
+  "name": "canvas-learning-journal",
+  "description": "Design and management learning journal tasks within the Canvas LMS",
+  "author": "David Jones",
+  "homepage": "https://github.com/djplaner/canvas-learning-journal/#readme",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
