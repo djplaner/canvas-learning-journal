@@ -61,7 +61,7 @@ Each web browser’s browser extension installation process will be a little dif
 With TamperMonkey installed you can now 
 
 <div align="center">
-<sl-button variant="success" size="small" href="https://github.com/djplaner/canvas-learning-journal/raw/main/dist/canvas-collections.user.js">Install the <strong>Collections userscript</strong></sl-button>
+<sl-button variant="success" size="small" href="https://github.com/djplaner/canvas-learning-journal/raw/main/dist/canvas-learning-journal.user.js">Install the <strong>Collections userscript</strong></sl-button>
 </div>
     
 If all is working you should something like the following image. An image showing TamperMonkey providing you with details of the userscript and asking if you wish to install (or perhaps update) it.
