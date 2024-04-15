@@ -16,9 +16,9 @@
 -->
 
 
-<script setup>
+<script setup lang="ts">
 /**
- * @file: cljEveryone.vue
+ * @file: cljGroupSet.vue
  * @description: CLJ component shown on a group set page. A group set may or may not
  * be considered a CLJ. 
  * 
@@ -51,7 +51,7 @@ import { TOOLTIPS, GLOBAL_DEBUG } from '../lib/tooltips'
 import cljOverview from './groupset/cljOverview.vue'
 import cljParticipation from './groupset/cljParticipation.vue'
 
-import getCanvasData from '../lib/canvasApiData'
+import { getCanvasData } from '../lib/canvasApiData'
 
 const DEBUG = false
 const FILE_NAME = "cljGroupSet"
@@ -113,7 +113,7 @@ function addEventHandlers() {
         console.log(`${FILE_NAME}: groupCategoryTabs: ${groupCategoryTabs}`)
     }
     groupCategoryTabs.forEach((tab) => {
-        tab.addEventListener('click', (event) => {
+        tab.addEventListener('click', (event : any) => {
             // get the href for event.target
             const href = event.target.getAttribute('href')
             // href == #tab-<number>, extract the number
@@ -125,7 +125,9 @@ function addEventHandlers() {
             if (groupCatTab && clj) {
                 // 
                 let activeTab = groupCatTab.querySelector('div.ui-tabs-panel[aria-expanded=true]')
-                activeTab.prepend(clj)
+                if (activeTab) {
+                    activeTab.prepend(clj)
+                }
             }
         })
     })
@@ -140,7 +142,7 @@ function addEventHandlers() {
  * div#group_categories_tabs > ul.collectionViewItems > li with the class ui-tabs-active
 */
 
-function getActiveGroupSet() {
+function getActiveGroupSet(): string {
     const activeGroupSet = document.querySelector('div#group_categories_tabs > ul.collectionViewItems > li.ui-tabs-active')
     if (DEBUG && GLOBAL_DEBUG) {
         console.log(`${FILE_NAME}: activeGroupSet: ${activeGroupSet}`)
@@ -149,11 +151,14 @@ function getActiveGroupSet() {
     if (activeGroupSet) {
         const value = activeGroupSet.getAttribute('aria-controls')
         // extract the number from value where value == tab-<number>
-        const number = value.split('-')[1]
-        return number
+        if (value) {
+            const number = value.split('-')[1]
+            return `${number}`
+        }
     }
     // default to current group set
     throw new Error(`${FILE_NAME}: getActiveGroupSet - activeGroupSet is null`)
+    return ""
 }
 
 

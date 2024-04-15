@@ -40,7 +40,7 @@ import { ref } from 'vue'
 
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
 
-import getCanvasData from '../../lib/canvasApiData'
+import { getCanvasData } from '../../lib/canvasApiData'
 
 import { createGroupsetRequest, groupSetCreator } from '../../lib/groupSetCreator'
 
@@ -69,7 +69,7 @@ const whichStudents = ref(ALL_STUDENTS)
  * @description Show/hide the #clj-missing-groups dialog
  */
 function toggleForm() {
-  const dialog = document.getElementById('clj-create-learning-journal')
+  const dialog : any = document.getElementById('clj-create-learning-journal')
   // if dialog is open, close it
   if (dialog.open) {
     dialog.open = false
@@ -103,23 +103,39 @@ function checkGroupSetName() {
     console.log(`${FILE_NAME} checkGroupSetName`)
   }
   // get the name of the group set to be created
-  const name = document.getElementById('clj-groupset-name').value
+  const nameElement : any = document.getElementById('clj-groupset-name')
+  if (!nameElement) {
+    throw new Error(`${FILE_NAME} No group name element`)
+    return
+  }
+  const name : string = nameElement.value
   newGroupsetName.value = name
+  const clj = document.getElementById('clj-create-learning-journal')
   // does it match an existing groupSetName
   if (groupSetNames.value.includes(name) || name === "") {
     // disable the create button
-    document.getElementById('clj-create-learning-journal').querySelector('sl-button').disabled = true
+    if (clj) {
+      let button: any = clj.querySelector('sl-button')
+      if (button) {
+        button.disabled = true
+      }
+    }
     if (name !== "") {
       duplicateGroupsetName.value = true
     }
   } else {
     // enable the create button
-    document.getElementById('clj-create-learning-journal').querySelector('sl-button').disabled = false
-    duplicateGroupsetName.value = false
+    if (clj) {
+      const button: any = document.getElementById('clj-create-learning-journal')
+      if (button) {
+        button.disabled = false
+        duplicateGroupsetName.value = false
+      }
+    }
   }
 }
 
-const checkMenuSelect = (event) => {
+const checkMenuSelect = (event: any) => {
   if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME} checkMenuSelect `)
     console.log(event)
@@ -147,10 +163,10 @@ const checkMenuSelect = (event) => {
       Create a Learning Journal task
     </sl-button>
     <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljCreateLearningJournal.page.url}`">
-          <sl-tooltip :content="`${TOOLTIPS.cljCreateLearningJournal.page.content}`">
-            <i class="icon-Solid icon-question clj-small-tooltip"></i>
-          </sl-tooltip>
-        </a>
+      <sl-tooltip :content="`${TOOLTIPS.cljCreateLearningJournal.page.content}`">
+        <i class="icon-Solid icon-question clj-small-tooltip"></i>
+      </sl-tooltip>
+    </a>
 
 
 

@@ -56,11 +56,13 @@ export class groupSetCreator {
   constructor(data: createGroupsetRequest) {
     // loop through the properties of this and assign the values from data
     // if data has a property that matches the name of a property of this
-    for (const key in this) {
-      if (data.hasOwnProperty(key)) {
-        this[key] = data[key]
-      }
-    }
+    this.name = data.name || ""
+    this.self_signup = data.self_signup || "restricted"
+    this.auto_leader = data.auto_leader || "first"
+    this.group_limit = data.group_limit || 1
+    this.sis_group_category_id = data.sis_group_category_id || ""
+    this.create_group_count = data.create_group_count || 0
+    this.split_group_count = data.split_group_count || ""
   }
 
   /**
@@ -72,7 +74,7 @@ export class groupSetCreator {
    */
 
   async groupSetCreator(): Promise<void> {
-    for (const groupSet of this.groupSets) {
+/*    for (const groupSet of this.groupSets) {
       groupSet.updateProgress = 0
       const progressIncrement = 100 / (groupSet.numGroups * groupSet.numPrompts)
       if (!groupSet.discussionTopics) {
@@ -104,12 +106,12 @@ export class groupSetCreator {
         }
         for (const groupTopic of groupTopics) {
           // data is the full topic view for one groups prompt
-          let data = await this.getResponses(group._id, groupTopic.groupTopicId)
+          let data = await this.getResponses(group._id, groupTopic.groupTopicId) */
           /*if (data.view.length > 0) {
             console.log(`groupGroupsResponses`)
             console.log(data)
           }*/
-          if (data) {
+/*          if (data) {
             // calaculate statistics at the level of the prompt
             data = this.analyseGroupPrompt(data)
             // add the id for the group's topic
@@ -140,7 +142,8 @@ export class groupSetCreator {
       console.log(`${FILE_NAME} getGroupsResponses: got all responses`)
       console.log(this)
     }
-    //this.updated +=1
+    //this.updated +=1 
+    */
   }
 
   /**
@@ -152,7 +155,7 @@ export class groupSetCreator {
    */
 
   async getResponses(groupId: string, topicId: string): Promise<any> {
-    const courseId = this.id.toString()
+   /* const courseId = this.id.toString()
     //const callUrl = `${this.hostName}/api/v1/courses/${courseId}/discussion_topics/${topicId}/view`;
     const callUrl = `${this.hostName}/api/v1/groups/${groupId}/discussion_topics/${topicId}/view`
 
@@ -195,6 +198,6 @@ export class groupSetCreator {
     } catch (error) {
       console.error(`canvasApi:getCourseObject: error ${error}`);
       throw error;
-    }
+    } */
   }
 }

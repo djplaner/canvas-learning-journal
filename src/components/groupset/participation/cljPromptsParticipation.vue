@@ -15,11 +15,11 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
-<script setup>
+<script setup lang="ts">
 
 import { ref, watch } from 'vue'
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../../lib/tooltips'
-import getCanvasData from '../../../lib/canvasApiData';
+import { getCanvasData } from '../../../lib/canvasApiData';
 
 
 import cljPromptParticipationDetails from './cljPromptParticipationDetails.vue'
@@ -33,9 +33,9 @@ if (DEBUG && GLOBAL_DEBUG ) {
     console.log(TOOLTIPS)
 }
 
-const props = defineProps({
-    groupSetId: Number
-})
+const props = defineProps<{
+    groupSetId: string
+}>()
 
 const canvasData = getCanvasData();
 const groupSet = ref(canvasData.groupSetsById[props.groupSetId])
@@ -55,9 +55,7 @@ watch(
         if (DEBUG && GLOBAL_DEBUG) {
             console.log(`${FILE_NAME} update from watch groupSetId: ${groupSetId}`)
         }
-        isLearningJournal.value = canvasData.mightBeLearningJournal(groupSetId)
         groupSet.value = canvasData.groupSetsById[groupSetId]
-        promptDataLoaded.value = groupSet.value.updated>0
     }
 )
 

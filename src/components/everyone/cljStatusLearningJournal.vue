@@ -41,9 +41,9 @@ import { TOOLTIPS, GLOBAL_DEBUG  } from '../../lib/tooltips'
 
 import type { learningJournalStatus } from '../../lib/canvasApiData'
 
-import getCanvasData from '../../lib/canvasApiData'
+import { getCanvasData } from '../../lib/canvasApiData'
 
-import { Header, Item } from "vue3-easy-data-table";
+import type { Header, Item } from "vue3-easy-data-table";
 
 const headers: Header[] = [
   { text: "PLAYER", value: "player", sortable: true },
@@ -68,9 +68,9 @@ const FILE_NAME = "cljStatusLearningJournal"
 
 const canvasData = getCanvasData()
 
-const props = defineProps({
-    groupSetId: String
-})
+const props = defineProps<{
+    groupSetId: string
+}>()
 
 if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME}: groupSetId ${props.groupSetId} status:`)

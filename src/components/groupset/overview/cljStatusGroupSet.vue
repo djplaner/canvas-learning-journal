@@ -15,7 +15,7 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
-<script setup>
+<script setup lang="ts">
 /**
  * @file: cljStatusGroupSet.vue
  * @description: Show status for the current group set
@@ -31,14 +31,14 @@ import cljStatusLearningJournal from '../../everyone/cljStatusLearningJournal.vu
 import cljCreateGroups from '../../create/cljCreateGroups.vue';
 import cljCreatePrompt from '../../create/cljCreatePrompt.vue';
 
-import getCanvasData from '../../../lib/canvasApiData';
+import { getCanvasData } from '../../../lib/canvasApiData';
 
 const DEBUG = false
 const FILE_NAME = "cljStatusGroupSet"
 
-const props = defineProps({
-    groupSetId: Number
-})
+const props = defineProps<{
+    groupSetId: string
+}>()
 
 const canvasData = getCanvasData();
 // @todo use groupSetId to get specific data

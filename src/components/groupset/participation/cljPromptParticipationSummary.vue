@@ -15,7 +15,7 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
-<script setup>
+<script setup lang="ts">
 
 /**
  * @file: cljPromptParticipationSummary.vue
@@ -35,7 +35,7 @@
 
 import { ref, watch } from 'vue'
 import { TOOLTIPS, GLOBAL_DEBUG, formatDate } from '../../../lib/tooltips'
-import getCanvasData from '../../../lib/canvasApiData';
+import { getCanvasData } from '../../../lib/canvasApiData';
 
 
 const DEBUG = false
@@ -46,10 +46,10 @@ if (DEBUG && GLOBAL_DEBUG) {
     console.log(TOOLTIPS)
 }
 
-const props = defineProps({
-    groupSetId: Number,
-    topicId: Number
-})
+const props = defineProps<{
+    groupSetId: string,
+    topicId: string
+}>()
 
 if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME} groupSetId: ${props.groupSetId} topicId ${props.topicId}`)
@@ -69,8 +69,8 @@ watch(
         if (DEBUG && GLOBAL_DEBUG) {
             console.log(`${FILE_NAME} groupSetId: ${groupSetId}`)
         }
-        groupSet.value = canvasData.groupSetsById[groupSetId]
-        topic.value = groupSet.value.discussionTopicsById[topicId]
+        groupSet.value = canvasData.groupSetsById[`${groupSetId}`]
+        topic.value = groupSet.value.discussionTopicsById[`${topicId}`]
         assignmentExists.value = topic.value.assignment !== undefined
     }
 )

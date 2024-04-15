@@ -29,20 +29,20 @@
  *      - groups with no teacher entries (ever and in last 7 days)
  */
 
-import { ref, watch, defineProps } from 'vue'
+import { ref, watch } from 'vue'
 
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
 
-import getCanvasData from '../../lib/canvasApiData'
+import { getCanvasData } from '../../lib/canvasApiData'
 import cljMissingGroups from './cljMissingGroups.vue'
 
 const DEBUG = true
 const FILE_NAME = "cljCreateGroups"
 
-const props = defineProps({
-    groupSetId: Number,
-    numGroups: Number
-})
+const props = defineProps<{
+    groupSetId: string,
+    numGroups: number
+}>()
 
 const numGroups = ref(props.numGroups)
 const groupSetId = ref(props.groupSetId)
@@ -81,7 +81,7 @@ watch(
  * @description Show/hide the #clj-missing-groups dialog
  */
 function toggleGroups() {
-    const dialog = document.getElementById('clj-missing-groups')
+    const dialog : any = document.getElementById('clj-missing-groups')
     // if dialog is open, close it
     if (dialog.open) {
         dialog.open = false

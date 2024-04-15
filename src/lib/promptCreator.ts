@@ -56,7 +56,7 @@ class promptCreator {
   public message: string = ""
   public discussion_type: string = "threaded"
   public published: boolean = true
-  public assignment: Assignment // TODO to make it an assignment need to pass more parameters
+//  public assignment: Assignment // TODO to make it an assignment need to pass more parameters
   public group_category_id: string = ""
 
   // can be created via other means
@@ -72,7 +72,7 @@ class promptCreator {
   public only_graders_can_rate: boolean = false
   public sort_by_rating: boolean = false
   public attachment: string = ""
-  public specific_sections: string
+  public specific_sections: string = ""
 
 
   /**
@@ -81,10 +81,24 @@ class promptCreator {
    * @todo probably don't need the singleton stuff
    */
   constructor(data: createTopicRequest) {
-    // copy the data into the object
-    for (const key in data) {
-      this[key] = data[key]
-    }
+    this.title = data.title || ""
+    this.message = data.message || ""
+    this.discussion_type = data.discussion_type || "threaded"
+    this.published = data.published || true
+    this.group_category_id = data.group_category_id || ""
+    this.delayed_post_at = data.delayed_post_at || ""
+    this.allow_rating = data.allow_rating || true
+    this.lock_at = data.lock_at || ""
+    this.podcast_enabled = data.podcast_enabled || false
+    this.podcast_has_student_posts = data.podcast_has_student_posts || false
+    this.require_initial_post = data.require_initial_post || false
+    this.is_announcement = data.is_announcement || false
+    this.pinned = data.pinned || false
+    this.position_after = data.position_after || ""
+    this.only_graders_can_rate = data.only_graders_can_rate || false
+    this.sort_by_rating = data.sort_by_rating || false
+    this.attachment = data.attachment || ""
+    this.specific_sections = data.specific_sections || ""
   }
 
   /**
@@ -96,7 +110,7 @@ class promptCreator {
    */
 
   async promptCreator(): Promise<void> {
-    for (const groupSet of this.groupSets) {
+/*    for (const groupSet of this.groupSets) {
       groupSet.updateProgress = 0
       const progressIncrement = 100 / (groupSet.numGroups * groupSet.numPrompts)
       if (!groupSet.discussionTopics) {
@@ -129,10 +143,6 @@ class promptCreator {
         for (const groupTopic of groupTopics) {
           // data is the full topic view for one groups prompt
           let data = await this.getResponses(group._id, groupTopic.groupTopicId)
-          /*if (data.view.length > 0) {
-            console.log(`groupGroupsResponses`)
-            console.log(data)
-          }*/
           if (data) {
             // calaculate statistics at the level of the prompt
             data = this.analyseGroupPrompt(data)
@@ -163,7 +173,7 @@ class promptCreator {
     if (DEBUG && GLOBAL_DEBUG) {
       console.log(`${FILE_NAME} getGroupsResponses: got all responses`)
       console.log(this)
-    }
+    } */
     //this.updated +=1
   }
 
@@ -176,7 +186,7 @@ class promptCreator {
    */
 
   async getResponses(groupId: string, topicId: string): Promise<any> {
-    const courseId = this.id.toString()
+/*    const courseId = this.id.toString()
     //const callUrl = `${this.hostName}/api/v1/courses/${courseId}/discussion_topics/${topicId}/view`;
     const callUrl = `${this.hostName}/api/v1/groups/${groupId}/discussion_topics/${topicId}/view`
 
@@ -219,6 +229,6 @@ class promptCreator {
     } catch (error) {
       console.error(`canvasApi:getCourseObject: error ${error}`);
       throw error;
-    }
+    } */
   }
 }

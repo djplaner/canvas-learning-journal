@@ -15,7 +15,7 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
-<script setup>
+<script setup lang="ts">
 /**
  * @file: cljStatusStudentGroups.vue
  * @description: Show status of each group in the current group set. 
@@ -26,7 +26,7 @@
 
 import { ref, watch } from 'vue'
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../../lib/tooltips'
-import getCanvasData from '../../../lib/canvasApiData'
+import { getCanvasData } from '../../../lib/canvasApiData'
 
 const DEBUG = false
 const FILE_NAME = "cljStatusStudentGroups"
@@ -36,9 +36,9 @@ if (DEBUG && GLOBAL_DEBUG) {
     console.log(TOOLTIPS)
 }
 
-const props = defineProps({
-    groupSetId: Number
-})
+const props = defineProps<{
+    groupSetId: string
+}>()
 
 if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME} groupSetId: ${props.groupSetId}`)

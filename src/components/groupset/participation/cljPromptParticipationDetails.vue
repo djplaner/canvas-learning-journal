@@ -26,11 +26,11 @@
  */
 
 import dayjs from 'dayjs'
-import type { Header, Item } from "vue3-easy-data-table";
+import { Header, Item } from "vue3-easy-data-table";
 
 import { ref, watch, computed } from 'vue'
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../../lib/tooltips'
-import getCanvasData from '../../../lib/canvasApiData'
+import { getCanvasData, user } from '../../../lib/canvasApiData'
 import cljTopicEntries from './cljTopicEntries.vue'
 
 
@@ -42,10 +42,15 @@ if (DEBUG && GLOBAL_DEBUG) {
     console.log(TOOLTIPS)
 }
 
-const props = defineProps({
-    groupSetId: Number,
-    topicId: Number
-})
+/*const props = defineProps({
+    groupSetId: number,
+    topicId: number
+})*/
+
+const props = defineProps<{
+    groupSetId: string,
+    topicId: string
+}>()
 
 if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME} groupSetId: ${props.groupSetId} topicId: ${props.topicId}`)
@@ -55,9 +60,9 @@ let headers: Header[]
 let items: Item[]
 
 const canvasData = getCanvasData();
-const groupSet = ref(canvasData.groupSetsById[props.groupSetId])
+const groupSet = ref(canvasData.groupSetsById[`${props.groupSetId}`])
 const topicObject = ref(groupSet.value.discussionTopicsById[props.topicId])
-const promptDataLoaded = ref(canvasData.groupSetsById[props.groupSetId].updated)
+const promptDataLoaded = ref(canvasData.groupSetsById[`${props.groupSetId}`].updated)
 
 updateParticipationTable()
 
@@ -75,7 +80,7 @@ updateParticipationTable()
                         - groupsById[group._id].prompts[promptId]
  */
 
-function getPromptStat(groupId) {
+function getPromptStat(groupId : string) : any {
     /**
      * topic is an entry in discussionTopicById
      */
@@ -85,7 +90,7 @@ function getPromptStat(groupId) {
     return {}
 }
 
-function hasAvatarUrl(user) {
+function hasAvatarUrl(user : user) : boolean {
     return user.hasOwnProperty('avatarUrl') && user.avatarUrl !== null
 }
 
@@ -98,7 +103,7 @@ function hasAvatarUrl(user) {
  * Null - return n/a - no student entries
  * date string - return number of days since
  */
-function daysSinceLastStudentEntry(groupId) {
+function daysSinceLastStudentEntry(groupId : string) : string {
 
     let lastStudentEntry = getPromptStat(groupId).stats.lastStudentEntry
     if (lastStudentEntry === null) {
@@ -107,7 +112,7 @@ function daysSinceLastStudentEntry(groupId) {
     let lastDate = dayjs(lastStudentEntry)
     if (lastDate.isValid()) {
         let now = dayjs()
-        return now.diff(lastDate, 'day')
+        return `${now.diff(lastDate, 'day')}`
     }
     return ""
 }
@@ -118,7 +123,7 @@ function daysSinceLastStudentEntry(groupId) {
  * @description: return "Y" if the last student entry is older than the last StaffEntry
  */
 
-function isUnansweredStudentEntry(groupId) {
+function isUnansweredStudentEntry(groupId : string) : string {
     let lastStudentEntry = getPromptStat(groupId).stats.lastStudentEntry
     let lastStaffEntry = getPromptStat(groupId).stats.lastStaffEntry
 
@@ -144,8 +149,10 @@ watch(
         if (DEBUG && GLOBAL_DEBUG) {
             console.log(`${FILE_NAME} groupSetId: ${groupSetId}`)
         }
-        groupSet.value = canvasData.groupSetsById[groupSetId]
-        topicObject.value = groupSet.value.discussionTopicsById[topicId]
+        const gsId: string = `${groupSetId}`
+        //groupSet.value = canvasData.groupSetsById[gsId]
+        groupSet.value = canvasData.groupSetsById[`${groupSetId}`]
+        topicObject.value = groupSet.value.discussionTopicsById[`${topicId}`]
         updateParticipationTable()
     }
 )
@@ -155,7 +162,8 @@ watch(
 // Will likely need to go beyond a boolean to a datestring
 
 watch(
-    () => canvasData.groupSetsById[props.groupSetId].updated,
+    //() => canvasData.groupSetsById[props.groupSetId].updated,
+    () => canvasData.groupSetsById[groupSet.value._id].updated,
     (updated) => {
         if (DEBUG && GLOBAL_DEBUG) {
             console.log(`groupset updated ${updated}`)
@@ -166,7 +174,12 @@ watch(
     }
 )
 
-function updateParticipationTable(): [Header[], Item[]] {
+/**
+ * @function updateParticipationTable
+ * @description: update the headers and items for the participation table
+ */
+
+function updateParticipationTable() {
     headers = [
         { text: "Group", value: "groupName" },
         { text: "# students", value: "numStudents", sortable: true },
@@ -190,9 +203,10 @@ function updateParticipationTable(): [Header[], Item[]] {
                 numStudentEntries: getPromptStat(group._id).stats.numStudentEntries,
                 numStaffEntries: getPromptStat(group._id).stats.numStaffEntries,
                 daysSinceLastStudentEntry: daysSinceLastStudentEntry(group._id),
-                unansweredStudenEntry: isUnansweredStudentEntry(group._id)
+                unansweredStudentEntry: isUnansweredStudentEntry(group._id),
+                noEntries: false
             }
-            groupItem.noEntries = (groupItem.numStudentEntries + groupItem.numStaffEntries)===0
+            groupItem.noEntries = (groupItem.numStudentEntries + groupItem.numStaffEntries) === 0
             items.push(groupItem)
         }
     }

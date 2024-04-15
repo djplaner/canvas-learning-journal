@@ -20,7 +20,7 @@ import { watch, defineProps, ref } from 'vue';
 
 import cljEveryone from './components/cljEveryone.vue'
 import cljGroupSet from './components/cljGroupSet.vue'
-import getCanvasData from './lib/canvasApiData'
+import { getCanvasData } from './lib/canvasApiData'
 import { GLOBAL_DEBUG, TOOLTIPS } from './lib/tooltips';
 
 import '@shoelace-style/shoelace/dist/components/badge/badge.js';

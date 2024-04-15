@@ -15,7 +15,7 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
-<script setup>
+<script setup lang="ts">
 /**
  * @file: cljGroupSets.vue
  * @description: Show configure options/detail for a specific group set
@@ -37,7 +37,7 @@ import cljStatusLearningJournal from './cljStatusLearningJournal.vue'
 import cljCreateGroups from '../create/cljCreateGroups.vue'
 import cljCreatePrompt from '../create/cljCreatePrompt.vue'
 
-import getCanvasData from '../../lib/canvasApiData'
+import { getCanvasData } from '../../lib/canvasApiData'
 
 const DEBUG = false
 const FILE_NAME = "cljGroupSets"
@@ -87,23 +87,6 @@ if (DEBUG && GLOBAL_DEBUG) {
     console.log("cljGroupSets.vue: numStudents")
     console.log(numStudents.value)
 }
-
-/*function studentsWithoutGroups(numStudents,numStudentsInGroups,returnBoolean=false)  {
-    if (returnBoolean) {
-        return numStudents - numStudentsInGroups > 0
-    }
-    return numStudents - numStudentsInGroups
-}*/
-
-const studentsWithoutGroups = computed(() => {
-    return (numStudents,numStudentsInGroups,returnBoolean=false) => {
-        if (returnBoolean) {
-            return numStudents - numStudentsInGroups > 0
-        }
-        return numStudents - numStudentsInGroups
-    }
-})
-
 
 </script>
 

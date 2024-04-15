@@ -15,7 +15,7 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
-<script setup>
+<script setup lang="ts">
 /**
  * @file: cljParticipation.vue
  * @description: Show configuration options/detail for a specific group set
@@ -28,7 +28,7 @@ import '@shoelace-style/shoelace/dist/components/progress-ring/progress-ring.js'
 
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
 
-import getCanvasData from '../../lib/canvasApiData'
+import { getCanvasData } from '../../lib/canvasApiData'
 
 
 import cljOverviewParticipation from './participation/cljOverviewParticipation.vue'
@@ -37,9 +37,9 @@ import cljPromptsParticipation from './participation/cljPromptsParticipation.vue
 const DEBUG = false
 const FILE_NAME = "cljParticipation"
 
-const props = defineProps({
-    groupSetId: Number
-})
+const props = defineProps<{
+    groupSetId: string
+}>()
 
 if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME} groupSetId: ${props.groupSetId}`)

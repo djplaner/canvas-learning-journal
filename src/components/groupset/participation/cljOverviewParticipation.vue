@@ -15,7 +15,7 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
-<script setup>
+<script setup lang="ts">
 /**
  * @file: cljOverviewParticipation.vue
  * @description: Given a groupSetId display some basic overview of how students
@@ -26,7 +26,7 @@
 
 import { ref, watch } from 'vue'
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../../lib/tooltips'
-import getCanvasData from '../../../lib/canvasApiData';
+import { getCanvasData } from '../../../lib/canvasApiData';
 
 const DEBUG = false
 const FILE_NAME = "cljOverviewParticipation"
@@ -36,9 +36,9 @@ if (DEBUG && GLOBAL_DEBUG) {
     console.log(TOOLTIPS)
 }
 
-const props = defineProps({
-    groupSetId: Number
-})
+const props = defineProps<{
+    groupSetId: string
+}>()
 
 if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME} groupSetId: ${props.groupSetId}`)
@@ -57,24 +57,9 @@ watch(
         if (DEBUG && GLOBAL_DEBUG) {
             console.log(`${FILE_NAME} groupSetId: ${groupSetId}`)
         }
-        isLearningJournal.value = canvasData.mightBeLearningJournal(groupSetId)
         groupSet.value = canvasData.groupSetsById[groupSetId]
     }
 )
-
-// Watch for the groupSet prompts data to be loaded 
-
-watch(
-    () => canvasData.groupSetsById[props.groupSetId].updated,
-    (updated) => {
-        if (DEBUG && GLOBAL_DEBUG) {
-            console.log(`groupset updated ${updated}`)
-            console.log(canvasData)
-        }
-        promptDataLoaded.value = true
-    }
-)
-
 
 
 </script>

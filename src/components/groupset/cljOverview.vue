@@ -15,7 +15,7 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
-<script setup>
+<script setup lang="ts">
 /**
  * @file: cljOverview.vue
  * @description: Show configure options/detail for a specific group set
@@ -26,7 +26,7 @@
 import { ref, watch } from 'vue'
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
 
-import getCanvasData from '../../lib/canvasApiData'
+import { getCanvasData } from '../../lib/canvasApiData'
 
 import cljStatusGroupSet from './overview/cljStatusGroupSet.vue'
 import cljStatusStudentGroups from './overview/cljStatusStudentGroups.vue'
@@ -40,9 +40,9 @@ if (DEBUG && GLOBAL_DEBUG) {
     console.log(TOOLTIPS)
 }
 
-const props = defineProps({
-    groupSetId: Number
-})
+const props = defineProps<{
+    groupSetId: string
+}>()
 
 
 const canvasData = getCanvasData();

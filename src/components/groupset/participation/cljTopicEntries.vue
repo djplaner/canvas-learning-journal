@@ -15,7 +15,7 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
-<script setup>
+<script setup lang="ts">
 /**
  * @file: cljTopicEntries.vue
  * @prop: {Number} topicId
@@ -24,7 +24,7 @@
 
 import { ref, watch, computed } from 'vue'
 import { TOOLTIPS, GLOBAL_DEBUG, formatDate } from '../../../lib/tooltips'
-import getCanvasData from '../../../lib/canvasApiData'
+import { getCanvasData } from '../../../lib/canvasApiData'
 
 const DEBUG = true
 const FILE_NAME = "cljTopicEntries"
@@ -34,10 +34,10 @@ if (DEBUG && GLOBAL_DEBUG) {
   console.log(TOOLTIPS)
 }
 
-const props = defineProps({
-  topicId: Number,
-  groupId: Number
-})
+const props = defineProps<{
+  topicId: string,
+  groupId: string
+}>()
 
 const tId = ref(props.topicId)
 const gId = ref(props.groupId)
@@ -57,7 +57,7 @@ const entries = ref(canvasData.promptsByTopicId[tId.value].view)
  * - display the entries at the top level
  */
 
-function generateEntryReplies(entry) {
+function generateEntryReplies(entry : any) : string{
   let replyHTML = ""
 
   if (!entry.hasOwnProperty("replies")) {
@@ -81,11 +81,12 @@ function generateEntryReplies(entry) {
 
 /**
  * @function: userNameAndLink
- * @param: {Number} userId
+ * @param: {String} userId
+ * @returns: {String}
  * @description: Return a string with the user's name and a link to their profile
  */
 
-function userNameAndLink(userId) {
+function userNameAndLink(userId : string) : string {
   const user = canvasData.getUserDetails(userId)
   if (user) {
     return `<a target="_blank" href="${user.htmlUrl}">${user.name}</a>`

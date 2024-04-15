@@ -17,7 +17,7 @@
 
 
 
-<script setup>
+<script setup lang="ts">
 /**
  * @file: cljEveryone.vue
  * @description: LJ component shown on the users/everyone page 
@@ -51,7 +51,10 @@ const configOpen = ref(false)
 
 // if BLUR add "filter: blur(0.5rem)" to table.roster
 if (BLUR) {
-  document.querySelector('table.roster').style.filter = 'blur(0.5rem)'
+  const tableElement : HTMLElement | null = document.querySelector('table.roster')
+  if (tableElement) {
+    tableElement.style.filter = 'blur(0.5rem)'
+  }
 }
 
 </script>

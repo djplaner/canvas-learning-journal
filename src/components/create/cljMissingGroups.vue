@@ -34,15 +34,15 @@ import type { Header, Item } from "vue3-easy-data-table";
 
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
 
-import getCanvasData from '../../lib/canvasApiData'
+import { user, getCanvasData } from '../../lib/canvasApiData'
 
 const DEBUG = true
 const FILE_NAME = "cljMissingGroups"
 
-const props = defineProps({
-    groupSetId: Number,
-    numGroups: Number
-})
+const props = defineProps<{
+    groupSetId: string,
+    numGroups: number
+}>()
 
 const canvasData = getCanvasData();
 
@@ -98,7 +98,9 @@ updateMissingGroups()
 
     // loop through the keys of groupSet.studentsWithoutGroup
     // and add each student to the items array
-    for (const [ id, student ] of Object.entries(groupSet.value.studentsWithoutGroup)) {
+    let student : any
+    let id: string
+    for ([ id, student ] of Object.entries(groupSet.value.studentsWithoutGroup)) {
         let studentData = {
             name: student.name,
             student: student.name, 
@@ -118,7 +120,7 @@ updateMissingGroups()
   * the array of enrollments property
   */
 
-  function getStudentSections( student ) : string {
+  function getStudentSections( student: user  ) : string {
         let sections = []
         for (const enrollment of student.enrollments) {
             sections.push(enrollment.section.name)

@@ -123,7 +123,6 @@ query cljBaseQuery {
     }
   }`
 
-
 interface memberNode {
   _id: string
   createdAt: string
@@ -151,7 +150,7 @@ interface promptStats {
 }
 
 
-interface prompt {
+export interface prompt {
   // currently Canvas API REST response for view all topic
   // @todo 
   // - add some analysis etc.
@@ -181,6 +180,7 @@ interface group {
   prompts: {
     [key: string]: prompt
   }
+  stats: discussionTopicStats
 }
 
 /*enum discussion_type: { 
@@ -283,7 +283,11 @@ interface discussionTopicStats {
   // num of entries
   numStaffEntries: number
   numStudentEntries: number
-  numUnansweredStudentEntries: number
+  numNoStudentEntries: number
+  numNoStaffEntries: number
+  //numUnansweredStudentEntries: number
+  numNoStudentEntriesLast7: number
+  numNoStaffEntriesLast7: number
   // when last entries from staff and students
   lastStaffEntry: string
   lastStudentEntry: string
@@ -372,7 +376,7 @@ interface groupSet {
   numNonPrivateGroups: number
   numStudentsMembersOfGroups: number
   numStudentsWithoutGroup: number
-  studentsWithoutGroup: { [key: string]: user}
+  studentsWithoutGroup: { [key: string]: user }
   numStudents: number
   discussionTopics: discussionTopic[]
   numPrompts: number
@@ -386,11 +390,12 @@ interface groupSet {
   stats: discussionTopicStats // sum up the discussion stats for all discussion topics
 }
 
-interface user {
+export interface user {
   _id: string
   name: string
   email: string
   avatarUrl: string
+  enrollments: any[]
 }
 
 interface section {
@@ -454,7 +459,7 @@ class canvasApiData {
   //public students: Object[] = []; // array of students in the course
   //public teachers: Object[] = []; // array of teachers in the course
   public students: user[] = []
-  public sections: { [key: string]: section} = {}
+  public sections: { [key: string]: section } = {}
   public teachers: user[] = []
   public studentsById: { [key: string]: user } = {}
   public teachersById: { [key: string]: user } = {}
@@ -687,7 +692,8 @@ class canvasApiData {
     // gather the sections
     for (const student of this.students) {
       // loop thru each student's enrollments and add the section to the section object
-      for (const enrollment of student.enrollments) {
+      let enrollment: any
+      for (enrollment of student.enrollments) {
         this.sections[enrollment.section._id] = enrollment.section
       }
       // add them to ById hash
@@ -851,10 +857,14 @@ class canvasApiData {
           //  group_topic_children property - an array of topic_id and group_id
           // extract the topic_id that matches the current group's group_id
           let groupTopic = topic.group_topic_children.find((element: any) => element.group_id === groupId)
+          let gtId: any = ""
+          if (groupTopic) {
+            gtId = groupTopic.id
+          }
           groupTopics.push({
             topicId: topic.id, // link back to parent topic
             groupId: groupId,
-            groupTopicId: groupTopic.id // the group's topic
+            groupTopicId: gtId // the group's topic
           })
         }
         if (DEBUG && GLOBAL_DEBUG) {
@@ -923,47 +933,70 @@ class canvasApiData {
       numStudentEntries: 0,
       numStaffEntries: 0,
       numNoStudentEntriesLast7: 0,
-      numNoStaffEntriesLast7: 0
+      numNoStaffEntriesLast7: 0,
+      lastStaffEntry: "",
+      lastStudentEntry: "",
     }
 
     for (const group of groupSet.groups) {
       // calculate stats about each prompt
-      let numNoStudentEntries = 0  // num prompts with no entries
+      /*let numNoStudentEntries = 0  // num prompts with no entries
       let numNoStaffEntries = 0
       let numNoStaffEntriesLast7 = 0
       let numNoStudentEntriesLast7 = 0
       let numStudentEntries = 0
       let numStaffEntries = 0
+      let lastStaffEntry = "" */
+
+      group.stats = {
+        numNoStudentEntries: 0,
+        numNoStaffEntries: 0,
+        numStudentEntries: 0,
+        numStaffEntries: 0,
+        numNoStudentEntriesLast7: 0,
+        numNoStaffEntriesLast7: 0,
+        lastStaffEntry: "",
+        lastStudentEntry: ""
+      }
 
       for (const topicId in group.prompts) {
         const prompt = group.prompts[topicId]
-        numStudentEntries += prompt.stats.numStudentEntries
-        numStaffEntries += prompt.stats.numStaffEntries
+        group.stats.numStudentEntries += prompt.stats.numStudentEntries
+        group.stats.numStaffEntries += prompt.stats.numStaffEntries
         if (prompt.stats.numStudentEntries === 0) {
-          numNoStudentEntries += 1
-          numNoStudentEntriesLast7 += 1
-        } else if (!this.last7Days(prompt.stats.lastStudentEntry)) {
-          numNoStudentEntriesLast7 += 1
+          group.stats.numNoStudentEntries += 1
+          group.stats.numNoStudentEntriesLast7 += 1
+        } else {
+          if (group.stats.lastStudentEntry === "" || prompt.stats.lastStudentEntry > group.stats.lastStudentEntry) {
+            group.stats.lastStudentEntry = prompt.stats.lastStudentEntry
+          }
+          if (!this.last7Days(prompt.stats.lastStudentEntry)) {
+            group.stats.numNoStudentEntriesLast7 += 1
+          }
         }
         if (prompt.stats.numStaffEntries === 0) {
-          numNoStaffEntries += 1
-          numNoStaffEntriesLast7 += 1
-        } else if (!this.last7Days(prompt.stats.lastStaffEntry)) {
-          numNoStaffEntriesLast7 += 1
+          group.stats.numNoStaffEntries += 1
+          group.stats.numNoStaffEntriesLast7 += 1
+        } else {
+          if (group.stats.lastStaffEntry === "" || prompt.stats.lastStaffEntry > group.stats.lastStaffEntry) {
+            group.stats.lastStaffEntry = prompt.stats.lastStaffEntry
+          }
+          if (!this.last7Days(prompt.stats.lastStaffEntry)) {
+            group.stats.numNoStaffEntriesLast7 += 1
+          }
         }
       }
-      group.stats = {
-        numNoStudentEntries: numNoStudentEntries,
-        numNoStaffEntries: numNoStaffEntries,
-        numStudentEntries: numStudentEntries,
-        numStaffEntries: numStaffEntries,
-        numNoStudentEntriesLast7: numNoStudentEntriesLast7,
-        numNoStaffEntriesLast7: numNoStaffEntriesLast7
+      groupSet.stats.numNoStudentEntries += group.stats.numNoStudentEntries
+      groupSet.stats.numNoStaffEntries += group.stats.numNoStaffEntries
+      groupSet.stats.numStudentEntries += group.stats.numStudentEntries
+      groupSet.stats.numStaffEntries += group.stats.numStaffEntries
+      groupSet.stats.numNoStudentEntriesLast7 += group.stats.numNoStudentEntriesLast7
+      groupSet.stats.numNoStaffEntriesLast7 += group.stats.numNoStaffEntriesLast7
+      if (groupSet.stats.lastStaffEntry === "" || group.stats.lastStaffEntry > groupSet.stats.lastStaffEntry) {
+        groupSet.stats.lastStaffEntry = group.stats.lastStaffEntry
       }
-
-      // add the group stats to the groupSet stats
-      for (const key in group.stats) {
-        groupSet.stats[key] += group.stats[key]
+      if (groupSet.stats.lastStudentEntry === "" || group.stats.lastStudentEntry > groupSet.stats.lastStudentEntry) {
+        groupSet.stats.lastStudentEntry = group.stats.lastStudentEntry
       }
     }
   }
@@ -1041,10 +1074,10 @@ class canvasApiData {
       topic.stats = {
         numStaffEntries: numStaffEntries,
         numStudentEntries: numStudentEntries,
-        numNoStudentEntries: numNoStudentEntries,
+        numNoStudentEntries: numNoStudentEntries || 0,
         numNoStaffEntries: numNoStaffEntries,
-        lastStaffEntry: lastStaffEntry,
-        lastStudentEntry: lastStudentEntry,
+        lastStaffEntry: lastStaffEntry || "",
+        lastStudentEntry: lastStudentEntry || "",
         numNoStudentEntriesLast7: numNoStudentEntriesLast7,
         numNoStaffEntriesLast7: numNoStaffEntriesLast7
       }
@@ -1074,13 +1107,14 @@ class canvasApiData {
       numStaffEntries: 0,
       numStudentEntries: 0,
       numUnansweredStudentEntries: 0,
-      lastStaffEntry: null,
-      lastStudentEntry: null
+      lastStaffEntry: "",
+      lastStudentEntry: ""
     }
 
     // identify the user type for each participant in the prompt
     let participantType: { [key: number]: string } = {}
-    for (const participant of data.participants) {
+    let participant: any
+    for (participant of data.participants) {
       let type = "unknown"
       // participant.id is a number and Canvas user id
       const staffIds = Object.keys(this.teachersById)
@@ -1095,7 +1129,9 @@ class canvasApiData {
     }
 
     // loop through each prompts.view entry
-    for (const entry of data.view) {
+    let entry: any
+    for (entry of data.view) {
+
       // entry.user_id is the Canvas user id
       const type = participantType[entry.user_id]
       if (type === "staff") {
@@ -1225,7 +1261,7 @@ let canvasData: canvasApiData = reactive(new canvasApiData());
  * manipulation of data from the Canvas API
  */
 
-export default function getCanvasData(getPromptData: boolean = true): any {
+export function getCanvasData(getPromptData: boolean = true): any {
   if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME}:getCanvasData getPromptData - ${getPromptData}`)
     console.log(canvasData)

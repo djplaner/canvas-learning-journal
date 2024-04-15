@@ -26,7 +26,7 @@
 import { ref } from 'vue'
 
 import { TOOLTIPS, GLOBAL_DEBUG } from '../../lib/tooltips'
-import getCanvasData from '../../lib/canvasApiData'
+import { getCanvasData } from '../../lib/canvasApiData'
 
 const DEBUG = false
 const FILE_NAME = "cljCreatePrompt"
@@ -36,13 +36,13 @@ if (DEBUG && GLOBAL_DEBUG) {
   console.log(TOOLTIPS)
 }
 
-const props = defineProps({
-  groupSetId: Number
-})
+const props = defineProps<{
+  groupSetId: string
+}>()
 
 const canvasData = getCanvasData()
 
-const groupSet = ref(canvasData.groupSetsById[props.group])
+const groupSet = ref(canvasData.groupSetsById[props.groupSetId])
 
 
 /**
@@ -50,7 +50,7 @@ const groupSet = ref(canvasData.groupSetsById[props.group])
  * @description Show/hide the #clj-missing-groups dialog
  */
 function toggleForm() {
-  const dialog = document.getElementById('clj-create-prompt')
+  const dialog : any = document.getElementById('clj-create-prompt')
   // if dialog is open, close it
   if (dialog.open) {
     dialog.open = false
