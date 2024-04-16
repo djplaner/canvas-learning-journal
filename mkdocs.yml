@@ -86,3 +86,6 @@ nav:
       - Shared: reference/software/shared.md
   - Development:
     - Overview: development/index.md
+    - Why: 
+      - Benefits of Learning Journals: development/why/benefits-of-learning-journals.md
+      - Limitations of Canvas: development/why/limitations-of-canvas.md

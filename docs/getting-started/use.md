@@ -40,6 +40,7 @@ See the [_everyone_ reference page](../reference/software/everyone/index.md) for
 
 <figure markdown>
 <sl-animated-image src="../reference/software/everyone/pics/everyone-open.gif" alt="Opening the CLJ tool" />
+![](../reference/software/everyone/pics/everyone-open.png)
 <figcaption>Opening the <em>CLJ</em> tool</figcaption>
 </figure>
 
