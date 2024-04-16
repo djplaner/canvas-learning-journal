@@ -48,6 +48,12 @@ export const TOOLTIPS = {
             url: "https://djplaner.github.io/canvas-learning-journal/references/software/#loading"
         },
     },
+    cljNotTeacher: {
+        title: {
+            content: `CLJ provides functionality for teachers to manage learning journal tasks.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/references/software/#not-teacher"
+        },
+    },
     cljEveryone: {
         for_more:  {
             // what is the purpose of the 'everyone' version: overview and create

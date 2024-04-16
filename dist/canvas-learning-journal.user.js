@@ -12,7 +12,7 @@
 // @grant        GM_addStyle
 // ==/UserScript==
 
-(l=>{if(typeof GM_addStyle=="function"){GM_addStyle(l);return}const e=document.createElement("style");e.textContent=l,document.head.append(e)})(' .easy-checkbox[data-v-e0a0b7f0]{position:relative;width:1.3em;height:1.3em;font-size:var(--easy-table-body-row-font-size);margin:0 auto}.easy-checkbox label[data-v-e0a0b7f0]{cursor:pointer;display:inline;line-height:1.3em;vertical-align:top;clear:both}.easy-checkbox label[data-v-e0a0b7f0]:before,.easy-checkbox label[data-v-e0a0b7f0]:after{content:"";position:absolute;left:0;top:0}.easy-checkbox label[data-v-e0a0b7f0]:before{width:1.3em;height:1.3em;background:#fff;border:1px solid rgba(0,0,0,.54);border-radius:.125em;cursor:pointer;transition:background .3s}.easy-checkbox input[type=checkbox][data-v-e0a0b7f0]{outline:0;visibility:hidden;width:1.3em;margin:0;display:block;float:left;font-size:inherit}.easy-checkbox input[type=checkbox]:checked+label[data-v-e0a0b7f0]:before{border:none}.easy-checkbox input[type=checkbox]:checked+label[data-v-e0a0b7f0]:after{transform:translate(.2em,.3038461538em) rotate(-45deg);width:.9em;height:.45em;border:.13em solid #fff;border-top-style:none;border-right-style:none}.easy-checkbox input[type=checkbox].allSelected+label[data-v-e0a0b7f0]:before{border:none}.easy-checkbox input[type=checkbox].allSelected+label[data-v-e0a0b7f0]:after{transform:translate(.2em,.3038461538em) rotate(-45deg);width:.9em;height:.45em;border:.13em solid #fff;border-top-style:none;border-right-style:none}.easy-checkbox input[type=checkbox].partSelected+label[data-v-e0a0b7f0]:before{border:none}.easy-checkbox input[type=checkbox].partSelected+label[data-v-e0a0b7f0]:after{transform:translate(.2em,.5875em);width:.9em;height:.45em;border:.125em solid #fff;border-bottom-style:none;border-right-style:none;border-left-style:none}*[data-v-e0a0b7f0],*[data-v-e0a0b7f0]:before,*[data-v-e0a0b7f0]:after{box-sizing:border-box}.easy-checkbox input[type=checkbox].allSelected+label[data-v-e0a0b7f0]:before,.easy-checkbox input[type=checkbox].partSelected+label[data-v-e0a0b7f0]:before{background:var(--51ab8a49)}.easy-checkbox[data-v-7e69a276]{position:relative;width:1.3em;height:1.3em;font-size:var(--easy-table-body-row-font-size);margin:0 auto}.easy-checkbox label[data-v-7e69a276]{cursor:pointer;display:inline;line-height:1.3em;vertical-align:top;clear:both}.easy-checkbox label[data-v-7e69a276]:before,.easy-checkbox label[data-v-7e69a276]:after{content:"";position:absolute;left:0;top:0}.easy-checkbox label[data-v-7e69a276]:before{width:1.3em;height:1.3em;background:#fff;border:1px solid rgba(0,0,0,.54);border-radius:.125em;cursor:pointer;transition:background .3s}.easy-checkbox input[type=checkbox][data-v-7e69a276]{outline:0;visibility:hidden;width:1.3em;margin:0;display:block;float:left;font-size:inherit}.easy-checkbox input[type=checkbox]:checked+label[data-v-7e69a276]:before{border:none}.easy-checkbox input[type=checkbox]:checked+label[data-v-7e69a276]:after{transform:translate(.2em,.3038461538em) rotate(-45deg);width:.9em;height:.45em;border:.13em solid #fff;border-top-style:none;border-right-style:none}.easy-checkbox input[type=checkbox].allSelected+label[data-v-7e69a276]:before{border:none}.easy-checkbox input[type=checkbox].allSelected+label[data-v-7e69a276]:after{transform:translate(.2em,.3038461538em) rotate(-45deg);width:.9em;height:.45em;border:.13em solid #fff;border-top-style:none;border-right-style:none}.easy-checkbox input[type=checkbox].partSelected+label[data-v-7e69a276]:before{border:none}.easy-checkbox input[type=checkbox].partSelected+label[data-v-7e69a276]:after{transform:translate(.2em,.5875em);width:.9em;height:.45em;border:.125em solid #fff;border-bottom-style:none;border-right-style:none;border-left-style:none}*[data-v-7e69a276],*[data-v-7e69a276]:before,*[data-v-7e69a276]:after{box-sizing:border-box}.easy-checkbox input[type=checkbox]:checked+label[data-v-7e69a276]:before{background:var(--fdaf7e9e)}.easy-data-table__rows-selector[data-v-4ca5de3a]{display:inline-block;min-width:45px;position:relative;margin:0 10px;width:var(--easy-table-rows-per-page-selector-width)}.easy-data-table__rows-selector .rows-input__wrapper[data-v-4ca5de3a]{height:20px;border-bottom:1px solid var(--easy-table-footer-font-color);display:flex;align-items:center;justify-content:space-between;padding:0 5px;cursor:pointer}.easy-data-table__rows-selector .rows-input__wrapper .triangle[data-v-4ca5de3a]{display:inline-block;vertical-align:middle;width:0px;height:0px;border-top:solid 6px var(--easy-table-footer-font-color);border-left:solid 6px transparent;border-right:solid 6px transparent}.easy-data-table__rows-selector ul.select-items[data-v-4ca5de3a]{position:absolute;top:20px;left:0;width:100%;display:none;margin:0;padding:0;text-align:left;list-style-type:none;box-shadow:0 5px 5px -3px #0003,0 8px 10px 1px #00000024,0 3px 14px 2px #0000001f;z-index:var(--easy-table-rows-per-page-selector-z-index)}.easy-data-table__rows-selector ul.select-items.show[data-v-4ca5de3a]{display:block}.easy-data-table__rows-selector ul.select-items.inside[data-v-4ca5de3a]{bottom:0;top:auto}.easy-data-table__rows-selector ul.select-items li[data-v-4ca5de3a]{cursor:pointer;padding:var(--easy-table-rows-per-page-selector-option-padding);background-color:var(--easy-table-footer-background-color)}.easy-data-table__rows-selector ul.select-items li.selected[data-v-4ca5de3a]{color:#fff;background-color:var(--1b889342)}.lds-ring[data-v-1fa3a520]{display:inline-block;position:relative;width:60px;height:60px}.lds-ring div[data-v-1fa3a520]{box-sizing:border-box;display:block;position:absolute;width:80%;height:80%;margin:8px;border:8px solid #fff;border-radius:50%;animation:lds-ring-1fa3a520 1.2s cubic-bezier(.5,0,.5,1) infinite;border-color:var(--26774109) transparent transparent transparent}.lds-ring div[data-v-1fa3a520]:nth-child(1){animation-delay:-.45s}.lds-ring div[data-v-1fa3a520]:nth-child(2){animation-delay:-.3s}.lds-ring div[data-v-1fa3a520]:nth-child(3){animation-delay:-.15s}@keyframes lds-ring-1fa3a520{0%{transform:rotate(0)}to{transform:rotate(360deg)}}.loader-line[data-v-7d281cac]{width:100%;height:3px;position:relative;overflow:hidden;background-color:#ddd;margin:0x auto}.loader-line[data-v-7d281cac]:before{content:"";position:absolute;left:-50%;height:3px;width:40%;background-color:var(--0d327f57);-webkit-animation:lineAnim-7d281cac 1s linear infinite;-moz-animation:lineAnim-7d281cac 1s linear infinite;animation:lineAnim-7d281cac 1s linear infinite}@keyframes lineAnim-7d281cac{0%{left:-40%}50%{left:20%;width:80%}to{left:100%;width:100%}}.buttons-pagination[data-v-4c681fa2]{box-sizing:border-box;display:flex;padding:0;border-radius:4px}.buttons-pagination .item[data-v-4c681fa2]{box-sizing:border-box;cursor:pointer;min-width:calc(var(--easy-table-footer-font-size) * 1.8);line-height:calc(var(--easy-table-footer-font-size) * 1.8);border-top:var(--easy-table-buttons-pagination-border);border-bottom:var(--easy-table-buttons-pagination-border);border-right:var(--easy-table-buttons-pagination-border);text-align:center}.buttons-pagination .item[data-v-4c681fa2]:first-of-type{border-left:var(--easy-table-buttons-pagination-border);border-top-left-radius:4px;border-bottom-left-radius:4px}.buttons-pagination .item[data-v-4c681fa2]:last-of-type{border-top-right-radius:4px;border-bottom-right-radius:4px}.buttons-pagination .item.button.active[data-v-4c681fa2]{background-color:var(--40dd4f07);border-left:var(--easy-table-buttons-pagination-border);border-color:var(--40dd4f07)!important;color:#fff}.buttons-pagination .item.button.active-prev[data-v-4c681fa2]{border-right:none}.previous-page__click-button[data-v-c9da5286],.next-page__click-button[data-v-c9da5286]{margin:0 5px;cursor:pointer}.previous-page__click-button .arrow[data-v-c9da5286],.next-page__click-button .arrow[data-v-c9da5286]{display:inline-block;width:8px;height:8px;border-top:2px solid #000;border-left:2px solid #000}.previous-page__click-button .arrow.arrow-left[data-v-c9da5286],.next-page__click-button .arrow.arrow-left[data-v-c9da5286]{transform:rotate(135deg)}.previous-page__click-button .arrow.arrow-right[data-v-c9da5286],.next-page__click-button .arrow.arrow-right[data-v-c9da5286]{transform:rotate(-45deg)}.previous-page__click-button.first-page[data-v-c9da5286],.next-page__click-button.last-page[data-v-c9da5286]{cursor:not-allowed}.previous-page__click-button.first-page .arrow[data-v-c9da5286],.next-page__click-button.last-page .arrow[data-v-c9da5286]{border-color:#e0e0e0}:root{--easy-table-border: 1px solid #e0e0e0;--easy-table-row-border: 1px solid #e0e0e0;--easy-table-header-font-size: 12px;--easy-table-header-height: 36px;--easy-table-header-font-color: #373737;--easy-table-header-background-color: #fff;--easy-table-header-item-padding: 0px 10px;--easy-table-body-row-height: 36px;--easy-table-body-row-font-size: 12px;--easy-table-body-row-font-color: #212121;--easy-table-body-row-background-color: #fff;--easy-table-body-row-hover-font-color: #212121;--easy-table-body-row-hover-background-color: #eee;--easy-table-body-even-row-font-color: #212121;--easy-table-body-even-row-background-color: #fafafa;--easy-table-body-item-padding: 0px 10px;--easy-table-footer-background-color: #fff;--easy-table-footer-font-color: #212121;--easy-table-footer-font-size: 12px;--easy-table-footer-padding: 0px 5px;--easy-table-footer-height: 36px;--easy-table-rows-per-page-selector-width: auto;--easy-table-rows-per-page-selector-option-padding: 5px;--easy-table-rows-per-page-selector-z-index: auto;--easy-table-message-font-color: #212121;--easy-table-message-font-size: 12px;--easy-table-message-padding: 20px;--easy-table-loading-mask-background-color: #fff;--easy-table-loading-mask-opacity: .5;--easy-table-scrollbar-track-color: #fff;--easy-table-scrollbar-color: #fff;--easy-table-scrollbar-thumb-color: #c1c1c1;--easy-table-scrollbar-corner-color: #fff;--easy-table-buttons-pagination-border: 1px solid #e0e0e0}.vue3-easy-data-table[data-v-32683533]{border:var(--easy-table-border);position:relative;box-sizing:border-box}.vue3-easy-data-table__main[data-v-32683533]{border:none;width:100%;overflow:auto;background-color:var(--easy-table-body-row-background-color)}.vue3-easy-data-table__main[data-v-32683533]::-webkit-scrollbar-track{border-radius:10px;background-color:var(--easy-table-scrollbar-track-color)}.vue3-easy-data-table__main[data-v-32683533]::-webkit-scrollbar{width:7px;height:7px;background-color:var(--easy-table-scrollbar-color)}.vue3-easy-data-table__main[data-v-32683533]::-webkit-scrollbar-thumb{border-radius:10px;background-color:var(--easy-table-scrollbar-thumb-color)}.vue3-easy-data-table__main[data-v-32683533]::-webkit-scrollbar-corner{background-color:var(--easy-table-scrollbar-corner-color)}.vue3-easy-data-table__main.table-fixed table[data-v-32683533]{table-layout:fixed}.vue3-easy-data-table__main.show-shadow th.shadow[data-v-32683533]:after,.vue3-easy-data-table__main.show-shadow td.shadow[data-v-32683533]:after{box-shadow:inset 6px 0 5px -3px #0003}.vue3-easy-data-table__main.fixed-header th[data-v-32683533]{position:sticky;top:0;z-index:2}.vue3-easy-data-table__main.hoverable tr:hover td[data-v-32683533]{background-color:var(--easy-table-body-row-hover-background-color);color:var(--easy-table-body-row-hover-font-color)}.vue3-easy-data-table__main.hoverable .vue3-easy-data-table__body.row-alternation .even-row:hover td[data-v-32683533]{color:var(--easy-table-body-row-hover-font-color);background-color:var(--easy-table-body-row-hover-background-color)}.vue3-easy-data-table__main.border-cell .vue3-easy-data-table__header th[data-v-32683533]{border-right:var(--easy-table-row-border)}.vue3-easy-data-table__main.border-cell .vue3-easy-data-table__header th[data-v-32683533]:last-of-type{border-right:none}.vue3-easy-data-table__main.border-cell .vue3-easy-data-table__body td[data-v-32683533]{border-right:var(--easy-table-row-border)}.vue3-easy-data-table__main.border-cell .vue3-easy-data-table__body td[data-v-32683533]:last-of-type{border-right:none}.vue3-easy-data-table__body.row-alternation tr.even-row td[data-v-32683533]{color:var(--easy-table-body-even-row-font-color);background-color:var(--easy-table-body-even-row-background-color)}table[data-v-32683533]{border-collapse:initial;display:table;width:100%;border-spacing:0;margin:0}.vue3-easy-data-table__header[data-v-32683533],vue3-easy-data-table__body[data-v-32683533]{position:relative}.vue3-easy-data-table__header tr[data-v-32683533]{font-size:var(--easy-table-header-font-size);border:none;height:var(--easy-table-header-height)}.vue3-easy-data-table__header th[data-v-32683533]{background-color:var(--easy-table-header-background-color);color:var(--easy-table-header-font-color);border:none;border-bottom:var(--easy-table-row-border);padding:var(--easy-table-header-item-padding);position:relative}.vue3-easy-data-table__header th .header[data-v-32683533]{display:flex;align-items:center}.vue3-easy-data-table__header th .header.direction-left[data-v-32683533]{justify-content:flex-start}.vue3-easy-data-table__header th .header.direction-center[data-v-32683533]{justify-content:center}.vue3-easy-data-table__header th .header.direction-right[data-v-32683533]{justify-content:flex-end}.vue3-easy-data-table__header th.sortable[data-v-32683533]{cursor:pointer}.vue3-easy-data-table__header th.sortable .sortType-icon[data-v-32683533]{border:5px solid transparent;margin-top:-3px;margin-left:4px;display:inline-block;height:0;width:0;position:relative;border-bottom-color:var(--easy-table-header-font-color)}.vue3-easy-data-table__header th.sortable .multi-sort__number[data-v-32683533]{border-radius:50%;height:1.5em;width:1.5em;line-height:1.5em;margin-left:4px;background-color:var(--easy-table-header-font-color);color:var(--easy-table-header-background-color)}.vue3-easy-data-table__header th.sortable.none:hover .sortType-icon[data-v-32683533]{opacity:1}.vue3-easy-data-table__header th.sortable.none .sortType-icon[data-v-32683533]{opacity:0;transition:.5s ease}.vue3-easy-data-table__header th.sortable.desc .sortType-icon[data-v-32683533]{margin-top:5px;transform:rotate(180deg)}.vue3-easy-data-table__header th.shadow[data-v-32683533]:after,.vue3-easy-data-table__body td.shadow[data-v-32683533]:after{pointer-events:none;content:"";width:36px;display:inline-block;height:100%;position:absolute;top:0;right:-36px;box-shadow:none}.vue3-easy-data-table__body tr[data-v-32683533]{height:var(--easy-table-body-row-height);color:var(--easy-table-body-row-font-color);font-size:var(--easy-table-body-row-font-size)}.vue3-easy-data-table__body tr:last-child td[data-v-32683533]{border-bottom:none}.vue3-easy-data-table__body tr:first-child td[data-v-32683533]{border-bottom:var(--easy-table-row-border)}.vue3-easy-data-table__body td[data-v-32683533]{padding:var(--easy-table-body-item-padding);background-color:var(--easy-table-body-row-background-color);border:none;border-bottom:var(--easy-table-row-border);position:relative}.vue3-easy-data-table__body td.direction-left[data-v-32683533]{text-align:left}.vue3-easy-data-table__body td.direction-center[data-v-32683533]{text-align:center}.vue3-easy-data-table__body td.direction-right[data-v-32683533]{text-align:right}.vue3-easy-data-table__body td .expand-icon[data-v-32683533]{border:solid;border-color:var(easy-table-body-row-font-color);border-width:0 2px 2px 0;display:inline-block;padding:3px;transform:rotate(-45deg);transition:.2s}.vue3-easy-data-table__body td .expand-icon.expanding[data-v-32683533]{transform:rotate(45deg)}.vue3-easy-data-table__body td.expand[data-v-32683533]{position:relative}.vue3-easy-data-table__body td.expand .expand-loading[data-v-32683533]{position:absolute;top:0;left:0}.vue3-easy-data-table__body td.can-expand[data-v-32683533]{cursor:pointer}.vue3-easy-data-table__footer[data-v-32683533]{background-color:var(--easy-table-footer-background-color);color:var(--easy-table-footer-font-color);border-top:var(--easy-table-row-border);font-size:var(--easy-table-footer-font-size);height:var(--easy-table-footer-height);padding:var(--easy-table-footer-padding);box-sizing:border-box;width:100%;display:flex;align-items:center;justify-content:flex-end}.vue3-easy-data-table__footer .pagination__rows-per-page[data-v-32683533]{display:flex;align-items:center}.vue3-easy-data-table__footer .pagination__items-index[data-v-32683533]{margin:0 20px 0 10px}.vue3-easy-data-table__message[data-v-32683533]{color:var(--easy-table-message-font-color);font-size:var(--easy-table-message-font-size);padding:var(--easy-table-message-padding);text-align:center}.vue3-easy-data-table__loading[data-v-32683533]{z-index:3;overflow:hidden;position:absolute;width:100%;height:100%;top:0;left:0;display:flex;align-items:center;justify-content:center}.vue3-easy-data-table__loading .loading-entity[data-v-32683533]{z-index:1}.vue3-easy-data-table__loading-mask[data-v-32683533]{background-color:var(--easy-table-loading-mask-background-color);opacity:var(--easy-table-loading-mask-opacity);position:absolute;width:100%;height:100%;top:0;left:0;z-index:1}.vue3-easy-data-table__main[data-v-32683533]{min-height:var(--da0d4328)}.vue3-easy-data-table__main.fixed-height[data-v-32683533]{height:var(--3037e504)}:root,:host,.sl-theme-light{color-scheme:light;--sl-color-gray-50: hsl(0 0% 97.5%);--sl-color-gray-100: hsl(240 4.8% 95.9%);--sl-color-gray-200: hsl(240 5.9% 90%);--sl-color-gray-300: hsl(240 4.9% 83.9%);--sl-color-gray-400: hsl(240 5% 64.9%);--sl-color-gray-500: hsl(240 3.8% 46.1%);--sl-color-gray-600: hsl(240 5.2% 33.9%);--sl-color-gray-700: hsl(240 5.3% 26.1%);--sl-color-gray-800: hsl(240 3.7% 15.9%);--sl-color-gray-900: hsl(240 5.9% 10%);--sl-color-gray-950: hsl(240 7.3% 8%);--sl-color-red-50: hsl(0 85.7% 97.3%);--sl-color-red-100: hsl(0 93.3% 94.1%);--sl-color-red-200: hsl(0 96.3% 89.4%);--sl-color-red-300: hsl(0 93.5% 81.8%);--sl-color-red-400: hsl(0 90.6% 70.8%);--sl-color-red-500: hsl(0 84.2% 60.2%);--sl-color-red-600: hsl(0 72.2% 50.6%);--sl-color-red-700: hsl(0 73.7% 41.8%);--sl-color-red-800: hsl(0 70% 35.3%);--sl-color-red-900: hsl(0 62.8% 30.6%);--sl-color-red-950: hsl(0 60% 19.6%);--sl-color-orange-50: hsl(33.3 100% 96.5%);--sl-color-orange-100: hsl(34.3 100% 91.8%);--sl-color-orange-200: hsl(32.1 97.7% 83.1%);--sl-color-orange-300: hsl(30.7 97.2% 72.4%);--sl-color-orange-400: hsl(27 96% 61%);--sl-color-orange-500: hsl(24.6 95% 53.1%);--sl-color-orange-600: hsl(20.5 90.2% 48.2%);--sl-color-orange-700: hsl(17.5 88.3% 40.4%);--sl-color-orange-800: hsl(15 79.1% 33.7%);--sl-color-orange-900: hsl(15.3 74.6% 27.8%);--sl-color-orange-950: hsl(15.2 69.1% 19%);--sl-color-amber-50: hsl(48 100% 96.1%);--sl-color-amber-100: hsl(48 96.5% 88.8%);--sl-color-amber-200: hsl(48 96.6% 76.7%);--sl-color-amber-300: hsl(45.9 96.7% 64.5%);--sl-color-amber-400: hsl(43.3 96.4% 56.3%);--sl-color-amber-500: hsl(37.7 92.1% 50.2%);--sl-color-amber-600: hsl(32.1 94.6% 43.7%);--sl-color-amber-700: hsl(26 90.5% 37.1%);--sl-color-amber-800: hsl(22.7 82.5% 31.4%);--sl-color-amber-900: hsl(21.7 77.8% 26.5%);--sl-color-amber-950: hsl(22.9 74.1% 16.7%);--sl-color-yellow-50: hsl(54.5 91.7% 95.3%);--sl-color-yellow-100: hsl(54.9 96.7% 88%);--sl-color-yellow-200: hsl(52.8 98.3% 76.9%);--sl-color-yellow-300: hsl(50.4 97.8% 63.5%);--sl-color-yellow-400: hsl(47.9 95.8% 53.1%);--sl-color-yellow-500: hsl(45.4 93.4% 47.5%);--sl-color-yellow-600: hsl(40.6 96.1% 40.4%);--sl-color-yellow-700: hsl(35.5 91.7% 32.9%);--sl-color-yellow-800: hsl(31.8 81% 28.8%);--sl-color-yellow-900: hsl(28.4 72.5% 25.7%);--sl-color-yellow-950: hsl(33.1 69% 13.9%);--sl-color-lime-50: hsl(78.3 92% 95.1%);--sl-color-lime-100: hsl(79.6 89.1% 89.2%);--sl-color-lime-200: hsl(80.9 88.5% 79.6%);--sl-color-lime-300: hsl(82 84.5% 67.1%);--sl-color-lime-400: hsl(82.7 78% 55.5%);--sl-color-lime-500: hsl(83.7 80.5% 44.3%);--sl-color-lime-600: hsl(84.8 85.2% 34.5%);--sl-color-lime-700: hsl(85.9 78.4% 27.3%);--sl-color-lime-800: hsl(86.3 69% 22.7%);--sl-color-lime-900: hsl(87.6 61.2% 20.2%);--sl-color-lime-950: hsl(86.5 60.6% 13.9%);--sl-color-green-50: hsl(138.5 76.5% 96.7%);--sl-color-green-100: hsl(140.6 84.2% 92.5%);--sl-color-green-200: hsl(141 78.9% 85.1%);--sl-color-green-300: hsl(141.7 76.6% 73.1%);--sl-color-green-400: hsl(141.9 69.2% 58%);--sl-color-green-500: hsl(142.1 70.6% 45.3%);--sl-color-green-600: hsl(142.1 76.2% 36.3%);--sl-color-green-700: hsl(142.4 71.8% 29.2%);--sl-color-green-800: hsl(142.8 64.2% 24.1%);--sl-color-green-900: hsl(143.8 61.2% 20.2%);--sl-color-green-950: hsl(144.3 60.7% 12%);--sl-color-emerald-50: hsl(151.8 81% 95.9%);--sl-color-emerald-100: hsl(149.3 80.4% 90%);--sl-color-emerald-200: hsl(152.4 76% 80.4%);--sl-color-emerald-300: hsl(156.2 71.6% 66.9%);--sl-color-emerald-400: hsl(158.1 64.4% 51.6%);--sl-color-emerald-500: hsl(160.1 84.1% 39.4%);--sl-color-emerald-600: hsl(161.4 93.5% 30.4%);--sl-color-emerald-700: hsl(162.9 93.5% 24.3%);--sl-color-emerald-800: hsl(163.1 88.1% 19.8%);--sl-color-emerald-900: hsl(164.2 85.7% 16.5%);--sl-color-emerald-950: hsl(164.3 87.5% 9.4%);--sl-color-teal-50: hsl(166.2 76.5% 96.7%);--sl-color-teal-100: hsl(167.2 85.5% 89.2%);--sl-color-teal-200: hsl(168.4 83.8% 78.2%);--sl-color-teal-300: hsl(170.6 76.9% 64.3%);--sl-color-teal-400: hsl(172.5 66% 50.4%);--sl-color-teal-500: hsl(173.4 80.4% 40%);--sl-color-teal-600: hsl(174.7 83.9% 31.6%);--sl-color-teal-700: hsl(175.3 77.4% 26.1%);--sl-color-teal-800: hsl(176.1 69.4% 21.8%);--sl-color-teal-900: hsl(175.9 60.8% 19%);--sl-color-teal-950: hsl(176.5 58.6% 11.4%);--sl-color-cyan-50: hsl(183.2 100% 96.3%);--sl-color-cyan-100: hsl(185.1 95.9% 90.4%);--sl-color-cyan-200: hsl(186.2 93.5% 81.8%);--sl-color-cyan-300: hsl(187 92.4% 69%);--sl-color-cyan-400: hsl(187.9 85.7% 53.3%);--sl-color-cyan-500: hsl(188.7 94.5% 42.7%);--sl-color-cyan-600: hsl(191.6 91.4% 36.5%);--sl-color-cyan-700: hsl(192.9 82.3% 31%);--sl-color-cyan-800: hsl(194.4 69.6% 27.1%);--sl-color-cyan-900: hsl(196.4 63.6% 23.7%);--sl-color-cyan-950: hsl(196.8 61% 16.1%);--sl-color-sky-50: hsl(204 100% 97.1%);--sl-color-sky-100: hsl(204 93.8% 93.7%);--sl-color-sky-200: hsl(200.6 94.4% 86.1%);--sl-color-sky-300: hsl(199.4 95.5% 73.9%);--sl-color-sky-400: hsl(198.4 93.2% 59.6%);--sl-color-sky-500: hsl(198.6 88.7% 48.4%);--sl-color-sky-600: hsl(200.4 98% 39.4%);--sl-color-sky-700: hsl(201.3 96.3% 32.2%);--sl-color-sky-800: hsl(201 90% 27.5%);--sl-color-sky-900: hsl(202 80.3% 23.9%);--sl-color-sky-950: hsl(202.3 73.8% 16.5%);--sl-color-blue-50: hsl(213.8 100% 96.9%);--sl-color-blue-100: hsl(214.3 94.6% 92.7%);--sl-color-blue-200: hsl(213.3 96.9% 87.3%);--sl-color-blue-300: hsl(211.7 96.4% 78.4%);--sl-color-blue-400: hsl(213.1 93.9% 67.8%);--sl-color-blue-500: hsl(217.2 91.2% 59.8%);--sl-color-blue-600: hsl(221.2 83.2% 53.3%);--sl-color-blue-700: hsl(224.3 76.3% 48%);--sl-color-blue-800: hsl(225.9 70.7% 40.2%);--sl-color-blue-900: hsl(224.4 64.3% 32.9%);--sl-color-blue-950: hsl(226.2 55.3% 18.4%);--sl-color-indigo-50: hsl(225.9 100% 96.7%);--sl-color-indigo-100: hsl(226.5 100% 93.9%);--sl-color-indigo-200: hsl(228 96.5% 88.8%);--sl-color-indigo-300: hsl(229.7 93.5% 81.8%);--sl-color-indigo-400: hsl(234.5 89.5% 73.9%);--sl-color-indigo-500: hsl(238.7 83.5% 66.7%);--sl-color-indigo-600: hsl(243.4 75.4% 58.6%);--sl-color-indigo-700: hsl(244.5 57.9% 50.6%);--sl-color-indigo-800: hsl(243.7 54.5% 41.4%);--sl-color-indigo-900: hsl(242.2 47.4% 34.3%);--sl-color-indigo-950: hsl(243.5 43.6% 22.9%);--sl-color-violet-50: hsl(250 100% 97.6%);--sl-color-violet-100: hsl(251.4 91.3% 95.5%);--sl-color-violet-200: hsl(250.5 95.2% 91.8%);--sl-color-violet-300: hsl(252.5 94.7% 85.1%);--sl-color-violet-400: hsl(255.1 91.7% 76.3%);--sl-color-violet-500: hsl(258.3 89.5% 66.3%);--sl-color-violet-600: hsl(262.1 83.3% 57.8%);--sl-color-violet-700: hsl(263.4 70% 50.4%);--sl-color-violet-800: hsl(263.4 69.3% 42.2%);--sl-color-violet-900: hsl(263.5 67.4% 34.9%);--sl-color-violet-950: hsl(265.1 61.5% 21.4%);--sl-color-purple-50: hsl(270 100% 98%);--sl-color-purple-100: hsl(268.7 100% 95.5%);--sl-color-purple-200: hsl(268.6 100% 91.8%);--sl-color-purple-300: hsl(269.2 97.4% 85.1%);--sl-color-purple-400: hsl(270 95.2% 75.3%);--sl-color-purple-500: hsl(270.7 91% 65.1%);--sl-color-purple-600: hsl(271.5 81.3% 55.9%);--sl-color-purple-700: hsl(272.1 71.7% 47.1%);--sl-color-purple-800: hsl(272.9 67.2% 39.4%);--sl-color-purple-900: hsl(273.6 65.6% 32%);--sl-color-purple-950: hsl(276 59.5% 16.5%);--sl-color-fuchsia-50: hsl(289.1 100% 97.8%);--sl-color-fuchsia-100: hsl(287 100% 95.5%);--sl-color-fuchsia-200: hsl(288.3 95.8% 90.6%);--sl-color-fuchsia-300: hsl(291.1 93.1% 82.9%);--sl-color-fuchsia-400: hsl(292 91.4% 72.5%);--sl-color-fuchsia-500: hsl(292.2 84.1% 60.6%);--sl-color-fuchsia-600: hsl(293.4 69.5% 48.8%);--sl-color-fuchsia-700: hsl(294.7 72.4% 39.8%);--sl-color-fuchsia-800: hsl(295.4 70.2% 32.9%);--sl-color-fuchsia-900: hsl(296.7 63.6% 28%);--sl-color-fuchsia-950: hsl(297.1 56.8% 14.5%);--sl-color-pink-50: hsl(327.3 73.3% 97.1%);--sl-color-pink-100: hsl(325.7 77.8% 94.7%);--sl-color-pink-200: hsl(325.9 84.6% 89.8%);--sl-color-pink-300: hsl(327.4 87.1% 81.8%);--sl-color-pink-400: hsl(328.6 85.5% 70.2%);--sl-color-pink-500: hsl(330.4 81.2% 60.4%);--sl-color-pink-600: hsl(333.3 71.4% 50.6%);--sl-color-pink-700: hsl(335.1 77.6% 42%);--sl-color-pink-800: hsl(335.8 74.4% 35.3%);--sl-color-pink-900: hsl(335.9 69% 30.4%);--sl-color-pink-950: hsl(336.2 65.4% 15.9%);--sl-color-rose-50: hsl(355.7 100% 97.3%);--sl-color-rose-100: hsl(355.6 100% 94.7%);--sl-color-rose-200: hsl(352.7 96.1% 90%);--sl-color-rose-300: hsl(352.6 95.7% 81.8%);--sl-color-rose-400: hsl(351.3 94.5% 71.4%);--sl-color-rose-500: hsl(349.7 89.2% 60.2%);--sl-color-rose-600: hsl(346.8 77.2% 49.8%);--sl-color-rose-700: hsl(345.3 82.7% 40.8%);--sl-color-rose-800: hsl(343.4 79.7% 34.7%);--sl-color-rose-900: hsl(341.5 75.5% 30.4%);--sl-color-rose-950: hsl(341.3 70.1% 17.1%);--sl-color-primary-50: var(--sl-color-sky-50);--sl-color-primary-100: var(--sl-color-sky-100);--sl-color-primary-200: var(--sl-color-sky-200);--sl-color-primary-300: var(--sl-color-sky-300);--sl-color-primary-400: var(--sl-color-sky-400);--sl-color-primary-500: var(--sl-color-sky-500);--sl-color-primary-600: var(--sl-color-sky-600);--sl-color-primary-700: var(--sl-color-sky-700);--sl-color-primary-800: var(--sl-color-sky-800);--sl-color-primary-900: var(--sl-color-sky-900);--sl-color-primary-950: var(--sl-color-sky-950);--sl-color-success-50: var(--sl-color-green-50);--sl-color-success-100: var(--sl-color-green-100);--sl-color-success-200: var(--sl-color-green-200);--sl-color-success-300: var(--sl-color-green-300);--sl-color-success-400: var(--sl-color-green-400);--sl-color-success-500: var(--sl-color-green-500);--sl-color-success-600: var(--sl-color-green-600);--sl-color-success-700: var(--sl-color-green-700);--sl-color-success-800: var(--sl-color-green-800);--sl-color-success-900: var(--sl-color-green-900);--sl-color-success-950: var(--sl-color-green-950);--sl-color-warning-50: var(--sl-color-amber-50);--sl-color-warning-100: var(--sl-color-amber-100);--sl-color-warning-200: var(--sl-color-amber-200);--sl-color-warning-300: var(--sl-color-amber-300);--sl-color-warning-400: var(--sl-color-amber-400);--sl-color-warning-500: var(--sl-color-amber-500);--sl-color-warning-600: var(--sl-color-amber-600);--sl-color-warning-700: var(--sl-color-amber-700);--sl-color-warning-800: var(--sl-color-amber-800);--sl-color-warning-900: var(--sl-color-amber-900);--sl-color-warning-950: var(--sl-color-amber-950);--sl-color-danger-50: var(--sl-color-red-50);--sl-color-danger-100: var(--sl-color-red-100);--sl-color-danger-200: var(--sl-color-red-200);--sl-color-danger-300: var(--sl-color-red-300);--sl-color-danger-400: var(--sl-color-red-400);--sl-color-danger-500: var(--sl-color-red-500);--sl-color-danger-600: var(--sl-color-red-600);--sl-color-danger-700: var(--sl-color-red-700);--sl-color-danger-800: var(--sl-color-red-800);--sl-color-danger-900: var(--sl-color-red-900);--sl-color-danger-950: var(--sl-color-red-950);--sl-color-neutral-50: var(--sl-color-gray-50);--sl-color-neutral-100: var(--sl-color-gray-100);--sl-color-neutral-200: var(--sl-color-gray-200);--sl-color-neutral-300: var(--sl-color-gray-300);--sl-color-neutral-400: var(--sl-color-gray-400);--sl-color-neutral-500: var(--sl-color-gray-500);--sl-color-neutral-600: var(--sl-color-gray-600);--sl-color-neutral-700: var(--sl-color-gray-700);--sl-color-neutral-800: var(--sl-color-gray-800);--sl-color-neutral-900: var(--sl-color-gray-900);--sl-color-neutral-950: var(--sl-color-gray-950);--sl-color-neutral-0: hsl(0, 0%, 100%);--sl-color-neutral-1000: hsl(0, 0%, 0%);--sl-border-radius-small: .1875rem;--sl-border-radius-medium: .25rem;--sl-border-radius-large: .5rem;--sl-border-radius-x-large: 1rem;--sl-border-radius-circle: 50%;--sl-border-radius-pill: 9999px;--sl-shadow-x-small: 0 1px 2px hsl(240 3.8% 46.1% / 6%);--sl-shadow-small: 0 1px 2px hsl(240 3.8% 46.1% / 12%);--sl-shadow-medium: 0 2px 4px hsl(240 3.8% 46.1% / 12%);--sl-shadow-large: 0 2px 8px hsl(240 3.8% 46.1% / 12%);--sl-shadow-x-large: 0 4px 16px hsl(240 3.8% 46.1% / 12%);--sl-spacing-3x-small: .125rem;--sl-spacing-2x-small: .25rem;--sl-spacing-x-small: .5rem;--sl-spacing-small: .75rem;--sl-spacing-medium: 1rem;--sl-spacing-large: 1.25rem;--sl-spacing-x-large: 1.75rem;--sl-spacing-2x-large: 2.25rem;--sl-spacing-3x-large: 3rem;--sl-spacing-4x-large: 4.5rem;--sl-transition-x-slow: 1s;--sl-transition-slow: .5s;--sl-transition-medium: .25s;--sl-transition-fast: .15s;--sl-transition-x-fast: 50ms;--sl-font-mono: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;--sl-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";--sl-font-serif: Georgia, "Times New Roman", serif;--sl-font-size-2x-small: .625rem;--sl-font-size-x-small: .75rem;--sl-font-size-small: .875rem;--sl-font-size-medium: 1rem;--sl-font-size-large: 1.25rem;--sl-font-size-x-large: 1.5rem;--sl-font-size-2x-large: 2.25rem;--sl-font-size-3x-large: 3rem;--sl-font-size-4x-large: 4.5rem;--sl-font-weight-light: 300;--sl-font-weight-normal: 400;--sl-font-weight-semibold: 500;--sl-font-weight-bold: 700;--sl-letter-spacing-denser: -.03em;--sl-letter-spacing-dense: -.015em;--sl-letter-spacing-normal: normal;--sl-letter-spacing-loose: .075em;--sl-letter-spacing-looser: .15em;--sl-line-height-denser: 1;--sl-line-height-dense: 1.4;--sl-line-height-normal: 1.8;--sl-line-height-loose: 2.2;--sl-line-height-looser: 2.6;--sl-focus-ring-color: var(--sl-color-primary-600);--sl-focus-ring-style: solid;--sl-focus-ring-width: 3px;--sl-focus-ring: var(--sl-focus-ring-style) var(--sl-focus-ring-width) var(--sl-focus-ring-color);--sl-focus-ring-offset: 1px;--sl-button-font-size-small: var(--sl-font-size-x-small);--sl-button-font-size-medium: var(--sl-font-size-small);--sl-button-font-size-large: var(--sl-font-size-medium);--sl-input-height-small: 1.875rem;--sl-input-height-medium: 2.5rem;--sl-input-height-large: 3.125rem;--sl-input-background-color: var(--sl-color-neutral-0);--sl-input-background-color-hover: var(--sl-input-background-color);--sl-input-background-color-focus: var(--sl-input-background-color);--sl-input-background-color-disabled: var(--sl-color-neutral-100);--sl-input-border-color: var(--sl-color-neutral-300);--sl-input-border-color-hover: var(--sl-color-neutral-400);--sl-input-border-color-focus: var(--sl-color-primary-500);--sl-input-border-color-disabled: var(--sl-color-neutral-300);--sl-input-border-width: 1px;--sl-input-required-content: "*";--sl-input-required-content-offset: -2px;--sl-input-required-content-color: var(--sl-input-label-color);--sl-input-border-radius-small: var(--sl-border-radius-medium);--sl-input-border-radius-medium: var(--sl-border-radius-medium);--sl-input-border-radius-large: var(--sl-border-radius-medium);--sl-input-font-family: var(--sl-font-sans);--sl-input-font-weight: var(--sl-font-weight-normal);--sl-input-font-size-small: var(--sl-font-size-small);--sl-input-font-size-medium: var(--sl-font-size-medium);--sl-input-font-size-large: var(--sl-font-size-large);--sl-input-letter-spacing: var(--sl-letter-spacing-normal);--sl-input-color: var(--sl-color-neutral-700);--sl-input-color-hover: var(--sl-color-neutral-700);--sl-input-color-focus: var(--sl-color-neutral-700);--sl-input-color-disabled: var(--sl-color-neutral-900);--sl-input-icon-color: var(--sl-color-neutral-500);--sl-input-icon-color-hover: var(--sl-color-neutral-600);--sl-input-icon-color-focus: var(--sl-color-neutral-600);--sl-input-placeholder-color: var(--sl-color-neutral-500);--sl-input-placeholder-color-disabled: var(--sl-color-neutral-600);--sl-input-spacing-small: var(--sl-spacing-small);--sl-input-spacing-medium: var(--sl-spacing-medium);--sl-input-spacing-large: var(--sl-spacing-large);--sl-input-focus-ring-color: hsl(198.6 88.7% 48.4% / 40%);--sl-input-focus-ring-offset: 0;--sl-input-filled-background-color: var(--sl-color-neutral-100);--sl-input-filled-background-color-hover: var(--sl-color-neutral-100);--sl-input-filled-background-color-focus: var(--sl-color-neutral-100);--sl-input-filled-background-color-disabled: var(--sl-color-neutral-100);--sl-input-filled-color: var(--sl-color-neutral-800);--sl-input-filled-color-hover: var(--sl-color-neutral-800);--sl-input-filled-color-focus: var(--sl-color-neutral-700);--sl-input-filled-color-disabled: var(--sl-color-neutral-800);--sl-input-label-font-size-small: var(--sl-font-size-small);--sl-input-label-font-size-medium: var(--sl-font-size-medium);--sl-input-label-font-size-large: var(--sl-font-size-large);--sl-input-label-color: inherit;--sl-input-help-text-font-size-small: var(--sl-font-size-x-small);--sl-input-help-text-font-size-medium: var(--sl-font-size-small);--sl-input-help-text-font-size-large: var(--sl-font-size-medium);--sl-input-help-text-color: var(--sl-color-neutral-500);--sl-toggle-size-small: .875rem;--sl-toggle-size-medium: 1.125rem;--sl-toggle-size-large: 1.375rem;--sl-overlay-background-color: hsl(240 3.8% 46.1% / 33%);--sl-panel-background-color: var(--sl-color-neutral-0);--sl-panel-border-color: var(--sl-color-neutral-200);--sl-panel-border-width: 1px;--sl-tooltip-border-radius: var(--sl-border-radius-medium);--sl-tooltip-background-color: var(--sl-color-neutral-800);--sl-tooltip-color: var(--sl-color-neutral-0);--sl-tooltip-font-family: var(--sl-font-sans);--sl-tooltip-font-weight: var(--sl-font-weight-normal);--sl-tooltip-font-size: var(--sl-font-size-small);--sl-tooltip-line-height: var(--sl-line-height-dense);--sl-tooltip-padding: var(--sl-spacing-2x-small) var(--sl-spacing-x-small);--sl-tooltip-arrow-size: 6px;--sl-z-index-drawer: 700;--sl-z-index-dialog: 800;--sl-z-index-dropdown: 900;--sl-z-index-toast: 950;--sl-z-index-tooltip: 1000}@supports (scrollbar-gutter: stable){.sl-scroll-lock{scrollbar-gutter:stable!important;overflow:hidden!important}}@supports not (scrollbar-gutter: stable){.sl-scroll-lock body{padding-right:var(--sl-scroll-lock-size)!important;overflow:hidden!important}}.sl-toast-stack{position:fixed;top:0;inset-inline-end:0;z-index:var(--sl-z-index-toast);width:28rem;max-width:100%;max-height:100%;overflow:auto}.sl-toast-stack sl-alert{margin:var(--sl-spacing-medium)}.sl-toast-stack sl-alert::part(base){box-shadow:var(--sl-shadow-large)}sl-dialog[data-v-2f0b35e4]::part(title){text-align:left}.clj-create-group-button[data-v-2f0b35e4]{display:flex;justify-content:space-between;width:max-content;align-items:center}#clj-create-prompt[data-v-60307933]{--width: 50vw}.clj-button[data-v-60307933]{margin-top:1rem;margin-left:.5rem}.clj-create-prompt-form[data-v-60307933]{display:flex}.clj-label-on-left[data-v-60307933]{--label-width: 3.75rem;--gap-width: 1rem}.clj-label-on-left[data-v-60307933]{margin-top:1rem;width:75%}.clj-label-on-left[data-v-60307933]::part(form-control){display:grid;grid:auto / var(--label-width) 1fr;gap:var(--sl-spacing-3x-small) var(--gap-width);align-items:center}.clj-label-on-left[data-v-60307933]::part(form-control-label){text-align:right}.clj-label-on-left[data-v-60307933]::part(form-control-help-text){grid-column-start:2}.clj-create-prompt-button[data-v-60307933]{display:flex;justify-content:space-between;width:max-content;align-items:center}.clj-create-group-div[data-v-3d20555e]{margin-top:1rem;margin-bottom:1rem}.clj-create-form[data-v-3d20555e]{margin-top:1rem;margin-left:1rem;padding-top:1rem;padding-left:1rem}#clj-create-learning-journal[data-v-3d20555e]{--width: 50vw}.clj-button[data-v-3d20555e]{margin-top:1rem;margin-left:.5rem}.clj-create-learning-journal-form[data-v-3d20555e]{margin-left:1rem;margin-right:1rem}.clj-label-on-left[data-v-3d20555e]::part(form-control-label){text-align:right}.clj-label-on-left[data-v-3d20555e]::part(form-control-help-text){grid-column-start:2}.clj-th-tooltip[data-v-ea7c28c0]{float:right;margin-right:1rem}.clj-status-student-groups[data-v-12d03b1d],.clj-status-discussions[data-v-79398731]{background-color:#f0f0f0;padding:1em;border-radius:1em}.clj-configure[data-v-e077a626]{margin-left:1rem;margin-top:0rem}.clj-status-learning-journal[data-v-960f421b]{background-color:#f0f0f0;padding:1em;margin:1em;border-radius:1em}.clj-prompt-participation-details[data-v-7f0f9b70]{background-color:#f0f0f0;padding:1em;border-radius:1em}sl-tab[data-v-7f0f9b70]::part(base){font-size:.8rem;padding:.8rem;background:#f0f0f0}.clj-student[data-v-7f0f9b70]{display:block;padding:.5rem;width:20rem}.clj-student-forum[data-v-7f0f9b70]{width:75%;float:left}.clj-speedgrader[data-v-7f0f9b70]{clear:both;font-size:x-small}.clj-student-avatar[data-v-7f0f9b70]{float:right;clear:both}.clj-entries[data-v-7f0f9b70]{padding:1rem}.clj-participation-summary[data-v-8d865138]{background-color:#f0f0f0;padding:1em;border-radius:1em}.clj-span-right[data-v-8d865138]{text-align:right;width:90%;padding-right:1em}.clj-status-prompts[data-v-bb8e150e]{background-color:#f0f0f0;padding:1em;margin:1em;border-radius:1em}sl-tab[data-v-bb8e150e]::part(base){font-size:.8rem;padding:.8rem;background:#f0f0f0}.clj-orchestrate[data-v-3e33ef53]{margin-left:1rem}:root{font-family:Inter,Avenir,Helvetica,Arial,sans-serif;font-size:16px;line-height:24px;font-weight:400;color-scheme:light dark;color:#ffffffde;background-color:#242424;font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-text-size-adjust:100%}a{font-weight:500;color:#646cff;text-decoration:inherit}a:hover{color:#535bf2}body{margin:0;display:flex;place-items:center;min-width:320px;min-height:100vh}h1{font-size:3.2em;line-height:1.1}h3{font-size:1.2em;line-height:1.1;font-weight:bolder}button{border-radius:8px;border:1px solid transparent;padding:.6em 1.2em;font-size:1em;font-weight:500;font-family:inherit;background-color:#1a1a1a;cursor:pointer;transition:border-color .25s}button:hover{border-color:#646cff}button:focus,button:focus-visible{outline:4px auto -webkit-focus-ring-color}.card{padding:2em}#app{max-width:1280px;margin:0 auto;padding:2rem;text-align:center}@media (prefers-color-scheme: light){:root{color:#213547;background-color:#fff}a:hover{color:#747bff}button{background-color:#f9f9f9}}.clj-status{margin-bottom:1rem;padding:.5rem;background-color:#f0f0f0;border-radius:5px;box-shadow:0 0 10px #0000001a;max-width:fit-content}.clj-detail{background-color:#f0f0f0;box-shadow:0 0 10px #0000001a;margin-top:-.8rem;margin-bottom:1rem}table.clj-data-table{width:100%}.clj-data-table thead{background-color:#ccc}.clj-data-table th{text-align:left;border-bottom:solid 2px #d8d8d8;padding:.25em;font-size:smaller}.clj-data-table td{font-size:smaller;padding:.5em}.clj-data-table tbody tr:nth-child(odd){background-color:#f8f8f8}.clj-data-table tbody tr:hover{background-color:#f0f0f0}th.clj-center,td.clj-center{text-align:center}th.clj-right,td.clj-right{text-align:right;padding-right:1rem}th.clj-half,td.clj-half{width:50%}th.clj-three-quarters,td.clj-three-quarters{width:75%}th.clj-one-quarter,td.clj-one-quarter{width:25%}table.clj-fixed{table-layout:fixed;width:100%}th.clj-cell-top,td.clj-cell-top{vertical-align:top;padding:.5rem}.clj-two-column-grid{display:block}.clj-two-column-grid>*{padding:1rem}@media (min-width: 768px){.clj-two-column-grid{display:grid;grid-template-columns:1fr 1fr}}.clj-configure{margin:1em;padding:1em}.cl-th-help{float:right}.clj-row{display:flex}.clj-col{flex:50%;margin-right:1rem}.clj-th-tooltip{float:right;margin-right:1rem} ');
+(l=>{if(typeof GM_addStyle=="function"){GM_addStyle(l);return}const e=document.createElement("style");e.textContent=l,document.head.append(e)})(' .easy-checkbox[data-v-e0a0b7f0]{position:relative;width:1.3em;height:1.3em;font-size:var(--easy-table-body-row-font-size);margin:0 auto}.easy-checkbox label[data-v-e0a0b7f0]{cursor:pointer;display:inline;line-height:1.3em;vertical-align:top;clear:both}.easy-checkbox label[data-v-e0a0b7f0]:before,.easy-checkbox label[data-v-e0a0b7f0]:after{content:"";position:absolute;left:0;top:0}.easy-checkbox label[data-v-e0a0b7f0]:before{width:1.3em;height:1.3em;background:#fff;border:1px solid rgba(0,0,0,.54);border-radius:.125em;cursor:pointer;transition:background .3s}.easy-checkbox input[type=checkbox][data-v-e0a0b7f0]{outline:0;visibility:hidden;width:1.3em;margin:0;display:block;float:left;font-size:inherit}.easy-checkbox input[type=checkbox]:checked+label[data-v-e0a0b7f0]:before{border:none}.easy-checkbox input[type=checkbox]:checked+label[data-v-e0a0b7f0]:after{transform:translate(.2em,.3038461538em) rotate(-45deg);width:.9em;height:.45em;border:.13em solid #fff;border-top-style:none;border-right-style:none}.easy-checkbox input[type=checkbox].allSelected+label[data-v-e0a0b7f0]:before{border:none}.easy-checkbox input[type=checkbox].allSelected+label[data-v-e0a0b7f0]:after{transform:translate(.2em,.3038461538em) rotate(-45deg);width:.9em;height:.45em;border:.13em solid #fff;border-top-style:none;border-right-style:none}.easy-checkbox input[type=checkbox].partSelected+label[data-v-e0a0b7f0]:before{border:none}.easy-checkbox input[type=checkbox].partSelected+label[data-v-e0a0b7f0]:after{transform:translate(.2em,.5875em);width:.9em;height:.45em;border:.125em solid #fff;border-bottom-style:none;border-right-style:none;border-left-style:none}*[data-v-e0a0b7f0],*[data-v-e0a0b7f0]:before,*[data-v-e0a0b7f0]:after{box-sizing:border-box}.easy-checkbox input[type=checkbox].allSelected+label[data-v-e0a0b7f0]:before,.easy-checkbox input[type=checkbox].partSelected+label[data-v-e0a0b7f0]:before{background:var(--51ab8a49)}.easy-checkbox[data-v-7e69a276]{position:relative;width:1.3em;height:1.3em;font-size:var(--easy-table-body-row-font-size);margin:0 auto}.easy-checkbox label[data-v-7e69a276]{cursor:pointer;display:inline;line-height:1.3em;vertical-align:top;clear:both}.easy-checkbox label[data-v-7e69a276]:before,.easy-checkbox label[data-v-7e69a276]:after{content:"";position:absolute;left:0;top:0}.easy-checkbox label[data-v-7e69a276]:before{width:1.3em;height:1.3em;background:#fff;border:1px solid rgba(0,0,0,.54);border-radius:.125em;cursor:pointer;transition:background .3s}.easy-checkbox input[type=checkbox][data-v-7e69a276]{outline:0;visibility:hidden;width:1.3em;margin:0;display:block;float:left;font-size:inherit}.easy-checkbox input[type=checkbox]:checked+label[data-v-7e69a276]:before{border:none}.easy-checkbox input[type=checkbox]:checked+label[data-v-7e69a276]:after{transform:translate(.2em,.3038461538em) rotate(-45deg);width:.9em;height:.45em;border:.13em solid #fff;border-top-style:none;border-right-style:none}.easy-checkbox input[type=checkbox].allSelected+label[data-v-7e69a276]:before{border:none}.easy-checkbox input[type=checkbox].allSelected+label[data-v-7e69a276]:after{transform:translate(.2em,.3038461538em) rotate(-45deg);width:.9em;height:.45em;border:.13em solid #fff;border-top-style:none;border-right-style:none}.easy-checkbox input[type=checkbox].partSelected+label[data-v-7e69a276]:before{border:none}.easy-checkbox input[type=checkbox].partSelected+label[data-v-7e69a276]:after{transform:translate(.2em,.5875em);width:.9em;height:.45em;border:.125em solid #fff;border-bottom-style:none;border-right-style:none;border-left-style:none}*[data-v-7e69a276],*[data-v-7e69a276]:before,*[data-v-7e69a276]:after{box-sizing:border-box}.easy-checkbox input[type=checkbox]:checked+label[data-v-7e69a276]:before{background:var(--fdaf7e9e)}.easy-data-table__rows-selector[data-v-4ca5de3a]{display:inline-block;min-width:45px;position:relative;margin:0 10px;width:var(--easy-table-rows-per-page-selector-width)}.easy-data-table__rows-selector .rows-input__wrapper[data-v-4ca5de3a]{height:20px;border-bottom:1px solid var(--easy-table-footer-font-color);display:flex;align-items:center;justify-content:space-between;padding:0 5px;cursor:pointer}.easy-data-table__rows-selector .rows-input__wrapper .triangle[data-v-4ca5de3a]{display:inline-block;vertical-align:middle;width:0px;height:0px;border-top:solid 6px var(--easy-table-footer-font-color);border-left:solid 6px transparent;border-right:solid 6px transparent}.easy-data-table__rows-selector ul.select-items[data-v-4ca5de3a]{position:absolute;top:20px;left:0;width:100%;display:none;margin:0;padding:0;text-align:left;list-style-type:none;box-shadow:0 5px 5px -3px #0003,0 8px 10px 1px #00000024,0 3px 14px 2px #0000001f;z-index:var(--easy-table-rows-per-page-selector-z-index)}.easy-data-table__rows-selector ul.select-items.show[data-v-4ca5de3a]{display:block}.easy-data-table__rows-selector ul.select-items.inside[data-v-4ca5de3a]{bottom:0;top:auto}.easy-data-table__rows-selector ul.select-items li[data-v-4ca5de3a]{cursor:pointer;padding:var(--easy-table-rows-per-page-selector-option-padding);background-color:var(--easy-table-footer-background-color)}.easy-data-table__rows-selector ul.select-items li.selected[data-v-4ca5de3a]{color:#fff;background-color:var(--1b889342)}.lds-ring[data-v-1fa3a520]{display:inline-block;position:relative;width:60px;height:60px}.lds-ring div[data-v-1fa3a520]{box-sizing:border-box;display:block;position:absolute;width:80%;height:80%;margin:8px;border:8px solid #fff;border-radius:50%;animation:lds-ring-1fa3a520 1.2s cubic-bezier(.5,0,.5,1) infinite;border-color:var(--26774109) transparent transparent transparent}.lds-ring div[data-v-1fa3a520]:nth-child(1){animation-delay:-.45s}.lds-ring div[data-v-1fa3a520]:nth-child(2){animation-delay:-.3s}.lds-ring div[data-v-1fa3a520]:nth-child(3){animation-delay:-.15s}@keyframes lds-ring-1fa3a520{0%{transform:rotate(0)}to{transform:rotate(360deg)}}.loader-line[data-v-7d281cac]{width:100%;height:3px;position:relative;overflow:hidden;background-color:#ddd;margin:0x auto}.loader-line[data-v-7d281cac]:before{content:"";position:absolute;left:-50%;height:3px;width:40%;background-color:var(--0d327f57);-webkit-animation:lineAnim-7d281cac 1s linear infinite;-moz-animation:lineAnim-7d281cac 1s linear infinite;animation:lineAnim-7d281cac 1s linear infinite}@keyframes lineAnim-7d281cac{0%{left:-40%}50%{left:20%;width:80%}to{left:100%;width:100%}}.buttons-pagination[data-v-4c681fa2]{box-sizing:border-box;display:flex;padding:0;border-radius:4px}.buttons-pagination .item[data-v-4c681fa2]{box-sizing:border-box;cursor:pointer;min-width:calc(var(--easy-table-footer-font-size) * 1.8);line-height:calc(var(--easy-table-footer-font-size) * 1.8);border-top:var(--easy-table-buttons-pagination-border);border-bottom:var(--easy-table-buttons-pagination-border);border-right:var(--easy-table-buttons-pagination-border);text-align:center}.buttons-pagination .item[data-v-4c681fa2]:first-of-type{border-left:var(--easy-table-buttons-pagination-border);border-top-left-radius:4px;border-bottom-left-radius:4px}.buttons-pagination .item[data-v-4c681fa2]:last-of-type{border-top-right-radius:4px;border-bottom-right-radius:4px}.buttons-pagination .item.button.active[data-v-4c681fa2]{background-color:var(--40dd4f07);border-left:var(--easy-table-buttons-pagination-border);border-color:var(--40dd4f07)!important;color:#fff}.buttons-pagination .item.button.active-prev[data-v-4c681fa2]{border-right:none}.previous-page__click-button[data-v-c9da5286],.next-page__click-button[data-v-c9da5286]{margin:0 5px;cursor:pointer}.previous-page__click-button .arrow[data-v-c9da5286],.next-page__click-button .arrow[data-v-c9da5286]{display:inline-block;width:8px;height:8px;border-top:2px solid #000;border-left:2px solid #000}.previous-page__click-button .arrow.arrow-left[data-v-c9da5286],.next-page__click-button .arrow.arrow-left[data-v-c9da5286]{transform:rotate(135deg)}.previous-page__click-button .arrow.arrow-right[data-v-c9da5286],.next-page__click-button .arrow.arrow-right[data-v-c9da5286]{transform:rotate(-45deg)}.previous-page__click-button.first-page[data-v-c9da5286],.next-page__click-button.last-page[data-v-c9da5286]{cursor:not-allowed}.previous-page__click-button.first-page .arrow[data-v-c9da5286],.next-page__click-button.last-page .arrow[data-v-c9da5286]{border-color:#e0e0e0}:root{--easy-table-border: 1px solid #e0e0e0;--easy-table-row-border: 1px solid #e0e0e0;--easy-table-header-font-size: 12px;--easy-table-header-height: 36px;--easy-table-header-font-color: #373737;--easy-table-header-background-color: #fff;--easy-table-header-item-padding: 0px 10px;--easy-table-body-row-height: 36px;--easy-table-body-row-font-size: 12px;--easy-table-body-row-font-color: #212121;--easy-table-body-row-background-color: #fff;--easy-table-body-row-hover-font-color: #212121;--easy-table-body-row-hover-background-color: #eee;--easy-table-body-even-row-font-color: #212121;--easy-table-body-even-row-background-color: #fafafa;--easy-table-body-item-padding: 0px 10px;--easy-table-footer-background-color: #fff;--easy-table-footer-font-color: #212121;--easy-table-footer-font-size: 12px;--easy-table-footer-padding: 0px 5px;--easy-table-footer-height: 36px;--easy-table-rows-per-page-selector-width: auto;--easy-table-rows-per-page-selector-option-padding: 5px;--easy-table-rows-per-page-selector-z-index: auto;--easy-table-message-font-color: #212121;--easy-table-message-font-size: 12px;--easy-table-message-padding: 20px;--easy-table-loading-mask-background-color: #fff;--easy-table-loading-mask-opacity: .5;--easy-table-scrollbar-track-color: #fff;--easy-table-scrollbar-color: #fff;--easy-table-scrollbar-thumb-color: #c1c1c1;--easy-table-scrollbar-corner-color: #fff;--easy-table-buttons-pagination-border: 1px solid #e0e0e0}.vue3-easy-data-table[data-v-32683533]{border:var(--easy-table-border);position:relative;box-sizing:border-box}.vue3-easy-data-table__main[data-v-32683533]{border:none;width:100%;overflow:auto;background-color:var(--easy-table-body-row-background-color)}.vue3-easy-data-table__main[data-v-32683533]::-webkit-scrollbar-track{border-radius:10px;background-color:var(--easy-table-scrollbar-track-color)}.vue3-easy-data-table__main[data-v-32683533]::-webkit-scrollbar{width:7px;height:7px;background-color:var(--easy-table-scrollbar-color)}.vue3-easy-data-table__main[data-v-32683533]::-webkit-scrollbar-thumb{border-radius:10px;background-color:var(--easy-table-scrollbar-thumb-color)}.vue3-easy-data-table__main[data-v-32683533]::-webkit-scrollbar-corner{background-color:var(--easy-table-scrollbar-corner-color)}.vue3-easy-data-table__main.table-fixed table[data-v-32683533]{table-layout:fixed}.vue3-easy-data-table__main.show-shadow th.shadow[data-v-32683533]:after,.vue3-easy-data-table__main.show-shadow td.shadow[data-v-32683533]:after{box-shadow:inset 6px 0 5px -3px #0003}.vue3-easy-data-table__main.fixed-header th[data-v-32683533]{position:sticky;top:0;z-index:2}.vue3-easy-data-table__main.hoverable tr:hover td[data-v-32683533]{background-color:var(--easy-table-body-row-hover-background-color);color:var(--easy-table-body-row-hover-font-color)}.vue3-easy-data-table__main.hoverable .vue3-easy-data-table__body.row-alternation .even-row:hover td[data-v-32683533]{color:var(--easy-table-body-row-hover-font-color);background-color:var(--easy-table-body-row-hover-background-color)}.vue3-easy-data-table__main.border-cell .vue3-easy-data-table__header th[data-v-32683533]{border-right:var(--easy-table-row-border)}.vue3-easy-data-table__main.border-cell .vue3-easy-data-table__header th[data-v-32683533]:last-of-type{border-right:none}.vue3-easy-data-table__main.border-cell .vue3-easy-data-table__body td[data-v-32683533]{border-right:var(--easy-table-row-border)}.vue3-easy-data-table__main.border-cell .vue3-easy-data-table__body td[data-v-32683533]:last-of-type{border-right:none}.vue3-easy-data-table__body.row-alternation tr.even-row td[data-v-32683533]{color:var(--easy-table-body-even-row-font-color);background-color:var(--easy-table-body-even-row-background-color)}table[data-v-32683533]{border-collapse:initial;display:table;width:100%;border-spacing:0;margin:0}.vue3-easy-data-table__header[data-v-32683533],vue3-easy-data-table__body[data-v-32683533]{position:relative}.vue3-easy-data-table__header tr[data-v-32683533]{font-size:var(--easy-table-header-font-size);border:none;height:var(--easy-table-header-height)}.vue3-easy-data-table__header th[data-v-32683533]{background-color:var(--easy-table-header-background-color);color:var(--easy-table-header-font-color);border:none;border-bottom:var(--easy-table-row-border);padding:var(--easy-table-header-item-padding);position:relative}.vue3-easy-data-table__header th .header[data-v-32683533]{display:flex;align-items:center}.vue3-easy-data-table__header th .header.direction-left[data-v-32683533]{justify-content:flex-start}.vue3-easy-data-table__header th .header.direction-center[data-v-32683533]{justify-content:center}.vue3-easy-data-table__header th .header.direction-right[data-v-32683533]{justify-content:flex-end}.vue3-easy-data-table__header th.sortable[data-v-32683533]{cursor:pointer}.vue3-easy-data-table__header th.sortable .sortType-icon[data-v-32683533]{border:5px solid transparent;margin-top:-3px;margin-left:4px;display:inline-block;height:0;width:0;position:relative;border-bottom-color:var(--easy-table-header-font-color)}.vue3-easy-data-table__header th.sortable .multi-sort__number[data-v-32683533]{border-radius:50%;height:1.5em;width:1.5em;line-height:1.5em;margin-left:4px;background-color:var(--easy-table-header-font-color);color:var(--easy-table-header-background-color)}.vue3-easy-data-table__header th.sortable.none:hover .sortType-icon[data-v-32683533]{opacity:1}.vue3-easy-data-table__header th.sortable.none .sortType-icon[data-v-32683533]{opacity:0;transition:.5s ease}.vue3-easy-data-table__header th.sortable.desc .sortType-icon[data-v-32683533]{margin-top:5px;transform:rotate(180deg)}.vue3-easy-data-table__header th.shadow[data-v-32683533]:after,.vue3-easy-data-table__body td.shadow[data-v-32683533]:after{pointer-events:none;content:"";width:36px;display:inline-block;height:100%;position:absolute;top:0;right:-36px;box-shadow:none}.vue3-easy-data-table__body tr[data-v-32683533]{height:var(--easy-table-body-row-height);color:var(--easy-table-body-row-font-color);font-size:var(--easy-table-body-row-font-size)}.vue3-easy-data-table__body tr:last-child td[data-v-32683533]{border-bottom:none}.vue3-easy-data-table__body tr:first-child td[data-v-32683533]{border-bottom:var(--easy-table-row-border)}.vue3-easy-data-table__body td[data-v-32683533]{padding:var(--easy-table-body-item-padding);background-color:var(--easy-table-body-row-background-color);border:none;border-bottom:var(--easy-table-row-border);position:relative}.vue3-easy-data-table__body td.direction-left[data-v-32683533]{text-align:left}.vue3-easy-data-table__body td.direction-center[data-v-32683533]{text-align:center}.vue3-easy-data-table__body td.direction-right[data-v-32683533]{text-align:right}.vue3-easy-data-table__body td .expand-icon[data-v-32683533]{border:solid;border-color:var(easy-table-body-row-font-color);border-width:0 2px 2px 0;display:inline-block;padding:3px;transform:rotate(-45deg);transition:.2s}.vue3-easy-data-table__body td .expand-icon.expanding[data-v-32683533]{transform:rotate(45deg)}.vue3-easy-data-table__body td.expand[data-v-32683533]{position:relative}.vue3-easy-data-table__body td.expand .expand-loading[data-v-32683533]{position:absolute;top:0;left:0}.vue3-easy-data-table__body td.can-expand[data-v-32683533]{cursor:pointer}.vue3-easy-data-table__footer[data-v-32683533]{background-color:var(--easy-table-footer-background-color);color:var(--easy-table-footer-font-color);border-top:var(--easy-table-row-border);font-size:var(--easy-table-footer-font-size);height:var(--easy-table-footer-height);padding:var(--easy-table-footer-padding);box-sizing:border-box;width:100%;display:flex;align-items:center;justify-content:flex-end}.vue3-easy-data-table__footer .pagination__rows-per-page[data-v-32683533]{display:flex;align-items:center}.vue3-easy-data-table__footer .pagination__items-index[data-v-32683533]{margin:0 20px 0 10px}.vue3-easy-data-table__message[data-v-32683533]{color:var(--easy-table-message-font-color);font-size:var(--easy-table-message-font-size);padding:var(--easy-table-message-padding);text-align:center}.vue3-easy-data-table__loading[data-v-32683533]{z-index:3;overflow:hidden;position:absolute;width:100%;height:100%;top:0;left:0;display:flex;align-items:center;justify-content:center}.vue3-easy-data-table__loading .loading-entity[data-v-32683533]{z-index:1}.vue3-easy-data-table__loading-mask[data-v-32683533]{background-color:var(--easy-table-loading-mask-background-color);opacity:var(--easy-table-loading-mask-opacity);position:absolute;width:100%;height:100%;top:0;left:0;z-index:1}.vue3-easy-data-table__main[data-v-32683533]{min-height:var(--da0d4328)}.vue3-easy-data-table__main.fixed-height[data-v-32683533]{height:var(--3037e504)}:root,:host,.sl-theme-light{color-scheme:light;--sl-color-gray-50: hsl(0 0% 97.5%);--sl-color-gray-100: hsl(240 4.8% 95.9%);--sl-color-gray-200: hsl(240 5.9% 90%);--sl-color-gray-300: hsl(240 4.9% 83.9%);--sl-color-gray-400: hsl(240 5% 64.9%);--sl-color-gray-500: hsl(240 3.8% 46.1%);--sl-color-gray-600: hsl(240 5.2% 33.9%);--sl-color-gray-700: hsl(240 5.3% 26.1%);--sl-color-gray-800: hsl(240 3.7% 15.9%);--sl-color-gray-900: hsl(240 5.9% 10%);--sl-color-gray-950: hsl(240 7.3% 8%);--sl-color-red-50: hsl(0 85.7% 97.3%);--sl-color-red-100: hsl(0 93.3% 94.1%);--sl-color-red-200: hsl(0 96.3% 89.4%);--sl-color-red-300: hsl(0 93.5% 81.8%);--sl-color-red-400: hsl(0 90.6% 70.8%);--sl-color-red-500: hsl(0 84.2% 60.2%);--sl-color-red-600: hsl(0 72.2% 50.6%);--sl-color-red-700: hsl(0 73.7% 41.8%);--sl-color-red-800: hsl(0 70% 35.3%);--sl-color-red-900: hsl(0 62.8% 30.6%);--sl-color-red-950: hsl(0 60% 19.6%);--sl-color-orange-50: hsl(33.3 100% 96.5%);--sl-color-orange-100: hsl(34.3 100% 91.8%);--sl-color-orange-200: hsl(32.1 97.7% 83.1%);--sl-color-orange-300: hsl(30.7 97.2% 72.4%);--sl-color-orange-400: hsl(27 96% 61%);--sl-color-orange-500: hsl(24.6 95% 53.1%);--sl-color-orange-600: hsl(20.5 90.2% 48.2%);--sl-color-orange-700: hsl(17.5 88.3% 40.4%);--sl-color-orange-800: hsl(15 79.1% 33.7%);--sl-color-orange-900: hsl(15.3 74.6% 27.8%);--sl-color-orange-950: hsl(15.2 69.1% 19%);--sl-color-amber-50: hsl(48 100% 96.1%);--sl-color-amber-100: hsl(48 96.5% 88.8%);--sl-color-amber-200: hsl(48 96.6% 76.7%);--sl-color-amber-300: hsl(45.9 96.7% 64.5%);--sl-color-amber-400: hsl(43.3 96.4% 56.3%);--sl-color-amber-500: hsl(37.7 92.1% 50.2%);--sl-color-amber-600: hsl(32.1 94.6% 43.7%);--sl-color-amber-700: hsl(26 90.5% 37.1%);--sl-color-amber-800: hsl(22.7 82.5% 31.4%);--sl-color-amber-900: hsl(21.7 77.8% 26.5%);--sl-color-amber-950: hsl(22.9 74.1% 16.7%);--sl-color-yellow-50: hsl(54.5 91.7% 95.3%);--sl-color-yellow-100: hsl(54.9 96.7% 88%);--sl-color-yellow-200: hsl(52.8 98.3% 76.9%);--sl-color-yellow-300: hsl(50.4 97.8% 63.5%);--sl-color-yellow-400: hsl(47.9 95.8% 53.1%);--sl-color-yellow-500: hsl(45.4 93.4% 47.5%);--sl-color-yellow-600: hsl(40.6 96.1% 40.4%);--sl-color-yellow-700: hsl(35.5 91.7% 32.9%);--sl-color-yellow-800: hsl(31.8 81% 28.8%);--sl-color-yellow-900: hsl(28.4 72.5% 25.7%);--sl-color-yellow-950: hsl(33.1 69% 13.9%);--sl-color-lime-50: hsl(78.3 92% 95.1%);--sl-color-lime-100: hsl(79.6 89.1% 89.2%);--sl-color-lime-200: hsl(80.9 88.5% 79.6%);--sl-color-lime-300: hsl(82 84.5% 67.1%);--sl-color-lime-400: hsl(82.7 78% 55.5%);--sl-color-lime-500: hsl(83.7 80.5% 44.3%);--sl-color-lime-600: hsl(84.8 85.2% 34.5%);--sl-color-lime-700: hsl(85.9 78.4% 27.3%);--sl-color-lime-800: hsl(86.3 69% 22.7%);--sl-color-lime-900: hsl(87.6 61.2% 20.2%);--sl-color-lime-950: hsl(86.5 60.6% 13.9%);--sl-color-green-50: hsl(138.5 76.5% 96.7%);--sl-color-green-100: hsl(140.6 84.2% 92.5%);--sl-color-green-200: hsl(141 78.9% 85.1%);--sl-color-green-300: hsl(141.7 76.6% 73.1%);--sl-color-green-400: hsl(141.9 69.2% 58%);--sl-color-green-500: hsl(142.1 70.6% 45.3%);--sl-color-green-600: hsl(142.1 76.2% 36.3%);--sl-color-green-700: hsl(142.4 71.8% 29.2%);--sl-color-green-800: hsl(142.8 64.2% 24.1%);--sl-color-green-900: hsl(143.8 61.2% 20.2%);--sl-color-green-950: hsl(144.3 60.7% 12%);--sl-color-emerald-50: hsl(151.8 81% 95.9%);--sl-color-emerald-100: hsl(149.3 80.4% 90%);--sl-color-emerald-200: hsl(152.4 76% 80.4%);--sl-color-emerald-300: hsl(156.2 71.6% 66.9%);--sl-color-emerald-400: hsl(158.1 64.4% 51.6%);--sl-color-emerald-500: hsl(160.1 84.1% 39.4%);--sl-color-emerald-600: hsl(161.4 93.5% 30.4%);--sl-color-emerald-700: hsl(162.9 93.5% 24.3%);--sl-color-emerald-800: hsl(163.1 88.1% 19.8%);--sl-color-emerald-900: hsl(164.2 85.7% 16.5%);--sl-color-emerald-950: hsl(164.3 87.5% 9.4%);--sl-color-teal-50: hsl(166.2 76.5% 96.7%);--sl-color-teal-100: hsl(167.2 85.5% 89.2%);--sl-color-teal-200: hsl(168.4 83.8% 78.2%);--sl-color-teal-300: hsl(170.6 76.9% 64.3%);--sl-color-teal-400: hsl(172.5 66% 50.4%);--sl-color-teal-500: hsl(173.4 80.4% 40%);--sl-color-teal-600: hsl(174.7 83.9% 31.6%);--sl-color-teal-700: hsl(175.3 77.4% 26.1%);--sl-color-teal-800: hsl(176.1 69.4% 21.8%);--sl-color-teal-900: hsl(175.9 60.8% 19%);--sl-color-teal-950: hsl(176.5 58.6% 11.4%);--sl-color-cyan-50: hsl(183.2 100% 96.3%);--sl-color-cyan-100: hsl(185.1 95.9% 90.4%);--sl-color-cyan-200: hsl(186.2 93.5% 81.8%);--sl-color-cyan-300: hsl(187 92.4% 69%);--sl-color-cyan-400: hsl(187.9 85.7% 53.3%);--sl-color-cyan-500: hsl(188.7 94.5% 42.7%);--sl-color-cyan-600: hsl(191.6 91.4% 36.5%);--sl-color-cyan-700: hsl(192.9 82.3% 31%);--sl-color-cyan-800: hsl(194.4 69.6% 27.1%);--sl-color-cyan-900: hsl(196.4 63.6% 23.7%);--sl-color-cyan-950: hsl(196.8 61% 16.1%);--sl-color-sky-50: hsl(204 100% 97.1%);--sl-color-sky-100: hsl(204 93.8% 93.7%);--sl-color-sky-200: hsl(200.6 94.4% 86.1%);--sl-color-sky-300: hsl(199.4 95.5% 73.9%);--sl-color-sky-400: hsl(198.4 93.2% 59.6%);--sl-color-sky-500: hsl(198.6 88.7% 48.4%);--sl-color-sky-600: hsl(200.4 98% 39.4%);--sl-color-sky-700: hsl(201.3 96.3% 32.2%);--sl-color-sky-800: hsl(201 90% 27.5%);--sl-color-sky-900: hsl(202 80.3% 23.9%);--sl-color-sky-950: hsl(202.3 73.8% 16.5%);--sl-color-blue-50: hsl(213.8 100% 96.9%);--sl-color-blue-100: hsl(214.3 94.6% 92.7%);--sl-color-blue-200: hsl(213.3 96.9% 87.3%);--sl-color-blue-300: hsl(211.7 96.4% 78.4%);--sl-color-blue-400: hsl(213.1 93.9% 67.8%);--sl-color-blue-500: hsl(217.2 91.2% 59.8%);--sl-color-blue-600: hsl(221.2 83.2% 53.3%);--sl-color-blue-700: hsl(224.3 76.3% 48%);--sl-color-blue-800: hsl(225.9 70.7% 40.2%);--sl-color-blue-900: hsl(224.4 64.3% 32.9%);--sl-color-blue-950: hsl(226.2 55.3% 18.4%);--sl-color-indigo-50: hsl(225.9 100% 96.7%);--sl-color-indigo-100: hsl(226.5 100% 93.9%);--sl-color-indigo-200: hsl(228 96.5% 88.8%);--sl-color-indigo-300: hsl(229.7 93.5% 81.8%);--sl-color-indigo-400: hsl(234.5 89.5% 73.9%);--sl-color-indigo-500: hsl(238.7 83.5% 66.7%);--sl-color-indigo-600: hsl(243.4 75.4% 58.6%);--sl-color-indigo-700: hsl(244.5 57.9% 50.6%);--sl-color-indigo-800: hsl(243.7 54.5% 41.4%);--sl-color-indigo-900: hsl(242.2 47.4% 34.3%);--sl-color-indigo-950: hsl(243.5 43.6% 22.9%);--sl-color-violet-50: hsl(250 100% 97.6%);--sl-color-violet-100: hsl(251.4 91.3% 95.5%);--sl-color-violet-200: hsl(250.5 95.2% 91.8%);--sl-color-violet-300: hsl(252.5 94.7% 85.1%);--sl-color-violet-400: hsl(255.1 91.7% 76.3%);--sl-color-violet-500: hsl(258.3 89.5% 66.3%);--sl-color-violet-600: hsl(262.1 83.3% 57.8%);--sl-color-violet-700: hsl(263.4 70% 50.4%);--sl-color-violet-800: hsl(263.4 69.3% 42.2%);--sl-color-violet-900: hsl(263.5 67.4% 34.9%);--sl-color-violet-950: hsl(265.1 61.5% 21.4%);--sl-color-purple-50: hsl(270 100% 98%);--sl-color-purple-100: hsl(268.7 100% 95.5%);--sl-color-purple-200: hsl(268.6 100% 91.8%);--sl-color-purple-300: hsl(269.2 97.4% 85.1%);--sl-color-purple-400: hsl(270 95.2% 75.3%);--sl-color-purple-500: hsl(270.7 91% 65.1%);--sl-color-purple-600: hsl(271.5 81.3% 55.9%);--sl-color-purple-700: hsl(272.1 71.7% 47.1%);--sl-color-purple-800: hsl(272.9 67.2% 39.4%);--sl-color-purple-900: hsl(273.6 65.6% 32%);--sl-color-purple-950: hsl(276 59.5% 16.5%);--sl-color-fuchsia-50: hsl(289.1 100% 97.8%);--sl-color-fuchsia-100: hsl(287 100% 95.5%);--sl-color-fuchsia-200: hsl(288.3 95.8% 90.6%);--sl-color-fuchsia-300: hsl(291.1 93.1% 82.9%);--sl-color-fuchsia-400: hsl(292 91.4% 72.5%);--sl-color-fuchsia-500: hsl(292.2 84.1% 60.6%);--sl-color-fuchsia-600: hsl(293.4 69.5% 48.8%);--sl-color-fuchsia-700: hsl(294.7 72.4% 39.8%);--sl-color-fuchsia-800: hsl(295.4 70.2% 32.9%);--sl-color-fuchsia-900: hsl(296.7 63.6% 28%);--sl-color-fuchsia-950: hsl(297.1 56.8% 14.5%);--sl-color-pink-50: hsl(327.3 73.3% 97.1%);--sl-color-pink-100: hsl(325.7 77.8% 94.7%);--sl-color-pink-200: hsl(325.9 84.6% 89.8%);--sl-color-pink-300: hsl(327.4 87.1% 81.8%);--sl-color-pink-400: hsl(328.6 85.5% 70.2%);--sl-color-pink-500: hsl(330.4 81.2% 60.4%);--sl-color-pink-600: hsl(333.3 71.4% 50.6%);--sl-color-pink-700: hsl(335.1 77.6% 42%);--sl-color-pink-800: hsl(335.8 74.4% 35.3%);--sl-color-pink-900: hsl(335.9 69% 30.4%);--sl-color-pink-950: hsl(336.2 65.4% 15.9%);--sl-color-rose-50: hsl(355.7 100% 97.3%);--sl-color-rose-100: hsl(355.6 100% 94.7%);--sl-color-rose-200: hsl(352.7 96.1% 90%);--sl-color-rose-300: hsl(352.6 95.7% 81.8%);--sl-color-rose-400: hsl(351.3 94.5% 71.4%);--sl-color-rose-500: hsl(349.7 89.2% 60.2%);--sl-color-rose-600: hsl(346.8 77.2% 49.8%);--sl-color-rose-700: hsl(345.3 82.7% 40.8%);--sl-color-rose-800: hsl(343.4 79.7% 34.7%);--sl-color-rose-900: hsl(341.5 75.5% 30.4%);--sl-color-rose-950: hsl(341.3 70.1% 17.1%);--sl-color-primary-50: var(--sl-color-sky-50);--sl-color-primary-100: var(--sl-color-sky-100);--sl-color-primary-200: var(--sl-color-sky-200);--sl-color-primary-300: var(--sl-color-sky-300);--sl-color-primary-400: var(--sl-color-sky-400);--sl-color-primary-500: var(--sl-color-sky-500);--sl-color-primary-600: var(--sl-color-sky-600);--sl-color-primary-700: var(--sl-color-sky-700);--sl-color-primary-800: var(--sl-color-sky-800);--sl-color-primary-900: var(--sl-color-sky-900);--sl-color-primary-950: var(--sl-color-sky-950);--sl-color-success-50: var(--sl-color-green-50);--sl-color-success-100: var(--sl-color-green-100);--sl-color-success-200: var(--sl-color-green-200);--sl-color-success-300: var(--sl-color-green-300);--sl-color-success-400: var(--sl-color-green-400);--sl-color-success-500: var(--sl-color-green-500);--sl-color-success-600: var(--sl-color-green-600);--sl-color-success-700: var(--sl-color-green-700);--sl-color-success-800: var(--sl-color-green-800);--sl-color-success-900: var(--sl-color-green-900);--sl-color-success-950: var(--sl-color-green-950);--sl-color-warning-50: var(--sl-color-amber-50);--sl-color-warning-100: var(--sl-color-amber-100);--sl-color-warning-200: var(--sl-color-amber-200);--sl-color-warning-300: var(--sl-color-amber-300);--sl-color-warning-400: var(--sl-color-amber-400);--sl-color-warning-500: var(--sl-color-amber-500);--sl-color-warning-600: var(--sl-color-amber-600);--sl-color-warning-700: var(--sl-color-amber-700);--sl-color-warning-800: var(--sl-color-amber-800);--sl-color-warning-900: var(--sl-color-amber-900);--sl-color-warning-950: var(--sl-color-amber-950);--sl-color-danger-50: var(--sl-color-red-50);--sl-color-danger-100: var(--sl-color-red-100);--sl-color-danger-200: var(--sl-color-red-200);--sl-color-danger-300: var(--sl-color-red-300);--sl-color-danger-400: var(--sl-color-red-400);--sl-color-danger-500: var(--sl-color-red-500);--sl-color-danger-600: var(--sl-color-red-600);--sl-color-danger-700: var(--sl-color-red-700);--sl-color-danger-800: var(--sl-color-red-800);--sl-color-danger-900: var(--sl-color-red-900);--sl-color-danger-950: var(--sl-color-red-950);--sl-color-neutral-50: var(--sl-color-gray-50);--sl-color-neutral-100: var(--sl-color-gray-100);--sl-color-neutral-200: var(--sl-color-gray-200);--sl-color-neutral-300: var(--sl-color-gray-300);--sl-color-neutral-400: var(--sl-color-gray-400);--sl-color-neutral-500: var(--sl-color-gray-500);--sl-color-neutral-600: var(--sl-color-gray-600);--sl-color-neutral-700: var(--sl-color-gray-700);--sl-color-neutral-800: var(--sl-color-gray-800);--sl-color-neutral-900: var(--sl-color-gray-900);--sl-color-neutral-950: var(--sl-color-gray-950);--sl-color-neutral-0: hsl(0, 0%, 100%);--sl-color-neutral-1000: hsl(0, 0%, 0%);--sl-border-radius-small: .1875rem;--sl-border-radius-medium: .25rem;--sl-border-radius-large: .5rem;--sl-border-radius-x-large: 1rem;--sl-border-radius-circle: 50%;--sl-border-radius-pill: 9999px;--sl-shadow-x-small: 0 1px 2px hsl(240 3.8% 46.1% / 6%);--sl-shadow-small: 0 1px 2px hsl(240 3.8% 46.1% / 12%);--sl-shadow-medium: 0 2px 4px hsl(240 3.8% 46.1% / 12%);--sl-shadow-large: 0 2px 8px hsl(240 3.8% 46.1% / 12%);--sl-shadow-x-large: 0 4px 16px hsl(240 3.8% 46.1% / 12%);--sl-spacing-3x-small: .125rem;--sl-spacing-2x-small: .25rem;--sl-spacing-x-small: .5rem;--sl-spacing-small: .75rem;--sl-spacing-medium: 1rem;--sl-spacing-large: 1.25rem;--sl-spacing-x-large: 1.75rem;--sl-spacing-2x-large: 2.25rem;--sl-spacing-3x-large: 3rem;--sl-spacing-4x-large: 4.5rem;--sl-transition-x-slow: 1s;--sl-transition-slow: .5s;--sl-transition-medium: .25s;--sl-transition-fast: .15s;--sl-transition-x-fast: 50ms;--sl-font-mono: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;--sl-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";--sl-font-serif: Georgia, "Times New Roman", serif;--sl-font-size-2x-small: .625rem;--sl-font-size-x-small: .75rem;--sl-font-size-small: .875rem;--sl-font-size-medium: 1rem;--sl-font-size-large: 1.25rem;--sl-font-size-x-large: 1.5rem;--sl-font-size-2x-large: 2.25rem;--sl-font-size-3x-large: 3rem;--sl-font-size-4x-large: 4.5rem;--sl-font-weight-light: 300;--sl-font-weight-normal: 400;--sl-font-weight-semibold: 500;--sl-font-weight-bold: 700;--sl-letter-spacing-denser: -.03em;--sl-letter-spacing-dense: -.015em;--sl-letter-spacing-normal: normal;--sl-letter-spacing-loose: .075em;--sl-letter-spacing-looser: .15em;--sl-line-height-denser: 1;--sl-line-height-dense: 1.4;--sl-line-height-normal: 1.8;--sl-line-height-loose: 2.2;--sl-line-height-looser: 2.6;--sl-focus-ring-color: var(--sl-color-primary-600);--sl-focus-ring-style: solid;--sl-focus-ring-width: 3px;--sl-focus-ring: var(--sl-focus-ring-style) var(--sl-focus-ring-width) var(--sl-focus-ring-color);--sl-focus-ring-offset: 1px;--sl-button-font-size-small: var(--sl-font-size-x-small);--sl-button-font-size-medium: var(--sl-font-size-small);--sl-button-font-size-large: var(--sl-font-size-medium);--sl-input-height-small: 1.875rem;--sl-input-height-medium: 2.5rem;--sl-input-height-large: 3.125rem;--sl-input-background-color: var(--sl-color-neutral-0);--sl-input-background-color-hover: var(--sl-input-background-color);--sl-input-background-color-focus: var(--sl-input-background-color);--sl-input-background-color-disabled: var(--sl-color-neutral-100);--sl-input-border-color: var(--sl-color-neutral-300);--sl-input-border-color-hover: var(--sl-color-neutral-400);--sl-input-border-color-focus: var(--sl-color-primary-500);--sl-input-border-color-disabled: var(--sl-color-neutral-300);--sl-input-border-width: 1px;--sl-input-required-content: "*";--sl-input-required-content-offset: -2px;--sl-input-required-content-color: var(--sl-input-label-color);--sl-input-border-radius-small: var(--sl-border-radius-medium);--sl-input-border-radius-medium: var(--sl-border-radius-medium);--sl-input-border-radius-large: var(--sl-border-radius-medium);--sl-input-font-family: var(--sl-font-sans);--sl-input-font-weight: var(--sl-font-weight-normal);--sl-input-font-size-small: var(--sl-font-size-small);--sl-input-font-size-medium: var(--sl-font-size-medium);--sl-input-font-size-large: var(--sl-font-size-large);--sl-input-letter-spacing: var(--sl-letter-spacing-normal);--sl-input-color: var(--sl-color-neutral-700);--sl-input-color-hover: var(--sl-color-neutral-700);--sl-input-color-focus: var(--sl-color-neutral-700);--sl-input-color-disabled: var(--sl-color-neutral-900);--sl-input-icon-color: var(--sl-color-neutral-500);--sl-input-icon-color-hover: var(--sl-color-neutral-600);--sl-input-icon-color-focus: var(--sl-color-neutral-600);--sl-input-placeholder-color: var(--sl-color-neutral-500);--sl-input-placeholder-color-disabled: var(--sl-color-neutral-600);--sl-input-spacing-small: var(--sl-spacing-small);--sl-input-spacing-medium: var(--sl-spacing-medium);--sl-input-spacing-large: var(--sl-spacing-large);--sl-input-focus-ring-color: hsl(198.6 88.7% 48.4% / 40%);--sl-input-focus-ring-offset: 0;--sl-input-filled-background-color: var(--sl-color-neutral-100);--sl-input-filled-background-color-hover: var(--sl-color-neutral-100);--sl-input-filled-background-color-focus: var(--sl-color-neutral-100);--sl-input-filled-background-color-disabled: var(--sl-color-neutral-100);--sl-input-filled-color: var(--sl-color-neutral-800);--sl-input-filled-color-hover: var(--sl-color-neutral-800);--sl-input-filled-color-focus: var(--sl-color-neutral-700);--sl-input-filled-color-disabled: var(--sl-color-neutral-800);--sl-input-label-font-size-small: var(--sl-font-size-small);--sl-input-label-font-size-medium: var(--sl-font-size-medium);--sl-input-label-font-size-large: var(--sl-font-size-large);--sl-input-label-color: inherit;--sl-input-help-text-font-size-small: var(--sl-font-size-x-small);--sl-input-help-text-font-size-medium: var(--sl-font-size-small);--sl-input-help-text-font-size-large: var(--sl-font-size-medium);--sl-input-help-text-color: var(--sl-color-neutral-500);--sl-toggle-size-small: .875rem;--sl-toggle-size-medium: 1.125rem;--sl-toggle-size-large: 1.375rem;--sl-overlay-background-color: hsl(240 3.8% 46.1% / 33%);--sl-panel-background-color: var(--sl-color-neutral-0);--sl-panel-border-color: var(--sl-color-neutral-200);--sl-panel-border-width: 1px;--sl-tooltip-border-radius: var(--sl-border-radius-medium);--sl-tooltip-background-color: var(--sl-color-neutral-800);--sl-tooltip-color: var(--sl-color-neutral-0);--sl-tooltip-font-family: var(--sl-font-sans);--sl-tooltip-font-weight: var(--sl-font-weight-normal);--sl-tooltip-font-size: var(--sl-font-size-small);--sl-tooltip-line-height: var(--sl-line-height-dense);--sl-tooltip-padding: var(--sl-spacing-2x-small) var(--sl-spacing-x-small);--sl-tooltip-arrow-size: 6px;--sl-z-index-drawer: 700;--sl-z-index-dialog: 800;--sl-z-index-dropdown: 900;--sl-z-index-toast: 950;--sl-z-index-tooltip: 1000}@supports (scrollbar-gutter: stable){.sl-scroll-lock{scrollbar-gutter:stable!important;overflow:hidden!important}}@supports not (scrollbar-gutter: stable){.sl-scroll-lock body{padding-right:var(--sl-scroll-lock-size)!important;overflow:hidden!important}}.sl-toast-stack{position:fixed;top:0;inset-inline-end:0;z-index:var(--sl-z-index-toast);width:28rem;max-width:100%;max-height:100%;overflow:auto}.sl-toast-stack sl-alert{margin:var(--sl-spacing-medium)}.sl-toast-stack sl-alert::part(base){box-shadow:var(--sl-shadow-large)}sl-dialog[data-v-2f0b35e4]::part(title){text-align:left}.clj-create-group-button[data-v-2f0b35e4]{display:flex;justify-content:space-between;width:max-content;align-items:center}#clj-create-prompt[data-v-60307933]{--width: 50vw}.clj-button[data-v-60307933]{margin-top:1rem;margin-left:.5rem}.clj-create-prompt-form[data-v-60307933]{display:flex}.clj-label-on-left[data-v-60307933]{--label-width: 3.75rem;--gap-width: 1rem}.clj-label-on-left[data-v-60307933]{margin-top:1rem;width:75%}.clj-label-on-left[data-v-60307933]::part(form-control){display:grid;grid:auto / var(--label-width) 1fr;gap:var(--sl-spacing-3x-small) var(--gap-width);align-items:center}.clj-label-on-left[data-v-60307933]::part(form-control-label){text-align:right}.clj-label-on-left[data-v-60307933]::part(form-control-help-text){grid-column-start:2}.clj-create-prompt-button[data-v-60307933]{display:flex;justify-content:space-between;width:max-content;align-items:center}.clj-create-group-div[data-v-3d20555e]{margin-top:1rem;margin-bottom:1rem}.clj-create-form[data-v-3d20555e]{margin-top:1rem;margin-left:1rem;padding-top:1rem;padding-left:1rem}#clj-create-learning-journal[data-v-3d20555e]{--width: 50vw}.clj-button[data-v-3d20555e]{margin-top:1rem;margin-left:.5rem}.clj-create-learning-journal-form[data-v-3d20555e]{margin-left:1rem;margin-right:1rem}.clj-label-on-left[data-v-3d20555e]::part(form-control-label){text-align:right}.clj-label-on-left[data-v-3d20555e]::part(form-control-help-text){grid-column-start:2}.clj-th-tooltip[data-v-2ce5deaa]{float:right;margin-right:1rem}.clj-status-student-groups[data-v-24711827],.clj-status-discussions[data-v-79398731]{background-color:#f0f0f0;padding:1em;border-radius:1em}.clj-configure[data-v-e077a626]{margin-left:1rem;margin-top:0rem}.clj-status-learning-journal[data-v-960f421b]{background-color:#f0f0f0;padding:1em;margin:1em;border-radius:1em}.clj-prompt-participation-details[data-v-7f0f9b70]{background-color:#f0f0f0;padding:1em;border-radius:1em}sl-tab[data-v-7f0f9b70]::part(base){font-size:.8rem;padding:.8rem;background:#f0f0f0}.clj-student[data-v-7f0f9b70]{display:block;padding:.5rem;width:20rem}.clj-student-forum[data-v-7f0f9b70]{width:75%;float:left}.clj-speedgrader[data-v-7f0f9b70]{clear:both;font-size:x-small}.clj-student-avatar[data-v-7f0f9b70]{float:right;clear:both}.clj-entries[data-v-7f0f9b70]{padding:1rem}.clj-participation-summary[data-v-8d865138]{background-color:#f0f0f0;padding:1em;border-radius:1em}.clj-span-right[data-v-8d865138]{text-align:right;width:90%;padding-right:1em}.clj-status-prompts[data-v-bb8e150e]{background-color:#f0f0f0;padding:1em;margin:1em;border-radius:1em}sl-tab[data-v-bb8e150e]::part(base){font-size:.8rem;padding:.8rem;background:#f0f0f0}.clj-orchestrate[data-v-3e33ef53]{margin-left:1rem}.clj-warning[data-v-e5c3e9e9]{color:red}:root{font-family:Inter,Avenir,Helvetica,Arial,sans-serif;font-size:16px;line-height:24px;font-weight:400;color-scheme:light dark;color:#ffffffde;background-color:#242424;font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-text-size-adjust:100%}a{font-weight:500;color:#646cff;text-decoration:inherit}a:hover{color:#535bf2}body{margin:0;display:flex;place-items:center;min-width:320px;min-height:100vh}h1{font-size:3.2em;line-height:1.1}h3{font-size:1.2em;line-height:1.1;font-weight:bolder}button{border-radius:8px;border:1px solid transparent;padding:.6em 1.2em;font-size:1em;font-weight:500;font-family:inherit;background-color:#1a1a1a;cursor:pointer;transition:border-color .25s}button:hover{border-color:#646cff}button:focus,button:focus-visible{outline:4px auto -webkit-focus-ring-color}.card{padding:2em}#app{max-width:1280px;margin:0 auto;padding:2rem;text-align:center}@media (prefers-color-scheme: light){:root{color:#213547;background-color:#fff}a:hover{color:#747bff}button{background-color:#f9f9f9}}.clj-status{margin-bottom:1rem;padding:.5rem;background-color:#f0f0f0;border-radius:5px;box-shadow:0 0 10px #0000001a;max-width:fit-content}.clj-detail{background-color:#f0f0f0;box-shadow:0 0 10px #0000001a;margin-top:-.8rem;margin-bottom:1rem}table.clj-data-table{width:100%}.clj-data-table thead{background-color:#ccc}.clj-data-table th{text-align:left;border-bottom:solid 2px #d8d8d8;padding:.25em;font-size:smaller}.clj-data-table td{font-size:smaller;padding:.5em}.clj-data-table tbody tr:nth-child(odd){background-color:#f8f8f8}.clj-data-table tbody tr:hover{background-color:#f0f0f0}th.clj-center,td.clj-center{text-align:center}th.clj-right,td.clj-right{text-align:right;padding-right:1rem}th.clj-half,td.clj-half{width:50%}th.clj-three-quarters,td.clj-three-quarters{width:75%}th.clj-one-quarter,td.clj-one-quarter{width:25%}table.clj-fixed{table-layout:fixed;width:100%}th.clj-cell-top,td.clj-cell-top{vertical-align:top;padding:.5rem}.clj-two-column-grid{display:block}.clj-two-column-grid>*{padding:1rem}@media (min-width: 768px){.clj-two-column-grid{display:grid;grid-template-columns:1fr 1fr}}.clj-configure{margin:1em;padding:1em}.cl-th-help{float:right}.clj-row{display:flex}.clj-col{flex:50%;margin-right:1rem}.clj-th-tooltip{float:right;margin-right:1rem} ');
 
 (function (vue) {
   'use strict';
@@ -1229,25 +1229,25 @@
       default: true
     }
   };
-  const _withScopeId$9 = (n3) => (vue.pushScopeId("data-v-32683533"), n3 = n3(), vue.popScopeId(), n3);
-  const _hoisted_1$j = ["id"];
-  const _hoisted_2$i = ["onClick"];
-  const _hoisted_3$i = {
+  const _withScopeId$a = (n3) => (vue.pushScopeId("data-v-32683533"), n3 = n3(), vue.popScopeId(), n3);
+  const _hoisted_1$k = ["id"];
+  const _hoisted_2$j = ["onClick"];
+  const _hoisted_3$j = {
     key: 3,
     class: "header-text"
   };
-  const _hoisted_4$h = {
+  const _hoisted_4$i = {
     key: 5,
     class: "multi-sort__number"
   };
-  const _hoisted_5$f = ["onClick", "onDblclick", "onContextmenu"];
-  const _hoisted_6$e = ["onClick"];
+  const _hoisted_5$h = ["onClick", "onDblclick", "onContextmenu"];
+  const _hoisted_6$f = ["onClick"];
   const _hoisted_7$c = ["colspan"];
   const _hoisted_8$a = {
     key: 0,
     class: "vue3-easy-data-table__loading"
   };
-  const _hoisted_9$9 = /* @__PURE__ */ _withScopeId$9(() => /* @__PURE__ */ vue.createElementVNode("div", { class: "vue3-easy-data-table__loading-mask" }, null, -1));
+  const _hoisted_9$9 = /* @__PURE__ */ _withScopeId$a(() => /* @__PURE__ */ vue.createElementVNode("div", { class: "vue3-easy-data-table__loading-mask" }, null, -1));
   const _hoisted_10$9 = { class: "loading-entity" };
   const _hoisted_11$9 = {
     key: 1,
@@ -1262,7 +1262,7 @@
     class: "pagination__rows-per-page"
   };
   const _hoisted_14$9 = { class: "pagination__items-index" };
-  const _sfc_main$j = /* @__PURE__ */ vue.defineComponent({
+  const _sfc_main$k = /* @__PURE__ */ vue.defineComponent({
     __name: "DataTable",
     props: __spreadProps$1(__spreadValues$1({}, propsWithDefault), {
       items: {
@@ -1527,14 +1527,14 @@
                         key: 1,
                         class: vue.normalizeClass(["header", `direction-${vue.unref(headerTextDirection)}`])
                       }, [
-                        vue.unref(slots)[`header-${header.value}`] ? vue.renderSlot(_ctx.$slots, `header-${header.value}`, vue.normalizeProps(vue.mergeProps({ key: 0 }, header)), void 0, true) : vue.unref(slots)[`header-${header.value.toLowerCase()}`] ? vue.renderSlot(_ctx.$slots, `header-${header.value.toLowerCase()}`, vue.normalizeProps(vue.mergeProps({ key: 1 }, header)), void 0, true) : vue.unref(slots)["header"] ? vue.renderSlot(_ctx.$slots, "header", vue.normalizeProps(vue.mergeProps({ key: 2 }, header)), void 0, true) : (vue.openBlock(), vue.createElementBlock("span", _hoisted_3$i, vue.toDisplayString(header.text), 1)),
+                        vue.unref(slots)[`header-${header.value}`] ? vue.renderSlot(_ctx.$slots, `header-${header.value}`, vue.normalizeProps(vue.mergeProps({ key: 0 }, header)), void 0, true) : vue.unref(slots)[`header-${header.value.toLowerCase()}`] ? vue.renderSlot(_ctx.$slots, `header-${header.value.toLowerCase()}`, vue.normalizeProps(vue.mergeProps({ key: 1 }, header)), void 0, true) : vue.unref(slots)["header"] ? vue.renderSlot(_ctx.$slots, "header", vue.normalizeProps(vue.mergeProps({ key: 2 }, header)), void 0, true) : (vue.openBlock(), vue.createElementBlock("span", _hoisted_3$j, vue.toDisplayString(header.text), 1)),
                         header.sortable ? (vue.openBlock(), vue.createElementBlock("i", {
                           key: header.sortType ? header.sortType : "none",
                           class: vue.normalizeClass(["sortType-icon", { "desc": header.sortType === "desc" }])
                         }, null, 2)) : vue.createCommentVNode("", true),
-                        vue.unref(multiSort) && vue.unref(isMultiSorting)(header.value) ? (vue.openBlock(), vue.createElementBlock("span", _hoisted_4$h, vue.toDisplayString(vue.unref(getMultiSortNumber)(header.value)), 1)) : vue.createCommentVNode("", true)
+                        vue.unref(multiSort) && vue.unref(isMultiSorting)(header.value) ? (vue.openBlock(), vue.createElementBlock("span", _hoisted_4$i, vue.toDisplayString(vue.unref(getMultiSortNumber)(header.value)), 1)) : vue.createCommentVNode("", true)
                       ], 2))
-                    ], 14, _hoisted_2$i);
+                    ], 14, _hoisted_2$j);
                   }), 128))
                 ])
               ], 2)) : vue.createCommentVNode("", true),
@@ -1592,9 +1592,9 @@
                           }, null, 8, ["checked", "onChange"])) : vue.unref(slots)["item"] ? vue.renderSlot(_ctx.$slots, "item", vue.normalizeProps(vue.mergeProps({ key: 4 }, { column, item })), void 0, true) : (vue.openBlock(), vue.createElementBlock(vue.Fragment, { key: 5 }, [
                             vue.createTextVNode(vue.toDisplayString(vue.unref(generateColumnContent)(column, item)), 1)
                           ], 64))
-                        ], 14, _hoisted_6$e);
+                        ], 14, _hoisted_6$f);
                       }), 128))
-                    ], 42, _hoisted_5$f),
+                    ], 42, _hoisted_5$h),
                     vue.unref(ifHasExpandSlot) && vue.unref(expandingItemIndexList).includes(index + vue.unref(prevPageEndIndex)) ? (vue.openBlock(), vue.createElementBlock("tr", {
                       key: 0,
                       class: vue.normalizeClass([
@@ -1629,7 +1629,7 @@
                   headers: vue.unref(headersForRender)
                 })), void 0, true)
               ], 2)) : vue.createCommentVNode("", true)
-            ], 8, _hoisted_1$j),
+            ], 8, _hoisted_1$k),
             vue.unref(loading) ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_8$a, [
               _hoisted_9$9,
               vue.createElementVNode("div", _hoisted_10$9, [
@@ -1683,7 +1683,7 @@
       };
     }
   });
-  var DataTable = /* @__PURE__ */ _export_sfc$1(_sfc_main$j, [["__scopeId", "data-v-32683533"]]);
+  var DataTable = /* @__PURE__ */ _export_sfc$1(_sfc_main$k, [["__scopeId", "data-v-32683533"]]);
   if (typeof window !== "undefined" && window.Vue) {
     window.Vue.createApp({}).component("Vue3EasyDataTable", DataTable);
   }
@@ -5208,6 +5208,12 @@
         url: "https://djplaner.github.io/canvas-learning-journal/references/software/#loading"
       }
     },
+    cljNotTeacher: {
+      title: {
+        content: `CLJ provides functionality for teachers to manage learning journal tasks.`,
+        url: "https://djplaner.github.io/canvas-learning-journal/references/software/#not-teacher"
+      }
+    },
     cljEveryone: {
       for_more: {
         // what is the purpose of the 'everyone' version: overview and create
@@ -5471,7 +5477,21 @@
       }
     }
   };
-  const DEBUG = false;
+  function getEnvironmentObject() {
+    const fieldsOfInterest = [
+      "current_user_id",
+      "current_user_is_student",
+      "currrent_user"
+    ];
+    let object = {};
+    fieldsOfInterest.forEach((field) => {
+      object[field] = ENV[field];
+    });
+    console.log("Environment object created: ");
+    console.log(ENV);
+    return object;
+  }
+  const DEBUG = true;
   const FILE_NAME$8 = "CanvasApiData.ts";
   const CSRFtoken = function() {
     return decodeURIComponent(
@@ -5592,6 +5612,9 @@ query cljBaseQuery {
       __publicField(this, "studentsWithoutGroup", false);
       // there are students without a group
       __publicField(this, "multiStudentGroups", false);
+      {
+        console.log("------------------ learningJournalStatus constructor");
+      }
       if (groupSet.hasOwnProperty("numGroups")) {
         this.groupsCreated = groupSet.numGroups > 0;
         this.promptsCreated = groupSet.numPrompts > 0;
@@ -5604,9 +5627,6 @@ query cljBaseQuery {
     }
   }
   class canvasApiData {
-    /*public studentsById: any = {}; // object of students by id
-    public teachersById: any = {}; // object of teachers by id
-    public discussionTopics: any = {} */
     /**
      * @constructor
      * @description Create a new CanvasCourse object, optional courseId
@@ -5639,6 +5659,10 @@ query cljBaseQuery {
       //public learningJournalStatus: learningJournalStatus
       __publicField(this, "learningJournalStatus", new learningJournalStatus({}));
       __publicField(this, "promptsByTopicId");
+      /*public studentsById: any = {}; // object of students by id
+      public teachersById: any = {}; // object of teachers by id
+      public discussionTopics: any = {} */
+      __publicField(this, "currentUserId", "");
       if (instance) {
         throw new Error("canvasApiData: Cannot create a new instance of a singleton");
       }
@@ -5648,6 +5672,11 @@ query cljBaseQuery {
       this.groupSets = [];
       this.updated = 0;
       this.promptsByTopicId = {};
+      const env2 = getEnvironmentObject();
+      this.currentUserId = env2["current_user_id"];
+      {
+        console.log(`${FILE_NAME$8} current user is ${this.currentUserId}`);
+      }
       instance = this;
     }
     /**
@@ -5684,11 +5713,17 @@ query cljBaseQuery {
      * @description Perform a GraphQL query on the Canvas API
      */
     retrieveGraphQLObject(getPromptData) {
+      {
+        console.log(FILE_NAME$8 + " -----  CanvasApiData::retrieveGraphQLObject");
+      }
       const idString = this.id.toString();
       if (this.id === -1) {
         throw new Error("canvasApiData::retrieveCourseObject: Course ID not set");
       }
       let callUrl = `${this.hostName}/api/graphql`;
+      {
+        console.log(`${FILE_NAME$8} Starting requestCourseObject for course ${this.id} as string ${idString}`);
+      }
       let query = GRAPHQL_QUERY.replaceAll("$courseId", idString);
       const body = JSON.stringify({
         query
@@ -5703,6 +5738,10 @@ query cljBaseQuery {
         },
         body
       }).then((response) => {
+        {
+          console.log(FILE_NAME$8 + "  :retrieveGraphQLObject: got response");
+          console.log(response);
+        }
         if (!response.ok) {
           throw new Error(
             `canvasApiData: retrieveGraphQLObject: error ${response.status}`
@@ -5714,10 +5753,16 @@ query cljBaseQuery {
               `canvasApiData: retrieveGraphQLObject: error ${data.errors[0].message}`
             );
           }
+          {
+            console.log(FILE_NAME$8 + "    :retrieveGraphQLObject: got data");
+          }
           this.transformGraphQLResponse(data.data.course);
           this.retrieveDiscussionTopics(idString, getPromptData);
           if (!getPromptData) {
             this.updated += 1;
+          }
+          {
+            console.log(this);
           }
         });
       });
@@ -5838,6 +5883,10 @@ query cljBaseQuery {
             this.getGroupsResponses();
           }
           this.updated += 1;
+          {
+            console.log(`${FILE_NAME$8} :retrieveDiscussionTopics: got ALLLL data`);
+            console.log(this);
+          }
         });
       });
     }
@@ -5909,7 +5958,10 @@ query cljBaseQuery {
      *   
      */
     async getGroupsResponses() {
-      this.calculateGroupsResponseCalls();
+      const numApiCalls = this.calculateGroupsResponseCalls();
+      {
+        console.log(`${FILE_NAME$8} getGroupsResponses: numApiCalls: ${numApiCalls}`);
+      }
       for (const groupSet of this.groupSets) {
         groupSet.updateProgress = 0;
         const progressIncrement = 100 / (groupSet.numGroups * groupSet.numPrompts);
@@ -5934,6 +5986,10 @@ query cljBaseQuery {
               // the group's topic
             });
           }
+          {
+            console.log(`${FILE_NAME$8} getGroupsResponses: groupTopicIds`);
+            console.log(groupTopics);
+          }
           for (const groupTopic of groupTopics) {
             let data = await this.getResponses(group._id, groupTopic.groupTopicId);
             if (data) {
@@ -5956,6 +6012,10 @@ query cljBaseQuery {
         this.analyseGroupSetTopics(groupSet._id);
         this.analyseGroupSetGroups(groupSet._id);
         groupSet.updated += 1;
+      }
+      {
+        console.log(`${FILE_NAME$8} getGroupsResponses: got all responses`);
+        console.log(this);
       }
     }
     /**
@@ -6183,8 +6243,11 @@ query cljBaseQuery {
      * GET /api/v1/courses/:course_id/discussion_topics/:topic_id/view 
      */
     async getResponses(groupId, topicId) {
-      this.id.toString();
+      const courseId = this.id.toString();
       const callUrl = `${this.hostName}/api/v1/groups/${groupId}/discussion_topics/${topicId}/view`;
+      {
+        console.log(`${FILE_NAME$8} getResponses: Hostname: ${this.hostName}; Course ID: ${courseId}; Group Id: ${groupId} Topic ID: ${topicId}`);
+      }
       try {
         const response = await fetch(callUrl, {
           method: "GET",
@@ -6200,8 +6263,12 @@ query cljBaseQuery {
           );
         }
         const data = await response.json();
-        if (DEBUG && GLOBAL_DEBUG)
-          ;
+        if (DEBUG && GLOBAL_DEBUG) {
+          if (data.view.length > 0) {
+            console.log(`${FILE_NAME$8} got some data`);
+            console.log(data);
+          }
+        }
         if (!data) {
           throw new Error(`${FILE_NAME$8}:getCourseObject: no data returned`);
           return {};
@@ -6236,26 +6303,56 @@ query cljBaseQuery {
       }
       return groupSetNames;
     }
+    /**
+     * @method isCurrentUserTeacher
+     * @returns {Boolean} True if the current user is a teacher in the course
+     * @description Check if the current user is a teacher in the course
+     * Only works once the course object has been retrieved
+     */
+    isCurrentUserTeacher() {
+      if (this.updated > 0) {
+        for (const teacher of this.teachers) {
+          if (teacher._id === this.currentUserId) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
   }
   let canvasData = vue.reactive(new canvasApiData());
   function getCanvasData(getPromptData = true) {
+    {
+      console.log(`${FILE_NAME$8}:getCanvasData getPromptData - ${getPromptData}`);
+      console.log(canvasData);
+      console.log("----");
+    }
     if (canvasData.id === -1) {
       canvasData.parseCurrentURL();
       canvasData.retrieveGraphQLObject(getPromptData);
+      {
+        console.log("canvasApiData:4 called retrieveGraphQLObject (we don't have data)");
+        console.log(canvasData);
+      }
+    }
+    {
+      console.log("canvasApiData:5 getCanvasCourse returning");
+      console.log(canvasData);
+      console.log("_________");
     }
     return canvasData;
   }
-  const _hoisted_1$i = /* @__PURE__ */ vue.createElementVNode("link", {
+  const _hoisted_1$j = /* @__PURE__ */ vue.createElementVNode("link", {
     href: "https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css",
     rel: "stylesheet"
   }, null, -1);
-  const _hoisted_2$h = { class: "clj-learning-journal-status" };
-  const _hoisted_3$h = ["href"];
-  const _hoisted_4$g = ["href"];
-  const _hoisted_5$e = ["href"];
-  const _hoisted_6$d = ["href"];
+  const _hoisted_2$i = { class: "clj-learning-journal-status" };
+  const _hoisted_3$i = ["href"];
+  const _hoisted_4$h = ["href"];
+  const _hoisted_5$g = ["href"];
+  const _hoisted_6$e = ["href"];
   const _hoisted_7$b = ["href"];
-  const _sfc_main$i = /* @__PURE__ */ vue.defineComponent({
+  const _sfc_main$j = /* @__PURE__ */ vue.defineComponent({
     __name: "cljStatusLearningJournal",
     props: {
       groupSetId: {}
@@ -6295,8 +6392,8 @@ query cljBaseQuery {
         const _component_sl_badge = vue.resolveComponent("sl-badge");
         const _component_sl_tooltip = vue.resolveComponent("sl-tooltip");
         return vue.openBlock(), vue.createElementBlock(vue.Fragment, null, [
-          _hoisted_1$i,
-          vue.createElementVNode("div", _hoisted_2$h, [
+          _hoisted_1$j,
+          vue.createElementVNode("div", _hoisted_2$i, [
             vue.createElementVNode("a", {
               href: `${vue.unref(TOOLTIPS).cljStatusLearningJournal.privateLearningJournal.url}`
             }, [
@@ -6316,7 +6413,7 @@ query cljBaseQuery {
                 ]),
                 _: 1
               }, 8, ["content"])
-            ], 8, _hoisted_3$h),
+            ], 8, _hoisted_3$i),
             vue.createElementVNode("a", {
               href: `${vue.unref(TOOLTIPS).cljStatusLearningJournal.studentsWithoutGroup.url}`
             }, [
@@ -6336,7 +6433,7 @@ query cljBaseQuery {
                 ]),
                 _: 1
               }, 8, ["content"])
-            ], 8, _hoisted_4$g),
+            ], 8, _hoisted_4$h),
             vue.createElementVNode("a", {
               href: `${vue.unref(TOOLTIPS).cljStatusLearningJournal.noPrompts.url}`
             }, [
@@ -6356,7 +6453,7 @@ query cljBaseQuery {
                 ]),
                 _: 1
               }, 8, ["content"])
-            ], 8, _hoisted_5$e),
+            ], 8, _hoisted_5$g),
             vue.createElementVNode("a", {
               href: `${vue.unref(TOOLTIPS).cljStatusLearningJournal.multiStudentGroups.url}`
             }, [
@@ -6376,7 +6473,7 @@ query cljBaseQuery {
                 ]),
                 _: 1
               }, 8, ["content"])
-            ], 8, _hoisted_6$d),
+            ], 8, _hoisted_6$e),
             vue.createElementVNode("a", {
               href: `${vue.unref(TOOLTIPS).cljStatusLearningJournal.noGroups.url}`
             }, [
@@ -6402,13 +6499,13 @@ query cljBaseQuery {
       };
     }
   });
-  const _hoisted_1$h = { class: "clj-missing-groups" };
-  const _hoisted_2$g = /* @__PURE__ */ vue.createElementVNode("span", null, "search value: ", -1);
-  const _hoisted_3$g = { key: 0 };
-  const _hoisted_4$f = ["href"];
-  const _hoisted_5$d = /* @__PURE__ */ vue.createElementVNode("br", null, null, -1);
+  const _hoisted_1$i = { class: "clj-missing-groups" };
+  const _hoisted_2$h = /* @__PURE__ */ vue.createElementVNode("span", null, "search value: ", -1);
+  const _hoisted_3$h = { key: 0 };
+  const _hoisted_4$g = ["href"];
+  const _hoisted_5$f = /* @__PURE__ */ vue.createElementVNode("br", null, null, -1);
   const FILE_NAME$7 = "cljMissingGroups";
-  const _sfc_main$h = /* @__PURE__ */ vue.defineComponent({
+  const _sfc_main$i = /* @__PURE__ */ vue.defineComponent({
     __name: "cljMissingGroups",
     props: {
       groupSetId: {},
@@ -6477,8 +6574,8 @@ query cljBaseQuery {
       );
       return (_ctx, _cache) => {
         const _component_EasyDataTable = vue.resolveComponent("EasyDataTable");
-        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$h, [
-          _hoisted_2$g,
+        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$i, [
+          _hoisted_2$h,
           vue.withDirectives(vue.createElementVNode("input", {
             type: "text",
             "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => searchValue.value = $event)
@@ -6496,30 +6593,30 @@ query cljBaseQuery {
             "border-cell": ""
           }, {
             "item-email": vue.withCtx((item) => [
-              item.studentData.email ? (vue.openBlock(), vue.createElementBlock("span", _hoisted_3$g, [
+              item.studentData.email ? (vue.openBlock(), vue.createElementBlock("span", _hoisted_3$h, [
                 vue.createElementVNode("a", {
                   href: `mailto:${item.studentData.email}`
-                }, vue.toDisplayString(item.studentData.email), 9, _hoisted_4$f)
+                }, vue.toDisplayString(item.studentData.email), 9, _hoisted_4$g)
               ])) : vue.createCommentVNode("", true)
             ]),
             _: 1
           }, 8, ["headers", "items", "items-selected", "search-value"]),
-          _hoisted_5$d,
+          _hoisted_5$f,
           vue.createTextVNode(" Field: " + vue.toDisplayString(searchField) + " value " + vue.toDisplayString(searchValue.value), 1)
         ]);
       };
     }
   });
-  const _withScopeId$8 = (n3) => (vue.pushScopeId("data-v-2f0b35e4"), n3 = n3(), vue.popScopeId(), n3);
-  const _hoisted_1$g = { class: "clj-create-group" };
-  const _hoisted_2$f = { class: "clj-create-group-button" };
-  const _hoisted_3$f = ["href"];
-  const _hoisted_4$e = /* @__PURE__ */ _withScopeId$8(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
-  const _hoisted_5$c = { slot: "label" };
-  const _hoisted_6$c = ["href"];
-  const _hoisted_7$a = /* @__PURE__ */ _withScopeId$8(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _withScopeId$9 = (n3) => (vue.pushScopeId("data-v-2f0b35e4"), n3 = n3(), vue.popScopeId(), n3);
+  const _hoisted_1$h = { class: "clj-create-group" };
+  const _hoisted_2$g = { class: "clj-create-group-button" };
+  const _hoisted_3$g = ["href"];
+  const _hoisted_4$f = /* @__PURE__ */ _withScopeId$9(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _hoisted_5$e = { slot: "label" };
+  const _hoisted_6$d = ["href"];
+  const _hoisted_7$a = /* @__PURE__ */ _withScopeId$9(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
   const FILE_NAME$6 = "cljCreateGroups";
-  const _sfc_main$g = /* @__PURE__ */ vue.defineComponent({
+  const _sfc_main$h = /* @__PURE__ */ vue.defineComponent({
     __name: "cljCreateGroups",
     props: {
       groupSetId: {},
@@ -6561,8 +6658,8 @@ query cljBaseQuery {
         const _component_sl_button = vue.resolveComponent("sl-button");
         const _component_sl_tooltip = vue.resolveComponent("sl-tooltip");
         const _component_sl_dialog = vue.resolveComponent("sl-dialog");
-        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$g, [
-          vue.createElementVNode("div", _hoisted_2$f, [
+        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$h, [
+          vue.createElementVNode("div", _hoisted_2$g, [
             vue.createVNode(_component_sl_button, {
               size: "small",
               type: "primary",
@@ -6583,11 +6680,11 @@ query cljBaseQuery {
                 content: `${vue.unref(TOOLTIPS).cljCreateGroups.button.content}`
               }, {
                 default: vue.withCtx(() => [
-                  _hoisted_4$e
+                  _hoisted_4$f
                 ]),
                 _: 1
               }, 8, ["content"])
-            ], 8, _hoisted_3$f)
+            ], 8, _hoisted_3$g)
           ]),
           vue.createVNode(_component_sl_dialog, {
             class: "dialog-overview",
@@ -6595,7 +6692,7 @@ query cljBaseQuery {
             style: { "--width": "75vw" }
           }, {
             default: vue.withCtx(() => [
-              vue.createElementVNode("div", _hoisted_5$c, [
+              vue.createElementVNode("div", _hoisted_5$e, [
                 vue.createTextVNode(" Students without groups "),
                 vue.createElementVNode("a", {
                   class: "clj-th-help",
@@ -6610,9 +6707,9 @@ query cljBaseQuery {
                     ]),
                     _: 1
                   }, 8, ["content"])
-                ], 8, _hoisted_6$c)
+                ], 8, _hoisted_6$d)
               ]),
-              vue.createVNode(_sfc_main$h, {
+              vue.createVNode(_sfc_main$i, {
                 groupSetId: groupSetId2.value,
                 numGroups: numGroups.value
               }, null, 8, ["groupSetId", "numGroups"]),
@@ -6640,17 +6737,17 @@ query cljBaseQuery {
     }
     return target;
   };
-  const cljCreateGroups = /* @__PURE__ */ _export_sfc(_sfc_main$g, [["__scopeId", "data-v-2f0b35e4"]]);
-  const _withScopeId$7 = (n3) => (vue.pushScopeId("data-v-60307933"), n3 = n3(), vue.popScopeId(), n3);
-  const _hoisted_1$f = { class: "clj-create-prompt-button" };
-  const _hoisted_2$e = ["href"];
-  const _hoisted_3$e = /* @__PURE__ */ _withScopeId$7(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
-  const _hoisted_4$d = { class: "clj-create-form" };
-  const _hoisted_5$b = { slot: "label" };
-  const _hoisted_6$b = ["href"];
-  const _hoisted_7$9 = /* @__PURE__ */ _withScopeId$7(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const cljCreateGroups = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["__scopeId", "data-v-2f0b35e4"]]);
+  const _withScopeId$8 = (n3) => (vue.pushScopeId("data-v-60307933"), n3 = n3(), vue.popScopeId(), n3);
+  const _hoisted_1$g = { class: "clj-create-prompt-button" };
+  const _hoisted_2$f = ["href"];
+  const _hoisted_3$f = /* @__PURE__ */ _withScopeId$8(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _hoisted_4$e = { class: "clj-create-form" };
+  const _hoisted_5$d = { slot: "label" };
+  const _hoisted_6$c = ["href"];
+  const _hoisted_7$9 = /* @__PURE__ */ _withScopeId$8(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
   const _hoisted_8$9 = { class: "clj-create-prompt-form" };
-  const _sfc_main$f = /* @__PURE__ */ vue.defineComponent({
+  const _sfc_main$g = /* @__PURE__ */ vue.defineComponent({
     __name: "cljCreatePrompt",
     props: {
       groupSetId: {}
@@ -6673,7 +6770,7 @@ query cljBaseQuery {
         const _component_sl_input = vue.resolveComponent("sl-input");
         const _component_sl_dialog = vue.resolveComponent("sl-dialog");
         return vue.openBlock(), vue.createElementBlock(vue.Fragment, null, [
-          vue.createElementVNode("div", _hoisted_1$f, [
+          vue.createElementVNode("div", _hoisted_1$g, [
             vue.createVNode(_component_sl_button, {
               size: "small",
               type: "primary",
@@ -6694,19 +6791,19 @@ query cljBaseQuery {
                 content: `${vue.unref(TOOLTIPS).cljCreatePrompt.button.content}`
               }, {
                 default: vue.withCtx(() => [
-                  _hoisted_3$e
+                  _hoisted_3$f
                 ]),
                 _: 1
               }, 8, ["content"])
-            ], 8, _hoisted_2$e)
+            ], 8, _hoisted_2$f)
           ]),
-          vue.createElementVNode("div", _hoisted_4$d, [
+          vue.createElementVNode("div", _hoisted_4$e, [
             vue.createVNode(_component_sl_dialog, {
               class: "dialog-overview",
               id: "clj-create-prompt"
             }, {
               default: vue.withCtx(() => [
-                vue.createElementVNode("div", _hoisted_5$b, [
+                vue.createElementVNode("div", _hoisted_5$d, [
                   vue.createTextVNode(" Create a prompt "),
                   vue.createElementVNode("a", {
                     class: "clj-th-help",
@@ -6721,7 +6818,7 @@ query cljBaseQuery {
                       ]),
                       _: 1
                     }, 8, ["content"])
-                  ], 8, _hoisted_6$b)
+                  ], 8, _hoisted_6$c)
                 ]),
                 vue.createElementVNode("div", _hoisted_8$9, [
                   vue.createVNode(_component_sl_input, {
@@ -6757,13 +6854,13 @@ query cljBaseQuery {
       };
     }
   });
-  const cljCreatePrompt = /* @__PURE__ */ _export_sfc(_sfc_main$f, [["__scopeId", "data-v-60307933"]]);
-  const _hoisted_1$e = { class: "clj-configure" };
-  const _hoisted_2$d = ["href"];
-  const _hoisted_3$d = { slot: "content" };
-  const _hoisted_4$c = /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question" }, null, -1);
-  const _hoisted_5$a = { class: "clj-configure-groupsets" };
-  const _hoisted_6$a = { key: 0 };
+  const cljCreatePrompt = /* @__PURE__ */ _export_sfc(_sfc_main$g, [["__scopeId", "data-v-60307933"]]);
+  const _hoisted_1$f = { class: "clj-configure" };
+  const _hoisted_2$e = ["href"];
+  const _hoisted_3$e = { slot: "content" };
+  const _hoisted_4$d = /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question" }, null, -1);
+  const _hoisted_5$c = { class: "clj-configure-groupsets" };
+  const _hoisted_6$b = { key: 0 };
   const _hoisted_7$8 = { key: 1 };
   const _hoisted_8$8 = { class: "clj-data-table" };
   const _hoisted_9$8 = /* @__PURE__ */ vue.createElementVNode("th", null, " Name ", -1);
@@ -6784,7 +6881,7 @@ query cljBaseQuery {
   const _hoisted_24$2 = { class: "clj-center" };
   const _hoisted_25$1 = { key: 0 };
   const _hoisted_26$1 = { key: 1 };
-  const _sfc_main$e = /* @__PURE__ */ vue.defineComponent({
+  const _sfc_main$f = /* @__PURE__ */ vue.defineComponent({
     __name: "cljGroupSets",
     setup(__props) {
       const canvasData2 = getCanvasData();
@@ -6805,7 +6902,7 @@ query cljBaseQuery {
       }
       return (_ctx, _cache) => {
         const _component_sl_tooltip = vue.resolveComponent("sl-tooltip");
-        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$e, [
+        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$f, [
           vue.createElementVNode("h3", null, [
             vue.createTextVNode("Current groupsets "),
             vue.createElementVNode("a", {
@@ -6814,15 +6911,15 @@ query cljBaseQuery {
             }, [
               vue.createVNode(_component_sl_tooltip, null, {
                 default: vue.withCtx(() => [
-                  vue.createElementVNode("div", _hoisted_3$d, vue.toDisplayString(vue.unref(TOOLTIPS).cljGroupSets.currentGroupSets.content), 1),
-                  _hoisted_4$c
+                  vue.createElementVNode("div", _hoisted_3$e, vue.toDisplayString(vue.unref(TOOLTIPS).cljGroupSets.currentGroupSets.content), 1),
+                  _hoisted_4$d
                 ]),
                 _: 1
               })
-            ], 8, _hoisted_2$d)
+            ], 8, _hoisted_2$e)
           ]),
-          vue.createElementVNode("div", _hoisted_5$a, [
-            numGroupSets.value === 0 ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_6$a, " No group sets found ")) : (vue.openBlock(), vue.createElementBlock("div", _hoisted_7$8, [
+          vue.createElementVNode("div", _hoisted_5$c, [
+            numGroupSets.value === 0 ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_6$b, " No group sets found ")) : (vue.openBlock(), vue.createElementBlock("div", _hoisted_7$8, [
               vue.createElementVNode("table", _hoisted_8$8, [
                 vue.createElementVNode("thead", null, [
                   _hoisted_9$8,
@@ -6877,7 +6974,7 @@ query cljBaseQuery {
                         ])) : (vue.openBlock(), vue.createElementBlock("div", _hoisted_26$1, " 0 "))
                       ]),
                       vue.createElementVNode("td", null, [
-                        vue.createVNode(_sfc_main$i, {
+                        vue.createVNode(_sfc_main$j, {
                           groupSetId: groupSet._id
                         }, null, 8, ["groupSetId"])
                       ])
@@ -6891,39 +6988,39 @@ query cljBaseQuery {
       };
     }
   });
-  const _withScopeId$6 = (n3) => (vue.pushScopeId("data-v-3d20555e"), n3 = n3(), vue.popScopeId(), n3);
-  const _hoisted_1$d = { class: "clj-create-form" };
-  const _hoisted_2$c = ["href"];
-  const _hoisted_3$c = /* @__PURE__ */ _withScopeId$6(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
-  const _hoisted_4$b = { slot: "label" };
-  const _hoisted_5$9 = ["href"];
-  const _hoisted_6$9 = /* @__PURE__ */ _withScopeId$6(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _withScopeId$7 = (n3) => (vue.pushScopeId("data-v-3d20555e"), n3 = n3(), vue.popScopeId(), n3);
+  const _hoisted_1$e = { class: "clj-create-form" };
+  const _hoisted_2$d = ["href"];
+  const _hoisted_3$d = /* @__PURE__ */ _withScopeId$7(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _hoisted_4$c = { slot: "label" };
+  const _hoisted_5$b = ["href"];
+  const _hoisted_6$a = /* @__PURE__ */ _withScopeId$7(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
   const _hoisted_7$7 = { class: "clj-create-learning-journal-form" };
   const _hoisted_8$7 = { class: "clj-create-group-div" };
   const _hoisted_9$7 = ["href"];
-  const _hoisted_10$7 = /* @__PURE__ */ _withScopeId$6(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _hoisted_10$7 = /* @__PURE__ */ _withScopeId$7(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
   const _hoisted_11$7 = {
     id: "clj-groupset-name-help",
     slot: "help-text"
   };
   const _hoisted_12$7 = { class: "clj-create-group-div" };
   const _hoisted_13$7 = ["href"];
-  const _hoisted_14$7 = /* @__PURE__ */ _withScopeId$6(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _hoisted_14$7 = /* @__PURE__ */ _withScopeId$7(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
   const _hoisted_15$7 = {
     key: 0,
     class: "clj-create-group-div"
   };
   const _hoisted_16$7 = ["href"];
-  const _hoisted_17$7 = /* @__PURE__ */ _withScopeId$6(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _hoisted_17$7 = /* @__PURE__ */ _withScopeId$7(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
   const _hoisted_18$6 = {
     key: 1,
     style: { "opacity": "0.5" }
   };
   const _hoisted_19$5 = ["href"];
-  const _hoisted_20$5 = /* @__PURE__ */ _withScopeId$6(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _hoisted_20$5 = /* @__PURE__ */ _withScopeId$7(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
   const FILE_NAME$5 = "cljCreateLearningJournal";
   const ALL_STUDENTS = "All students";
-  const _sfc_main$d = /* @__PURE__ */ vue.defineComponent({
+  const _sfc_main$e = /* @__PURE__ */ vue.defineComponent({
     __name: "cljCreateLearningJournal",
     setup(__props) {
       const canvasData2 = getCanvasData();
@@ -7007,7 +7104,7 @@ query cljBaseQuery {
         const _component_sl_menu = vue.resolveComponent("sl-menu");
         const _component_sl_dropdown = vue.resolveComponent("sl-dropdown");
         const _component_sl_dialog = vue.resolveComponent("sl-dialog");
-        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$d, [
+        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$e, [
           vue.createVNode(_component_sl_button, {
             size: "small",
             type: "primary",
@@ -7027,17 +7124,17 @@ query cljBaseQuery {
               content: `${vue.unref(TOOLTIPS).cljCreateLearningJournal.page.content}`
             }, {
               default: vue.withCtx(() => [
-                _hoisted_3$c
+                _hoisted_3$d
               ]),
               _: 1
             }, 8, ["content"])
-          ], 8, _hoisted_2$c),
+          ], 8, _hoisted_2$d),
           vue.createVNode(_component_sl_dialog, {
             class: "dialog-overview",
             id: "clj-create-learning-journal"
           }, {
             default: vue.withCtx(() => [
-              vue.createElementVNode("div", _hoisted_4$b, [
+              vue.createElementVNode("div", _hoisted_4$c, [
                 vue.createTextVNode(" Create a learning journal task "),
                 vue.createElementVNode("a", {
                   class: "clj-th-help",
@@ -7048,11 +7145,11 @@ query cljBaseQuery {
                     content: `${vue.unref(TOOLTIPS).cljCreateLearningJournal.title.content}`
                   }, {
                     default: vue.withCtx(() => [
-                      _hoisted_6$9
+                      _hoisted_6$a
                     ]),
                     _: 1
                   }, 8, ["content"])
-                ], 8, _hoisted_5$9)
+                ], 8, _hoisted_5$b)
               ]),
               vue.createElementVNode("div", _hoisted_7$7, [
                 vue.createElementVNode("div", _hoisted_8$7, [
@@ -7267,26 +7364,26 @@ query cljBaseQuery {
       };
     }
   });
-  const cljCreateLearningJournal = /* @__PURE__ */ _export_sfc(_sfc_main$d, [["__scopeId", "data-v-3d20555e"]]);
-  const _hoisted_1$c = {
+  const cljCreateLearningJournal = /* @__PURE__ */ _export_sfc(_sfc_main$e, [["__scopeId", "data-v-3d20555e"]]);
+  const _hoisted_1$d = {
     class: "clj-status",
     id: "clj-eo-button"
   };
-  const _hoisted_2$b = ["href"];
-  const _hoisted_3$b = { slot: "content" };
-  const _hoisted_4$a = /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question" }, null, -1);
-  const _hoisted_5$8 = {
+  const _hoisted_2$c = ["href"];
+  const _hoisted_3$c = { slot: "content" };
+  const _hoisted_4$b = /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question" }, null, -1);
+  const _hoisted_5$a = {
     key: 0,
     class: "clj-detail",
     id: "clj-gs-detail"
   };
-  const _hoisted_6$8 = {
+  const _hoisted_6$9 = {
     key: 1,
     class: "clj-detail",
     id: "clj-gs-detail",
     style: { "display": "none" }
   };
-  const _sfc_main$c = /* @__PURE__ */ vue.defineComponent({
+  const _sfc_main$d = /* @__PURE__ */ vue.defineComponent({
     __name: "cljEveryone",
     setup(__props) {
       const configOpen = vue.ref(false);
@@ -7299,7 +7396,7 @@ query cljBaseQuery {
       return (_ctx, _cache) => {
         const _component_sl_tooltip = vue.resolveComponent("sl-tooltip");
         return vue.openBlock(), vue.createElementBlock(vue.Fragment, null, [
-          vue.createElementVNode("div", _hoisted_1$c, [
+          vue.createElementVNode("div", _hoisted_1$d, [
             configOpen.value ? (vue.openBlock(), vue.createElementBlock("i", {
               key: 0,
               onClick: _cache[0] || (_cache[0] = ($event) => configOpen.value = !configOpen.value),
@@ -7318,19 +7415,19 @@ query cljBaseQuery {
             }, [
               vue.createVNode(_component_sl_tooltip, null, {
                 default: vue.withCtx(() => [
-                  vue.createElementVNode("div", _hoisted_3$b, vue.toDisplayString(vue.unref(TOOLTIPS).cljEveryone.for_more.content), 1),
-                  _hoisted_4$a
+                  vue.createElementVNode("div", _hoisted_3$c, vue.toDisplayString(vue.unref(TOOLTIPS).cljEveryone.for_more.content), 1),
+                  _hoisted_4$b
                 ]),
                 _: 1
               })
-            ], 8, _hoisted_2$b)
+            ], 8, _hoisted_2$c)
           ]),
-          configOpen.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_5$8, [
+          configOpen.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_5$a, [
             vue.createVNode(cljCreateLearningJournal),
-            vue.createVNode(_sfc_main$e)
-          ])) : (vue.openBlock(), vue.createElementBlock("div", _hoisted_6$8, [
+            vue.createVNode(_sfc_main$f)
+          ])) : (vue.openBlock(), vue.createElementBlock("div", _hoisted_6$9, [
             vue.createVNode(cljCreateLearningJournal),
-            vue.createVNode(_sfc_main$e)
+            vue.createVNode(_sfc_main$f)
           ]))
         ], 64);
       };
@@ -8645,32 +8742,32 @@ query cljBaseQuery {
     watch("placement", { waitUntilFirstUpdate: true })
   ], SlTabGroup.prototype, "syncIndicator", 1);
   SlTabGroup.define("sl-tab-group");
-  const _withScopeId$5 = (n3) => (vue.pushScopeId("data-v-ea7c28c0"), n3 = n3(), vue.popScopeId(), n3);
-  const _hoisted_1$b = { class: "clj-status-group-set" };
-  const _hoisted_2$a = { class: "clj-two-column-grid" };
-  const _hoisted_3$a = { class: "clj-group-set-info" };
-  const _hoisted_4$9 = ["href"];
-  const _hoisted_5$7 = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
-  const _hoisted_6$7 = { class: "clj-data-table" };
-  const _hoisted_7$6 = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ vue.createElementVNode("th", null, " Name ", -1));
+  const _withScopeId$6 = (n3) => (vue.pushScopeId("data-v-2ce5deaa"), n3 = n3(), vue.popScopeId(), n3);
+  const _hoisted_1$c = { class: "clj-status-group-set" };
+  const _hoisted_2$b = { class: "clj-two-column-grid" };
+  const _hoisted_3$b = { class: "clj-group-set-info" };
+  const _hoisted_4$a = ["href"];
+  const _hoisted_5$9 = /* @__PURE__ */ _withScopeId$6(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _hoisted_6$8 = { class: "clj-data-table" };
+  const _hoisted_7$6 = /* @__PURE__ */ _withScopeId$6(() => /* @__PURE__ */ vue.createElementVNode("th", null, " Name ", -1));
   const _hoisted_8$6 = { class: "clj-center" };
-  const _hoisted_9$6 = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ vue.createElementVNode("th", null, " Self signup ", -1));
+  const _hoisted_9$6 = /* @__PURE__ */ _withScopeId$6(() => /* @__PURE__ */ vue.createElementVNode("th", null, " Self signup ", -1));
   const _hoisted_10$6 = { class: "clj-center" };
-  const _hoisted_11$6 = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ vue.createElementVNode("th", null, " Member limit ", -1));
+  const _hoisted_11$6 = /* @__PURE__ */ _withScopeId$6(() => /* @__PURE__ */ vue.createElementVNode("th", null, " Member limit ", -1));
   const _hoisted_12$6 = { class: "clj-center" };
-  const _hoisted_13$6 = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ vue.createElementVNode("th", null, " # of groups ", -1));
+  const _hoisted_13$6 = /* @__PURE__ */ _withScopeId$6(() => /* @__PURE__ */ vue.createElementVNode("th", null, " # of groups ", -1));
   const _hoisted_14$6 = { class: "clj-center" };
-  const _hoisted_15$6 = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ vue.createElementVNode("th", { class: "clj-cell-top" }, " # of prompts ", -1));
+  const _hoisted_15$6 = /* @__PURE__ */ _withScopeId$6(() => /* @__PURE__ */ vue.createElementVNode("th", { class: "clj-cell-top" }, " # of prompts ", -1));
   const _hoisted_16$6 = { class: "clj-center" };
-  const _hoisted_17$6 = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ vue.createElementVNode("br", null, null, -1));
-  const _hoisted_18$5 = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ vue.createElementVNode("th", null, " # no group students ", -1));
+  const _hoisted_17$6 = /* @__PURE__ */ _withScopeId$6(() => /* @__PURE__ */ vue.createElementVNode("br", null, null, -1));
+  const _hoisted_18$5 = /* @__PURE__ */ _withScopeId$6(() => /* @__PURE__ */ vue.createElementVNode("th", null, " # no group students ", -1));
   const _hoisted_19$4 = { class: "clj-center" };
   const _hoisted_20$4 = { key: 0 };
   const _hoisted_21$3 = { key: 1 };
   const _hoisted_22$2 = { class: "clj-learning-journal-info" };
   const _hoisted_23$2 = ["href"];
-  const _hoisted_24$1 = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
-  const _sfc_main$b = /* @__PURE__ */ vue.defineComponent({
+  const _hoisted_24$1 = /* @__PURE__ */ _withScopeId$6(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _sfc_main$c = /* @__PURE__ */ vue.defineComponent({
     __name: "cljStatusGroupSet",
     props: {
       groupSetId: {}
@@ -8700,9 +8797,9 @@ query cljBaseQuery {
       }
       return (_ctx, _cache) => {
         const _component_sl_tooltip = vue.resolveComponent("sl-tooltip");
-        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$b, [
-          vue.createElementVNode("div", _hoisted_2$a, [
-            vue.createElementVNode("div", _hoisted_3$a, [
+        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$c, [
+          vue.createElementVNode("div", _hoisted_2$b, [
+            vue.createElementVNode("div", _hoisted_3$b, [
               vue.createElementVNode("h3", null, [
                 vue.createTextVNode(" Group set overview "),
                 vue.createElementVNode("a", {
@@ -8713,13 +8810,13 @@ query cljBaseQuery {
                     content: `${vue.unref(TOOLTIPS).cljStatusGroupSet.titleLearningJournalStatus.content}`
                   }, {
                     default: vue.withCtx(() => [
-                      _hoisted_5$7
+                      _hoisted_5$9
                     ]),
                     _: 1
                   }, 8, ["content"])
-                ], 8, _hoisted_4$9)
+                ], 8, _hoisted_4$a)
               ]),
-              vue.createElementVNode("table", _hoisted_6$7, [
+              vue.createElementVNode("table", _hoisted_6$8, [
                 vue.createElementVNode("tbody", null, [
                   vue.createElementVNode("tr", null, [
                     _hoisted_7$6,
@@ -8778,7 +8875,7 @@ query cljBaseQuery {
                   }, 8, ["content"])
                 ], 8, _hoisted_23$2)
               ]),
-              vue.createVNode(_sfc_main$i, {
+              vue.createVNode(_sfc_main$j, {
                 groupSetId: props.groupSetId
               }, null, 8, ["groupSetId"])
             ])
@@ -8787,29 +8884,29 @@ query cljBaseQuery {
       };
     }
   });
-  const cljStatusGroupSet = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["__scopeId", "data-v-ea7c28c0"]]);
-  const _withScopeId$4 = (n3) => (vue.pushScopeId("data-v-12d03b1d"), n3 = n3(), vue.popScopeId(), n3);
-  const _hoisted_1$a = {
+  const cljStatusGroupSet = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["__scopeId", "data-v-2ce5deaa"]]);
+  const _withScopeId$5 = (n3) => (vue.pushScopeId("data-v-24711827"), n3 = n3(), vue.popScopeId(), n3);
+  const _hoisted_1$b = {
     key: 0,
     class: "clj-status-student-groups"
   };
-  const _hoisted_2$9 = ["href"];
-  const _hoisted_3$9 = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
-  const _hoisted_4$8 = { class: "clj-data-table" };
-  const _hoisted_5$6 = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ vue.createElementVNode("th", null, null, -1));
-  const _hoisted_6$6 = {
+  const _hoisted_2$a = ["href"];
+  const _hoisted_3$a = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _hoisted_4$9 = { class: "clj-data-table" };
+  const _hoisted_5$8 = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ vue.createElementVNode("th", null, null, -1));
+  const _hoisted_6$7 = {
     colspan: "2",
     class: "clj-center"
   };
   const _hoisted_7$5 = ["href"];
-  const _hoisted_8$5 = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _hoisted_8$5 = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
   const _hoisted_9$5 = {
     colspan: "2",
     class: "clj-center"
   };
   const _hoisted_10$5 = ["href"];
-  const _hoisted_11$5 = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
-  const _hoisted_12$5 = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ vue.createElementVNode("tr", null, [
+  const _hoisted_11$5 = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _hoisted_12$5 = /* @__PURE__ */ _withScopeId$5(() => /* @__PURE__ */ vue.createElementVNode("tr", null, [
     /* @__PURE__ */ vue.createElementVNode("th", null, " Group name "),
     /* @__PURE__ */ vue.createElementVNode("th", { class: "clj-center" }, " <7 days "),
     /* @__PURE__ */ vue.createElementVNode("th", { class: "clj-center" }, " ever "),
@@ -8822,7 +8919,7 @@ query cljBaseQuery {
   const _hoisted_16$5 = { class: "clj-center" };
   const _hoisted_17$5 = { class: "clj-center" };
   const _hoisted_18$4 = { class: "clj-center" };
-  const _sfc_main$a = /* @__PURE__ */ vue.defineComponent({
+  const _sfc_main$b = /* @__PURE__ */ vue.defineComponent({
     __name: "cljStatusStudentGroups",
     props: {
       groupSetId: {}
@@ -8847,7 +8944,7 @@ query cljBaseQuery {
       );
       return (_ctx, _cache) => {
         const _component_sl_tooltip = vue.resolveComponent("sl-tooltip");
-        return isLearningJournal.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_1$a, [
+        return isLearningJournal.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_1$b, [
           vue.createElementVNode("h3", null, [
             vue.createTextVNode("Group overview "),
             vue.createElementVNode("a", {
@@ -8859,17 +8956,17 @@ query cljBaseQuery {
                 content: `${vue.unref(TOOLTIPS).cljStatusStudentGroups.title.content}`
               }, {
                 default: vue.withCtx(() => [
-                  _hoisted_3$9
+                  _hoisted_3$a
                 ]),
                 _: 1
               }, 8, ["content"])
-            ], 8, _hoisted_2$9)
+            ], 8, _hoisted_2$a)
           ]),
-          vue.createElementVNode("table", _hoisted_4$8, [
+          vue.createElementVNode("table", _hoisted_4$9, [
             vue.createElementVNode("thead", null, [
               vue.createElementVNode("tr", null, [
-                _hoisted_5$6,
-                vue.createElementVNode("th", _hoisted_6$6, [
+                _hoisted_5$8,
+                vue.createElementVNode("th", _hoisted_6$7, [
                   vue.createTextVNode("# prompts without student entries "),
                   vue.createElementVNode("a", {
                     class: "clj-th-help",
@@ -8929,32 +9026,32 @@ query cljBaseQuery {
       };
     }
   });
-  const cljStatusStudentGroups = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["__scopeId", "data-v-12d03b1d"]]);
-  const _withScopeId$3 = (n3) => (vue.pushScopeId("data-v-79398731"), n3 = n3(), vue.popScopeId(), n3);
-  const _hoisted_1$9 = {
+  const cljStatusStudentGroups = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["__scopeId", "data-v-24711827"]]);
+  const _withScopeId$4 = (n3) => (vue.pushScopeId("data-v-79398731"), n3 = n3(), vue.popScopeId(), n3);
+  const _hoisted_1$a = {
     key: 0,
     class: "clj-status-discussions"
   };
-  const _hoisted_2$8 = ["href"];
-  const _hoisted_3$8 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
-  const _hoisted_4$7 = { class: "clj-data-table" };
-  const _hoisted_5$5 = ["href"];
-  const _hoisted_6$5 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _hoisted_2$9 = ["href"];
+  const _hoisted_3$9 = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _hoisted_4$8 = { class: "clj-data-table" };
+  const _hoisted_5$7 = ["href"];
+  const _hoisted_6$6 = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
   const _hoisted_7$4 = ["href"];
-  const _hoisted_8$4 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _hoisted_8$4 = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
   const _hoisted_9$4 = {
     colspan: "2",
     class: "clj-center"
   };
   const _hoisted_10$4 = ["href"];
-  const _hoisted_11$4 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _hoisted_11$4 = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
   const _hoisted_12$4 = {
     colspan: "2",
     class: "clj-center"
   };
   const _hoisted_13$4 = ["href"];
-  const _hoisted_14$4 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
-  const _hoisted_15$4 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ vue.createElementVNode("tr", null, [
+  const _hoisted_14$4 = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _hoisted_15$4 = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ vue.createElementVNode("tr", null, [
     /* @__PURE__ */ vue.createElementVNode("th"),
     /* @__PURE__ */ vue.createElementVNode("th"),
     /* @__PURE__ */ vue.createElementVNode("th", { class: "clj-center" }, " <7 days "),
@@ -8968,7 +9065,7 @@ query cljBaseQuery {
   const _hoisted_19$3 = { class: "clj-center" };
   const _hoisted_20$3 = { class: "clj-center" };
   const _hoisted_21$2 = { class: "clj-center" };
-  const _sfc_main$9 = /* @__PURE__ */ vue.defineComponent({
+  const _sfc_main$a = /* @__PURE__ */ vue.defineComponent({
     __name: "cljStatusDiscussions",
     props: {
       groupSetId: {}
@@ -8994,7 +9091,7 @@ query cljBaseQuery {
       );
       return (_ctx, _cache) => {
         const _component_sl_tooltip = vue.resolveComponent("sl-tooltip");
-        return isLearningJournal.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_1$9, [
+        return isLearningJournal.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_1$a, [
           vue.createElementVNode("h3", null, [
             vue.createTextVNode("Discussion topic overview "),
             vue.createElementVNode("a", {
@@ -9006,13 +9103,13 @@ query cljBaseQuery {
                 content: `${vue.unref(TOOLTIPS).cljStatusDiscussions.title.content}`
               }, {
                 default: vue.withCtx(() => [
-                  _hoisted_3$8
+                  _hoisted_3$9
                 ]),
                 _: 1
               }, 8, ["content"])
-            ], 8, _hoisted_2$8)
+            ], 8, _hoisted_2$9)
           ]),
-          vue.createElementVNode("table", _hoisted_4$7, [
+          vue.createElementVNode("table", _hoisted_4$8, [
             vue.createElementVNode("thead", null, [
               vue.createElementVNode("tr", null, [
                 vue.createElementVNode("th", null, [
@@ -9026,11 +9123,11 @@ query cljBaseQuery {
                       content: `${vue.unref(TOOLTIPS).cljStatusDiscussions.topicTitle.content}`
                     }, {
                       default: vue.withCtx(() => [
-                        _hoisted_6$5
+                        _hoisted_6$6
                       ]),
                       _: 1
                     }, 8, ["content"])
-                  ], 8, _hoisted_5$5)
+                  ], 8, _hoisted_5$7)
                 ]),
                 vue.createElementVNode("th", null, [
                   vue.createTextVNode(" Num prompts "),
@@ -9110,13 +9207,13 @@ query cljBaseQuery {
       };
     }
   });
-  const cljStatusDiscussions = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["__scopeId", "data-v-79398731"]]);
-  const _hoisted_1$8 = { class: "clj-configure" };
-  const _hoisted_2$7 = { key: 0 };
-  const _hoisted_3$7 = { key: 0 };
-  const _hoisted_4$6 = { key: 1 };
+  const cljStatusDiscussions = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["__scopeId", "data-v-79398731"]]);
+  const _hoisted_1$9 = { class: "clj-configure" };
+  const _hoisted_2$8 = { key: 0 };
+  const _hoisted_3$8 = { key: 0 };
+  const _hoisted_4$7 = { key: 1 };
   const FILE_NAME$4 = "cljOverview";
-  const _sfc_main$8 = /* @__PURE__ */ vue.defineComponent({
+  const _sfc_main$9 = /* @__PURE__ */ vue.defineComponent({
     __name: "cljOverview",
     props: {
       groupSetId: {}
@@ -9168,13 +9265,13 @@ query cljBaseQuery {
       );
       return (_ctx, _cache) => {
         const _component_sl_progress_ring = vue.resolveComponent("sl-progress-ring");
-        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$8, [
+        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$9, [
           vue.createVNode(cljStatusGroupSet, { groupSetId: groupSetId2.value }, null, 8, ["groupSetId"]),
-          isLearningJournal.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_2$7, [
-            promptDataLoaded.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_3$7, [
+          isLearningJournal.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_2$8, [
+            promptDataLoaded.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_3$8, [
               vue.createVNode(cljStatusStudentGroups, { groupSetId: groupSetId2.value }, null, 8, ["groupSetId"]),
               vue.createVNode(cljStatusDiscussions, { groupSetId: groupSetId2.value }, null, 8, ["groupSetId"])
-            ])) : (vue.openBlock(), vue.createElementBlock("div", _hoisted_4$6, [
+            ])) : (vue.openBlock(), vue.createElementBlock("div", _hoisted_4$7, [
               vue.createVNode(_component_sl_progress_ring, {
                 value: `${updateProgress.value}`,
                 class: "progress-ring-values",
@@ -9191,7 +9288,7 @@ query cljBaseQuery {
       };
     }
   });
-  const cljOverview = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["__scopeId", "data-v-e077a626"]]);
+  const cljOverview = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["__scopeId", "data-v-e077a626"]]);
   var progress_ring_styles_default = i$3`
   :host {
     --size: 128px;
@@ -9311,37 +9408,37 @@ query cljBaseQuery {
     n$3()
   ], SlProgressRing.prototype, "label", 2);
   SlProgressRing.define("sl-progress-ring");
-  const _withScopeId$2 = (n3) => (vue.pushScopeId("data-v-960f421b"), n3 = n3(), vue.popScopeId(), n3);
-  const _hoisted_1$7 = { class: "clj-status-learning-journal" };
-  const _hoisted_2$6 = ["href"];
-  const _hoisted_3$6 = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
-  const _hoisted_4$5 = { class: "clj-data-table" };
-  const _hoisted_5$4 = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ vue.createElementVNode("th", null, null, -1));
-  const _hoisted_6$4 = {
+  const _withScopeId$3 = (n3) => (vue.pushScopeId("data-v-960f421b"), n3 = n3(), vue.popScopeId(), n3);
+  const _hoisted_1$8 = { class: "clj-status-learning-journal" };
+  const _hoisted_2$7 = ["href"];
+  const _hoisted_3$7 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _hoisted_4$6 = { class: "clj-data-table" };
+  const _hoisted_5$6 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ vue.createElementVNode("th", null, null, -1));
+  const _hoisted_6$5 = {
     colspan: "2",
     class: "clj-center"
   };
   const _hoisted_7$3 = ["href"];
-  const _hoisted_8$3 = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _hoisted_8$3 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
   const _hoisted_9$3 = {
     colspan: "2",
     class: "clj-center"
   };
   const _hoisted_10$3 = ["href"];
-  const _hoisted_11$3 = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _hoisted_11$3 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
   const _hoisted_12$3 = { class: "clj-center" };
   const _hoisted_13$3 = ["href"];
-  const _hoisted_14$3 = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
-  const _hoisted_15$3 = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ vue.createElementVNode("th", { class: "clj-center" }, " < 7 days ", -1));
-  const _hoisted_16$3 = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ vue.createElementVNode("th", { class: "clj-center" }, " ever ", -1));
-  const _hoisted_17$3 = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ vue.createElementVNode("th", { class: "clj-center" }, " < 7 days ", -1));
-  const _hoisted_18$2 = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ vue.createElementVNode("th", { class: "clj-center" }, " ever ", -1));
+  const _hoisted_14$3 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _hoisted_15$3 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ vue.createElementVNode("th", { class: "clj-center" }, " < 7 days ", -1));
+  const _hoisted_16$3 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ vue.createElementVNode("th", { class: "clj-center" }, " ever ", -1));
+  const _hoisted_17$3 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ vue.createElementVNode("th", { class: "clj-center" }, " < 7 days ", -1));
+  const _hoisted_18$2 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ vue.createElementVNode("th", { class: "clj-center" }, " ever ", -1));
   const _hoisted_19$2 = { class: "clj-center" };
   const _hoisted_20$2 = { class: "clj-center" };
   const _hoisted_21$1 = { class: "clj-center" };
   const _hoisted_22$1 = { class: "clj-center" };
   const _hoisted_23$1 = { class: "clj-center" };
-  const _sfc_main$7 = /* @__PURE__ */ vue.defineComponent({
+  const _sfc_main$8 = /* @__PURE__ */ vue.defineComponent({
     __name: "cljOverviewParticipation",
     props: {
       groupSetId: {}
@@ -9359,7 +9456,7 @@ query cljBaseQuery {
       );
       return (_ctx, _cache) => {
         const _component_sl_tooltip = vue.resolveComponent("sl-tooltip");
-        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$7, [
+        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$8, [
           vue.createElementVNode("h3", null, [
             vue.createTextVNode("Participation overview - " + vue.toDisplayString(groupSet.value.name) + " ", 1),
             vue.createElementVNode("a", {
@@ -9371,17 +9468,17 @@ query cljBaseQuery {
                 content: `${vue.unref(TOOLTIPS).cljOverviewParticipation.title.content}`
               }, {
                 default: vue.withCtx(() => [
-                  _hoisted_3$6
+                  _hoisted_3$7
                 ]),
                 _: 1
               }, 8, ["content"])
-            ], 8, _hoisted_2$6)
+            ], 8, _hoisted_2$7)
           ]),
-          vue.createElementVNode("table", _hoisted_4$5, [
+          vue.createElementVNode("table", _hoisted_4$6, [
             vue.createElementVNode("thead", null, [
               vue.createElementVNode("tr", null, [
-                _hoisted_5$4,
-                vue.createElementVNode("th", _hoisted_6$4, [
+                _hoisted_5$6,
+                vue.createElementVNode("th", _hoisted_6$5, [
                   vue.createTextVNode(" # groups without student entries "),
                   vue.createElementVNode("a", {
                     class: "clj-th-help",
@@ -9454,15 +9551,15 @@ query cljBaseQuery {
       };
     }
   });
-  const cljOverviewParticipation = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["__scopeId", "data-v-960f421b"]]);
-  const _hoisted_1$6 = { key: 0 };
-  const _hoisted_2$5 = { class: "clj-thread" };
-  const _hoisted_3$5 = ["innerHTML"];
-  const _hoisted_4$4 = ["href"];
-  const _hoisted_5$3 = ["innerHTML"];
-  const _hoisted_6$3 = { key: 1 };
+  const cljOverviewParticipation = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["__scopeId", "data-v-960f421b"]]);
+  const _hoisted_1$7 = { key: 0 };
+  const _hoisted_2$6 = { class: "clj-thread" };
+  const _hoisted_3$6 = ["innerHTML"];
+  const _hoisted_4$5 = ["href"];
+  const _hoisted_5$5 = ["innerHTML"];
+  const _hoisted_6$4 = { key: 1 };
   const FILE_NAME$3 = "cljTopicEntries";
-  const _sfc_main$6 = /* @__PURE__ */ vue.defineComponent({
+  const _sfc_main$7 = /* @__PURE__ */ vue.defineComponent({
     __name: "cljTopicEntries",
     props: {
       topicId: {},
@@ -9503,8 +9600,8 @@ query cljBaseQuery {
       }
       return (_ctx, _cache) => {
         return vue.openBlock(), vue.createElementBlock("div", null, [
-          entries.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_1$6, [
-            vue.createElementVNode("ul", _hoisted_2$5, [
+          entries.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_1$7, [
+            vue.createElementVNode("ul", _hoisted_2$6, [
               (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(entries.value, (entry) => {
                 return vue.openBlock(), vue.createElementBlock("li", {
                   key: entry.id
@@ -9512,51 +9609,51 @@ query cljBaseQuery {
                   vue.createElementVNode("span", {
                     class: "clj-user-name",
                     innerHTML: userNameAndLink(entry.user_id)
-                  }, null, 8, _hoisted_3$5),
+                  }, null, 8, _hoisted_3$6),
                   vue.createTextVNode(" at "),
                   vue.createElementVNode("a", {
                     target: "_blank",
                     href: `${vue.unref(canvasData2).hostName}/groups/${gId.value}/discussion_topics/${tId.value}?entry_id=${entry.id}#entry-${entry.id}`
-                  }, vue.toDisplayString(vue.unref(formatDate)(entry.created_at)), 9, _hoisted_4$4),
+                  }, vue.toDisplayString(vue.unref(formatDate)(entry.created_at)), 9, _hoisted_4$5),
                   vue.createElementVNode("span", {
                     class: "clj-replies",
                     innerHTML: generateEntryReplies(entry)
-                  }, null, 8, _hoisted_5$3)
+                  }, null, 8, _hoisted_5$5)
                 ]);
               }), 128))
             ])
-          ])) : (vue.openBlock(), vue.createElementBlock("div", _hoisted_6$3, " n/a "))
+          ])) : (vue.openBlock(), vue.createElementBlock("div", _hoisted_6$4, " n/a "))
         ]);
       };
     }
   });
-  const _withScopeId$1 = (n3) => (vue.pushScopeId("data-v-7f0f9b70"), n3 = n3(), vue.popScopeId(), n3);
-  const _hoisted_1$5 = { class: "clj-prompt-participation-details" };
-  const _hoisted_2$4 = ["href"];
-  const _hoisted_3$4 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
-  const _hoisted_4$3 = { class: "clj-group-name" };
-  const _hoisted_5$2 = { class: "clj-student-forum" };
-  const _hoisted_6$2 = { class: "clj-student-avatar" };
+  const _withScopeId$2 = (n3) => (vue.pushScopeId("data-v-7f0f9b70"), n3 = n3(), vue.popScopeId(), n3);
+  const _hoisted_1$6 = { class: "clj-prompt-participation-details" };
+  const _hoisted_2$5 = ["href"];
+  const _hoisted_3$5 = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _hoisted_4$4 = { class: "clj-group-name" };
+  const _hoisted_5$4 = { class: "clj-student-forum" };
+  const _hoisted_6$3 = { class: "clj-student-avatar" };
   const _hoisted_7$2 = ["href"];
   const _hoisted_8$2 = ["src"];
   const _hoisted_9$2 = ["href"];
-  const _hoisted_10$2 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ vue.createElementVNode("br", null, null, -1));
+  const _hoisted_10$2 = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ vue.createElementVNode("br", null, null, -1));
   const _hoisted_11$2 = { key: 0 };
   const _hoisted_12$2 = ["href"];
   const _hoisted_13$2 = { key: 1 };
   const _hoisted_14$2 = ["href"];
   const _hoisted_15$2 = { class: "clj-entries" };
   const _hoisted_16$2 = { key: 0 };
-  const _hoisted_17$2 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ vue.createElementVNode("p", null, "No entries yet", -1));
+  const _hoisted_17$2 = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ vue.createElementVNode("p", null, "No entries yet", -1));
   const _hoisted_18$1 = [
     _hoisted_17$2
   ];
   const _hoisted_19$1 = { key: 1 };
-  const _hoisted_20$1 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ vue.createElementVNode("p", null, [
+  const _hoisted_20$1 = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ vue.createElementVNode("p", null, [
     /* @__PURE__ */ vue.createElementVNode("strong", null, "Topic entries")
   ], -1));
   const FILE_NAME$2 = "cljPromptParticipationDetails";
-  const _sfc_main$5 = /* @__PURE__ */ vue.defineComponent({
+  const _sfc_main$6 = /* @__PURE__ */ vue.defineComponent({
     __name: "cljPromptParticipationDetails",
     props: {
       groupSetId: {},
@@ -9671,7 +9768,7 @@ query cljBaseQuery {
       return (_ctx, _cache) => {
         const _component_sl_tooltip = vue.resolveComponent("sl-tooltip");
         const _component_EasyDataTable = vue.resolveComponent("EasyDataTable");
-        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$5, [
+        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$6, [
           vue.createElementVNode("h5", null, [
             vue.createTextVNode("Participation by group "),
             vue.createElementVNode("a", {
@@ -9683,11 +9780,11 @@ query cljBaseQuery {
                 content: `${vue.unref(TOOLTIPS).cljPromptParticipationDetails.participationByGroup.content}`
               }, {
                 default: vue.withCtx(() => [
-                  _hoisted_3$4
+                  _hoisted_3$5
                 ]),
                 _: 1
               }, 8, ["content"])
-            ], 8, _hoisted_2$4)
+            ], 8, _hoisted_2$5)
           ]),
           vue.createVNode(_component_EasyDataTable, {
             headers: vue.unref(headers),
@@ -9696,14 +9793,14 @@ query cljBaseQuery {
             "border-cell": ""
           }, {
             "item-groupName": vue.withCtx((item) => [
-              vue.createElementVNode("div", _hoisted_4$3, "Group: " + vue.toDisplayString(item.group.name), 1),
+              vue.createElementVNode("div", _hoisted_4$4, "Group: " + vue.toDisplayString(item.group.name), 1),
               (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(item.group.members, (member) => {
                 return vue.openBlock(), vue.createElementBlock("div", {
                   class: "clj-student",
                   key: member.user._id
                 }, [
-                  vue.createElementVNode("div", _hoisted_5$2, [
-                    vue.createElementVNode("div", _hoisted_6$2, [
+                  vue.createElementVNode("div", _hoisted_5$4, [
+                    vue.createElementVNode("div", _hoisted_6$3, [
                       vue.createElementVNode("a", {
                         href: `${member.user.htmlUrl}`,
                         target: "_blank"
@@ -9740,7 +9837,7 @@ query cljBaseQuery {
               vue.createElementVNode("div", _hoisted_15$2, [
                 item.noEntries ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_16$2, _hoisted_18$1)) : (vue.openBlock(), vue.createElementBlock("div", _hoisted_19$1, [
                   _hoisted_20$1,
-                  vue.createVNode(_sfc_main$6, {
+                  vue.createVNode(_sfc_main$7, {
                     topicId: topicObject.value.promptsByGroupId[item.groupId].id,
                     groupId: item.groupId
                   }, null, 8, ["topicId", "groupId"])
@@ -9753,18 +9850,18 @@ query cljBaseQuery {
       };
     }
   });
-  const cljPromptParticipationDetails = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["__scopeId", "data-v-7f0f9b70"]]);
-  const _withScopeId = (n3) => (vue.pushScopeId("data-v-8d865138"), n3 = n3(), vue.popScopeId(), n3);
-  const _hoisted_1$4 = { class: "clj-participation-summary" };
-  const _hoisted_2$3 = ["href"];
-  const _hoisted_3$3 = { class: "clj-row" };
-  const _hoisted_4$2 = { class: "clj-col" };
-  const _hoisted_5$1 = ["href"];
-  const _hoisted_6$1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const cljPromptParticipationDetails = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["__scopeId", "data-v-7f0f9b70"]]);
+  const _withScopeId$1 = (n3) => (vue.pushScopeId("data-v-8d865138"), n3 = n3(), vue.popScopeId(), n3);
+  const _hoisted_1$5 = { class: "clj-participation-summary" };
+  const _hoisted_2$4 = ["href"];
+  const _hoisted_3$4 = { class: "clj-row" };
+  const _hoisted_4$3 = { class: "clj-col" };
+  const _hoisted_5$3 = ["href"];
+  const _hoisted_6$2 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
   const _hoisted_7$1 = { class: "clj-data-table" };
-  const _hoisted_8$1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("th", null, " Topic title ", -1));
+  const _hoisted_8$1 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ vue.createElementVNode("th", null, " Topic title ", -1));
   const _hoisted_9$1 = { class: "clj-center" };
-  const _hoisted_10$1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("th", null, [
+  const _hoisted_10$1 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ vue.createElementVNode("th", null, [
     /* @__PURE__ */ vue.createTextVNode(" # 0 student entries "),
     /* @__PURE__ */ vue.createElementVNode("br"),
     /* @__PURE__ */ vue.createElementVNode("span", { class: "clj-span-right" }, [
@@ -9774,11 +9871,11 @@ query cljBaseQuery {
     ])
   ], -1));
   const _hoisted_11$1 = { class: "clj-right" };
-  const _hoisted_12$1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("br", null, null, -1));
-  const _hoisted_13$1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("br", null, null, -1));
-  const _hoisted_14$1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("th", null, " Total # student entries ", -1));
+  const _hoisted_12$1 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ vue.createElementVNode("br", null, null, -1));
+  const _hoisted_13$1 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ vue.createElementVNode("br", null, null, -1));
+  const _hoisted_14$1 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ vue.createElementVNode("th", null, " Total # student entries ", -1));
   const _hoisted_15$1 = { class: "clj-right" };
-  const _hoisted_16$1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("th", null, [
+  const _hoisted_16$1 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ vue.createElementVNode("th", null, [
     /* @__PURE__ */ vue.createTextVNode(" # 0 staff entries "),
     /* @__PURE__ */ vue.createElementVNode("br"),
     /* @__PURE__ */ vue.createElementVNode("span", { class: "clj-span-right" }, [
@@ -9788,28 +9885,28 @@ query cljBaseQuery {
     ])
   ], -1));
   const _hoisted_17$1 = { class: "clj-right" };
-  const _hoisted_18 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("br", null, null, -1));
-  const _hoisted_19 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("br", null, null, -1));
-  const _hoisted_20 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("th", null, " Total # staff entries ", -1));
+  const _hoisted_18 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ vue.createElementVNode("br", null, null, -1));
+  const _hoisted_19 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ vue.createElementVNode("br", null, null, -1));
+  const _hoisted_20 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ vue.createElementVNode("th", null, " Total # staff entries ", -1));
   const _hoisted_21 = { class: "clj-right" };
   const _hoisted_22 = { class: "clj-col" };
   const _hoisted_23 = ["href"];
-  const _hoisted_24 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
+  const _hoisted_24 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-small-tooltip" }, null, -1));
   const _hoisted_25 = { class: "clj-data-table clj-fixed" };
-  const _hoisted_26 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("th", { class: "clj-half" }, " Assessable? ", -1));
+  const _hoisted_26 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ vue.createElementVNode("th", { class: "clj-half" }, " Assessable? ", -1));
   const _hoisted_27 = { class: "clj-center clj-half" };
   const _hoisted_28 = { key: 0 };
   const _hoisted_29 = { key: 1 };
   const _hoisted_30 = { key: 0 };
-  const _hoisted_31 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("th", null, " Points possible ", -1));
+  const _hoisted_31 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ vue.createElementVNode("th", null, " Points possible ", -1));
   const _hoisted_32 = { class: "clj-center" };
   const _hoisted_33 = { key: 1 };
-  const _hoisted_34 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("th", null, " Due date ", -1));
+  const _hoisted_34 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ vue.createElementVNode("th", null, " Due date ", -1));
   const _hoisted_35 = { class: "clj-center" };
   const _hoisted_36 = { key: 2 };
-  const _hoisted_37 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("th", null, " Needs grading ", -1));
+  const _hoisted_37 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ vue.createElementVNode("th", null, " Needs grading ", -1));
   const _hoisted_38 = { class: "clj-center" };
-  const _sfc_main$4 = /* @__PURE__ */ vue.defineComponent({
+  const _sfc_main$5 = /* @__PURE__ */ vue.defineComponent({
     __name: "cljPromptParticipationSummary",
     props: {
       groupSetId: {},
@@ -9838,16 +9935,16 @@ query cljBaseQuery {
       );
       return (_ctx, _cache) => {
         const _component_sl_tooltip = vue.resolveComponent("sl-tooltip");
-        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$4, [
+        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$5, [
           vue.createElementVNode("h4", null, [
             vue.createTextVNode("Topic: "),
             vue.createElementVNode("a", {
               href: `${topic.value.html_url}`,
               target: "_blank"
-            }, vue.toDisplayString(topic.value.title), 9, _hoisted_2$3)
+            }, vue.toDisplayString(topic.value.title), 9, _hoisted_2$4)
           ]),
-          vue.createElementVNode("div", _hoisted_3$3, [
-            vue.createElementVNode("div", _hoisted_4$2, [
+          vue.createElementVNode("div", _hoisted_3$4, [
+            vue.createElementVNode("div", _hoisted_4$3, [
               vue.createElementVNode("h5", null, [
                 vue.createTextVNode("Topic overview "),
                 vue.createElementVNode("a", {
@@ -9858,11 +9955,11 @@ query cljBaseQuery {
                     content: `${vue.unref(TOOLTIPS).cljPromptParticipationSummary.topicOverview.content}`
                   }, {
                     default: vue.withCtx(() => [
-                      _hoisted_6$1
+                      _hoisted_6$2
                     ]),
                     _: 1
                   }, 8, ["content"])
-                ], 8, _hoisted_5$1)
+                ], 8, _hoisted_5$3)
               ]),
               vue.createElementVNode("table", _hoisted_7$1, [
                 vue.createElementVNode("tbody", null, [
@@ -9946,9 +10043,9 @@ query cljBaseQuery {
       };
     }
   });
-  const cljPromptParticipationSummary = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-8d865138"]]);
-  const _hoisted_1$3 = { class: "clj-status-prompts" };
-  const _sfc_main$3 = /* @__PURE__ */ vue.defineComponent({
+  const cljPromptParticipationSummary = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["__scopeId", "data-v-8d865138"]]);
+  const _hoisted_1$4 = { class: "clj-status-prompts" };
+  const _sfc_main$4 = /* @__PURE__ */ vue.defineComponent({
     __name: "cljPromptsParticipation",
     props: {
       groupSetId: {}
@@ -9967,7 +10064,7 @@ query cljBaseQuery {
         const _component_sl_tab = vue.resolveComponent("sl-tab");
         const _component_sl_tab_panel = vue.resolveComponent("sl-tab-panel");
         const _component_sl_tab_group = vue.resolveComponent("sl-tab-group");
-        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$3, [
+        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$4, [
           vue.createElementVNode("h3", null, "Prompts participation - " + vue.toDisplayString(groupSet.value.name), 1),
           vue.createElementVNode("p", null, "Each of the tabs below provides a summary of student and staff participation in each of the " + vue.toDisplayString(groupSet.value.numPrompts) + " prompts for this learning journal.", 1),
           vue.createVNode(_component_sl_tab_group, null, {
@@ -10009,11 +10106,11 @@ query cljBaseQuery {
       };
     }
   });
-  const cljPromptsParticipation = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-bb8e150e"]]);
-  const _hoisted_1$2 = { class: "clj-orchestrate" };
-  const _hoisted_2$2 = { key: 0 };
-  const _hoisted_3$2 = { key: 1 };
-  const _sfc_main$2 = /* @__PURE__ */ vue.defineComponent({
+  const cljPromptsParticipation = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-bb8e150e"]]);
+  const _hoisted_1$3 = { class: "clj-orchestrate" };
+  const _hoisted_2$3 = { key: 0 };
+  const _hoisted_3$3 = { key: 1 };
+  const _sfc_main$3 = /* @__PURE__ */ vue.defineComponent({
     __name: "cljParticipation",
     props: {
       groupSetId: {}
@@ -10047,15 +10144,15 @@ query cljBaseQuery {
       );
       return (_ctx, _cache) => {
         const _component_sl_progress_ring = vue.resolveComponent("sl-progress-ring");
-        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$2, [
-          promptDataLoaded.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_2$2, [
+        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$3, [
+          promptDataLoaded.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_2$3, [
             vue.createVNode(cljOverviewParticipation, {
               groupSetId: groupSet.value._id
             }, null, 8, ["groupSetId"]),
             vue.createVNode(cljPromptsParticipation, {
               groupSetId: groupSet.value._id
             }, null, 8, ["groupSetId"])
-          ])) : (vue.openBlock(), vue.createElementBlock("div", _hoisted_3$2, [
+          ])) : (vue.openBlock(), vue.createElementBlock("div", _hoisted_3$3, [
             vue.createVNode(_component_sl_progress_ring, {
               value: `${updateProgress.value}`,
               class: "progress-ring-values",
@@ -10071,16 +10168,16 @@ query cljBaseQuery {
       };
     }
   });
-  const cljParticipation = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-3e33ef53"]]);
-  const _hoisted_1$1 = { key: 0 };
-  const _hoisted_2$1 = {
+  const cljParticipation = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-3e33ef53"]]);
+  const _hoisted_1$2 = { key: 0 };
+  const _hoisted_2$2 = {
     class: "clj-status",
     id: "clj-gs-button"
   };
-  const _hoisted_3$1 = ["href"];
-  const _hoisted_4$1 = { slot: "content" };
-  const _hoisted_5 = /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question" }, null, -1);
-  const _hoisted_6 = { key: 1 };
+  const _hoisted_3$2 = ["href"];
+  const _hoisted_4$2 = { slot: "content" };
+  const _hoisted_5$2 = /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question" }, null, -1);
+  const _hoisted_6$1 = { key: 1 };
   const _hoisted_7 = {
     class: "clj-status",
     id: "clj-gs-button"
@@ -10099,7 +10196,7 @@ query cljBaseQuery {
   const _hoisted_16 = { slot: "content" };
   const _hoisted_17 = /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question" }, null, -1);
   const FILE_NAME$1 = "cljGroupSet";
-  const _sfc_main$1 = /* @__PURE__ */ vue.defineComponent({
+  const _sfc_main$2 = /* @__PURE__ */ vue.defineComponent({
     __name: "cljGroupSet",
     setup(__props) {
       let activeGroup = getActiveGroupSet();
@@ -10149,8 +10246,8 @@ query cljBaseQuery {
         const _component_sl_tab = vue.resolveComponent("sl-tab");
         const _component_sl_tab_panel = vue.resolveComponent("sl-tab-panel");
         const _component_sl_tab_group = vue.resolveComponent("sl-tab-group");
-        return !configOpen.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_1$1, [
-          vue.createElementVNode("div", _hoisted_2$1, [
+        return !configOpen.value ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_1$2, [
+          vue.createElementVNode("div", _hoisted_2$2, [
             vue.createElementVNode("i", {
               onClick: _cache[0] || (_cache[0] = ($event) => configOpen.value = !configOpen.value),
               id: "clj-gs-config-switch",
@@ -10163,21 +10260,21 @@ query cljBaseQuery {
             }, [
               vue.createVNode(_component_sl_tooltip, null, {
                 default: vue.withCtx(() => [
-                  vue.createElementVNode("div", _hoisted_4$1, vue.toDisplayString(vue.unref(TOOLTIPS).cljGroupSet.for_more.content), 1),
-                  _hoisted_5
+                  vue.createElementVNode("div", _hoisted_4$2, vue.toDisplayString(vue.unref(TOOLTIPS).cljGroupSet.for_more.content), 1),
+                  _hoisted_5$2
                 ]),
                 _: 1
               })
-            ], 8, _hoisted_3$1)
+            ], 8, _hoisted_3$2)
           ])
-        ])) : (vue.openBlock(), vue.createElementBlock("div", _hoisted_6, [
+        ])) : (vue.openBlock(), vue.createElementBlock("div", _hoisted_6$1, [
           vue.createElementVNode("div", _hoisted_7, [
             vue.createElementVNode("i", {
               onClick: _cache[1] || (_cache[1] = ($event) => configOpen.value = !configOpen.value),
               id: "clj-gs-config-switch",
               class: "icon-Solid icon-mini-arrow-end"
             }),
-            vue.createTextVNode(" Canvas (groupset " + vue.toDisplayString(groupSetId2.value) + ")Learning Journal ", 1),
+            vue.createTextVNode(" Canvas Learning Journal "),
             vue.createElementVNode("a", {
               target: "_blank",
               href: vue.unref(TOOLTIPS).cljGroupSet.for_more.url
@@ -10265,6 +10362,38 @@ query cljBaseQuery {
       };
     }
   });
+  const _withScopeId = (n3) => (vue.pushScopeId("data-v-e5c3e9e9"), n3 = n3(), vue.popScopeId(), n3);
+  const _hoisted_1$1 = { class: "clj-status" };
+  const _hoisted_2$1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-warning clj-warning" }, null, -1));
+  const _hoisted_3$1 = ["href"];
+  const _hoisted_4$1 = { slot: "content" };
+  const _hoisted_5$1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ vue.createElementVNode("i", { class: "icon-Solid icon-question clj-warning" }, null, -1));
+  const _sfc_main$1 = /* @__PURE__ */ vue.defineComponent({
+    __name: "cljNotTeacher",
+    setup(__props) {
+      return (_ctx, _cache) => {
+        const _component_sl_tooltip = vue.resolveComponent("sl-tooltip");
+        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$1, [
+          vue.createTextVNode(" Canvas Learning Journal "),
+          _hoisted_2$1,
+          vue.createTextVNode(" Only works with a teacher role "),
+          vue.createElementVNode("a", {
+            target: "_blank",
+            href: `${vue.unref(TOOLTIPS).cljNotTeacher.title.url}`
+          }, [
+            vue.createVNode(_component_sl_tooltip, null, {
+              default: vue.withCtx(() => [
+                vue.createElementVNode("div", _hoisted_4$1, vue.toDisplayString(vue.unref(TOOLTIPS).cljNotTeacher.title.content), 1),
+                _hoisted_5$1
+              ]),
+              _: 1
+            })
+          ], 8, _hoisted_3$1)
+        ]);
+      };
+    }
+  });
+  const cljNotTeacher = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-e5c3e9e9"]]);
   var badge_styles_default = i$3`
   :host {
     display: inline-flex;
@@ -14581,6 +14710,8 @@ query cljBaseQuery {
     key: 1,
     class: "clj-root"
   };
+  const _hoisted_5 = { key: 0 };
+  const _hoisted_6 = { key: 1 };
   const _sfc_main = /* @__PURE__ */ vue.defineComponent({
     __name: "App",
     props: {
@@ -14615,13 +14746,23 @@ query cljBaseQuery {
             }, 8, ["content"])
           ], 8, _hoisted_2)
         ])) : (vue.openBlock(), vue.createElementBlock("div", _hoisted_4, [
-          peoplePage2 ? (vue.openBlock(), vue.createBlock(_sfc_main$c, { key: 0 })) : (vue.openBlock(), vue.createBlock(_sfc_main$1, { key: 1 }))
+          vue.unref(canvasData2).isCurrentUserTeacher() ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_5, [
+            peoplePage2 ? (vue.openBlock(), vue.createBlock(_sfc_main$d, { key: 0 })) : (vue.openBlock(), vue.createBlock(_sfc_main$2, { key: 1 }))
+          ])) : (vue.openBlock(), vue.createElementBlock("div", _hoisted_6, [
+            vue.createVNode(cljNotTeacher)
+          ]))
         ]));
       };
     }
   });
   setBasePath("https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.0/cdn/");
   const FILE_NAME = "CLJ main.ts";
+  const env = getEnvironmentObject();
+  console.log("---------------");
+  console.log(env);
+  if (env["current_user_is_student"]) {
+    throw new Error("Student view not supported");
+  }
   const documentUrl = new URL(document.URL);
   const peoplePage = isPeople();
   const groupSetPage = isGroupSet();

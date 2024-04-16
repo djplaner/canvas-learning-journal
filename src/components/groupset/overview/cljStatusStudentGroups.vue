@@ -25,7 +25,7 @@
  */
 
 import { ref, watch } from 'vue'
-import { TOOLTIPS, GLOBAL_DEBUG } from '../../../lib/tooltips'
+import { TOOLTIPS, GLOBAL_DEBUG  } from '../../../lib/tooltips'
 import { getCanvasData } from '../../../lib/canvasApiData'
 
 const DEBUG = false
@@ -43,6 +43,7 @@ const props = defineProps<{
 if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME} groupSetId: ${props.groupSetId}`)
 }
+
 
 const canvasData = getCanvasData();
 
@@ -88,57 +89,59 @@ watch(
             </a>
         </h3>
 
-            <table class="clj-data-table">
-                <thead>
-                    <tr>
-                        <th> </th>
-                        <th colspan="2" class="clj-center"># prompts without student entries
-            <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljStatusStudentGroups.noStudentEntries.url}`">
-                <sl-tooltip :content="`${TOOLTIPS.cljStatusStudentGroups.noStudentEntries.content}`">
-                    <i class="icon-Solid icon-question clj-small-tooltip"></i>
-                </sl-tooltip>
-            </a>
+        <table class="clj-data-table">
+            <thead>
+                <tr>
+                    <th> </th>
+                    <th colspan="2" class="clj-center"># prompts without student entries
+                        <a class="clj-th-help" target="_blank"
+                            :href="`${TOOLTIPS.cljStatusStudentGroups.noStudentEntries.url}`">
+                            <sl-tooltip :content="`${TOOLTIPS.cljStatusStudentGroups.noStudentEntries.content}`">
+                                <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                            </sl-tooltip>
+                        </a>
 
-                        </th>
-                        <th colspan="2" class="clj-center"># prompts without teacher entries
-            <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljStatusStudentGroups.noStaffEntries.url}`">
-                <sl-tooltip :content="`${TOOLTIPS.cljStatusStudentGroups.noStaffEntries.content}`">
-                    <i class="icon-Solid icon-question clj-small-tooltip"></i>
-                </sl-tooltip>
-            </a>
+                    </th>
+                    <th colspan="2" class="clj-center"># prompts without teacher entries
+                        <a class="clj-th-help" target="_blank"
+                            :href="`${TOOLTIPS.cljStatusStudentGroups.noStaffEntries.url}`">
+                            <sl-tooltip :content="`${TOOLTIPS.cljStatusStudentGroups.noStaffEntries.content}`">
+                                <i class="icon-Solid icon-question clj-small-tooltip"></i>
+                            </sl-tooltip>
+                        </a>
 
-                        </th>
-                    </tr>
-                    <tr>
-                        <th> Group name </th>
-                        <th class="clj-center"> &lt;7 days </th>
-                        <th class="clj-center"> ever </th>
-                        <th class="clj-center"> &lt;7 days </th>
-                        <th class="clj-center"> ever </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="group in groupSet.groups" :key="group._id">
-                        <td style="width:10rem">
-                            <a :href="`${canvasData.hostName}/groups/${group._id}`" target="_blank">
+                    </th>
+                </tr>
+                <tr>
+                    <th> Group name </th>
+                    <th class="clj-center"> &lt;7 days </th>
+                    <th class="clj-center"> ever </th>
+                    <th class="clj-center"> &lt;7 days </th>
+                    <th class="clj-center"> ever </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="group in groupSet.groups" :key="group._id">
+                    <td style="width:10rem">
+                        <a :href="`${canvasData.hostName}/groups/${group._id}`" target="_blank">
                             {{ group.name }}
-                            </a>
-                        </td>
-                        <td class="clj-center">
-                            {{ group.stats.numNoStudentEntriesLast7 }}
-                        </td>
-                        <td class="clj-center">
-                            {{ group.stats.numNoStudentEntries }}
-                        </td>
-                        <td class="clj-center">
-                            {{ group.stats.numNoStaffEntriesLast7 }}
-                        </td>
-                        <td class="clj-center">
-                            {{ group.stats.numNoStaffEntries }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                        </a>
+                    </td>
+                    <td class="clj-center">
+                        {{ group.stats.numNoStudentEntriesLast7 }}
+                    </td>
+                    <td class="clj-center">
+                        {{ group.stats.numNoStudentEntries }}
+                    </td>
+                    <td class="clj-center">
+                        {{ group.stats.numNoStaffEntriesLast7 }}
+                    </td>
+                    <td class="clj-center">
+                        {{ group.stats.numNoStaffEntries }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
     </div>
 </template>
@@ -149,5 +152,4 @@ watch(
     padding: 1em;
     border-radius: 1em;
 }
-
 </style>

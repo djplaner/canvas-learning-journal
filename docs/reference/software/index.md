@@ -17,10 +17,6 @@
 
 # Software - reference overview
 
-!!! warning "Early stages of development"
-
-    This project is in the early stages of development. It is not yet ready for use.
-
 The _software_ section of the [Reference documentation](../) provides a detailed reference to the interface and operation of the _Canvas Learning Journal_ (_CLJ_) software. Since the _CLJ_ software interface provides direct links to information within the software documentation. The software documentation is structured to match software interface.
 
 _CLJ_ is designed to run when instructors are accessing [the _People_ page](https://community.canvaslms.com/t5/Instructor-Guide/How-do-I-use-the-People-page-in-a-course-as-an-instructor/ta-p/667) in a Canvas course. On this page instructors are able to access information via two different types of tabs 

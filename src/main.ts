@@ -2,6 +2,7 @@
  * @file: src/main.ts
  * @description: Main entry point for canvas learning journal. 
  * Mount the app on either the people or group set URLs for a Canvas course.
+ * But only if the current user is not a student.
  * Place the app 
  *     (deprecatedbefore the div#group_categories_tabs
  *    under the active tabs first thing
@@ -25,11 +26,18 @@ import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.j
 setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.0/cdn/')
 
 import App from './App.vue'
+import { getEnvironmentObject } from './lib/environment'
 import './style.css'
 
 import { GLOBAL_DEBUG } from './lib/tooltips'
 const DEBUG: boolean = false
 const FILE_NAME: string = "CLJ main.ts"
+
+// Do nothing if the current user is a student
+const env : any = getEnvironmentObject()
+if (env["current_user_is_student"]) {
+  throw new Error("Student view not supported")
+}
 
 // Should only be called if on the
 // - users page <hostname>://courses/<id>/users 

@@ -16,11 +16,6 @@
 -->
 
 
-!!! warning "Early stages of development"
-
-    This project is in the early stages of development. It is not yet ready for use.
-
-
 !!! abstract "Page purpose"
 
     Reference material for the group set tab of the Canvas Learning Journal.

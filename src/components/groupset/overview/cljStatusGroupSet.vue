@@ -51,6 +51,7 @@ if (DEBUG && GLOBAL_DEBUG) {
     console.log(groupSet.value)
 }
 
+
 // watch for changes to canvasData
 watch(
     () => canvasData.updated,
@@ -73,6 +74,8 @@ watch(
         update()
     }
 )
+
+
 
 /**
  * @function update

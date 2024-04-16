@@ -17,11 +17,6 @@
 
 # Implementation overview
 
-!!! warning "Early stages of development"
-
-    This project is in the early stages of development. It is not yet ready for use.
-
-
 !!! abstract "Page purpose"
 
     Provide an overview of the steps involved in converting a learning journal activity design into a specific Canvas implementation

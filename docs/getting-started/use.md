@@ -39,7 +39,7 @@ By default the CLJ tool is closed. You open it by clicking on the arrow icon loc
 See the [_everyone_ reference page](../reference/software/everyone/index.md) for more detail on the functionality available from the People page.
 
 <figure markdown>
-![](../reference/software/everyone/pics/everyone-open.gif)
+<sl-animated-image src="../reference/software/everyone/pics/everyone-open.gif" alt="Opening the CLJ tool" />
 <figcaption>Opening the <em>CLJ</em> tool</figcaption>
 </figure>
 
@@ -47,6 +47,14 @@ See the [_everyone_ reference page](../reference/software/everyone/index.md) for
 
 Apart from the _Everyone_ tab, every other tab on the _People_ page provides information for a specific course [group set](https://community.canvaslms.com/t5/Instructor-Guide/How-do-I-create self-sign-up-groups-in-a-group-set/ta-p/667). In the _CLJ_ [conceptual model](../reference/conceptual/index.md), a properly configured group set becomes a learning journal task.
 
-On a group set tab, the _CLJ_ widget displays information about the groupset and provides learning journal related functionality.
+On a group set tab, the _CLJ_ widget displays information about the groupset and provides learning journal related functionality. Exactly what information and functionality is displayed depends on the group set's configuration.
 
+For more, see
 
+- [demonstration of the _CLJ_ tool](../demonstration/index.md)
+- [Group set tab reference page](../reference/software/groupset/index.md)
+
+<figure markdown>
+![](pics/groupSet.png)
+<figcaption><em>CLJ</em> tool open on a Group set tab</figcaption>
+</figure>

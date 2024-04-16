@@ -22,7 +22,9 @@ import { reactive } from "vue"
 import { GLOBAL_DEBUG } from "./tooltips"
 //import { groupPromptsResponses } from "./groupPromptsResponses"
 
-const DEBUG: boolean = false
+import { getEnvironmentObject } from "./environment.js"
+
+const DEBUG: boolean = true
 const FILE_NAME: string = "CanvasApiData.ts"
 
 export const CSRFtoken = function () {
@@ -417,6 +419,7 @@ export class learningJournalStatus {
   public studentsWithoutGroup: boolean = false; // there are students without a group
   public multiStudentGroups: boolean = false; // there are groups with more than one student
 
+
   /**
    * @constructor
    * @param groupSet object from canvasApiData.groupSets
@@ -472,6 +475,7 @@ class canvasApiData {
   public discussionTopics: any = {} */
 
 
+  public currentUserId: string = ""
 
   /**
    * @constructor
@@ -488,6 +492,15 @@ class canvasApiData {
     this.groupSets = []
     this.updated = 0
     this.promptsByTopicId = {}
+
+    //this.currentUserId = ENV["current_user_id"]
+    const env : any = getEnvironmentObject()
+    this.currentUserId = env["current_user_id"]
+
+
+    if (DEBUG) {
+      console.log(`${FILE_NAME} current user is ${this.currentUserId}`)
+    }
 
     instance = this
   }
@@ -1248,6 +1261,26 @@ class canvasApiData {
     }
     return groupSetNames
   }
+
+  /**
+   * @method isCurrentUserTeacher
+   * @returns {Boolean} True if the current user is a teacher in the course
+   * @description Check if the current user is a teacher in the course
+   * Only works once the course object has been retrieved
+   */
+
+  isCurrentUserTeacher(): boolean {
+    if (this.updated > 0) {
+      for (const teacher of this.teachers) {
+        if (teacher._id === this.currentUserId) {
+          return true
+        }
+      }
+    }
+    return false
+  }
+
+
 
 }
 

@@ -1,9 +1,5 @@
 # Canvas Learning Journal
 
-!!! warning "Early stages of development"
-
-    This project is in the early stages of development. It is not yet ready for use.
-
 The _Canvas Learning Journal_ (_CLJ_) tool helps instructors design and manage private student learning journals using standard Canvas functionality.
 
 - [Getting started](getting-started/index.md)

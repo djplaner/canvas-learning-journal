@@ -17,11 +17,6 @@
 
 # Learning design 
 
-!!! warning "Early stages of development"
-
-    This project is in the early stages of development. It is not yet ready for use.
-
-
 !!! abstract "Page purpose"
 
     Provide a description of a specific learning journal activity. The activity that will be implemented
