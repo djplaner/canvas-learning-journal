@@ -17,11 +17,6 @@
 
 # Everyone 
 
-
-!!! warning "Early stages of development"
-
-    This project is in the early stages of development. It is not yet ready for use.
-
 [_Canvas Learning Journal_ (_CLJ_)](../../) helps instructors design and orchestrate learning journal activities. It is designed to run when instructors are accessing [the _People_ page](https://community.canvaslms.com/t5/Instructor-Guide/How-do-I-use-the-People-page-in-a-course-as-an-instructor/ta-p/667) in a Canvas course. The following explains the _CLJ_ functionality available when _CLJ_ is used when viewing the _Everyone_ tab (as shown in the following images).
 
 <figure markdown>

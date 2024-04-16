@@ -40,8 +40,8 @@ Installing the _CLJ_ tool is a two-step process:
 You should see instructions for downloading (installing) TamperMonkey for your web browser. e.g. the following image for the Firefox browser
 
 <figure markdown>
-<figcaption>Tampermonkey home page for Firefox</figcaption>
 [![Tampermonkey home page for Firefox](pics/tamperMonkeyHome.png)](pics/tamperMonkeyHome.png)  
+<figcaption>Tampermonkey home page for Firefox within the <em>Download</em> link circled</figcaption>
 </figure>
 
 ### 2 - Click on the left-hand _Download_ button
@@ -65,3 +65,11 @@ With TamperMonkey installed you can now
 </div>
     
 If all is working you should something like the following image. An image showing TamperMonkey providing you with details of the userscript and asking if you wish to install (or perhaps update) it.
+
+Once installed you are [ready to use](./use.md) the _Canvas Learning Journal_ tool.
+
+<figure markdown>
+![Tampermonkey asking if it should install the Canvas Learning Journal user script](./pics/install-clj-question.png)
+<figcaption>Installing the <em>CLJ</em> user script</figcaption>
+</figure>
+

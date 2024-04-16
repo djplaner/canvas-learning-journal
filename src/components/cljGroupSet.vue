@@ -168,7 +168,7 @@ function getActiveGroupSet(): string {
     <div v-if="!configOpen">
         <div class="clj-status" id="clj-gs-button">
             <i @click="configOpen = !configOpen" id="clj-gs-config-switch" class="icon-Solid icon-mini-arrow-end"></i>
-            Canvas (groupset {{ groupSetId }}) Learning Journal
+            Canvas Learning Journal
             <a target="_blank" :href="TOOLTIPS.cljGroupSet.for_more.url">
                 <sl-tooltip>
                     <div slot="content">

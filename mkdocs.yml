@@ -34,6 +34,8 @@ theme:
 
 plugins:
   - search
+  - privacy:
+      log_level: debug
 
 extra_css:
   - stylesheets/extra.css

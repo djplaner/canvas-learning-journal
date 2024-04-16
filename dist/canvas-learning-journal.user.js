@@ -10156,7 +10156,7 @@ query cljBaseQuery {
               id: "clj-gs-config-switch",
               class: "icon-Solid icon-mini-arrow-end"
             }),
-            vue.createTextVNode(" Canvas (groupset " + vue.toDisplayString(groupSetId2.value) + ") Learning Journal ", 1),
+            vue.createTextVNode(" Canvas Learning Journal "),
             vue.createElementVNode("a", {
               target: "_blank",
               href: vue.unref(TOOLTIPS).cljGroupSet.for_more.url
