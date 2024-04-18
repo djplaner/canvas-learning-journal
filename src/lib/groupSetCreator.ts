@@ -15,16 +15,15 @@
 
 /**
  * @file groupSetCreator.ts
- * @description Define a Javascript class for creating a Canvas group set using the Canvas API
+ * @description Class for creating a Canvas group set (and optionally) private student groups for a student cohort using the Canvas API
  */
 
-import { reactive } from "vue"
 import { GLOBAL_DEBUG } from "./tooltips"
 
-const DEBUG: boolean = false
+const DEBUG: boolean = true
 const FILE_NAME: string = "groupSetCreator.ts"
 
-import { CSRFtoken } from "./canvasApiData"
+import { CSRFtoken, getCanvasData, canvasApiData } from "./canvasApiData"
 
 export type { createGroupsetRequest }
 interface createGroupsetRequest {
@@ -40,137 +39,105 @@ interface createGroupsetRequest {
 
 export class groupSetCreator {
   public name : string = ""
-  public self_signup: string = "restricted"
-  public auto_leader: string = "first"
-  public group_limit: Number = 1
-  public sis_group_category_id: string = ""
-  public create_group_count: Number = 0
-  public split_group_count: string = ""
+  public createGroups: boolean = false
+  public sections: string[] = []
 
+  // tmp request data
+  public newGroupSet: any = {}
+
+  // progress information
+  // - define some variables that will allow components to represent the progress
+  //   of group creation process
+  // Likely to need
+  // - complete - flag to indicate if the process is successfully completed
+  // - errors - string array detailing any errors that occurred (if any)
+  // - progressDetails - sting array detailing the progress of the process ??
+  // - progress - number representing the progress of the process ??
+
+  public complete: boolean = false
+  public errors: string[] = []
+  public progressDetails: string[] = []
+  public progress: number = 0
+
+  private canvasData: canvasApiData = getCanvasData()
 
   /**
    * @constructor
+   * @param {string} groupSetName - name of the group set to be created
+   * @param {boolean} createGroups - whether to create groups within the group set
+   * @param {string} sections - the sections to create groups for, a comma separated list of section names
    * @description Create a new CanvasCourse object, optional courseId
    * @todo probably don't need the singleton stuff
    */
-  constructor(data: createGroupsetRequest) {
-    // loop through the properties of this and assign the values from data
-    // if data has a property that matches the name of a property of this
-    this.name = data.name || ""
-    this.self_signup = data.self_signup || "restricted"
-    this.auto_leader = data.auto_leader || "first"
-    this.group_limit = data.group_limit || 1
-    this.sis_group_category_id = data.sis_group_category_id || ""
-    this.create_group_count = data.create_group_count || 0
-    this.split_group_count = data.split_group_count || ""
+  constructor(groupSetName: string, createGroups: boolean = false, sections: string = "") {
+
+    this.name = groupSetName
+    this.createGroups = createGroups
+    // split the sections string into an array
+    this.sections = sections.split(",")
+
+    // progress information
+    this.complete = false
+    this.errors = []
+    this.progressDetails = []
+    this.progress = 0
+
+
+    // do the work
+    this.create()
   }
 
   /**
-   * @method groupSetCreator
-   * @description Use the Canvas API to create the prompt
+   * @method create
+   * @description Use the Canvas API to create the group set
    * @todo 
    *   
    *   
    */
 
-  async groupSetCreator(): Promise<void> {
-/*    for (const groupSet of this.groupSets) {
-      groupSet.updateProgress = 0
-      const progressIncrement = 100 / (groupSet.numGroups * groupSet.numPrompts)
-      if (!groupSet.discussionTopics) {
-        // TODO why does this happen??
-        continue
-      }
-      for (const group of groupSet.groups) {
-        // get discussion topic ids for the group from keys of discussionTopicsById 
-        group.prompts = {}
-        let groupTopics = []
-        // convert group._id to integer
-        const groupId = parseInt(group._id)
-        // TODO what is the topic ID and API call I should be using to get
-        // a group's topic ??? *************
-        for (const topic of groupSet.discussionTopics) {
-          // each of groupSet.discussionTopics elements contain 
-          //  group_topic_children property - an array of topic_id and group_id
-          // extract the topic_id that matches the current group's group_id
-          let groupTopic = topic.group_topic_children.find((element: any) => element.group_id === groupId)
-          groupTopics.push({
-            topicId: topic.id, // link back to parent topic
-            groupId: groupId,
-            groupTopicId: groupTopic.id // the group's topic
-          })
-        }
-        if (DEBUG && GLOBAL_DEBUG) {
-          console.log(`${FILE_NAME} getGroupsResponses: groupTopicIds`)
-          console.log(groupTopics)
-        }
-        for (const groupTopic of groupTopics) {
-          // data is the full topic view for one groups prompt
-          let data = await this.getResponses(group._id, groupTopic.groupTopicId) */
-          /*if (data.view.length > 0) {
-            console.log(`groupGroupsResponses`)
-            console.log(data)
-          }*/
-/*          if (data) {
-            // calaculate statistics at the level of the prompt
-            data = this.analyseGroupPrompt(data)
-            // add the id for the group's topic
-            data["id"] = groupTopic.groupTopicId
-          }
-          groupSet.updateProgress += progressIncrement
-          // add data into the groupSet.group it belongs
-          group.prompts[groupTopic.topicId] = data
-          // add a copy of data into the groupset.discussion topic it belongs
-          if (!groupSet.discussionTopicsById[groupTopic.topicId].hasOwnProperty("promptsByTopicId")) {
-            groupSet.discussionTopicsById[groupTopic.topicId].promptsByTopicId = {}
-          }
-          groupSet.discussionTopicsById[groupTopic.topicId].promptsByTopicId[groupTopic.groupTopicId] = data
-          // add this.promptsTopicsById
-          this.promptsByTopicId[groupTopic.groupTopicId] = data
-          // add groupSet.promptsByGroupId
-          if (!groupSet.discussionTopicsById[groupTopic.topicId].hasOwnProperty("promptsByGroupId")) {
-            groupSet.discussionTopicsById[groupTopic.topicId].promptsByGroupId = {}
-          }
-          groupSet.discussionTopicsById[groupTopic.topicId].promptsByGroupId[groupTopic.groupId] = data
-        }
-      }
-      // All the prompts data has been gotten, able to analyse stats at the groupSet level
-      groupSet.updated += 1
-    }
+  create()  {
 
-    if (DEBUG && GLOBAL_DEBUG) {
-      console.log(`${FILE_NAME} getGroupsResponses: got all responses`)
-      console.log(this)
-    }
-    //this.updated +=1 
-    */
+    this.createGroupSet().then(() => {
+      this.complete = true
+      console.log(`${FILE_NAME} create: group set created`)
+      console.log(this.newGroupSet)
+    })
   }
 
   /**
-   * @method getResponses
-   * @param groupId
-   * @param topicId 
-   * @description  for the given topic get the full topic view from Canvas API
-   * GET /api/v1/courses/:course_id/discussion_topics/:topic_id/view 
+   * @method createGroupSet
+   * @description  use the Canvas API to create the group set 
+   * POST /api/v1/courses/:course_id/group_categories
    */
 
-  async getResponses(groupId: string, topicId: string): Promise<any> {
-   /* const courseId = this.id.toString()
-    //const callUrl = `${this.hostName}/api/v1/courses/${courseId}/discussion_topics/${topicId}/view`;
-    const callUrl = `${this.hostName}/api/v1/groups/${groupId}/discussion_topics/${topicId}/view`
+  async createGroupSet(): Promise<any> {
+    const callUrl = `${this.canvasData.hostName}/api/v1/courses/${this.canvasData.id}/group_categories`;
 
     if (DEBUG && GLOBAL_DEBUG) {
-      console.log(`${FILE_NAME} getResponses: Hostname: ${this.hostName}; Course ID: ${courseId}; Group Id: ${groupId} Topic ID: ${topicId}`);
+      console.log(`${FILE_NAME} getResponses: callUrl ${callUrl}`)
     }
+
+    const body: string = JSON.stringify({
+        name: this.name,
+        self_signup: "restricted",
+//        auto_leader: "random",
+//        group_limit: 1,
+        sis_group_category_id: null,
+        create_group_count: 0,
+        split_group_count: null
+    })
+
 
     try {
       const response = await fetch(callUrl, {
-        method: "GET",
+        method: "POST",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          'X-CSRF-Token': CSRFtoken()
         },
+        body: body
       });
       if (!response.ok) {
         throw new Error(
@@ -179,25 +146,18 @@ export class groupSetCreator {
       }
 
       const data: any = await response.json();
-      if (DEBUG && GLOBAL_DEBUG) {
-        if (data.view.length > 0) {
-          console.log(`${FILE_NAME} got some data`)
-          console.log(data)
-        }
-      }
       if (!data) {
         throw new Error(`${FILE_NAME}:getCourseObject: no data returned`);
-        return {}
       }
+      this.newGroupSet= data
 
       //        if (includeModules) {
       //           const modules = await getCourseModules(hostName, courseId);
       //          data.modules = modules;
       //     } 
-      return data;
     } catch (error) {
       console.error(`canvasApi:getCourseObject: error ${error}`);
       throw error;
-    } */
+    } 
   }
 }

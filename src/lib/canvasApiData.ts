@@ -410,7 +410,7 @@ interface section {
 
 let instance: any;
 
-export class learningJournalStatus {
+class learningJournalStatus {
   public privateJournal: boolean = false; // all groups have one student member and self-signup is disabled
   public completedConfig: boolean = false; // groupsCreated && promptsCreated ?? required
   public promptsCreated: boolean = false; // there are prompts (discussion topics)
@@ -446,7 +446,7 @@ export class learningJournalStatus {
   }
 }
 
-class canvasApiData {
+export class canvasApiData {
   public id: number;  // Canvas course id
   public name: string; // Canvas course name
   public hostName: string = ''; // The hostname of the Canvas instance
@@ -1294,7 +1294,7 @@ let canvasData: canvasApiData = reactive(new canvasApiData());
  * manipulation of data from the Canvas API
  */
 
-export function getCanvasData(getPromptData: boolean = true): any {
+export function getCanvasData(getPromptData: boolean = true): canvasApiData {
   if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME}:getCanvasData getPromptData - ${getPromptData}`)
     console.log(canvasData)

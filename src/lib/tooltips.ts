@@ -135,23 +135,27 @@ export const TOOLTIPS = {
     },
     cljCreateLearningJournal: {
         page: {
-            content: `Create a new group set to use for private student learning journals.`,
+            content: `Create a new group set configured for use as (private) student learning journals.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
         title: {
-            content: `Create a new group set to use for private student learning journals.`,
+            content: `Create a new group set configured for use as (private) student learning journals. Further configuration can be done using Canvas' group set tools.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
         name: {
-            content: `What will the new learning journal task (aka group set) be named?`,
+            content: `Provide the name for the new learning journal tasks (i.e. group set). Must be unique amongst existing groupsets.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
         createStudentGroups: { 
-            content: `Within the learning journal, should each student have their own private group created? You can always create and modify groups later using Canvas.`,
+            content: `Choose to create 1 person groups for selected student cohort to enable private student learning journals. If you want different size groups, you can create a group set using Canvas functionality.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
         courseOrSections: {
-            content: `Should groups be created for all students in the course, or just those belonging to the course sections which you select?`,
+            content: `Select the student cohort for which private student groups will be created. By default all students in the course, or choose one or more course sections.`,
+            url: "https://djplaner.github.io/canvas-learning-journal/"
+        },
+        results: {
+            content: `The process can take some time. Progress updated below.`,
             url: "https://djplaner.github.io/canvas-learning-journal/"
         },
     },

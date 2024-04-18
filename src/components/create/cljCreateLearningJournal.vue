@@ -48,7 +48,7 @@ import { createGroupsetRequest, groupSetCreator } from '../../lib/groupSetCreato
 const DEBUG = true
 const FILE_NAME = "cljCreateLearningJournal"
 
-const ALL_STUDENTS = "All students"
+const ALL_STUDENTS = "All students in the course"
 
 const canvasData = getCanvasData();
 
@@ -57,36 +57,92 @@ if (DEBUG && GLOBAL_DEBUG) {
   console.log(canvasData)
 }
 
-const groupSetNames = ref(canvasData.getGroupSetNames())
-const duplicateGroupsetName = ref(false)
-const newGroupsetName = ref("")
-const sections = ref(canvasData.sections)
-const createGroups = ref(false)
+const groupSetNames = ref(canvasData.getGroupSetNames()) // list of all existing group set names
+const newGroupsetName = ref("") // name of new group set
+const duplicateGroupsetName = ref(false) // flag to indicate if new group set name is a duplicate
+const sections = ref(canvasData.sections) // array of current section objects
+const createGroups = ref(false) // flag to indicate if groups are to be created for each student
 const whichStudents = ref(ALL_STUDENTS)
+const canCreateGroupSet = ref(false)
+const stage = ref("form") // represent stage of create process "form" or "results"
+const dialogOpen = ref(false)
 
 /**
  * @function toggleForm() 
  * @description Show/hide the #clj-missing-groups dialog
  */
 function toggleForm() {
-  const dialog : any = document.getElementById('clj-create-learning-journal')
+  dialogOpen.value = !dialogOpen.value
+
+  const dialog: any = document.getElementById('clj-create-learning-journal')
   // if dialog is open, close it
   if (dialog.open) {
     dialog.open = false
+    resetForm()
   } else {
     dialog.open = true
   }
+}
 
+/**
+ * @function resetForm()
+ * @description Reset the form to its initial state
+ */
+function resetForm() {
+  stage.value = "form"
+  newGroupsetName.value = ""
+  duplicateGroupsetName.value = false
+  createGroups.value = false
+  whichStudents.value = ALL_STUDENTS
+  canCreateGroupSet.value = false
 }
 
 /**
  * @function createLearningJournal() 
- * @description Create a new learning journal group set
+ * @description Create a new learning journal group set matching content
+ * of form. Called when the "Create learning journal" button is clicked.
+ * 
+ * Process 
+ * - Canvas API create group category (aka group set)
+ *      Should return details of the new group set, including memberships
+ * - Get a list of students matching the selected sections
+ * - For each student
+ *    - create a group within the group category/set 
  */
 function createLearningJournal() {
-  if (DEBUG && GLOBAL_DEBUG) {
-    console.log(`${FILE_NAME} createGroup`)
+  // show the results output in the dialog
+  stage.value = "results"
+
+  // get form data and create parameter
+  const groupSetRequest: createGroupsetRequest = {
+    name: newGroupsetName.value,
   }
+
+  console.log(`${FILE_NAME} createLearningJournal groupSetRequest`)
+
+  const creator = new groupSetCreator(
+    newGroupsetName.value
+  )
+
+  // At this stage the async nature will return here before the group set is created
+  // Raising the question of if we want to use the .then approach here
+
+  /**
+   * TODO
+   * - disable the close button so that the user can't close the dialog until completion (or error)
+   * - Update the progress of work being done 
+   *    - ? can this be done with the "then" approach?
+   * - Get the groups being created
+   */
+  console.log(`${FILE_NAME} createLearningJournal groupSetCreator created`)
+  console.log(`${FILE_NAME} createLearningJournal complete ${creator.complete}`)
+  /*  creator.createGroupSet().then(() => {
+      // get the list of students in the selected sections
+      // for each student, create a group
+      if (createGroups.value) {
+        creator.createGroups(whichStudents.value)
+      }
+    }) */
 }
 
 /**
@@ -102,36 +158,28 @@ function checkGroupSetName() {
   if (DEBUG && GLOBAL_DEBUG) {
     console.log(`${FILE_NAME} checkGroupSetName`)
   }
-  // get the name of the group set to be created
-  const nameElement : any = document.getElementById('clj-groupset-name')
+  // get the current name entered by user and update newGroupsetName
+  const nameElement: any = document.getElementById('clj-groupset-name')
   if (!nameElement) {
     throw new Error(`${FILE_NAME} No group name element`)
     return
   }
-  const name : string = nameElement.value
+  const name: string = nameElement.value
   newGroupsetName.value = name
-  const clj = document.getElementById('clj-create-learning-journal')
-  // does it match an existing groupSetName
+
+  // check to see if it's a duplicate and if we can create the group set
+
   if (groupSetNames.value.includes(name) || name === "") {
-    // disable the create button
-    if (clj) {
-      let button: any = clj.querySelector('sl-button')
-      if (button) {
-        button.disabled = true
-      }
-    }
+    // if the new name is already in the current list of group set names or
+    // it's empty then we can't create a group set
+    canCreateGroupSet.value = false
     if (name !== "") {
       duplicateGroupsetName.value = true
     }
   } else {
-    // enable the create button
-    if (clj) {
-      const button: any = document.getElementById('clj-create-learning-journal')
-      if (button) {
-        button.disabled = false
-        duplicateGroupsetName.value = false
-      }
-    }
+    // we can create a group set with the current name value
+    canCreateGroupSet.value = true
+    duplicateGroupsetName.value = false
   }
 }
 
@@ -158,7 +206,9 @@ const checkMenuSelect = (event: any) => {
 </script>
 
 <template>
+  <!-- wrapper around component - button and dialgo -->
   <div class="clj-create-form">
+    <!-- button to open dialog -->
     <sl-button size="small" type="primary" @click="toggleForm()">
       Create a Learning Journal task
     </sl-button>
@@ -168,8 +218,7 @@ const checkMenuSelect = (event: any) => {
       </sl-tooltip>
     </a>
 
-
-
+    <!-- dialog -->
     <sl-dialog class="dialog-overview" id="clj-create-learning-journal">
       <div slot="label">
         Create a learning journal task
@@ -179,8 +228,9 @@ const checkMenuSelect = (event: any) => {
           </sl-tooltip>
         </a>
       </div>
-      <div class="clj-create-learning-journal-form">
 
+      <!-- div containing form for getting new group set details -->
+      <div class="clj-create-learning-journal-form" id="clj-form" v-if="stage === 'form'">
         <div class="clj-create-group-div">
           <h3>Name
             <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljCreateLearningJournal.name.url}`">
@@ -201,29 +251,18 @@ const checkMenuSelect = (event: any) => {
         </div>
 
         <div class="clj-create-group-div">
-          <h3>Create student groups?
+          <sl-checkbox id="clj-create-groups" @sl-change="createGroups = !createGroups">
+            Create a single member group for each student
             <a class="clj-th-help" target="_blank"
               :href="`${TOOLTIPS.cljCreateLearningJournal.createStudentGroups.url}`">
               <sl-tooltip :content="`${TOOLTIPS.cljCreateLearningJournal.createStudentGroups.content}`">
                 <i class="icon-Solid icon-question clj-small-tooltip"></i>
               </sl-tooltip>
             </a>
-          </h3>
-
-          <sl-checkbox id="clj-create-groups" @sl-change="createGroups = !createGroups">
-            Create a single member group for each student
           </sl-checkbox>
         </div>
 
-        <div class="clj-create-group-div" v-if="createGroups">
-          <h3>For which students?
-            <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljCreateLearningJournal.courseOrSections.url}`">
-              <sl-tooltip :content="`${TOOLTIPS.cljCreateLearningJournal.courseOrSections.content}`">
-                <i class="icon-Solid icon-question clj-small-tooltip"></i>
-              </sl-tooltip>
-            </a>
-          </h3>
-
+        <div class="clj-which-students" v-if="createGroups">
           <sl-dropdown stayOpenOnSelect hoist>
             <sl-button slot="trigger" caret id="clj-student-choice-button">{{ whichStudents }}</sl-button>
             <sl-menu @sl-select="checkMenuSelect" id="clj-student-choice-menu">
@@ -232,35 +271,69 @@ const checkMenuSelect = (event: any) => {
               </sl-menu-item>
             </sl-menu>
           </sl-dropdown>
-        </div>
-        <div v-else style="opacity:0.5">
-          <h3>For which students?
+          <div class="clj-which-students-text">&nbsp;For which students?
             <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljCreateLearningJournal.courseOrSections.url}`">
               <sl-tooltip :content="`${TOOLTIPS.cljCreateLearningJournal.courseOrSections.content}`">
                 <i class="icon-Solid icon-question clj-small-tooltip"></i>
               </sl-tooltip>
             </a>
-          </h3>
-
-          <sl-dropdown stayOpenOnSelect hoist disabled>
-            <sl-button slot="trigger" caret id="clj-student-choice-button">{{ whichStudents }}</sl-button>
+          </div>
+        </div>
+        <div class="clj-which-students" v-else style="opacity:0.5">
+          <sl-dropdown stayOpenOnSelect hoist>
+            <sl-button disabled slot="trigger" caret id="clj-student-choice-button">{{ whichStudents }}</sl-button>
             <sl-menu @sl-select="checkMenuSelect" id="clj-student-choice-menu">
               <sl-menu-item v-for="section in sections" :key="section.id" :value="section.name" type="checkbox">
                 {{ section.name }}
               </sl-menu-item>
             </sl-menu>
           </sl-dropdown>
+          <div class="clj-which-students-text">&nbsp;For which students?
+            <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljCreateLearningJournal.courseOrSections.url}`">
+              <sl-tooltip :content="`${TOOLTIPS.cljCreateLearningJournal.courseOrSections.content}`">
+                <i class="icon-Solid icon-question clj-small-tooltip"></i>
+              </sl-tooltip>
+            </a>
+          </div>
         </div>
       </div>
+      <div class="clj-create-form" v-else>
+        <div class="clj-create-learning-journal-form">
+          <div class="clj-create-group-div">
+            <h3>Creating learning journal task (group set) named <em>{{ newGroupsetName }}</em>
+              <a class="clj-th-help" target="_blank" :href="`${TOOLTIPS.cljCreateLearningJournal.results.url}`">
+              <sl-tooltip :content="`${TOOLTIPS.cljCreateLearningJournal.results.content}`">
+                <i class="icon-Solid icon-question clj-small-tooltip"></i>
+              </sl-tooltip>
+            </a>
+            </h3>
 
-
-      <sl-button disabled variant="success" slot="footer" class="clj-button" @click="createLearningJournal()">Create
-        Learning
-        Journal</sl-button>
-      <sl-button slot="footer" variant="neutral" @click="toggleForm()">Close</sl-button>
+            <p v-if="createGroups">
+              Creating a learning journal (group) for each student
+                <span v-if="whichStudents !== ALL_STUDENTS">
+                  in sections {{ whichStudents }}
+                </span>
+                <span v-else>
+                  for all students in the course
+                </span>
+            </p>
+            <p v-else>
+              Groups are not being created
+            </p>
+          </div>
+          <div class="clj-create-group-div">
+            <h4>Progress</h4>
+            </div>
+        </div>
+      </div>
+      <sl-button :disabled="!canCreateGroupSet" variant="success" slot="footer" class="clj-button"
+          @click="createLearningJournal()" v-if="stage==='form'">Create
+          Learning
+          Journal</sl-button>
+        <sl-button slot="footer" variant="neutral" @click="toggleForm()">Close</sl-button>
     </sl-dialog>
-
   </div>
+
 </template>
 
 
@@ -290,6 +363,15 @@ const checkMenuSelect = (event: any) => {
   /*display: flex; */
   margin-left: 1rem;
   margin-right: 1rem;
+}
+
+.clj-which-students {
+  display: flex;
+}
+
+.clj-which-students-text {
+  padding-top: 0.5rem;
+  font-size: 1rem;
 }
 
 /*.clj-label-on-left {
